@@ -1,6 +1,6 @@
 # Hyeonse Im · 포트폴리오
 
-한국어·영어 경력 사례를 담은 정적 포트폴리오다. 흑백과 코발트 블루를 기본으로 하며 다크모드와 화면 설정을 지원한다. 직원 ID 배지를 직접 당겨볼 수 있다. 실제 제품 화면이나 고객 데이터를 복제하지 않고, 대표 프로젝트 네 개의 핵심 흐름을 설명용 그래픽으로 표현했다.
+한국어·영어 경력 사례를 담은 정적 포트폴리오다. 흑백과 코발트 블루를 기본으로 하며 다크모드와 화면 설정을 지원한다. 데스크톱에서는 직원 ID 배지를 직접 당겨볼 수 있고, 모바일에서는 정적인 배지를 표시한다. 실제 제품 화면이나 고객 데이터를 복제하지 않고, 대표 프로젝트 네 개의 핵심 흐름을 설명용 그래픽으로 표현했다.
 
 ## 로컬 실행
 
@@ -32,7 +32,8 @@ npm run preview -- 4322
 - `src/components/StudioPage.tsx`는 사이트 설명과 테마·강조색·간격·모서리·움직임을 조작하는 작업실이다. 설정은 전체 페이지와 언어에 공통 적용되고 이 브라우저에 저장된다.
 - `src/styles/tokens.css`와 `DESIGN_SYSTEM.md`에서 디자인 기준을 관리한다.
 - `src/components/WorkPage.tsx`는 각 사례의 문제·역할·선택·기술적 구현·검증·결과·한계를 보여준다. `TechnicalDetails`는 실제 구현을 요약한 흐름과 API·상태·렌더링·갱신 설명을 표시한다.
-- `src/components/IdentityBadge.tsx`는 DOM 카드의 CSS 원근 변환과 포인터·키보드 입력, SVG 대체 렌더링을 맡는다. 처음에는 CSS로 크기를 맞춘 정적 끈·클립을 유지하고, 물리 상태와 3D 첫 그리기가 준비되면 함께 전환한다. `src/components/BadgeAccessories3D.tsx`는 Three.js로 입체적인 천 끈·금속 연결부와 부드러운 배경 그림자를 그린다. 클립 금속선은 배지 크기가 바뀔 때만 형상을 다시 만들고, 움직일 때는 관절 자세에 맞춰 고정 형상을 이동·회전한다. 슬롯 구멍이 있는 깊이 형상이 카드 뒤의 부품을 가리며, WebGL 초기화 실패 시에는 움직이는 SVG로 전환한다. 배지 상단은 데스크톱에서 `clamp(348px, calc(33svh + 48px), 448px)`, 모바일에서 `312px`이다. 헤더와 소개·상태·하단 문구는 움직이는 카드와 끈보다 앞에 표시한다.
+- 700px 이하 화면 또는 coarse pointer 기기에서는 처음의 CSS/SVG 배지와 끈·클립만 표시한다. 물리·Three.js를 불러오지 않고 드래그·키보드 조작·안내를 끈다. 카드 위에서도 일반 세로 스크롤을 사용할 수 있다. 배지와 공유 이미지의 이니셜은 `HS`다.
+- 데스크톱의 `src/components/IdentityBadge.tsx`는 DOM 카드의 CSS 원근 변환과 포인터·키보드 입력, SVG 대체 렌더링을 맡는다. 처음에는 CSS로 크기를 맞춘 정적 끈·클립을 유지하고, 물리 상태와 3D 첫 그리기가 준비되면 함께 전환한다. `src/components/BadgeAccessories3D.tsx`는 Three.js로 입체적인 천 끈·금속 연결부와 부드러운 배경 그림자를 그린다. 클립 금속선은 배지 크기가 바뀔 때만 형상을 다시 만들고, 움직일 때는 관절 자세에 맞춰 고정 형상을 이동·회전한다. 슬롯 구멍이 있는 깊이 형상이 카드 뒤의 부품을 가리며, WebGL 초기화 실패 시에는 움직이는 SVG로 전환한다. 배지 상단은 데스크톱에서 `clamp(348px, calc(33svh + 48px), 448px)`, 모바일에서 `312px`이다. 헤더와 소개·상태·하단 문구는 움직이는 카드와 끈보다 앞에 표시한다.
 - `src/lib/badge-physics.ts`는 Rapier 3D로 양쪽 12구간 끈의 스프링·캡슐 충돌과 카드·뒤쪽 벽의 충돌, 걸쇠·고리·연결부의 관절을 계산한다. 카드 슬롯과 클립은 x축 회전 관절로 연결하고 각도 스프링도 그 축에만 적용한다. 관절 접힘 한계는 실제 연결 부품에만 적용된다. 화면 경계나 카드 회전각을 직접 제한하지 않는다. 물리 모듈은 초기 HTML 이후 비동기로 불러오고, 움직임이 멈추면 RAF도 정지한다. Three.js 역시 상태 변화가 있을 때만 다시 그린다. 움직임 줄이기 설정에서는 정적인 드래그·키보드 조작을 유지한다.
 - 마우스를 카드 주변 48px 안에서 움직이면 클릭 없이 작은 힘을 준다. 가까울수록 반응하며 커서 이동량을 기준으로 계산한다. 드래그·키보드 조작 중이거나 터치 입력·모션 감소 설정에서는 이 반응을 적용하지 않는다.
 - `src/components/ProjectVisual.tsx`는 바이크 운영, 성능 개선, 옐로우버스 운행, SWAP Admin 전환을 서로 다른 설명용 그래픽으로 표현한다.
@@ -65,7 +66,7 @@ npm run audit:content
 
 ## Vercel 배포
 
-2026-10-04 첫 공개 프리뷰: [한국어](https://hyeonse-portfolio-5x58uyyd9-ihyeons-projects.vercel.app/) · [English](https://hyeonse-portfolio-5x58uyyd9-ihyeons-projects.vercel.app/en/)
+정식 배포: [한국어](https://hyeonse-portfolio.vercel.app/) · [English](https://hyeonse-portfolio.vercel.app/en/)
 
 개인 Vercel 프로젝트 `ihyeons-projects/hyeonse-portfolio`에 CLI로 배포했다. GitHub 자동 배포 연결은 설정하지 않았다. 로그인 없이 접근하도록 프로젝트 설정을 적용했으며, 빌드 완료 상태는 Vercel에서 확인했다.
 

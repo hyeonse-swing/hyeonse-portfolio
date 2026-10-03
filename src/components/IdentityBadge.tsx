@@ -14,6 +14,11 @@ type Size = { width: number; height: number; badgeTop: number; badgeHeight: numb
 const INITIAL_SIZE: Size = { width: 700, height: 880, badgeTop: 300, badgeHeight: 389 };
 const INITIAL_GEOMETRY: BadgeGeometry = { width: 305, height: 389, anchorY: -389 * 9.35 / 4.44, anchorHalfWidth: 389 * 2.6 / 4.44 };
 const IDENTITY: Quaternion = { x: 0, y: 0, z: 0, w: 1 };
+const STATIC_BADGE_QUERY = '(max-width: 700px), (pointer: coarse)';
+
+function wantsStaticBadge() {
+  return window.matchMedia(STATIC_BADGE_QUERY).matches;
+}
 
 function restingView(geometry: BadgeGeometry): BadgeSnapshot {
   const ring = { x: 0, y: -geometry.height / 2 - 54 - geometry.height / 4.44 * 0.04, z: 0 };
@@ -77,6 +82,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   const frameRef = useRef<number | null>(null);
   const lastFrameRef = useRef(0);
   const reducedMotionRef = useRef(false);
+  const staticOnlyRef = useRef(false);
   const movingRef = useRef(false);
   const pointerRef = useRef<{ id: number; origin: Point; target: Point; position: Vec3 } | null>(null);
   const keyboardRef = useRef<Point | null>(null);
@@ -89,8 +95,15 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   const [initialized, setInitialized] = useState(false);
   const [accessoriesReady, setAccessoriesReady] = useState(false);
   const [rendererFailed, setRendererFailed] = useState(false);
-  const onAccessoriesReady = useCallback(() => setAccessoriesReady(true), []);
-  const onAccessoriesError = useCallback(() => { setRendererFailed(true); setAccessoriesReady(false); }, []);
+  const [staticOnly, setStaticOnly] = useState(false);
+  const onAccessoriesReady = useCallback(() => {
+    if (!staticOnlyRef.current && !wantsStaticBadge()) setAccessoriesReady(true);
+  }, []);
+  const onAccessoriesError = useCallback(() => {
+    if (staticOnlyRef.current || wantsStaticBadge()) return;
+    setRendererFailed(true);
+    setAccessoriesReady(false);
+  }, []);
   const hintId = useId();
 
   const paint = useCallback((next: BadgeSnapshot) => {
@@ -112,7 +125,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
 
   const step = useCallback(function physicsFrame(time: number) {
     const physics = physicsRef.current;
-    if (!physics || reducedMotionRef.current) {
+    if (!physics || reducedMotionRef.current || staticOnlyRef.current || wantsStaticBadge()) {
       frameRef.current = null;
       markMoving(false);
       return;
@@ -130,7 +143,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   }, [markMoving, paint]);
 
   const startMotion = useCallback(() => {
-    if (reducedMotionRef.current || !physicsRef.current) return;
+    if (reducedMotionRef.current || staticOnlyRef.current || wantsStaticBadge() || !physicsRef.current) return;
     markMoving(true);
     if (frameRef.current === null) {
       lastFrameRef.current = 0;
@@ -150,7 +163,9 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   const reset = useCallback(() => {
     cancelGrip();
     stopMotion();
-    paint(physicsRef.current?.reset() ?? restingView(geometryRef.current));
+    paint(staticOnlyRef.current || wantsStaticBadge()
+      ? restingView(geometryRef.current)
+      : physicsRef.current?.reset() ?? restingView(geometryRef.current));
     markMoving(false);
   }, [cancelGrip, markMoving, paint, stopMotion]);
 
@@ -158,12 +173,19 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
     let disposed = false;
     let generation = 0;
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const staticQuery = window.matchMedia(STATIC_BADGE_QUERY);
     const loadPhysics = (geometry: BadgeGeometry) => {
       const current = ++generation;
       stopMotion();
       physicsRef.current?.dispose();
       physicsRef.current = null;
       setReady(false);
+      if (staticQuery.matches) {
+        paint(restingView(geometry));
+        markMoving(false);
+        setInitialized(false);
+        return;
+      }
       if (reducedMotionRef.current) {
         paint(restingView(geometry));
         markMoving(false);
@@ -171,8 +193,12 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
         return;
       }
       // Keep the static badge in the initial page; load the simulation after hydration.
-      void import('../lib/badge-physics').then(module => module.createBadgePhysics(geometry)).then(physics => {
-        if (disposed || current !== generation || reducedMotionRef.current) { physics.dispose(); return; }
+      void import('../lib/badge-physics').then(module => {
+        if (disposed || current !== generation || reducedMotionRef.current || staticQuery.matches) return null;
+        return module.createBadgePhysics(geometry);
+      }).then(physics => {
+        if (!physics) return;
+        if (disposed || current !== generation || reducedMotionRef.current || staticQuery.matches) { physics.dispose(); return; }
         physicsRef.current = physics;
         paint(physics.snapshot());
         setReady(true);
@@ -216,8 +242,30 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
     const scene = sceneRef.current;
     const badge = badgeRef.current;
     let hasMeasured = false;
+    const syncStaticMode = () => {
+      const next = staticQuery.matches;
+      if (next === staticOnlyRef.current) return false;
+      staticOnlyRef.current = next;
+      setStaticOnly(next);
+      generation += 1;
+      cancelGrip();
+      stopMotion();
+      physicsRef.current?.dispose();
+      physicsRef.current = null;
+      setReady(false);
+      setInitialized(false);
+      setAccessoriesReady(false);
+      setRendererFailed(false);
+      paint(restingView(geometryRef.current));
+      markMoving(false);
+      return true;
+    };
     const measure = () => {
-      if (!scene || !badge) return;
+      const modeChanged = syncStaticMode();
+      if (!scene || !badge) {
+        if (modeChanged) loadPhysics(geometryRef.current);
+        return;
+      }
       const badgeWidth = parseFloat(getComputedStyle(badge).width);
       const badgeHeight = parseFloat(getComputedStyle(badge).height);
       const nextSize = { width: scene.clientWidth, height: scene.clientHeight, badgeTop: badge.offsetTop, badgeHeight };
@@ -231,7 +279,10 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
         perspective: badgeHeight * 3.4,
       };
       const changed = !hasMeasured || Object.keys(geometry).some(key => geometry[key as keyof BadgeGeometry] !== geometryRef.current[key as keyof BadgeGeometry]);
-      if (!changed) return;
+      if (!changed) {
+        if (modeChanged) loadPhysics(geometryRef.current);
+        return;
+      }
       hasMeasured = true;
       setMeasured(true);
       geometryRef.current = geometry;
@@ -240,6 +291,8 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
       loadPhysics(geometry);
     };
     measure();
+    const onStaticChange = () => measure();
+    staticQuery.addEventListener('change', onStaticChange);
     const observer = scene ? new ResizeObserver(measure) : null;
     if (scene) observer?.observe(scene);
     if (badge) observer?.observe(badge);
@@ -248,6 +301,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
       disposed = true;
       generation += 1;
       motionQuery.removeEventListener('change', onMotionChange);
+      staticQuery.removeEventListener('change', onStaticChange);
       window.removeEventListener('portfolio:preferences', onPreferences);
       window.removeEventListener('blur', releaseOnBlur);
       window.removeEventListener('resize', measure);
@@ -259,13 +313,15 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   }, [cancelGrip, markMoving, paint, reset, startMotion, stopMotion]);
 
   useEffect(() => {
+    if (staticOnly || wantsStaticBadge()) return;
     let previous: { x: number; y: number; time: number } | null = null;
     const clear = () => { previous = null; };
     const onHover = (event: globalThis.PointerEvent) => {
       const scene = sceneRef.current;
       const badge = badgeRef.current;
       const physics = physicsRef.current;
-      if (!scene || !badge || !physics || reducedMotionRef.current || pointerRef.current || keyboardRef.current
+      if (!scene || !badge || !physics || reducedMotionRef.current || staticOnlyRef.current || wantsStaticBadge()
+        || pointerRef.current || keyboardRef.current
         || event.pointerType !== 'mouse' || event.buttons !== 0
         || (event.target instanceof Element && event.target.closest('a, button, input, select, textarea'))) {
         clear();
@@ -299,7 +355,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
       window.removeEventListener('blur', clear);
       document.documentElement.removeEventListener('pointerleave', clear);
     };
-  }, [startMotion]);
+  }, [startMotion, staticOnly]);
 
   const pointerPosition = (event: PointerEvent<HTMLDivElement>): Point => {
     const scene = sceneRef.current!.getBoundingClientRect();
@@ -307,7 +363,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   };
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    if ((event.pointerType === 'mouse' && event.button !== 0) || pointerRef.current) return;
+    if (staticOnlyRef.current || wantsStaticBadge() || (event.pointerType === 'mouse' && event.button !== 0) || pointerRef.current) return;
     const target = pointerPosition(event);
     pointerRef.current = { id: event.pointerId, origin: target, target, position: { ...viewRef.current.position } };
     keyboardRef.current = null;
@@ -319,6 +375,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   };
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (staticOnlyRef.current || wantsStaticBadge()) return;
     const pointer = pointerRef.current;
     if (!pointer || pointer.id !== event.pointerId) return;
     pointer.target = pointerPosition(event);
@@ -332,6 +389,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   };
 
   const release = (event: PointerEvent<HTMLDivElement>) => {
+    if (staticOnlyRef.current || wantsStaticBadge()) return;
     if (!pointerRef.current || pointerRef.current.id !== event.pointerId) return;
     cancelGrip();
     if (reducedMotionRef.current || !physicsRef.current) reset();
@@ -339,6 +397,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (staticOnlyRef.current || wantsStaticBadge()) return;
     if (event.key === 'Home' || event.key === 'Escape') { event.preventDefault(); reset(); return; }
     const movement: Record<string, Point> = { ArrowLeft: { x: -18, y: 0 }, ArrowRight: { x: 18, y: 0 }, ArrowUp: { x: 0, y: -18 }, ArrowDown: { x: 0, y: 18 } };
     const move = movement[event.key];
@@ -365,7 +424,8 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   };
 
   const camera = { x: size.width / 2, y: size.badgeTop + size.badgeHeight / 2, distance: geometryRef.current.perspective ?? size.badgeHeight * 3.4 };
-  const dynamicFallback = measured && rendererFailed;
+  const interactive = measured && !staticOnly;
+  const dynamicFallback = interactive && rendererFailed;
   const ribbons = !dynamicFallback ? [] : [view.leftStrap, view.rightStrap].map((points, index) => {
     const tip = rotatePoint({ x: (index ? 1 : -1) * 4.2, y: -22, z: 3.2 }, view.connector.rotation);
     const end = { x: view.connector.position.x + tip.x, y: view.connector.position.y + tip.y, z: view.connector.position.z + tip.z };
@@ -375,14 +435,14 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   const metalId = `${hintId}-metal`;
   const shadowId = `${hintId}-shadow`;
   const projectionStyle = { perspective: `${camera.distance}px`, perspectiveOrigin: `${camera.x}px ${camera.y}px`, '--badge-height': `${size.badgeHeight}px` } as CSSProperties;
-  const badgeStyle: CSSProperties = {
+  const badgeStyle: CSSProperties = staticOnly ? { transform: 'translateX(-50%)' } : {
     transformOrigin: '50% 50%',
     transform: `translate3d(calc(-50% + ${view.position.x}px), ${view.position.y}px, ${view.position.z}px) matrix3d(${rotationMatrix(view.rotation)})`,
   };
 
   return (
-    <div className={`${styles.scene} ${className}`} ref={sceneRef} data-moving={moving ? 'true' : 'false'} data-physics={ready ? 'ready' : 'static'} data-renderer={accessoriesReady ? 'webgl' : 'fallback'}>
-      {!accessoriesReady && !dynamicFallback && <InitialAccessories metalId={`${metalId}-initial`} />}
+    <div className={`${styles.scene} ${className}`} ref={sceneRef} data-moving={moving ? 'true' : 'false'} data-physics={!staticOnly && ready ? 'ready' : 'static'} data-renderer={!staticOnly && accessoriesReady ? 'webgl' : 'fallback'}>
+      {(staticOnly || (!accessoriesReady && !dynamicFallback)) && <InitialAccessories metalId={`${metalId}-initial`} />}
       <svg className={styles.lanyard} viewBox={`0 0 ${size.width} ${size.height}`} preserveAspectRatio="none" aria-hidden="true">
         <defs><filter id={shadowId} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10" /></filter></defs>
         <path className={styles.castShadow} filter={`url(#${shadowId})`} d={cardShadowPath(view, geometryRef.current.width, size.badgeHeight, camera)} />
@@ -393,18 +453,18 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
         ref={badgeRef}
         className={`${styles.badge} ${dragging ? styles.dragging : ''}`}
         style={badgeStyle}
-        tabIndex={0}
+        tabIndex={interactive ? 0 : undefined}
         role="group"
         aria-label={locale === 'ko' ? '임현세 포트폴리오 배지' : 'Hyeonse Im portfolio badge'}
-        aria-describedby={hintId}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={release}
-        onPointerCancel={release}
-        onLostPointerCapture={release}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => { if (event.key.startsWith('Arrow')) releaseKeyboard(); }}
-        onBlur={releaseKeyboard}
+        aria-describedby={interactive ? hintId : undefined}
+        onPointerDown={interactive ? onPointerDown : undefined}
+        onPointerMove={interactive ? onPointerMove : undefined}
+        onPointerUp={interactive ? release : undefined}
+        onPointerCancel={interactive ? release : undefined}
+        onLostPointerCapture={interactive ? release : undefined}
+        onKeyDown={interactive ? onKeyDown : undefined}
+        onKeyUp={interactive ? event => { if (event.key.startsWith('Arrow')) releaseKeyboard(); } : undefined}
+        onBlur={interactive ? releaseKeyboard : undefined}
       >
         <div className={styles.sleeve}>
           <div className={styles.slot} aria-hidden="true" />
@@ -415,9 +475,9 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
               <span>SEOUL · KR</span>
             </div>
             <div className={styles.markRow}>
-              <div className={styles.mark} aria-hidden="true"><span>H<span className={styles.markM}>M</span></span></div>
+              <div className={styles.mark} aria-hidden="true"><span>H<span className={styles.markM}>S</span></span></div>
               <div className={styles.markAside} aria-hidden="true">
-                <span>HM</span>
+                <span>HS</span>
                 <span className={styles.markIndex}>01 / 04</span>
                 <i />
               </div>
@@ -457,7 +517,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
         <path d={`M-1.5-20V${size.badgeHeight * 0.04325 - 6}Q-1.5 ${size.badgeHeight * 0.04325 - 2} 1 ${size.badgeHeight * 0.04325 - 3}Q2.5 ${size.badgeHeight * 0.04325 - 4} 2.5 ${size.badgeHeight * 0.04325 - 7}V-18Q2.5-22 0-22Q-1.5-22-1.5-20Z`} fill="none" stroke={`url(#${metalId})`} strokeWidth="1.5" />
       </svg>
       </div>}
-      {measured && initialized && !rendererFailed && <div className={styles.accessories} style={{ visibility: accessoriesReady ? 'visible' : 'hidden' }}>
+      {interactive && initialized && !rendererFailed && <div className={styles.accessories} style={{ visibility: accessoriesReady ? 'visible' : 'hidden' }}>
         <BadgeAccessories3D snapshot={view} geometry={geometryRef.current} size={size} onReady={onAccessoriesReady} onError={onAccessoriesError} />
       </div>}
       <p id={hintId} className={styles.hint}>{locale === 'ko' ? '드래그해 보세요' : 'Try dragging'} <span aria-hidden="true">↙</span><span className={styles.srOnly}>{locale === 'ko' ? '방향키로 배지를 움직이고 Home 키로 제자리로 돌릴 수 있습니다.' : 'Use the arrow keys to move the badge and the Home key to return it to its original position.'}</span></p>
