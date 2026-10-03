@@ -1,0 +1,146 @@
+.visual {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  color: var(--ink);
+  background: var(--paper);
+  font-family: 'DM Sans', 'Noto Sans KR', sans-serif;
+}
+
+.visual.large { min-height: 460px; }
+.visual > div { height: 100%; min-height: inherit; }
+.bike, .performance, .bus, .migration { box-sizing: border-box; height: 100%; min-height: inherit; overflow: hidden; }
+.bikeHeader, .perfHeader, .busHeader, .migrationHeader, .bikeFoot, .perfFoot, .busFoot, .migrationFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+
+/* Bike: a solid, continuous operational sequence. */
+.bike { display: flex; flex-direction: column; padding: clamp(20px, 4vw, 36px); background: var(--accent-solid); color: var(--on-accent); }
+.bikeHeader { border-bottom: 1px solid color-mix(in srgb, var(--on-accent) 55%, transparent); padding-bottom: 12px; }
+.bikeTitle { margin: auto 0 22px; font-size: clamp(34px, 5vw, 70px); line-height: 1.08; letter-spacing: -.06em; font-weight: 400; }
+.bikeTitle strong { font-weight: 800; }
+.bikeTrack { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--on-accent); border-bottom: 2px solid var(--on-accent); }
+.bikeStep { position: relative; display: flex; gap: 12px; min-height: 88px; padding: 16px 10px 12px 0; }
+.bikeStep:not(:last-child) { border-right: 1px solid color-mix(in srgb, var(--on-accent) 55%, transparent); }
+.bikeStep:not(:first-child) { padding-left: 12px; }
+.bikeStep::before { content: ''; position: absolute; top: -6px; left: 0; width: 10px; height: 10px; background: var(--on-accent); border-radius: 50%; }
+.bikeStep:not(:first-child)::before { left: 12px; }
+.bikeNumber { font-size: 11px; font-weight: 700; opacity: 1; }
+.bikeStepText { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.bikeStepText strong { font-size: clamp(13px, 1.5vw, 18px); font-weight: 700; line-height: 1.25; }
+.bikeStepText small { font-size: 9px; letter-spacing: .08em; opacity: 1; }
+.bikeFoot { justify-content: flex-start; margin-top: 14px; letter-spacing: 0; }
+.bikeFootLine { flex: 1; height: 1px; background: color-mix(in srgb, var(--on-accent) 50%, transparent); }
+.explainer { margin-left: auto; opacity: 1; }
+
+/* Performance: measurements take the full visual field. */
+.performance { display: flex; flex-direction: column; padding: clamp(20px, 4vw, 36px); color: var(--inverse-ink); background: var(--inverse-surface); }
+.perfHeader { padding-bottom: 12px; border-bottom: 1px solid color-mix(in srgb, var(--inverse-ink) 38%, transparent); color: color-mix(in srgb, var(--inverse-ink) 82%, transparent); }
+.perfBody { display: flex; flex-direction: column; justify-content: center; flex: 1; min-height: 0; }
+.perfScore { display: flex; align-items: center; gap: clamp(8px, 2vw, 24px); white-space: nowrap; font-size: clamp(70px, 13vw, 180px); line-height: .9; font-weight: 800; letter-spacing: -.095em; }
+.perfScore span { color: color-mix(in srgb, var(--inverse-ink) 64%, transparent); }
+.perfScore strong { color: var(--inverse-ink); font-weight: 800; }
+.perfScore svg { width: clamp(30px, 5vw, 64px); height: 20px; color: var(--accent-solid); flex: 0 0 auto; }
+.perfScoreLabel { margin-top: 10px; font-size: 10px; font-weight: 700; letter-spacing: .14em; color: color-mix(in srgb, var(--inverse-ink) 76%, transparent); }
+.perfTransfer { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-top: auto; padding: 24px 0 16px; }
+.perfTransfer > span { font-size: 10px; letter-spacing: .1em; color: color-mix(in srgb, var(--inverse-ink) 76%, transparent); }
+.perfTransfer div { display: flex; align-items: center; gap: 12px; white-space: nowrap; font-size: clamp(13px, 2vw, 22px); font-weight: 700; }
+.perfTransfer s { color: color-mix(in srgb, var(--inverse-ink) 66%, transparent); text-decoration-color: currentColor; }
+.perfTransfer strong { color: var(--inverse-ink); }
+.perfTransfer svg { width: 32px; height: 12px; color: var(--accent-solid); }
+.perfFoot { border-top: 1px solid color-mix(in srgb, var(--inverse-ink) 38%, transparent); padding-top: 12px; color: color-mix(in srgb, var(--inverse-ink) 83%, transparent); letter-spacing: 0; line-height: 1.5; }
+.perfFoot span { color: color-mix(in srgb, var(--inverse-ink) 72%, transparent); white-space: nowrap; }
+
+/* Bus: an intentionally schematic route, not a customer map. */
+.bus { display: flex; flex-direction: column; padding: clamp(20px, 4vw, 36px); background: var(--surface); }
+.busHeader { padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+.busMap { position: relative; display: flex; flex-direction: column; justify-content: center; flex: 1; min-height: 0; }
+.busSvg { display: block; width: 100%; max-height: 300px; }
+.busGrid { fill: none; stroke: var(--line); stroke-width: 1; }
+.busRouteUnder { fill: none; stroke: var(--ink); stroke-width: 20; stroke-linecap: square; stroke-linejoin: round; }
+.busRoute { fill: none; stroke: var(--accent-solid); stroke-width: 12; stroke-linecap: square; stroke-linejoin: round; }
+.busNode { fill: var(--surface-raised); stroke: var(--ink); stroke-width: 3; }
+.busNodeCore { fill: var(--accent-solid); }
+.busSvgText { fill: var(--ink); font: 700 16px Arial, sans-serif; }
+.busLabel { display: flex; justify-content: space-between; gap: 8px; margin-top: -4px; padding: 0 3%; font-size: clamp(11px, 1.6vw, 17px); font-weight: 800; }
+.busFoot { align-items: end; padding-top: 12px; border-top: 1px solid var(--ink); letter-spacing: 0; }
+.busFoot strong { font-size: clamp(13px, 1.7vw, 19px); }
+.busFoot span { color: var(--muted); white-space: nowrap; }
+
+/* Migration: V1 and V2 remain visible as distinct systems. */
+.migration { display: flex; flex-direction: column; padding: clamp(20px, 4vw, 36px); background: var(--surface); }
+.migrationHeader { padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+.migrationSystem { display: flex; align-items: stretch; flex: 1; min-height: 0; margin: 24px 0; }
+.migrationSide, .migrationSideNext { box-sizing: border-box; display: flex; flex-direction: column; flex: 1; min-width: 0; padding: clamp(14px, 3vw, 28px); background: var(--surface-raised); border: 1px solid var(--ink); }
+.migrationSideNext { color: var(--on-accent); background: var(--accent-solid); border-color: var(--accent-solid); }
+.migrationIndex { font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+.migrationSide strong, .migrationSideNext strong { margin: auto 0; font-size: clamp(64px, 10vw, 140px); line-height: 1; font-weight: 800; letter-spacing: -.09em; }
+.migrationRule { width: 100%; height: 1px; margin-bottom: 10px; background: currentColor; }
+.migrationSide > span:last-child, .migrationSideNext > span:last-child { font-size: clamp(12px, 1.5vw, 18px); font-weight: 700; }
+.migrationBridge { display: flex; flex-direction: column; align-items: center; justify-content: center; width: clamp(70px, 16%, 140px); padding: 8px; color: var(--ink); }
+.migrationBridge span { font-size: 10px; font-weight: 700; white-space: nowrap; }
+.migrationBridge svg { width: 100%; height: 32px; }
+.migrationFoot { border-top: 1px solid var(--ink); padding-top: 12px; }
+
+@media (max-width: 600px) {
+  .visual { min-height: 310px; }
+  .visual.large { min-height: 360px; }
+  .bike, .performance, .bus, .migration { padding: 18px; }
+  .bikeTitle { margin: auto 0 18px; font-size: clamp(31px, 8vw, 45px); }
+  .bikeStep { flex-direction: column; gap: 5px; min-height: 76px; padding: 12px 4px 8px 0; }
+  .bikeStep:not(:first-child) { padding-left: 6px; }
+  .bikeStep:not(:first-child)::before { left: 6px; }
+  .bikeStepText strong { font-size: 11px; }
+  .bikeStepText small { font-size: 7px; overflow: hidden; text-overflow: ellipsis; }
+  .bikeFoot { font-size: 9px; }
+  .perfScore { font-size: clamp(62px, 17vw, 95px); }
+  .perfTransfer { align-items: start; flex-direction: column; gap: 8px; padding-top: 14px; }
+  .perfFoot { font-size: 9px; flex-wrap: wrap; }
+  .busSvg { max-height: 240px; }
+  .busFoot { align-items: start; flex-direction: column; gap: 4px; }
+  .migrationSystem { margin: 18px 0; }
+  .migrationSide, .migrationSideNext { padding: 12px; }
+  .migrationSide strong, .migrationSideNext strong { font-size: clamp(52px, 14vw, 85px); }
+  .migrationBridge { width: 48px; padding: 3px; }
+  .migrationBridge span { font-size: 0; }
+  .migrationBridge svg { width: 38px; }
+}
+
+@media (max-width: 380px) {
+  .bikeStepText strong { font-size: 10px; }
+  .bikeStepText small { display: none; }
+  .migrationIndex { font-size: 8px; }
+  .perfHeader, .busHeader, .migrationHeader, .bikeHeader { font-size: 8px; }
+}
+
+/* Cards can be narrow even when the viewport is wide. */
+@container (max-width: 420px) {
+  .bike, .performance, .bus, .migration { padding: 18px; }
+  .bikeTitle { font-size: clamp(31px, 11cqw, 45px); }
+  .bikeStep { flex-direction: column; gap: 5px; min-height: 76px; padding: 12px 4px 8px 0; }
+  .bikeStep:not(:first-child) { padding-left: 6px; }
+  .bikeStep:not(:first-child)::before { left: 6px; }
+  .bikeStepText strong { font-size: 11px; }
+  .bikeStepText small { font-size: 7px; overflow: hidden; text-overflow: ellipsis; }
+  .bikeFoot { font-size: 9px; flex-wrap: wrap; }
+  .perfScore { font-size: clamp(62px, 22cqw, 95px); }
+  .perfTransfer { align-items: start; flex-direction: column; gap: 8px; padding-top: 14px; }
+  .perfFoot { font-size: 9px; flex-wrap: wrap; }
+  .busFoot { align-items: start; flex-direction: column; gap: 4px; }
+  .migrationSide, .migrationSideNext { padding: 12px; }
+  .migrationSide strong, .migrationSideNext strong { font-size: clamp(52px, 18cqw, 85px); }
+  .migrationBridge { width: 48px; padding: 3px; }
+  .migrationBridge span { font-size: 0; }
+  .migrationBridge svg { width: 38px; }
+  .migrationFoot { font-size: 8px; flex-wrap: wrap; }
+}

@@ -1,0 +1,108 @@
+{
+  "locale": "en-US",
+  "asOf": "2026-10-03",
+  "identity": {
+    "name": "Hyeonse Im",
+    "romanizedName": "Hyeonse Im",
+    "role": "Frontend Engineer",
+    "headline": "Frontend engineer building customer web and WebView experiences and operations tools, with a role in technical decisions",
+    "introduction": "Since March 2022, I have built customer websites, WebViews, and operations tools for SWING, SWAP, and Yellow Bus at The SWING. My work spans early service development, login and payment flows, app integration, rebuilding acquired services, and web performance. Since September 2025, I have served as SWAP FE Part Lead, working on major features, technical decisions, and code reviews within SWAP FE.",
+    "email": "gwg21047@outlook.kr",
+    "availability": "Start date to be discussed",
+    "github": "https://github.com/hyeonse-swing",
+    "linkedin": "https://www.linkedin.com/in/hyeonse-im-131b54141/"
+  },
+  "strengths": [
+    { "title": "Connecting operations to usable screens", "description": "I learn how contracts, dispatch, and customer support work in practice, then shape web flows for the staff and customers who use them." },
+    { "title": "Connecting old and new systems", "description": "Where migration happens in stages, I check API, screen, and permission boundaries and connect the systems incrementally." },
+    { "title": "Comparing performance under the same conditions", "description": "I improved initial rendering and transferred assets, then compared before and after results under the same local test conditions." }
+  ],
+  "featuredCases": [
+    {
+      "id": "bike-operations",
+      "title": "Connecting Bike operations across staff admin and business portal screens",
+      "period": "2026 · Major API integration in June / business portal in July",
+      "role": "Responsible for the project's frontend work",
+      "context": "First orders, contract delivery, vehicle handover, insurance changes, and payment history spanned staff operations and the business customer's experience. Existing operations continued while the new system was being built.",
+      "approach": [
+        "I separated the staff flow for creating a first order and sending a contract in Admin from the business customer's flow for viewing payment history and schedules in My Page.",
+        "Before the APIs were finalized, I used fixtures in a nonproduction environment to check return, handover, and insurance change screens, and documented the needed APIs, fields, and replacement targets.",
+        "I adjusted screens and permission-based navigation for each user type, along with vehicle, store, and insurance request fields, to match the actual response contract."
+      ],
+      "verification": "After Playwright E2E tests, I inspected the screens and found a B2C response missing the business information object, leaving fields blank. After a backend response change and a frontend condition fix, I repeated automated and manual checks.",
+      "outcome": "Implemented staff order and contract flows and self-service lookup screens for business customers, and checked the workflows before and after the APIs were finalized.",
+      "boundary": "The backend owned migration of existing data. I do not present a measured reduction in manual work or costs.",
+      "tags": ["React", "TypeScript", "TanStack Query", "Playwright", "Operations Admin"]
+    },
+    {
+      "id": "swap-admin-v2",
+      "title": "Contributing to the SWAP Admin V1 to V2 transition",
+      "period": "Major release in 2025.12",
+      "role": "SWAP FE development and technical review",
+      "context": "The existing task lookup path remained in use as V2 subscription, task, and factoring screens and APIs were introduced.",
+      "approach": [
+        "I worked on connecting V2 subscription, task, and factoring screens to the Fleet API.",
+        "I contributed to navigation based on data version and to the transition of related operations features.",
+        "I worked on permissions and sidebar navigation to connect the existing Admin and V2 screens."
+      ],
+      "verification": "The December 2025 Admin V2 release included subscription, task, and factoring screens integrated with the Fleet API. At the time, task details used V2 lookup first with a V1 fallback path.",
+      "outcome": "Contributed to the Admin V2 screen and API transition while old and new task data coexisted.",
+      "boundary": "This describes the transition of SWAP's operations Admin. I describe the lookup path used at the time without claiming a measured error rate or completion of the entire service migration.",
+      "tags": ["React", "TypeScript", "Vite", "TanStack Query", "Operations System"]
+    },
+    {
+      "id": "yellow-bus",
+      "title": "Rebuilding Yellow Bus legacy operations in a new Admin",
+      "period": "2024.11–2025.08",
+      "role": "Frontend engineer in the Yellow Bus squad",
+      "context": "The acquired school shuttle service had several operations tools built with PHP, JavaScript, and React. Internal staff and academies used different functions and permissions.",
+      "approach": [
+        "I mapped existing student, dispatch, route, and manager functions and moved them into a React and TypeScript Admin.",
+        "I organized staff and academy permissions and student–academy relationships, then built dispatch, boarding status, and pickup and drop-off stop changes.",
+        "I developed bus monitoring, Kakao Map route and stop management, schedule printing, and operator guides."
+      ],
+      "verification": "I connected academy-specific dispatch lookup, mapped routes, boarding status and stop changes, and access limits in the new operations screens. I also coordinated exceptional student records and the response contract with backend colleagues.",
+      "outcome": "Rebuilt distributed operations functions into workflows in the new Admin and contributed to initial stabilization.",
+      "boundary": "The focus is on rebuilding workflows and features. I do not claim a completion date for the entire migration or a measured stabilization effect.",
+      "tags": ["React", "TypeScript", "TanStack Router", "Kakao Map", "Operations Platform"]
+    },
+    {
+      "id": "swing-home-performance",
+      "title": "Reducing first-screen display delay and transferred assets",
+      "period": "2026.07",
+      "role": "Frontend development for the SWING website",
+      "context": "The initial rendering approach and large media, fonts, and external content delayed display of the first screen.",
+      "approach": [
+        "I moved from the Next.js Pages Router to an App Router structure that favors server rendering, and prerendered Korean and English routes.",
+        "I replaced the hero GIF with an MP4 and WebP poster, delayed external content, and selected a variable WOFF2 subset that preserved the design's font weights.",
+        "To address the first image conversion delay found in production, I later generated 106 responsive WebP assets from 34 originals at build time."
+      ],
+      "verification": "I compared medians from three before and five after Lighthouse mobile simulation runs under the same local production-build conditions.",
+      "outcome": "Recorded a Performance score change from 54 to 95 and initial transfer size from 19.805 to 0.488 MB (a 97.5% reduction).",
+      "boundary": "These are local simulation results, not real-user performance or conversion metrics. Several changes were applied together.",
+      "tags": ["Next.js", "TypeScript", "Lighthouse", "WebP", "Performance"]
+    }
+  ],
+  "otherWork": [
+    { "id": "swing-webview", "title": "SWING customer WebViews", "period": "2022–2026", "summary": "I built an app–WebView bridge and product entry hub, plus login, identity verification, membership, points, and payment flows. I also handled compatibility between existing screens and new routes, Korean and English display, and return paths after payment.", "scope": "Customer features and app integration" },
+    { "id": "swing-admin", "title": "SWING operations Admin and shared modules", "period": "During my time at The SWING", "summary": "I migrated JavaScript/MUI features to TypeScript/Ant Design and contributed to splitting Admin tools by domain and bringing them into a monorepo. I verified personal data masking and formatting modules with Vitest and published them as npm packages.", "scope": "Operations tools and shared modules" },
+    { "id": "swap-customer", "title": "SWAP customer web, WebViews, and early Admin", "period": "Initially 2023.08–2024.11 · since returning in 2025.09", "summary": "I contributed to the initial web, WebView, and Admin builds and worked from product discovery through first orders, payment receipts, and the business portal. I clarified purchase and subscription inputs, login API contracts, app bridges, and return paths.", "scope": "Customer service and operations tools" },
+    { "id": "vox", "title": "Reviewing voice AI and connecting customer touchpoints", "period": "2026.04–present", "summary": "I reviewed vendors, PoC scope, cost, and integration requirements for overdue-payment reminders and follow-up calls, and aligned scenarios with the CX team. I connected entry to contract guidance on the returnable subscription completion screen with the flow back from the phone app, and tracked usage.", "scope": "External service review and product integration", "note": "Call volume does not indicate successful consultations or resolved issues." },
+    { "id": "ai-development", "title": "Sharing project-specific AI development and verification practices", "period": "2025–2026 · project-specific skill sharing in 2026.09", "summary": "I created and improved skills reflecting each repository's code structure and verification criteria, then shared them with the FE team. I covered dependency boundary checks in the SWAP monorepo, verification by change scope, and configuration backup and recovery.", "scope": "Development practices and team sharing", "note": "Team productivity gains were not measured." },
+    { "id": "webview-qa-shell", "title": "WebView QA Shell", "period": "Personal public project", "summary": "I published a QA shell and web console for checking local or staging web services inside iOS and Android WebViews. It provides checks for safe areas, navigation, and logs.", "scope": "Developer tool · public repository" },
+    { "id": "deer", "title": "Maintenance of the acquired Deer service", "period": "2024.06–2024.08", "summary": "I contributed to handover and maintenance of an acquired shared-mobility service.", "scope": "Acquired service" },
+    { "id": "swing-japan", "title": "SWING Japan", "period": "2022–2023", "summary": "I developed a website, back office, and WebViews on the Japan TF. I also contributed to connecting early Japanese-language screens with native functions through a WebView bridge.", "scope": "International service" },
+    { "id": "swing-air", "title": "SWING Air", "period": "2023.09–2023.10", "summary": "After the airport van service was acquired, I contributed to frontend redevelopment of its customer website and operations back office.", "scope": "Acquired service" },
+    { "id": "opensource", "title": "Open-source contribution", "period": "2025.06", "summary": "I fixed a synchronization bug in react-wheel-picker where the selected position did not follow dynamic option changes. The one-line PR was merged on June 30, 2025.", "scope": "Library" }
+  ],
+  "timeline": [
+    { "period": "2019.09–2022.02", "title": "Minestrone · student venture", "description": "Developed VR controllers, party games, and an MVP for a Chinese university student resale platform. Separate from my professional frontend experience." },
+    { "period": "2022.03–present", "title": "The SWING · Frontend Engineer", "description": "Built customer websites, WebViews, and operations tools for SWING, SWAP, and Yellow Bus." },
+    { "period": "2024.11–2025.08", "title": "Yellow Bus squad", "description": "Rebuilt operations features for an acquired service and contributed to initial stabilization." },
+    { "period": "2025.09–present", "title": "SWAP FE Part Lead", "description": "Technical decisions, major feature development, and code reviews within SWAP FE." }
+  ],
+  "education": { "school": "Gwangju Software Meister High School", "major": "Software Development", "period": "2017.01–2020.01" },
+  "certificate": { "name": "Information Processing Craftsman", "earned": "2023.09" },
+  "technology": ["React", "TypeScript", "JavaScript", "Next.js", "Vite", "TanStack Query", "TanStack Router", "Zustand", "Tailwind CSS", "Ant Design", "Vitest", "Playwright"],
+  "disclosure": "My industrial technical personnel service is scheduled to end on 2026.11.23. The exact start date needs to be discussed."
+}

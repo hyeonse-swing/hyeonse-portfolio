@@ -1,0 +1,239 @@
+{
+  "locale": "ko-KR",
+  "asOf": "2026-10-03",
+  "identity": {
+    "name": "임현세",
+    "romanizedName": "Hyeonse Im",
+    "role": "Frontend Engineer",
+    "headline": "고객 웹·웹뷰와 운영 도구의 개발·기술 의사결정에 참여하는 프론트엔드 엔지니어",
+    "introduction": "2022년 3월부터 더스윙에서 SWING·SWAP·Yellow Bus의 고객 웹·웹뷰와 운영 도구를 개발했습니다. 초기 서비스 구축, 로그인·결제와 앱 연동, 인수 서비스의 재구축과 웹 성능 개선에 폭넓게 참여했습니다. 2025년 9월부터 SWAP FE Part Lead로 주요 기능 개발과 기술 의사결정, 코드 리뷰를 맡고 있습니다.",
+    "email": "gwg21047@outlook.kr",
+    "availability": "입사 가능 시점 협의",
+    "github": "https://github.com/hyeonse-swing",
+    "linkedin": "https://www.linkedin.com/in/hyeonse-im-131b54141/"
+  },
+  "strengths": [
+    {
+      "title": "운영 업무를 화면으로 연결",
+      "description": "현장의 계약·배차·고객 응대 과정을 이해하고, 직원과 고객이 실제로 사용하는 웹 흐름으로 재구성했습니다."
+    },
+    {
+      "title": "구·신규 시스템 연결",
+      "description": "이전이 한 번에 끝나지 않는 환경에서 API·화면·권한 경계를 확인하고 단계적으로 연결했습니다."
+    },
+    {
+      "title": "같은 조건에서 비교한 성능 개선",
+      "description": "초기 렌더링과 전송 자원을 함께 개선하고, 동일한 로컬 측정 조건에서 전후 결과를 비교했습니다."
+    }
+  ],
+  "featuredCases": [
+    {
+      "id": "bike-operations",
+      "title": "바이크 운영 업무를 직원용 어드민과 사업자 화면으로 연결",
+      "period": "2026 · 주요 API 연동 6월 / 사업자 포털 7월",
+      "role": "프로젝트 프론트엔드 전반 담당",
+      "context": "첫 주문과 계약 발송, 차량 인계, 보험 변경, 납부 조회가 직원 업무와 사업자 경험을 가로질렀습니다. 신규 시스템을 구축하는 동안 기존 업무도 계속됐습니다.",
+      "approach": [
+        "직원이 어드민에서 첫 주문을 만들고 계약서를 발송하는 흐름과 사업자가 마이페이지에서 납부 내역·계획을 조회하는 흐름을 구분했습니다.",
+        "API가 확정되기 전에는 비운영 환경용 fixture로 반납·인수·보험 변경 화면을 검증하고, 필요한 API·필드와 교체 대상을 문서화했습니다.",
+        "실제 응답 계약에 맞춰 사용자 유형별 화면·권한 이동과 차량·스토어·보험 요청 필드를 보완했습니다."
+      ],
+      "verification": "Playwright E2E 후 실제 화면을 확인하다가 B2C 응답에 사업자 정보 객체가 없어 정보가 비는 사례를 찾았습니다. 백엔드 응답 보완과 FE 조건 수정을 거쳐 자동화·직접 테스트를 다시 진행했습니다.",
+      "outcome": "직원용 주문·계약 업무와 사업자용 직접 조회 화면을 구현하고, API 확정 전후의 업무 흐름을 검증했습니다.",
+      "boundary": "기존 데이터 이관은 백엔드 담당이었습니다. 수기 작업 감소량이나 비용 효과는 측정값으로 제시하지 않습니다.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "TanStack Query",
+        "Playwright",
+        "운영 어드민"
+      ]
+    },
+    {
+      "id": "swap-admin-v2",
+      "title": "SWAP Admin V1·V2 전환 작업에 참여",
+      "period": "주요 릴리스 2025.12",
+      "role": "SWAP FE 개발·기술 검토",
+      "context": "구독·작업·팩토링의 V2 화면과 API를 도입하면서 기존 작업 조회 경로도 남아 있었습니다.",
+      "approach": [
+        "구독·작업·팩토링의 V2 화면과 Fleet API를 연결하는 FE 작업을 수행했습니다.",
+        "데이터 버전에 따른 화면 이동과 관련 운영 기능의 전환 작업에 참여했습니다.",
+        "권한과 사이드바 전환을 다루며 기존 Admin과 V2 화면을 연결했습니다."
+      ],
+      "verification": "2025년 12월 Admin V2 릴리스에 구독·작업·팩토링 화면과 Fleet API 연동이 포함됐습니다. 당시 작업 상세는 V2 우선 조회와 V1 fallback 경로를 함께 사용했습니다.",
+      "outcome": "구·신규 작업 데이터가 공존하는 환경에서 Admin V2 화면·API 전환에 참여했습니다.",
+      "boundary": "SWAP 운영 Admin의 전환 경험입니다. 당시 조회 경로를 설명하며, 운영 오류율이나 전체 서비스의 전환 완료 여부를 정량 결과로 제시하지 않습니다.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "TanStack Query",
+        "운영 시스템"
+      ]
+    },
+    {
+      "id": "yellow-bus",
+      "title": "Yellow Bus의 레거시 운행 업무를 새 Admin으로 재구성",
+      "period": "2024.11–2025.08",
+      "role": "옐로우버스 스쿼드 프론트엔드 엔지니어",
+      "context": "인수한 통학 셔틀 서비스에는 PHP·JavaScript·React 기반의 여러 운영 도구가 있었고, 내부 운영팀과 학원이 쓰는 기능과 권한이 달랐습니다.",
+      "approach": [
+        "기존 학생·배차·노선·매니저 기능을 파악해 React·TypeScript Admin으로 옮겼습니다.",
+        "내부 직원과 학원의 권한, 학생·학원 관계를 정리하고 배차·탑승 상태·승하차 정류장 변경 기능을 구현했습니다.",
+        "버스 관제, Kakao Map 노선·정류장 관리, 일정 출력과 운영자 사용 가이드를 개발했습니다."
+      ],
+      "verification": "학원별 배차 조회와 지도 노선, 탑승 상태·정류장 변경, 접근 제한을 새 운행 화면으로 연결했습니다. 학생 목록의 예외 데이터와 응답 계약도 백엔드와 조율했습니다.",
+      "outcome": "분산된 운영 기능을 새 Admin의 운행 흐름으로 재구성하고 초기 안정화에 참여했습니다.",
+      "boundary": "운영 흐름과 기능을 재구성한 과정에 초점을 맞췄습니다. 전체 이관 완료 시점과 안정화 효과의 정량 수치는 포함하지 않았습니다.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "TanStack Router",
+        "Kakao Map",
+        "운영 플랫폼"
+      ]
+    },
+    {
+      "id": "swing-home-performance",
+      "title": "첫 화면의 표시 지연과 전송 자원을 함께 개선",
+      "period": "2026.07",
+      "role": "SWING 홈페이지 프론트엔드 개발",
+      "context": "초기 렌더링 방식과 큰 미디어·폰트·외부 콘텐츠 때문에 첫 화면 표시가 지연됐습니다.",
+      "approach": [
+        "Next.js Pages Router에서 App Router의 서버 우선 구조로 옮기고 한국어·영어 경로를 프리렌더링했습니다.",
+        "히어로 GIF를 MP4·WebP 포스터로 바꾸고 외부 콘텐츠를 지연 로딩했으며, 디자인의 글자 굵기를 유지하도록 가변 WOFF2 서브셋을 선택했습니다.",
+        "운영에서 발견한 이미지 최초 변환 지연은 34개 원본에서 106개 반응형 WebP를 빌드 시 생성하는 방식으로 후속 처리했습니다."
+      ],
+      "verification": "로컬 프로덕션 빌드의 같은 Lighthouse 모바일 시뮬레이션에서 개선 전 3회, 후 5회 측정한 중앙값을 비교했습니다.",
+      "outcome": "Performance 54→95점, 초기 전송량 19.805→0.488MB(97.5% 감소)를 기록했습니다.",
+      "boundary": "로컬 시뮬레이션 결과이며 실사용자 성능이나 전환율을 나타내지 않습니다. 여러 변경을 함께 적용한 결과입니다.",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Lighthouse",
+        "WebP",
+        "성능"
+      ]
+    }
+  ],
+  "otherWork": [
+    {
+      "id": "swing-webview",
+      "title": "SWING 고객 웹뷰",
+      "period": "2022–2026",
+      "summary": "앱–웹뷰 브리지와 제품 진입 허브를 만들고 로그인·본인확인, 멤버십·포인트와 결제 흐름을 개발했습니다. 기존 화면과 새 경로의 호환, 국·영문 표시, 결제 결과 복귀를 함께 다뤘습니다.",
+      "scope": "고객 기능과 앱 연동"
+    },
+    {
+      "id": "swing-admin",
+      "title": "SWING 운영 Admin과 공통 모듈",
+      "period": "더스윙 재직 중",
+      "summary": "JavaScript/MUI 기능을 TypeScript/Ant Design으로 옮기고 도메인별 Admin 분리와 모노레포 통합에 참여했습니다. 개인정보 마스킹·포맷팅 모듈을 Vitest로 검증해 npm 패키지로 배포했습니다.",
+      "scope": "운영 도구·공통 모듈"
+    },
+    {
+      "id": "swap-customer",
+      "title": "SWAP 고객 웹·웹뷰와 초기 Admin",
+      "period": "초기 2023.08–2024.11 · 복귀 후 2025.09–현재",
+      "summary": "초기 웹·웹뷰·Admin 구축에 참여하고, 상품 탐색부터 첫 주문·결제 영수증·사업자 포털까지 개발했습니다. 구매와 구독 입력, 로그인 API 계약, 앱 브릿지와 화면 복귀 경로를 정리했습니다.",
+      "scope": "고객 서비스·운영 도구"
+    },
+    {
+      "id": "vox",
+      "title": "음성 AI 도입 검토와 고객 접점 연결",
+      "period": "2026.04–현재",
+      "summary": "미납 안내·해피콜의 벤더와 PoC 범위·비용·연동 요건을 검토하고 CX 팀과 시나리오를 조율했습니다. 반납형 구독 완료 화면의 계약 안내 진입과 전화 앱 복귀 흐름을 연결하고 사용량을 추적했습니다.",
+      "scope": "외부 서비스 검토·제품 연동",
+      "note": "통화량을 상담 성공이나 문제 해결 건수로 해석하지 않습니다."
+    },
+    {
+      "id": "ai-development",
+      "title": "프로젝트별 AI 개발·검증 방식 공유",
+      "period": "2025–2026 · 프로젝트별 스킬 공유 2026.09",
+      "summary": "저장소별 코드 구조와 검증 기준을 반영한 스킬을 구성·개선해 FE 팀에 공유했습니다. SWAP 모노레포의 의존 경계 검사, 변경 범위별 검증, 설정 백업·복구 방법을 안내했습니다.",
+      "scope": "개발 방식·팀 공유",
+      "note": "팀 생산성 향상률은 측정하지 않았습니다."
+    },
+    {
+      "id": "webview-qa-shell",
+      "title": "WebView QA Shell",
+      "period": "개인 공개 프로젝트",
+      "summary": "iOS·Android WebView에서 로컬 또는 스테이지 웹서비스를 확인하기 위한 QA 셸과 웹 콘솔을 공개했습니다. 화면 안전 영역과 네비게이션·로그 등 점검 기능을 제공합니다.",
+      "scope": "개발 도구 · 공개 저장소"
+    },
+    {
+      "id": "deer",
+      "title": "Deer 인수 서비스 유지보수",
+      "period": "2024.06–2024.08",
+      "summary": "공유모빌리티 서비스 인수인계와 유지보수에 참여했습니다.",
+      "scope": "인수 서비스"
+    },
+    {
+      "id": "swing-japan",
+      "title": "SWING Japan",
+      "period": "2022–2023",
+      "summary": "Japan TF에서 홈페이지·백오피스·웹뷰를 개발했습니다. 초기 일본어 화면과 네이티브 기능을 연결하는 웹뷰 브릿지 작업에도 참여했습니다.",
+      "scope": "해외 서비스"
+    },
+    {
+      "id": "swing-air",
+      "title": "SWING Air",
+      "period": "2023.09–2023.10",
+      "summary": "공항 콜밴 서비스 인수 후 고객 홈페이지와 운영 백오피스의 프론트엔드 재개발에 참여했습니다.",
+      "scope": "인수 서비스"
+    },
+    {
+      "id": "opensource",
+      "title": "오픈소스 기여",
+      "period": "2025.06",
+      "summary": "react-wheel-picker에서 옵션이 동적으로 바뀔 때 선택 값 위치가 동기화되지 않는 오류를 수정했습니다. 1줄 수정 PR이 2025년 6월 30일 병합되었습니다.",
+      "scope": "라이브러리"
+    }
+  ],
+  "timeline": [
+    {
+      "period": "2019.09–2022.02",
+      "title": "미네스트로네 · 학생 창업",
+      "description": "VR 컨트롤러·파티게임과 중국 대학생 중고거래 플랫폼의 MVP 개발. 프론트엔드 정규 경력과 별도입니다."
+    },
+    {
+      "period": "2022.03–현재",
+      "title": "더스윙 · 프론트엔드 엔지니어",
+      "description": "SWING·SWAP·Yellow Bus의 고객 웹·웹뷰와 운영 도구 개발."
+    },
+    {
+      "period": "2024.11–2025.08",
+      "title": "Yellow Bus 스쿼드",
+      "description": "인수 서비스 운영 기능의 재구축과 초기 안정화."
+    },
+    {
+      "period": "2025.09–현재",
+      "title": "SWAP FE Part Lead",
+      "description": "SWAP FE 기술 의사결정, 주요 기능 개발과 코드 리뷰."
+    }
+  ],
+  "education": {
+    "school": "광주소프트웨어마이스터고등학교",
+    "major": "소프트웨어개발전공",
+    "period": "2017.01–2020.01"
+  },
+  "certificate": {
+    "name": "정보처리기능사",
+    "earned": "2023.09"
+  },
+  "technology": [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "Next.js",
+    "Vite",
+    "TanStack Query",
+    "TanStack Router",
+    "Zustand",
+    "Tailwind CSS",
+    "Ant Design",
+    "Vitest",
+    "Playwright"
+  ],
+  "disclosure": "산업기능요원 복무 종료 예정일은 2026.11.23입니다. 정확한 입사 가능일은 협의가 필요합니다."
+}

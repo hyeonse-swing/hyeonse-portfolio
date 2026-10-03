@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.next/
+out/
+*.tsbuildinfo
+.vercel/
+.env*
+!.env.example
+scripts/.font-cache/
+.playwright-cli/
+output/
+.DS_Store
+*.log
