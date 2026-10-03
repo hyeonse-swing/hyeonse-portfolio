@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { localizedPath, type Locale } from './locale';
 import { getPortfolio } from '../data/localized';
 
-const deploymentHost = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const deploymentHost = (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL)
+  || process.env.VERCEL_PROJECT_PRODUCTION_URL
+  || process.env.VERCEL_URL;
 export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || (deploymentHost ? `https://${deploymentHost}` : 'http://127.0.0.1:4322'));
 
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {

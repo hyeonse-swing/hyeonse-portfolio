@@ -63,11 +63,15 @@ npm run audit:content
 
 원본 TTF 캐시는 Git·Vercel 대상에서 제외했다. 기본 빌드는 저장된 서브셋과 커버리지 파일을 사용하므로 글꼴 다운로드 없이 실행된다. 서브셋에도 동일한 OFL 라이선스가 적용된다.
 
-## Vercel 배포 준비
+## Vercel 배포
 
-외부 배포는 아직 수행하지 않았다. 이 공개 저장소의 루트가 프로젝트 루트다. `next.config.ts`가 정적 내보내기를 설정하고, `vercel.json`은 Next.js 빌드 결과인 `out/`을 지정한다.
+2026-10-04 첫 공개 프리뷰: [한국어](https://hyeonse-portfolio-5x58uyyd9-ihyeons-projects.vercel.app/) · [English](https://hyeonse-portfolio-5x58uyyd9-ihyeons-projects.vercel.app/en/)
 
-공개 도메인이 정해지면 빌드 환경의 `NEXT_PUBLIC_SITE_URL`에 `https://`를 포함한 전체 주소를 설정한다. 이 값이 없으면 메타데이터는 Vercel의 `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_URL` 순서로 사용한다. 모두 없을 때는 로컬 미리보기 주소를 사용한다.
+개인 Vercel 프로젝트 `ihyeons-projects/hyeonse-portfolio`에 CLI로 배포했다. GitHub 자동 배포 연결은 설정하지 않았다. 로그인 없이 접근하도록 프로젝트 설정을 적용했으며, 빌드 완료 상태는 Vercel에서 확인했다.
+
+이 공개 저장소의 루트가 프로젝트 루트다. `next.config.ts`가 정적 내보내기를 설정한다. `vercel.json`은 Other 프리셋(`framework: null`)으로 완성된 `out/`을 호스팅한다. Next.js 프리셋과 `outputDirectory: "out"`을 함께 지정하면 Vercel 빌더가 정적 폴더에서 Next.js 내부 manifest를 찾으므로 함께 사용하지 않는다. URL 끝의 `/`도 유지한다.
+
+고정 공개 도메인이 정해지면 빌드 환경의 `NEXT_PUBLIC_SITE_URL`에 `https://`를 포함한 전체 주소를 설정한다. 이 값이 없으면 프리뷰 메타데이터는 해당 배포의 `VERCEL_URL`을 사용한다. 그 외 환경에서는 `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_URL` 순서로 사용하며, 모두 없을 때는 로컬 미리보기 주소를 사용한다.
 
 ## 근거와 한계
 
