@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { localizedPath, type Locale } from './locale';
 import { getPortfolio } from '../data/localized';
 
+// Keep preview metadata on its own host unless NEXT_PUBLIC_SITE_URL overrides it.
 const deploymentHost = (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL)
   || process.env.VERCEL_PROJECT_PRODUCTION_URL
   || process.env.VERCEL_URL;
