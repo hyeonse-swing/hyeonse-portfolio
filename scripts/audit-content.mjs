@@ -1,6 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
+import { collectFontSources } from './font-sources.mjs';
 
 const root = resolve('out');
 const entries = await readdir(root, { recursive: true });
@@ -14,9 +15,7 @@ const forbidden = [
   /(?:ghp_|github_pat_|sk-proj-)[A-Za-z0-9_]{10,}/,
 ];
 const fontCoverage = JSON.parse(await readFile('scripts/font-coverage.json', 'utf8')).characters;
-const sourceFiles = (await readdir('src', { recursive: true })).filter(file => /\.(?:tsx?|json)$/.test(file));
-for (const file of sourceFiles) {
-  const text = await readFile(`src/${file}`, 'utf8');
+for (const { name: file, text } of await collectFontSources()) {
   const missing = [...new Set([...text].filter(char => char.codePointAt(0) > 0xff && !fontCoverage.includes(char)))];
   assert.equal(missing.length, 0, `${file}: 글꼴 서브셋 재생성 필요: ${missing.join('')}`);
 }

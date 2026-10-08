@@ -16,11 +16,17 @@
 
 ## 첫 화면의 테마 적용
 
-[preferences.ts](../src/lib/preferences.ts)는 설정값의 허용 목록과 기본값을 정의한다. localStorage의 값은 파싱한 뒤 허용 목록과 대조하고, 잘못된 값은 기본값으로 대체한다.
+[공통 preferences 모듈](https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/src/preferences.ts)는 설정값의 허용 목록과 기본값을 정의한다. localStorage의 값은 파싱한 뒤 허용 목록과 대조하고, 잘못된 값은 기본값으로 대체한다.
 
 저장된 테마를 React 초기화 이후에만 적용하면 첫 화면과 초기화 후의 색이 달라질 수 있다. 그래서 `SiteDocument`가 `<head>`에 고정된 `preferenceScript`를 넣고, 먼저 `<html>`의 `data-*` 속성을 설정한다. 저장된 문자열을 HTML에 삽입하지 않고 허용된 값만 속성에 반영한다.
 
-이후 [PreferencesProvider](../src/components/SitePreferences.tsx)가 설정 변경, 기기 테마·움직임 설정, 다른 탭의 `storage` 이벤트를 처리한다. 시스템의 `prefers-reduced-motion`이 사용자 설정보다 우선한다. localStorage를 사용할 수 없어도 현재 탭의 설정은 바꿀 수 있다.
+이후 [공통 PreferencesProvider](https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/src/react.tsx)가 설정 변경, 기기 테마·움직임 설정, 다른 탭의 `storage` 이벤트를 처리한다. 시스템의 `prefers-reduced-motion`이 사용자 설정보다 우선한다. localStorage를 사용할 수 없어도 현재 탭의 설정은 바꿀 수 있다.
+
+## 공통 디자인 시스템
+
+색·다크모드·강조색·기본 글꼴·gutter와 설정 UI는 별도 [Hyeonse Design System](https://github.com/hyeonse-swing/hyeonse-design-system)에서 가져온다. 의존성은 GitHub의 특정 커밋으로 고정한다. 패키지의 초기 스크립트와 Provider는 기존 `hyeonse-site-preferences` 저장 키를 사용하며, 얇은 `SitePreferences.tsx` 어댑터가 배지의 `portfolio:preferences` 이벤트를 유지한다.
+
+`npm run audit:design-system`은 `src/`의 CSS에서 원시 색상과 공유 토큰 재정의를 검사한다. 물리 배지 재질과 작업실 그림의 색상만 `design-system.audit.json`에 사용 횟수와 이유를 기록했다. 새 예외를 무조건 추가하지 말고 먼저 역할 토큰으로 표현할 수 있는지 확인한다. 이 검사는 TS·TSX나 3D 재질 값의 전체 검사와는 범위가 다르다.
 
 ## 배지의 입력·물리·렌더링 분리
 
@@ -50,7 +56,7 @@ NEXT_TELEMETRY_DISABLED=1 npm run build
 npm run audit:content
 ```
 
-현재 검사는 `src/`의 TS·TSX·JSON 원문을 읽으므로 주석에 추가한 문자도 검사 대상이다. 원본 TTF 캐시는 Git·배포 대상에서 제외하며, 일반 빌드는 저장된 서브셋을 사용한다.
+현재 검사는 `src/`의 TS·TSX·JSON과 공통 디자인 시스템의 React·설정 모듈을 읽으므로 외부 패키지의 한국어 UI와 주석에 추가한 문자도 검사 대상이다. 생성과 검사는 `scripts/font-sources.mjs`에서 같은 문자 소스를 사용한다. 원본 TTF 캐시는 Git·배포 대상에서 제외하며, 일반 빌드는 저장된 서브셋을 사용한다.
 
 ## 배포와 메타데이터 URL
 

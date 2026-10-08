@@ -1,4 +1,6 @@
-# 포트폴리오 디자인 시스템
+# 포트폴리오의 디자인 시스템 적용
+
+[Hyeonse Design System](https://github.com/hyeonse-swing/hyeonse-design-system)의 CSS 토큰·화면 설정 UI·설정 로직을 공유한다. 공통 기준은 별도 저장소에서 관리하며, 이 문서는 포트폴리오의 적용과 배지 예외를 기록한다.
 
 현재 구현: Next.js 정적 출력, React, CSS Modules와 전역 CSS. `/studio/`에서 방문자가 설정을 바꿀 수 있다.
 
@@ -11,7 +13,7 @@
 
 ## 색 역할
 
-색 정의의 기준은 `src/styles/tokens.css`다. 개별 화면은 원시 색상 대신 역할에 맞는 변수를 사용한다.
+색 정의의 기준은 `@hyeonse/design-system/tokens.css`다. 개별 화면은 원시 색상 대신 역할에 맞는 변수를 사용한다.
 
 | 토큰 | 역할 |
 | --- | --- |
@@ -48,13 +50,15 @@
 
 ## 구성 파일
 
-- `src/styles/tokens.css`: 색·반경·간격의 기준
-- `src/lib/preferences.ts`: 값 검증·기본값·초기 적용 스크립트
-- `src/components/SitePreferences.tsx`: 전역 Provider·테마 토글·설정 패널
+- `@hyeonse/design-system/tokens.css`: 색·반경·간격의 기준
+- `@hyeonse/design-system/preferences`: 값 검증·기본값·초기 적용 스크립트
+- `@hyeonse/design-system/react`와 `components.css`: 전역 Provider·테마 토글·설정 패널
+- `src/components/SitePreferences.tsx`: 기존 저장 키·배지 이벤트 연결
+- `design-system.audit.json`: CSS 재질 색상 예외의 이유와 허용 횟수
 - `src/components/IdentityBadge.tsx`, `src/components/IdentityBadge.module.css`: 배지 입력·잡기 지점·DOM 카드 원근 변환·SVG 대체 렌더링과 배지 위치
 - `src/components/BadgeAccessories3D.tsx`: Three.js 천 끈·크기 변경 시 생성하는 고정 클립 형상·카드 깊이 가림과 상태 변화 시 렌더링
 - `src/lib/badge-physics.ts`: Rapier 3D 양쪽 12구간 끈의 스프링·캡슐 충돌, 카드·뒤쪽 벽 충돌, 연결부 관절과 카드 슬롯·클립의 x축 회전 스프링
 - `src/components/StudioPage.tsx`: 한국어·영어 공통 설명·조작 화면과 견본
 - `src/data/site-copy.ts`, `src/data/content.json`, `src/data/work.ts`: 소개·경력 본문
 
-공개 문구를 바꾸면 `node scripts/subset-fonts.mjs`로 글꼴을 갱신한 뒤 `npm run check`, `npm run build`, `npm run audit:content`를 실행한다. 시각·동작 확인은 로컬 미리보기에서 수행한다.
+공개 문구를 바꾸면 `node scripts/subset-fonts.mjs`로 글꼴을 갱신한 뒤 `npm run check`, `npm run build`, `npm run audit:content`, `npm run audit:design-system`를 실행한다. 시각·동작 확인은 로컬 미리보기에서 수행한다.

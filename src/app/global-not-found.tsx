@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import '../styles/fonts.css';
 import '../styles/global.css';
-import '../styles/tokens.css';
-import { preferenceScript } from '../lib/preferences';
+import '@hyeonse/design-system/tokens.css';
+import '@hyeonse/design-system/components.css';
+import { preferenceScript } from '@hyeonse/design-system/preferences';
 
 export const metadata: Metadata = { title: 'Page not found | Hyeonse Im', robots: { index: false, follow: true } };
 

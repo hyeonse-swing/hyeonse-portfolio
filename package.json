@@ -8,10 +8,12 @@
     "build": "next build",
     "preview": "node scripts/preview.mjs",
     "check": "tsc --noEmit",
-    "audit:content": "node scripts/audit-content.mjs"
+    "audit:content": "node scripts/audit-content.mjs",
+    "audit:design-system": "hds-audit ."
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",
+    "@hyeonse/design-system": "https://codeload.github.com/hyeonse-swing/hyeonse-design-system/tar.gz/38978c6a86f422fc0e63e919f600bc2dd3451e5c",
     "next": "16.3.8",
     "react": "19.3.0",
     "react-dom": "19.3.0",

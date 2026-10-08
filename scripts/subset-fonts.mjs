@@ -1,9 +1,9 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import subsetFont from 'subset-font';
+import { collectFontSources } from './font-sources.mjs';
 
-const files = (await readdir('src', { recursive: true })).filter(file => /\.(?:tsx?|json)$/.test(file));
-const source = (await Promise.all(files.map(file => readFile(`src/${file}`, 'utf8')))).join('');
+const source = (await collectFontSources()).map(({ text }) => text).join('');
 const characters = [...new Set([...source].filter(char => char.codePointAt(0) > 0xff))].sort().join('');
 const input = resolve(process.argv[2] || 'scripts/.font-cache/NotoSansKR.ttf');
 const output = await subsetFont(await readFile(input), characters, { targetFormat: 'woff2' });

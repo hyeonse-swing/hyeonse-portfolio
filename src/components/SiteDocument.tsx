@@ -2,9 +2,10 @@ import type { ReactNode } from 'react';
 import { getPortfolio } from '../data/localized';
 import '../styles/fonts.css';
 import '../styles/global.css';
-import '../styles/tokens.css';
+import '@hyeonse/design-system/tokens.css';
+import '@hyeonse/design-system/components.css';
 import { PreferencesProvider, ThemeToggle } from './SitePreferences';
-import { preferenceScript } from '../lib/preferences';
+import { preferenceScript } from '@hyeonse/design-system/preferences';
 import { localizedPath, type Locale } from '../lib/locale';
 import LanguageSwitcher from './LanguageSwitcher';
 
