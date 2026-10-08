@@ -49,6 +49,7 @@ Next.js 16, React 19, TypeScript, CSS Modules를 사용한다. 정확한 의존�
 | --- | --- |
 | [SiteDocument.tsx](src/components/SiteDocument.tsx) | 언어별 HTML 문서, 공통 헤더·푸터, 초기 설정 스크립트 |
 | [localized.ts](src/data/localized.ts) · [locale.ts](src/lib/locale.ts) | 언어별 데이터 선택과 경로 변환 |
+| [personal-projects.ts](src/data/personal-projects.ts) · [소개 근거](docs/personal-projects.md) | 홈·소개 페이지에서 공유하는 개인 프로젝트 문구와 공개 소스 확인 기록 |
 | [metadata.ts](src/lib/metadata.ts) | 배포 환경별 기준 URL, canonical·언어별 alternate·공유 메타데이터 |
 | [공통 디자인 시스템](https://github.com/hyeonse-swing/hyeonse-design-system) · [SitePreferences.tsx](src/components/SitePreferences.tsx) | 공통 토큰·설정 UI와 포트폴리오 배지 이벤트 연결 |
 | [IdentityBadge.tsx](src/components/IdentityBadge.tsx) | 입력 처리, 모듈 로딩, 정적·동적 배지 전환 |

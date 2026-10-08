@@ -1,5 +1,7 @@
 import { getPortfolio } from '../data/localized';
+import { getPersonalProjects } from '../data/personal-projects';
 import { localizedPath, type Locale } from '../lib/locale';
+import PersonalProjects from './PersonalProjects';
 import styles from './AboutPage.module.css';
 
 export default function AboutPage({ locale }: { locale: Locale }) {
@@ -38,8 +40,13 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       <div className={styles.background}><div><span className="eyebrow">EDUCATION</span><p>{profile.education.school}<br /><span>{profile.education.major}</span></p></div><div><span className="eyebrow">CERTIFICATE</span><p>{profile.certificate.name}<br /><span>{profile.certificate.earned}</span></p></div></div>
     </section>
 
+    <section className={styles.section} id="personal-projects" aria-labelledby="personal-projects-title">
+      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? 'Tools I build and share' : '직접 만들고 공개한 도구'}</h2></div><p>{en ? 'Personal projects spanning reusable interfaces, browser QA and error logging.' : '반복해서 쓰는 화면, 브라우저 QA, 오류 수집을 개인 프로젝트로 설계하고 구현했어요.'}</p></div>
+      <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} detailed />
+    </section>
+
     <section className={styles.section} aria-labelledby="public-title">
-      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / IN THE OPEN</span><h2 id="public-title">{en ? 'Work you can explore' : '직접 볼 수 있는 작업'}</h2></div><p>{en ? 'Public tools and open-source contributions.' : '공개 도구와 오픈소스 기여입니다.'}</p></div>
+      <div className={styles.sectionHeading}><div><span className="eyebrow">07 / MORE IN THE OPEN</span><h2 id="public-title">{en ? 'More tools and contributions' : '다른 도구와 오픈소스 기여'}</h2></div><p>{en ? 'Other tools I published and contributions to open source.' : '이 밖에 공개한 도구와 오픈소스 기여도 살펴볼 수 있어요.'}</p></div>
       <div className={styles.publicWorks}>{publicWork.map(work => <a href={work.href} target="_blank" rel="noopener noreferrer" key={work.title}><div><span className="eyebrow">{work.label}</span><h3>{work.title}</h3><p>{work.description}</p></div><span aria-hidden="true">↗</span></a>)}</div>
     </section>
     <a className={styles.selectedLink} href={localizedPath(locale, '/#work')}><div><span className="eyebrow">SELECTED WORK</span><p>{en ? <>Four projects,<br />in more detail.</> : <>대표 작업 네 개를<br />더 자세히 정리했습니다.</>}</p></div><span aria-hidden="true">↗</span></a>
