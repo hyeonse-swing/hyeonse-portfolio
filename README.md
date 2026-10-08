@@ -37,8 +37,9 @@ npm run preview -- 4322
 | 다국어 | 한국어 `/`, 영어 `/en/`. 언어별 라우트가 공통 화면에 `locale`을 전달 |
 | 콘텐츠 | `getPortfolio(locale)`에서 언어별 데이터를 선택하고 같은 컴포넌트로 렌더링 |
 | 화면 설정 | `@hyeonse/design-system`의 토큰·설정 Provider·화면 설정 UI 공유. `<head>`에서 저장값 먼저 적용 |
-| 배지 | DOM/CSS 카드, Rapier 물리 계산, Three.js 끈·클립 렌더링을 분리 |
-| 모바일 | 700px 이하 또는 coarse pointer에서는 정적 CSS/SVG 배지 표시. 물리·3D 모듈 초기화 생략 |
+| 배지 | `IdentityBadge`가 `Lanyard`를 지연 로드하고, 하나의 Three.js 렌더러가 카드와 굵은 한 가닥 끈을 표시. 준비 중·WebGL 실패·JavaScript 비활성화·움직임 감소에서는 DOM 배지를 표시 |
+| 배지 조작 | 데스크톱·모바일에서 드래그하거나 탭해 뒤집기. 방향키 이동, Enter 뒤집기, Home·Escape 초기화. 기존 우측 상단 드래그 가이드 유지 |
+| 배지 렌더링 | 데스크톱 `maxDpr` 1.5, 모바일 1.25, `breeze` 0. 정지·화면 밖·문서 숨김 상태에서 애니메이션을 멈춤 |
 | 글꼴 | DM Sans와 Noto Sans KR WOFF2 자체 호스팅. 한국어는 소스 문자 기반 서브셋 |
 
 Next.js 16, React 19, TypeScript, CSS Modules를 사용한다. 정확한 의존성 버전은 [package.json](package.json)에 있다.
@@ -52,8 +53,9 @@ Next.js 16, React 19, TypeScript, CSS Modules를 사용한다. 정확한 의존�
 | [personal-projects.ts](src/data/personal-projects.ts) · [소개 근거](docs/personal-projects.md) | 홈·소개 페이지에서 공유하는 개인 프로젝트 문구와 공개 소스 확인 기록 |
 | [metadata.ts](src/lib/metadata.ts) | 배포 환경별 기준 URL, canonical·언어별 alternate·공유 메타데이터 |
 | [공통 디자인 시스템](https://github.com/hyeonse-swing/hyeonse-design-system) · [SitePreferences.tsx](src/components/SitePreferences.tsx) | 공통 토큰·설정 UI와 포트폴리오 배지 이벤트 연결 |
-| [IdentityBadge.tsx](src/components/IdentityBadge.tsx) | 입력 처리, 모듈 로딩, 정적·동적 배지 전환 |
-| [badge-physics.ts](src/lib/badge-physics.ts) · [BadgeAccessories3D.tsx](src/components/BadgeAccessories3D.tsx) | 물리 시뮬레이션과 3D 렌더링 |
+| [IdentityBadge.tsx](src/components/IdentityBadge.tsx) | 지연 로딩, 입력 처리와 DOM 대체 배지 |
+| [Lanyard.tsx](src/components/Lanyard.tsx) | 하나의 Three.js 렌더러와 배지 동작. [React Bits 원본 리비전](https://github.com/DavidHDev/react-bits/commit/3329f3bde763a37a2a89b24598e9f50fa0d4de3d)에서 적용한 코드이며 [라이선스](licenses/react-bits-LICENSE.md)는 MIT + Commons Clause로, 포트폴리오 앱의 일부로 사용 |
+| [badge-artwork.ts](src/lib/badge-artwork.ts) | 같은 그리기 명령으로 초기 SVG와 Canvas 인쇄 이미지를 생성 |
 | [audit-content.mjs](scripts/audit-content.mjs) | 정적 산출물과 콘텐츠 검사 |
 
 구현 흐름과 변경 시 주의할 점은 [개발 안내](docs/development.md)에, 색·간격·모서리 기준은 [디자인 시스템](DESIGN_SYSTEM.md)에 정리했다.

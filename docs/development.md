@@ -28,21 +28,25 @@
 
 `npm run audit:design-system`은 `src/`의 CSS에서 원시 색상과 공유 토큰 재정의를 검사한다. 물리 배지 재질과 작업실 그림의 색상만 `design-system.audit.json`에 사용 횟수와 이유를 기록했다. 새 예외를 무조건 추가하지 말고 먼저 역할 토큰으로 표현할 수 있는지 확인한다. 이 검사는 TS·TSX나 3D 재질 값의 전체 검사와는 범위가 다르다.
 
-## 배지의 입력·물리·렌더링 분리
+## 배지 렌더러와 대체 표시
 
 | 파일 | 책임 |
 | --- | --- |
-| [IdentityBadge.tsx](../src/components/IdentityBadge.tsx) | DOM 카드, 포인터·키보드 입력, 상태 전환, SVG 대체 표시 |
-| [badge-physics.ts](../src/lib/badge-physics.ts) | Rapier의 끈·카드·연결부와 관절 계산 |
-| [BadgeAccessories3D.tsx](../src/components/BadgeAccessories3D.tsx) | Three.js 끈·금속 연결부·그림자 렌더링 |
+| [IdentityBadge.tsx](../src/components/IdentityBadge.tsx) | `Lanyard` 지연 로딩, 포인터·키보드 입력, 초기 배지·위치 측정과 기존 가이드 |
+| [Lanyard.tsx](../src/components/Lanyard.tsx) | 카드·끈을 그리는 단일 Three.js 렌더러, 움직임과 상호작용 |
+| [badge-artwork.ts](../src/lib/badge-artwork.ts) | DOM 배지와 같은 HS·이름·직무·경력 데이터를 로컬 DM Sans·Noto Sans KR 글꼴로 이미지에 그림 |
 
-처음에는 CSS/SVG 배지를 표시한다. 데스크톱에서 물리 상태와 3D의 첫 그리기가 준비되면 동적 표시로 전환한다. WebGL 초기화에 실패하면 SVG 표시를 사용한다.
+`Lanyard.tsx`는 [React Bits Lanyard 원본 리비전](https://github.com/DavidHDev/react-bits/commit/3329f3bde763a37a2a89b24598e9f50fa0d4de3d)의 Three.js 기반 구현을 포트폴리오에 맞춰 적용한 코드다. 원본 코드는 [MIT + Commons Clause 라이선스](../licenses/react-bits-LICENSE.md)에 따라 포트폴리오 앱의 일부로 사용한다.
 
-700px 이하 화면 또는 coarse pointer 기기에서는 정적 표시를 유지한다. 물리·3D 모듈을 초기화하지 않으며 카드 위의 터치도 일반 페이지 스크롤로 처리한다.
+HTML/CSS 배지는 첫 로딩 중 계속 표시된다. JavaScript가 실행되지 않거나, WebGL 초기화·컨텍스트에 실패하거나, 시스템 또는 사이트에서 움직임 감소를 선택해도 같은 DOM 배지가 표시된다. 데스크톱과 모바일 모두 WebGL 렌더러가 준비되면 드래그와 탭으로 배지를 조작할 수 있다.
 
-물리 루프는 카드를 잡고 있지 않고 `isSettled()`가 참이면 다음 RAF를 예약하지 않는다. 입력이 들어오면 다시 시작한다. Three.js도 상태가 바뀔 때만 그린다. 움직임 줄이기에서는 관성 애니메이션 대신 정적인 드래그·키보드 조작을 사용한다.
+키보드는 방향키로 움직이고 Enter로 뒤집으며 Home 또는 Escape로 초기화한다. 안내는 기존 카드 우측 상단 위치를 유지하고 모바일에서는 숨긴다. 단일 렌더러의 `maxDpr`는 데스크톱 1.5, 모바일 1.25이며 `breeze`는 0이다. 움직임이 멎으면 애니메이션 프레임 예약을 멈추고, 배지가 화면 밖에 있거나 문서가 숨겨져 있을 때도 렌더링을 일시 정지한다.
 
-클립의 금속 형상은 크기 변경 시 생성하고, 매 프레임에는 위치와 회전만 바꾼다. 카드 슬롯과 클립은 x축 회전 관절로 연결한다. 카드와 클립의 서로 다른 회전을 정점에 섞어 적용하면 연결부가 휘어 보일 수 있어 형상과 자세 계산을 분리했다.
+물리 계산의 미세 진동이 정지 판정을 방해할 수 있어, 에너지 조건과 함께 카드 모서리·끈 노드의 위치와 회전 변화도 확인한다. 잡고 있지 않은 배지가 0.6 CSS px 범위에 1.2초 머무르면 다음 프레임을 예약하지 않는다. 새 입력이 들어오면 다시 시작한다.
+
+`badge-artwork.ts`의 공통 그리기 명령으로 `BadgePrint.tsx`의 초기 SVG와 Canvas 인쇄 이미지를 생성한다. 초기 카드의 실제 사각형을 측정해 `cardRect`로 전달하고, 인트로 회전 없이 같은 위치·비율로 첫 프레임을 그린다. 렌더 영역은 화면 너비와 hero의 실제 하단까지 채워, 고정된 배치 영역에서 카드가 잘리지 않도록 한다. 표시 글꼴은 포트폴리오가 로컬로 제공하는 DM Sans와 Noto Sans KR이다.
+
+끈은 굵은 한 가닥이며 `strapWidth`는 `.4`다. 초기 CSS 배지도 카드 높이의 `.064` 너비로 맞춘다. 카드와 겹치는 리본 구간은 삼각형의 전체 폭을 확인해 카드 두께 밖으로 보정한다. 카드 몸체는 측면·베벨만 그리고 앞뒤 인쇄 면과 겹치는 몸체 캡은 제외해, 움직임이 멎을 때 깊이 충돌로 삼각형이 드러나는 것을 방지한다. 흐린 그림자는 회전한 꼭짓점에서 계산해 카드와 끈보다 뒤에 있는 평면에 투영한다. 실시간 그림자 맵이나 별도의 애니메이션 루프는 추가하지 않는다.
 
 ## 글꼴 서브셋
 

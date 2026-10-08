@@ -40,13 +40,11 @@
 
 설정은 `hyeonse-site-preferences` 키에 저장한다. 저장값은 정해진 열거형만 허용한다. 저장소 접근 실패 시 현재 탭에서는 계속 조작할 수 있다. 다른 탭에서의 변경과 기기 테마 변경도 반영한다. 고정된 초기 스크립트가 `<head>`에서 값을 적용해 첫 화면과 수화 이후의 테마 차이를 줄인다. JavaScript가 꺼져 있으면 CSS가 기기의 다크모드를 따른다.
 
-700px 이하 화면 또는 coarse pointer 기기에서는 초기 CSS/SVG 배지·끈·클립만 표시한다. 물리와 Three.js를 불러오지 않고 드래그·키보드 입력과 안내를 없앤다. 카드 위에서도 세로 스크롤을 허용한다. 배지 큰 마크·작은 라벨과 공유 이미지의 이니셜은 HS다.
+데스크톱과 모바일은 같은 배지 조작을 제공한다. 카드를 드래그하거나 탭해 뒤집고, 방향키로 움직이며 Enter로 뒤집을 수 있다. Home과 Escape는 원위치로 돌린다. 기존 우측 상단 드래그 가이드를 유지하고 모바일에서는 숨긴다. 시스템 또는 사이트에서 움직임 감소를 선택하면 CSS 배지를 유지한다.
 
-데스크톱에서는 기기의 움직임 감소 설정이 항상 우선한다. 포인터는 카드의 잡은 지점에 힘을 가하며, 양쪽 12구간 끈이 접히고 펴지면서 카드를 지탱한다. 아래로 당길 때 끈이 고무줄처럼 길게 늘어나지 않고, 옆으로 당기면 카드가 기울어진다. 놓으면 기존 관성과 중력·장력으로 흔들리다 감쇠한다. 카드 슬롯과 클립은 x축 회전 관절로 연결하고, 각도 스프링은 그 축의 회전에만 작용한다. 연결 부품의 관절에만 접힘 한계를 둔다. 화면 경계나 카드 회전각으로 이동을 제한하지 않는다. 방향키는 잡기 목표를 18px씩 옮기고 놓으면 물리 동작을 이어가며, Home·Escape는 원위치로 돌린다. 움직임 줄이기에서는 키보드 위치를 유지하고 포인터를 놓을 때 즉시 원위치로 돌린다.
+`IdentityBadge`는 `Lanyard`를 지연 로드한다. [Lanyard.tsx](src/components/Lanyard.tsx)의 단일 Three.js 렌더러가 카드와 굵은 한 가닥 끈을 그린다. 초기 DOM 배지도 같은 형태를 사용한다. 데스크톱 `maxDpr`는 1.5, 모바일은 1.25다. 바람 설정은 0이고, 움직임이 멎거나 배지가 화면 밖에 있거나 문서가 숨겨지면 렌더러가 멈춘다.
 
-데스크톱 배지 카드 본체는 DOM과 CSS 원근 변환으로 표시한다. Three.js는 부피가 있는 천 끈과 금속 연결부, 배경에 드리우는 부드러운 그림자를 그린다. 클립 금속선은 배지 크기가 바뀔 때만 형상을 다시 만들고, 움직일 때는 관절 자세에 맞춰 고정 형상을 이동·회전한다. 슬롯 구멍이 있는 깊이 형상으로 카드 뒤쪽 부품을 가리고, 클립 끝은 앞면을 따라 슬롯 안으로 들어간다. 초기 정적 끈·클립은 물리와 3D 첫 그리기가 끝날 때까지 그대로 유지한다. WebGL 초기화 실패 시에는 움직이는 SVG 끈·연결부로 전환한다. 물리 RAF는 정지 상태에서 멈추고 Three.js는 상태 변화 시에만 그린다. 배지 상단 위치는 데스크톱 `clamp(348px, calc(33svh + 48px), 448px)`, 모바일 `312px`이다.
-
-클릭 없이 마우스를 카드 주변 48px 안에서 움직이면 약하게 반응한다. 터치·모션 감소·드래그·키보드 조작 중에는 이 효과를 적용하지 않는다. 헤더, 소개, 현재 상태와 하단 문구·구분선은 카드·끈보다 앞에 두고, 배경의 큰 이름은 기존 깊이를 유지한다.
+DOM 배지는 처음 로딩할 때와 JavaScript 비활성화, WebGL 오류, 움직임 감소 상태에 표시한다. [badge-artwork.ts](src/lib/badge-artwork.ts)는 같은 HS·이름·직무·경력 데이터를 로컬 DM Sans·Noto Sans KR 글꼴로 카드 이미지에 그린다. Three.js 구현은 [React Bits Lanyard 원본 리비전](https://github.com/DavidHDev/react-bits/commit/3329f3bde763a37a2a89b24598e9f50fa0d4de3d)에서 적용했고, [MIT + Commons Clause 라이선스](licenses/react-bits-LICENSE.md)에 따라 포트폴리오 앱의 일부로 사용한다.
 
 ## 구성 파일
 
@@ -55,9 +53,9 @@
 - `@hyeonse/design-system/react`와 `components.css`: 전역 Provider·테마 토글·설정 패널
 - `src/components/SitePreferences.tsx`: 기존 저장 키·배지 이벤트 연결
 - `design-system.audit.json`: CSS 재질 색상 예외의 이유와 허용 횟수
-- `src/components/IdentityBadge.tsx`, `src/components/IdentityBadge.module.css`: 배지 입력·잡기 지점·DOM 카드 원근 변환·SVG 대체 렌더링과 배지 위치
-- `src/components/BadgeAccessories3D.tsx`: Three.js 천 끈·크기 변경 시 생성하는 고정 클립 형상·카드 깊이 가림과 상태 변화 시 렌더링
-- `src/lib/badge-physics.ts`: Rapier 3D 양쪽 12구간 끈의 스프링·캡슐 충돌, 카드·뒤쪽 벽 충돌, 연결부 관절과 카드 슬롯·클립의 x축 회전 스프링
+- `src/components/IdentityBadge.tsx`, `src/components/IdentityBadge.module.css`: 렌더러 지연 로딩, DOM 배지, 입력·위치 측정·기존 가이드와 배지 표시
+- `src/components/Lanyard.tsx`, `src/components/Lanyard.module.css`: 카드·끈을 표시하는 단일 Three.js 렌더러와 동작
+- `src/lib/badge-artwork.ts`: DOM 표시와 같은 신원 데이터로 그린 카드 이미지
 - `src/components/StudioPage.tsx`: 한국어·영어 공통 설명·조작 화면과 견본
 - `src/data/site-copy.ts`, `src/data/content.json`, `src/data/work.ts`: 소개·경력 본문
 
