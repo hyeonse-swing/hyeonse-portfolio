@@ -45,7 +45,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       })}</div>
     </section>
     <section id="personal-projects" className="section-space" aria-labelledby="personal-projects-title">
-      <div className="section-heading"><div><span className="eyebrow">04 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? <>Tools I build<br />and share</> : <>직접 만들고<br />공개한 도구</>}<span className="blue">.</span></h2></div><p>{en ? 'Design foundations, QA and error logging. Personal projects built around problems I encounter in development.' : <>디자인 시스템부터 QA와 오류 수집까지.<br />개발하며 만난 문제를 개인 프로젝트로 풀었어요.</>}</p></div>
+      <div className="section-heading"><div><span className="eyebrow">04 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? <>Tools I build<br />and share</> : <>직접 만들고<br />공개한 도구</>}<span className="blue">.</span></h2></div><p>{en ? 'From shared design foundations to error collection, regression test candidates and browser QA. Tools built around problems I encounter in development.' : <>화면의 바탕이 되는 디자인 시스템부터<br />오류 수집·회귀 테스트 후보 작성·QA 실행까지.<br />개발하며 만난 문제를 도구로 풀고 연결했어요.</>}</p></div>
       <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} />
     </section>
     <a className="studio-invitation" href={localizedPath(locale, '/studio/')}><span className="eyebrow">05 / OPEN STUDIO</span><div><h2>{en ? 'Make this space your own.' : '이 화면도, 바꿔볼까요?'}</h2><p>{en ? 'Try different colors, spacing and corners. Take a look at how this site was built, too.' : '색, 간격, 모서리를 직접 골라 보세요. 이 사이트를 만든 방식도 적어 두었습니다.'}</p></div><span aria-hidden="true">↗</span></a>

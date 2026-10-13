@@ -41,7 +41,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
     </section>
 
     <section className={styles.section} id="personal-projects" aria-labelledby="personal-projects-title">
-      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? 'Tools I build and share' : '직접 만들고 공개한 도구'}</h2></div><p>{en ? 'Personal projects spanning reusable interfaces, browser QA and error logging.' : '반복해서 쓰는 화면, 브라우저 QA, 오류 수집을 개인 프로젝트로 설계하고 구현했어요.'}</p></div>
+      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? 'Tools I build and share' : '직접 만들고 공개한 도구'}</h2></div><p>{en ? 'Alongside reusable interfaces, I connect error collection to reviewable regression test candidates, browser execution and evidence.' : '반복해서 쓰는 화면을 정리하고, 수집한 오류를 회귀 테스트 후보와 브라우저 실행 근거로 이어가는 도구를 만들었어요.'}</p></div>
       <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} detailed />
     </section>
 

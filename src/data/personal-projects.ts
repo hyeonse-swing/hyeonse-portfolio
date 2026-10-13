@@ -63,6 +63,23 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'React · npm', href: 'https://www.npmjs.com/package/browser-error-log-react' },
       ],
     },
+    {
+      id: 'error-to-test',
+      name: 'Error to Test',
+      category: 'ERRORS TO REGRESSION TESTS',
+      summary: '브라우저 오류와 텍스트 제보를 회귀 테스트 후보로 바꾸고, Flow QA 실행 결과까지 원본 오류에 연결하는 로컬 도구예요.',
+      highlights: [
+        'Browser Error Log 내보내기 파일과 수동 제보를 같은 흐름으로 분석해요. 오류를 일정한 기준으로 묶고, 확인된 재현 시나리오를 연결해 검토용 리포트와 테스트 묶음을 만들어요.',
+        '재현 조건이나 기대 결과가 부족하면 질문으로 남기고 실행을 막아요. 원본·테스트·결과를 해시와 ID로 대조해, 내용이 바뀌거나 다른 실행 결과가 섞이는 것을 감지해요.',
+      ],
+      stack: ['TypeScript', 'Node.js', 'CLI', 'Flow QA'],
+      release: 'npm 공개 · CLI·JavaScript API',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
+        { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
+        { label: '릴리스·검증 기록', href: 'https://github.com/hyeonse-swing/error-to-test/blob/main/docs/releases.md' },
+      ],
+    },
   ],
   en: [
     {
@@ -113,6 +130,23 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/browser-error-log' },
         { label: 'SDK · npm', href: 'https://www.npmjs.com/package/browser-error-log' },
         { label: 'React · npm', href: 'https://www.npmjs.com/package/browser-error-log-react' },
+      ],
+    },
+    {
+      id: 'error-to-test',
+      name: 'Error to Test',
+      category: 'ERRORS TO REGRESSION TESTS',
+      summary: 'A local tool that turns browser errors and pasted reports into regression test candidates, then links Flow QA results back to the original errors.',
+      highlights: [
+        'Analyzes Browser Error Log exports and manual reports through the same pipeline. Deterministic grouping and confirmed reproduction scenarios produce review reports and test suites.',
+        'Missing setup or expected behavior becomes a question that blocks execution. Hashes and case IDs detect changed sources, altered artifacts and mismatched run results.',
+      ],
+      stack: ['TypeScript', 'Node.js', 'CLI', 'Flow QA'],
+      release: 'Published on npm · CLI and JavaScript API',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
+        { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
+        { label: 'Release and verification notes', href: 'https://github.com/hyeonse-swing/error-to-test/blob/main/docs/releases.md' },
       ],
     },
   ],

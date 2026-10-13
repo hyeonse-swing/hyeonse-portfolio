@@ -1,6 +1,6 @@
 # 개인 프로젝트 소개 근거
 
-확인일: 2026-10-08. 공개 GitHub 소스·문서와 npm 메타데이터를 확인해 홈과 소개 페이지의 한국어·영어 문구를 작성했다. 실제 사용자 수, 시간 절감, 운영 도입률은 확인하지 않았으므로 성과 수치로 사용하지 않는다.
+최초 확인일: 2026-10-08. Error to Test 추가 확인일: 2026-10-13. 공개 GitHub 소스·문서와 npm 메타데이터를 확인해 홈과 소개 페이지의 한국어·영어 문구를 작성했다. 기존 세 프로젝트의 아래 확인 기록은 최초 확인 시점 기준이다. 실제 사용자 수, 시간 절감, 운영 도입률은 확인하지 않았으므로 성과 수치로 사용하지 않는다.
 
 ## Hyeonse Design System
 
@@ -29,6 +29,16 @@
 - [수집기](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/examples/micro-server/src/server.ts)와 [뷰어](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/apps/viewer/src/Dashboard.tsx): SQLite/JSONL 저장, 필터, 스택·요청 정보, JSON 가져오기·내보내기.
 - `npm view`로 확인한 공개 버전: [`browser-error-log`](https://www.npmjs.com/package/browser-error-log) `0.1.1`, [`browser-error-log-react`](https://www.npmjs.com/package/browser-error-log-react) `0.1.0`, [`browser-error-log-protocol`](https://www.npmjs.com/package/browser-error-log-protocol) `0.1.1`. 저장소 문서의 이전 게시 기록과 달라 npm 현재 응답을 기준으로 삼았다. 화면에는 유지보수를 고려해 버전 번호를 고정하지 않았다.
 - 범위: npm 패키지와 자체 호스팅 수집기·뷰어. 관리형 SaaS, 전송 보장, 완전한 개인정보 마스킹, 알림·소스맵·세션 리플레이를 제공한다고 표현하지 않는다.
+
+## Error to Test
+
+- 확인 커밋: [`840a870`](https://github.com/hyeonse-swing/error-to-test/tree/840a87021542cdb8117b615a6d2e1d2bfe6da03e), 공개 GitHub 릴리스 `v0.1.1`.
+- 공개 상태: `npm view @ihyeon/error-to-test version dist-tags --json`으로 [`@ihyeon/error-to-test`](https://www.npmjs.com/package/@ihyeon/error-to-test)의 현재 버전·`latest`가 모두 `0.1.1`인 것을 확인했다. 화면에는 버전을 고정하지 않는다.
+- [README](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/README.ko.md): Browser Error Log v1 내보내기, 텍스트·수동 제보를 분석해 오류 그룹, 검토용 회귀 테스트 후보와 Flow QA 테스트 묶음을 만든다. 모델이나 외부 서비스 연결 없이 로컬에서 분석한다.
+- [후보 생성](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/candidates.ts)과 [Flow QA 내보내기](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/exports/flow-qa.ts): 확인된 재현 조건·기대값을 연결하고, 부족한 맥락과 미검토 상태를 질문으로 남겨 실행을 차단한다.
+- [결과물 처리](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/artifacts.ts)와 README의 `verify`·`link-run`: 원본·시나리오·결과물 해시와 이벤트 → 그룹 → 케이스의 연결을 기록한다. 실행 리포트의 테스트 묶음 해시와 케이스 ID를 대조하고, 서로 다른 결과를 섞거나 기존 결과를 덮어쓰지 않는다.
+- [릴리스·검증 기록](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/docs/releases.md)은 통제된 로컬 Chromium 데모에서 Browser Error Log → Error to Test → Flow QA 연결을 검증한 기록이다. 이 포트폴리오 편집에서 통합 실행을 재수행하지 않았으므로 직접 수행한 검증으로 표현하지 않는다.
+- 범위: CLI·JavaScript API와 테스트 후보 생성. 분석 명령 자체는 브라우저를 실행하지 않으며 Flow QA는 별도 설치·설정·검토가 필요하다. 오류 수정 자동 완료, 운영 서비스 품질, 원인 확정, 실제 기기·WebView 검증 성과로 표현하지 않는다.
 
 ## 편집 위치
 

@@ -1,4 +1,4 @@
-.overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(24px * var(--space-factor)); }
+.overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(24px * var(--space-factor)); }
 .card { display: flex; flex-direction: column; min-width: 0; padding: calc(28px * var(--space-factor)); border: 1px solid var(--line); border-top-color: var(--ink); border-radius: var(--radius-card); background: var(--surface); }
 .index { color: var(--accent-text); font-size: 10px; font-weight: 650; line-height: 1.6; letter-spacing: .04em; }
 .card h3, .detail h3 { font-size: clamp(23px, 2.3vw, 30px); font-weight: 550; line-height: 1.4; letter-spacing: -.05em; overflow-wrap: anywhere; }
