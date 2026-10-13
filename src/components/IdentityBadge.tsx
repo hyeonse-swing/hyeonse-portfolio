@@ -6,7 +6,7 @@ import type { KeyboardEvent } from 'react';
 import type { Locale } from '../lib/locale';
 import type { LanyardControls } from './Lanyard';
 import BadgePrint from './BadgePrint';
-import { badgeIdentity as identity, createBadgeArtwork } from '../lib/badge-artwork';
+import { badgeIdentity as identity, createBadgeArtwork, getBadgeBackDrawing } from '../lib/badge-artwork';
 import { usePreferences } from './SitePreferences';
 import styles from './IdentityBadge.module.css';
 
@@ -21,7 +21,7 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
   const [motionAllowed, setMotionAllowed] = useState(false);
   const [compact, setCompact] = useState(false);
   const [dark, setDark] = useState(false);
-  const [image, setImage] = useState<string>();
+  const [artwork, setArtwork] = useState<{ front: string; back: string }>();
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const hintId = useId();
@@ -71,8 +71,11 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
     if (!motionAllowed || failed) return;
     let cancelled = false;
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent-solid').trim();
-    void createBadgeArtwork(locale, accent).then(value => {
-      if (!cancelled) setImage(value);
+    void Promise.all([
+      createBadgeArtwork(locale, accent, 'front'),
+      createBadgeArtwork(locale, accent, 'back')
+    ]).then(([front, back]) => {
+      if (!cancelled) setArtwork({ front, back });
     }).catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
   }, [locale, preferences.accent, motionAllowed, failed]);
@@ -95,22 +98,32 @@ export default function IdentityBadge({ className = '', locale = 'ko' }: { class
 
   return <div className={`${styles.scene} ${className}`} data-badge-scene data-renderer={interactive ? 'webgl' : 'fallback'} role="group" aria-label={en ? 'Hyeonse Im portfolio badge' : '임현세 포트폴리오 배지'} aria-describedby={interactive ? hintId : undefined} tabIndex={interactive ? 0 : undefined} onKeyDown={onKeyDown}>
     <div className={styles.fallback} aria-hidden="true">
-      <div className={styles.strap} />
+      <div className={`${styles.strap} ${styles.strapLeft}`} />
+      <div className={`${styles.strap} ${styles.strapRight}`} />
       <div ref={card} className={styles.card} data-badge-card>
         <BadgePrint locale={locale} />
-        <div className={styles.slot} />
+        <div className={`${styles.slot} ${styles.slotLeft}`} />
+        <div className={`${styles.slot} ${styles.slotRight}`} />
       </div>
-      <svg className={styles.hardware} viewBox="-.3 -.25 .6 .45" aria-hidden="true">
-        <defs><linearGradient id={`${hintId}-metal`}><stop stopColor="#7c8488" /><stop offset=".3" stopColor="#eff2f1" /><stop offset=".6" stopColor="#92999c" /><stop offset="1" stopColor="#d3d8d8" /></linearGradient></defs>
-        <rect x="-.08352" y="-.222" width=".16704" height=".15" rx=".016" fill={`url(#${hintId}-metal)`} stroke="#6b7377" strokeWidth=".006" />
-        <circle cx="0" cy="-.04" r=".036" fill="none" stroke={`url(#${hintId}-metal)`} strokeWidth=".0105" />
-        <ellipse cx="0" cy=".055" rx=".061" ry=".095" fill="none" stroke={`url(#${hintId}-metal)`} strokeWidth=".0135" />
-      </svg>
+      {(['left', 'right'] as const).map(side => <svg key={side} className={`${styles.hardware} ${side === 'left' ? styles.strapLeft : styles.strapRight}`} viewBox="-.3 -.25 .6 .45" aria-hidden="true">
+        <defs>
+          <linearGradient id={`${hintId}-metal-${side}`}>
+            <stop stopColor="#7c8488" />
+            <stop offset=".3" stopColor="#eff2f1" />
+            <stop offset=".6" stopColor="#92999c" />
+            <stop offset="1" stopColor="#d3d8d8" />
+          </linearGradient>
+        </defs>
+        <rect x="-.08352" y="-.222" width=".16704" height=".15" rx=".016" fill={`url(#${hintId}-metal-${side})`} stroke="#6b7377" strokeWidth=".006" />
+        <circle cx="0" cy="-.04" r=".036" fill="none" stroke={`url(#${hintId}-metal-${side})`} strokeWidth=".0105" />
+        <ellipse cx="0" cy=".055" rx=".061" ry=".095" fill="none" stroke={`url(#${hintId}-metal-${side})`} strokeWidth=".0135" />
+      </svg>)}
     </div>
     <div ref={viewport} className={styles.viewport}>
-      {motionAllowed && image && cardRect && !failed && <Lanyard frontImage={image} cardRect={cardRect} cardColor="#f9faf9" strapColor={dark ? '#586252' : '#30372f'} finish="glossy" cornerRadius={.2} strapWidth={.4} damping={.7} elasticity={.45} breeze={0} intro={false} maxDpr={compact ? 1.25 : 1.5} controlsRef={controls} onReady={onReady} onError={onError} className={styles.renderer} />}
+      {motionAllowed && artwork && cardRect && !failed && <Lanyard frontImage={artwork.front} backImage={artwork.back} cardRect={cardRect} cardColor="#f9faf9" strapColor={dark ? '#586252' : '#30372f'} finish="glossy" cornerRadius={.2} strapWidth={.4} damping={.7} elasticity={.45} breeze={0} intro={false} maxDpr={compact ? 1.25 : 1.5} controlsRef={controls} onReady={onReady} onError={onError} className={styles.renderer} />}
     </div>
     <span className={styles.srOnly}>{identity.name}, {identity.koreanName}. {identity.role}. {identity.location}. {identity.stack}. {identity.period}.</span>
+    <span className={styles.srOnly}>{en ? 'Back of the badge: ' : '배지의 다른 면: '}{getBadgeBackDrawing(locale, '').flatMap(command => command.kind === 'text' ? [command.value] : []).join('. ')}</span>
     <p id={hintId} className={styles.hint}>
       {en ? 'Try dragging' : '드래그해 보세요'} <span aria-hidden="true">↙</span>
       {interactive && <span className={styles.srOnly}>{en ? 'Use the arrow keys to move the badge, Enter to flip it, and the Home key to return it to its original position.' : '방향키로 배지를 움직이고 Enter 키로 뒤집으며 Home 키로 제자리에 놓을 수 있어요.'}</span>}

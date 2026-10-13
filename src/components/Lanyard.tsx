@@ -93,7 +93,7 @@ interface CardLayout {
   width: number;
   height: number;
   radius: number;
-  slot: { width: number; height: number; y: number };
+  slots: { x: number; y: number; width: number; height: number }[];
   ringY: number;
   hangY: number;
 }
@@ -200,6 +200,7 @@ const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
 const CLAMP_BODY = 0.15;
+const ATTACH_X = 0.32;
 const FACE_WIDTH = 1024;
 
 const FINISHES: Record<string, FinishLook> = {
@@ -207,6 +208,12 @@ const FINISHES: Record<string, FinishLook> = {
   matte: { roughness: 0.85, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   holographic: { roughness: 0.3, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, foil: 1, anisotropy: 0 },
   metallic: { roughness: 0.36, metalness: 0.75, clearcoat: 0.5, clearcoatRoughness: 0.18, foil: 0, anisotropy: 0.7 }
+};
+
+const METALS: Record<string, { color: string; roughness: number }> = {
+  silver: { color: '#d9dce2', roughness: 0.16 },
+  gold: { color: '#e4b965', roughness: 0.2 },
+  graphite: { color: '#4d4f55', roughness: 0.28 }
 };
 
 const BAND_COLUMNS = [0, 0.07, 0.93, 1];
@@ -318,12 +325,6 @@ if (foilStrength > 0.0) {
 }
 `;
 
-const METALS: Record<string, { color: string; roughness: number }> = {
-  silver: { color: '#d9dce2', roughness: 0.16 },
-  gold: { color: '#e4b965', roughness: 0.2 },
-  graphite: { color: '#4d4f55', roughness: 0.28 }
-};
-
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 
@@ -414,13 +415,19 @@ const cardLayout = (orientation: Orientation, cornerRadius: number, aspect?: num
   const [defaultWidth, height] = CARD_SIZES[orientation] || CARD_SIZES.portrait;
   const width = aspect && Number.isFinite(aspect) && aspect > 0 ? height * clamp(aspect, 0.4, 2.5) : defaultWidth;
   const radius = mix(0.03, Math.min(width, height) * 0.2, clamp(cornerRadius, 0, 1));
-  const slot = { width: 0.34, height: 0.07, y: height / 2 - 0.13 };
+  const slotY = height / 2 - 0.13;
+  const slots = [-1, 1].map(sign => ({
+    x: sign * width * ATTACH_X,
+    y: slotY,
+    width: 0.34,
+    height: 0.07
+  }));
   const ringY = height / 2 - 0.055;
-  return { width, height, radius, slot, ringY, hangY: ringY + RING_RADIUS };
+  return { width, height, radius, slots, ringY, hangY: ringY + RING_RADIUS };
 };
 
 const buildCardGeometry = (layout: CardLayout) => {
-  const { width, height, radius, slot } = layout;
+  const { width, height, radius, slots } = layout;
   const outline = new THREE.Shape();
   traceRoundedRect(
     outline,
@@ -430,16 +437,18 @@ const buildCardGeometry = (layout: CardLayout) => {
     height - BEVEL * 2,
     Math.max(radius - BEVEL, 0.005)
   );
-  const hole = new THREE.Path();
-  traceRoundedRect(
-    hole,
-    -slot.width / 2 - BEVEL,
-    slot.y - slot.height / 2 - BEVEL,
-    slot.width + BEVEL * 2,
-    slot.height + BEVEL * 2,
-    slot.height / 2 + BEVEL
-  );
-  outline.holes.push(hole);
+  for (const slot of slots) {
+    const hole = new THREE.Path();
+    traceRoundedRect(
+      hole,
+      slot.x - slot.width / 2 - BEVEL,
+      slot.y - slot.height / 2 - BEVEL,
+      slot.width + BEVEL * 2,
+      slot.height + BEVEL * 2,
+      slot.height / 2 + BEVEL
+    );
+    outline.holes.push(hole);
+  }
   const body = new THREE.ExtrudeGeometry(outline, {
     depth: THICKNESS,
     bevelEnabled: true,
@@ -499,69 +508,100 @@ const buildBandGeometry = (count: number) => {
   return geometry;
 };
 
-// Test triangle bounds, including interiors whose centerline samples miss the card.
-const markRibbonCardOverlap = (rows: THREE.Vector3[][], protectedRows: boolean[], layout: CardLayout) => {
+// Test both ribbons' triangle bounds, including interiors whose centerline samples miss the card.
+const markRibbonCardOverlap = (ribbons: THREE.Vector3[][][], protectedRows: boolean[], layout: CardLayout) => {
   protectedRows.fill(false);
-  const halfWidth = layout.width / 2 + BEVEL + 0.004;
-  const halfHeight = layout.height / 2 + BEVEL + 0.004;
-  for (let i = 0; i < rows.length - 1; i++) {
-    let minX = Infinity;
-    let maxX = -Infinity;
-    let minY = Infinity;
-    let maxY = -Infinity;
-    for (let row = i; row <= i + 1; row++) {
-      for (const vertex of rows[row]) {
-        minX = Math.min(minX, vertex.x);
-        maxX = Math.max(maxX, vertex.x);
-        minY = Math.min(minY, vertex.y);
-        maxY = Math.max(maxY, vertex.y);
+  const halfWidth = layout.width / 2 + 0.001;
+  const halfHeight = layout.height / 2 + 0.001;
+  for (const rows of ribbons) {
+    for (let i = 0; i < rows.length - 1; i++) {
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      for (let row = i; row <= i + 1; row++) {
+        for (const vertex of rows[row]) {
+          minX = Math.min(minX, vertex.x);
+          maxX = Math.max(maxX, vertex.x);
+          minY = Math.min(minY, vertex.y);
+          maxY = Math.max(maxY, vertex.y);
+        }
       }
-    }
-    if (minX < halfWidth && maxX > -halfWidth && minY < halfHeight && maxY > -halfHeight) {
-      protectedRows[i] = true;
-      protectedRows[i + 1] = true;
+      if (minX < halfWidth && maxX > -halfWidth && minY < halfHeight && maxY > -halfHeight) {
+        protectedRows[i] = true;
+        protectedRows[i + 1] = true;
+      }
     }
   }
 };
 
-// Keep every vertex in a connected overlap run on one side of the card.
+// Route both cords together so the card contact does not switch sides mid-motion.
 const keepRibbonOutsideCard = (
-  rows: THREE.Vector3[][],
-  protectedRows: boolean[]
+  ribbons: THREE.Vector3[][][],
+  protectedRows: boolean[],
+  side: 1 | -1
 ) => {
   const clearDepth = THICKNESS / 2 + BEVEL + 0.004;
-  for (let start = 0; start < rows.length;) {
-    if (!protectedRows[start]) {
-      start++;
-      continue;
-    }
-    let end = start + 1;
-    while (end < rows.length && protectedRows[end]) end++;
-    let frontCost = 0;
-    let backCost = 0;
-    for (let row = start; row < end; row++) {
-      let minZ = Infinity;
-      let maxZ = -Infinity;
+  const shifts = new Float64Array(protectedRows.length);
+  let changed = false;
+  for (let row = 0; row < protectedRows.length; row++) {
+    if (!protectedRows[row]) continue;
+    for (const rows of ribbons) {
       for (const vertex of rows[row]) {
-        minZ = Math.min(minZ, vertex.z);
-        maxZ = Math.max(maxZ, vertex.z);
+        if (side === 1) shifts[row] = Math.max(shifts[row], clearDepth - vertex.z);
+        else shifts[row] = Math.min(shifts[row], -clearDepth - vertex.z);
       }
-      frontCost += Math.max(0, clearDepth - minZ);
-      backCost += Math.max(0, clearDepth + maxZ);
     }
-    const inFront = frontCost + 0.04 < backCost;
-    for (let row = start; row < end; row++) {
-      let shift = 0;
-      for (const vertex of rows[row]) {
-        if (inFront) shift = Math.max(shift, clearDepth - vertex.z);
-        else shift = Math.min(shift, -clearDepth - vertex.z);
-      }
-      if (inFront) shift = Math.max(0, shift);
-      else shift = Math.min(0, shift);
-      for (const vertex of rows[row]) vertex.z += shift;
-    }
-    start = end;
   }
+  // Ease the depth bend into free rows while preserving the exact clearance at contact rows.
+  for (let row = 0; row < protectedRows.length; row++) {
+    if (protectedRows[row]) continue;
+    for (let distance = 1; distance <= 4; distance++) {
+      const weight = Math.pow(1 - distance / 5, 2);
+      const before = row - distance;
+      const after = row + distance;
+      if (before >= 0 && protectedRows[before]) {
+        const candidate = shifts[before] * weight;
+        if (Math.abs(candidate) > Math.abs(shifts[row])) shifts[row] = candidate;
+      }
+      if (after < protectedRows.length && protectedRows[after]) {
+        const candidate = shifts[after] * weight;
+        if (Math.abs(candidate) > Math.abs(shifts[row])) shifts[row] = candidate;
+      }
+    }
+  }
+  // Keep the free attachment row fixed at the card's top edge.
+  if (!protectedRows[protectedRows.length - 1]) shifts[shifts.length - 1] = 0;
+  for (let row = 0; row < protectedRows.length; row++) {
+    const shift = shifts[row];
+    if (Math.abs(shift) < 1e-7) continue;
+    changed = true;
+    for (const rows of ribbons) for (const vertex of rows[row]) vertex.z += shift;
+  }
+  return changed;
+};
+
+const preferredRibbonSide = (
+  ribbons: THREE.Vector3[][][],
+  protectedRows: boolean[],
+  cameraSide: 1 | -1
+): 1 | -1 => {
+  const clearDepth = THICKNESS / 2 + BEVEL + 0.004;
+  let frontCost = 0;
+  let backCost = 0;
+  let count = 0;
+  for (let row = 0; row < protectedRows.length; row++) {
+    if (!protectedRows[row]) continue;
+    for (const rows of ribbons) {
+      for (const vertex of rows[row]) {
+        frontCost += Math.max(0, clearDepth - vertex.z);
+        backCost += Math.max(0, clearDepth + vertex.z);
+        count++;
+      }
+    }
+  }
+  if (Math.abs(frontCost - backCost) < count * 0.004) return cameraSide;
+  return frontCost < backCost ? 1 : -1;
 };
 
 const buildEnvironment = (renderer: THREE.WebGLRenderer) => {
@@ -1173,15 +1213,38 @@ const Lanyard = ({
     const bodyMesh = new THREE.Mesh(undefined, edgeMaterial);
     const frontMesh = new THREE.Mesh(undefined, frontMaterial);
     const backMesh = new THREE.Mesh(undefined, backMaterial);
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(RING_RADIUS, RING_TUBE, 18, 72), metalMaterial);
-    ring.rotation.y = Math.PI / 2 - 0.7;
-    cardGroup.add(bodyMesh, frontMesh, backMesh, ring);
+    const rings = [-1, 1].map(() => {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(RING_RADIUS, RING_TUBE, 18, 72),
+        metalMaterial
+      );
+      ring.rotation.y = Math.PI / 2 - 0.7;
+      return ring;
+    });
+    cardGroup.add(bodyMesh, frontMesh, backMesh, ...rings);
     scene.add(cardGroup);
 
-    const bandGeometry = buildBandGeometry(SAMPLES);
-    const band = new THREE.Mesh(bandGeometry, bandMaterial);
-    band.frustumCulled = false;
-    scene.add(band);
+    const clampMeshes: THREE.Mesh[] = [];
+    const eyelets: THREE.Mesh[] = [];
+    const clampGroups = [-1, 1].map(() => {
+      const group = new THREE.Group();
+      const clampMesh = new THREE.Mesh(buildClampGeometry(STRAP_WIDTH), metalMaterial);
+      clampMesh.position.y = EYELET_RADIUS + CLAMP_BODY / 2 - 0.004;
+      const eyelet = new THREE.Mesh(new THREE.TorusGeometry(EYELET_RADIUS, 0.0105, 14, 40), metalMaterial);
+      group.add(clampMesh, eyelet);
+      clampMeshes.push(clampMesh);
+      eyelets.push(eyelet);
+      return group;
+    });
+    scene.add(...clampGroups);
+
+    const bandGeometries = Array.from({ length: 2 }, () => buildBandGeometry(SAMPLES));
+    const bands = bandGeometries.map(geometry => {
+      const mesh = new THREE.Mesh(geometry, bandMaterial);
+      mesh.frustumCulled = false;
+      return mesh;
+    });
+    scene.add(...bands);
     const cardShadowTexture = buildCardShadowTexture();
     const cardShadowMaterial = new THREE.MeshBasicMaterial({
       map: cardShadowTexture, transparent: true, depthWrite: false,
@@ -1191,27 +1254,28 @@ const Lanyard = ({
     cardShadow.frustumCulled = false;
     scene.add(cardShadow);
     const bandShadowTexture = buildBandShadowTexture();
-    const bandShadowGeometry = buildBandGeometry(SAMPLES);
+    const bandShadowGeometries = Array.from({ length: 2 }, () => buildBandGeometry(SAMPLES));
     const bandShadowMaterial = new THREE.MeshBasicMaterial({
       map: bandShadowTexture, transparent: true, depthWrite: false,
       side: THREE.DoubleSide, toneMapped: false
     });
-    const bandShadow = new THREE.Mesh(bandShadowGeometry, bandShadowMaterial);
-    bandShadow.frustumCulled = false;
-    scene.add(bandShadow);
-
-    const clampGroup = new THREE.Group();
-    const clampMesh = new THREE.Mesh(buildClampGeometry(STRAP_WIDTH), metalMaterial);
-    clampMesh.position.y = EYELET_RADIUS + CLAMP_BODY / 2 - 0.004;
-    const eyelet = new THREE.Mesh(new THREE.TorusGeometry(EYELET_RADIUS, 0.0105, 14, 40), metalMaterial);
-    clampGroup.add(clampMesh, eyelet);
-    scene.add(clampGroup);
+    const bandShadows = bandShadowGeometries.map(geometry => {
+      const mesh = new THREE.Mesh(geometry, bandShadowMaterial);
+      mesh.frustumCulled = false;
+      return mesh;
+    });
+    scene.add(...bandShadows);
 
     const sim = createSimulation();
-    const controlPoints: THREE.Vector3[] = [];
-    const mouth = new THREE.Vector3();
-    const tuck = new THREE.Vector3();
-    const curve = new THREE.CatmullRomCurve3(controlPoints, false, 'centripetal');
+    const controlPoints = Array.from({ length: 2 }, (): THREE.Vector3[] => []);
+    const curves = controlPoints.map(points => new THREE.CatmullRomCurve3(points, false, 'centripetal'));
+    const cordNodes = Array.from({ length: 2 }, () =>
+      Array.from({ length: JOINTS }, () => new THREE.Vector3()));
+    const attachments = [new THREE.Vector3(), new THREE.Vector3()];
+    const approaches = [new THREE.Vector3(), new THREE.Vector3()];
+    const terminalBends = [new THREE.Vector3(), new THREE.Vector3()];
+    const terminalLeads = [new THREE.Vector3(), new THREE.Vector3()];
+    const tucks = [new THREE.Vector3(), new THREE.Vector3()];
     const view = { width: 1, height: 1 };
     let layout = cardLayout('portrait', 0.3);
     let applied: Applied = {};
@@ -1354,13 +1418,14 @@ const Lanyard = ({
         frontMesh.position.z = THICKNESS / 2 + BEVEL + 0.0006;
         backMesh.rotation.y = Math.PI;
         backMesh.position.z = -(THICKNESS / 2 + BEVEL + 0.0006);
-        ring.position.set(0, layout.ringY, 0);
+        rings.forEach((ring, index) => ring.position.set(layout.slots[index].x, layout.ringY, 0));
         applied.framingKey = '';
       }
       const framingKey = `${layoutKey}|${s.size}|${s.anchor}|${s.strapLength}|${view.width}|${view.height}|${rect ? `${rect.left}|${rect.top}|${rect.width}|${rect.height}` : ''}`;
       const framingChanged = framingKey !== applied.framingKey;
       if (framingChanged) {
         frameView();
+        resetRibbonRoute();
         if (!placed) {
           placeHanging(sim, layout, s.intro);
           placed = true;
@@ -1429,8 +1494,10 @@ const Lanyard = ({
       strapScale = STRAP_WIDTH * clamp(s.strapWidth, 0.15, 2);
       const strapWidthChanged = strapScale !== applied.strapScale;
       if (strapWidthChanged) {
-        clampMesh.geometry.dispose();
-        clampMesh.geometry = buildClampGeometry(strapScale);
+        for (const clampMesh of clampMeshes) {
+          clampMesh.geometry.dispose();
+          clampMesh.geometry = buildClampGeometry(strapScale);
+        }
       }
       // A touch on the card is cancelled in touchstart; misses keep native page scrolling.
       canvas.style.touchAction = 'auto';
@@ -1444,118 +1511,182 @@ const Lanyard = ({
       else if (appearanceChanged || strapWidthChanged || dprChanged) render();
     };
 
-    const points = Array.from({ length: SAMPLES }, () => new THREE.Vector3());
-    const sides = Array.from({ length: SAMPLES }, () => new THREE.Vector3());
-    const ribbonRows = Array.from({ length: SAMPLES }, () => BAND_COLUMNS.map(() => new THREE.Vector3()));
+    const points = Array.from({ length: 2 }, () =>
+      Array.from({ length: SAMPLES }, () => new THREE.Vector3()));
+    const sides = Array.from({ length: 2 }, () =>
+      Array.from({ length: SAMPLES }, () => new THREE.Vector3()));
+    const cordRows = Array.from({ length: 2 }, () =>
+      Array.from({ length: SAMPLES }, () =>
+        BAND_COLUMNS.map(() => new THREE.Vector3())));
     const protectedRows = Array.from({ length: SAMPLES }, () => false);
-    const inverseCardRotation = new THREE.Quaternion();
     const bends = BAND_BEND.map((angle): [number, number] => [Math.cos(angle), Math.sin(angle)]);
+    const inverseCardRotation = new THREE.Quaternion();
+    let contactSide: 1 | -1 = 1;
+    let clearContactFrames = 5;
     const work = {
       tangent: new THREE.Vector3(),
       toCamera: new THREE.Vector3(),
-      basis: new THREE.Matrix4(),
-      up: new THREE.Vector3(),
       across: new THREE.Vector3(),
       facing: new THREE.Vector3(),
-      end: new THREE.Vector3()
+      radial: new THREE.Vector3(),
+      sideCandidate: new THREE.Vector3(),
+      cardUp: new THREE.Vector3(),
+      cardRight: new THREE.Vector3(),
+      worldRight: new THREE.Vector3()
     };
     const shadowRight = new THREE.Vector3();
     const shadowUp = new THREE.Vector3();
     const cardShadowPosition = cardShadow.geometry.getAttribute('position');
     const cardShadowUv = cardShadow.geometry.getAttribute('uv');
     let bandBackZ = Infinity;
+    const resetRibbonRoute = () => {
+      contactSide = 1;
+      clearContactFrames = 5;
+      sides.forEach(rows => rows.forEach(side => side.set(0, 0, 0)));
+    };
 
     const updateBand = () => {
       const hang = sim.nodes[JOINTS];
-      const reach = EYELET_RADIUS + CLAMP_BODY + 0.05;
       let guide = JOINTS - 1;
-      while (guide > 0 && sim.nodes[guide].distanceTo(hang) < reach * 1.1) guide--;
-      const axis = work.up.subVectors(sim.nodes[guide], hang);
-      if (axis.lengthSq() < 1e-8) axis.set(0, 1, 0).applyQuaternion(sim.body.quaternion);
-      axis.normalize();
-      mouth.copy(hang).addScaledVector(axis, reach);
-      tuck.copy(hang).addScaledVector(axis, EYELET_RADIUS + CLAMP_BODY * 0.35);
-      controlPoints.length = 0;
-      for (let i = 0; i <= guide; i++) controlPoints.push(sim.nodes[i]);
-      controlPoints.push(mouth, tuck);
-      curve.updateArcLengths();
-      for (let i = 0; i < SAMPLES; i++) curve.getPointAt(i / (SAMPLES - 1), points[i]);
-      const length = curve.getLength();
-      const held = Math.max(0.001, 1 - mouth.distanceTo(tuck) / Math.max(length, 0.001));
-      const position = bandGeometry.getAttribute('position');
-      const normal = bandGeometry.getAttribute('normal');
-      const uv = bandGeometry.getAttribute('uv');
-      const shadowPosition = bandShadowGeometry.getAttribute('position');
-      const shadowUv = bandShadowGeometry.getAttribute('uv');
-      const columns = BAND_COLUMNS.length;
-      const restLength = sim.rest * JOINTS;
-      const repeats = restLength / (strapScale * tileRatio);
-      const width = strapScale / Math.pow(Math.max(1, length / Math.max(restLength, 0.001)), 0.35);
-      const { tangent, toCamera, across, facing } = work;
+      while (guide > 0 && sim.nodes[guide].distanceTo(hang) < 0.22) guide--;
+      const { tangent, toCamera, across, facing, radial, sideCandidate, cardUp, cardRight, worldRight } = work;
+      cardUp.set(0, 1, 0).applyQuaternion(sim.body.quaternion);
+      cardRight.set(1, 0, 0).applyQuaternion(sim.body.quaternion);
+      worldRight.set(1, 0, 0);
       inverseCardRotation.copy(sim.body.quaternion).invert();
-      for (let i = 0; i < SAMPLES; i++) {
-        tangent.subVectors(points[Math.min(SAMPLES - 1, i + 1)], points[Math.max(0, i - 1)]);
-        if (tangent.lengthSq() < 1e-12) tangent.set(0, -1, 0);
-        tangent.normalize();
-        toCamera.subVectors(camera.position, points[i]).normalize();
-        const side = sides[i].crossVectors(toCamera, tangent);
-        if (side.lengthSq() < 1e-10) side.copy(i > 0 ? sides[i - 1] : scratch.a.set(1, 0, 0));
-        side.normalize();
-        if (i > 0 && side.dot(sides[i - 1]) < 0) side.negate();
-        const angle = -sim.twist * Math.pow(Math.min(1, i / (SAMPLES - 1) / held), 1.3);
-        facing.crossVectors(tangent, side);
-        across.copy(side).multiplyScalar(Math.cos(angle)).addScaledVector(facing, Math.sin(angle));
-        facing.crossVectors(tangent, across);
-        const p = points[i];
-        const v = (1 - i / (SAMPLES - 1)) * repeats;
-        for (let c = 0; c < columns; c++) {
-          const k = i * columns + c;
-          const offset = (BAND_COLUMNS[c] - 0.5) * width;
-          const [bendCos, bendSin] = bends[c];
-          ribbonRows[i][c]
-            .set(p.x + across.x * offset, p.y + across.y * offset, p.z + across.z * offset)
-            .sub(sim.body.position)
-            .applyQuaternion(inverseCardRotation);
-          normal.setXYZ(
-            k,
-            facing.x * bendCos + across.x * bendSin,
-            facing.y * bendCos + across.y * bendSin,
-            facing.z * bendCos + across.z * bendSin
-          );
-          uv.setXY(k, BAND_COLUMNS[c], v);
-          shadowUv.setXY(k, BAND_COLUMNS[c], 0.5);
-        }
-      }
-      markRibbonCardOverlap(ribbonRows, protectedRows, layout);
-      keepRibbonOutsideCard(ribbonRows, protectedRows);
-      bandBackZ = Infinity;
-      for (let i = 0; i < SAMPLES; i++) {
-        const left = ribbonRows[i][0].applyQuaternion(sim.body.quaternion).add(sim.body.position);
-        const right = ribbonRows[i][columns - 1].applyQuaternion(sim.body.quaternion).add(sim.body.position);
-        for (let c = 0; c < columns; c++) {
-          const vertex = c === 0 ? left : c === columns - 1 ? right
-            : ribbonRows[i][c].applyQuaternion(sim.body.quaternion).add(sim.body.position);
-          position.setXYZ(i * columns + c, vertex.x, vertex.y, vertex.z);
-          bandBackZ = Math.min(bandBackZ, vertex.z);
-          const spread = 0.5 + (BAND_COLUMNS[c] - 0.5) * 1.75;
-          shadowPosition.setXYZ(i * columns + c,
-            left.x + (right.x - left.x) * spread,
-            left.y + (right.y - left.y) * spread,
-            left.z + (right.z - left.z) * spread);
-        }
-      }
-      work.end.copy(across);
-      position.needsUpdate = true;
-      normal.needsUpdate = true;
-      uv.needsUpdate = true;
-      shadowPosition.needsUpdate = true;
-      shadowUv.needsUpdate = true;
+      const attachmentX = layout.width * ATTACH_X;
+      const columns = BAND_COLUMNS.length;
 
-      across.copy(work.end).addScaledVector(axis, -work.end.dot(axis)).normalize();
-      facing.crossVectors(across, axis).normalize();
-      work.basis.makeBasis(across, axis, facing);
-      clampGroup.quaternion.setFromRotationMatrix(work.basis);
-      clampGroup.position.copy(hang);
+      for (let cord = 0; cord < 2; cord++) {
+        const sign = cord === 0 ? -1 : 1;
+        const attachment = attachments[cord].set(sign * attachmentX, layout.hangY, 0)
+          .applyQuaternion(sim.body.quaternion).add(sim.body.position);
+        approaches[cord].copy(attachment).addScaledVector(cardUp, 0.35);
+        const controls = controlPoints[cord];
+        controls.length = 0;
+        for (let nodeIndex = 0; nodeIndex <= guide; nodeIndex++) {
+          const t = nodeIndex / JOINTS;
+          cordNodes[cord][nodeIndex].copy(sim.nodes[nodeIndex])
+            .addScaledVector(worldRight, sign * attachmentX * (1 - t))
+            .addScaledVector(cardRight, sign * attachmentX * t);
+          controls.push(cordNodes[cord][nodeIndex]);
+        }
+        const guideHeight = radial.subVectors(cordNodes[cord][guide], attachment).dot(cardUp);
+        const compression = clamp((0.18 - guideHeight) / 0.38, 0, 1);
+        const fold = guide > 0 ? compression * compression * (3 - 2 * compression) : 0;
+        cordNodes[cord][guide].addScaledVector(cardRight, sign * 0.18 * fold);
+        approaches[cord].addScaledVector(cardUp, 0.04 * fold)
+          .addScaledVector(cardRight, sign * 0.12 * fold);
+        terminalBends[cord].copy(attachment).addScaledVector(cardUp, 0.29);
+        terminalLeads[cord].copy(attachment).addScaledVector(cardUp,
+          EYELET_RADIUS + CLAMP_BODY + 0.05);
+        tucks[cord].copy(attachment).addScaledVector(cardUp,
+          EYELET_RADIUS + CLAMP_BODY * 0.35);
+        controls.push(approaches[cord], terminalBends[cord], terminalLeads[cord], tucks[cord]);
+        const curve = curves[cord];
+        curve.updateArcLengths();
+        for (let i = 0; i < SAMPLES; i++) curve.getPointAt(i / (SAMPLES - 1), points[cord][i]);
+        const length = curve.getLength();
+        const restLength = sim.rest * JOINTS;
+        const repeats = restLength / (strapScale * tileRatio);
+        const width = strapScale / Math.pow(Math.max(1, length / Math.max(restLength, 0.001)), 0.35);
+        const geometry = bandGeometries[cord];
+        const normal = geometry.getAttribute('normal');
+        const uv = geometry.getAttribute('uv');
+        const cordSides = sides[cord];
+        for (let i = 0; i < SAMPLES; i++) {
+          const samples = points[cord];
+          tangent.subVectors(samples[Math.min(SAMPLES - 1, i + 1)], samples[Math.max(0, i - 1)]);
+          if (tangent.lengthSq() < 1e-12) tangent.copy(cardUp).negate();
+          tangent.normalize();
+          toCamera.subVectors(camera.position, samples[i]).normalize();
+          sideCandidate.crossVectors(toCamera, tangent);
+          if (sideCandidate.lengthSq() < 1e-10) {
+            sideCandidate.copy(i > 0 ? cordSides[i - 1] : cardRight);
+          }
+          sideCandidate.normalize();
+          const previousSide = i > 0 ? cordSides[i - 1] : cordSides[0];
+          if (previousSide.lengthSq() > 0.5 && sideCandidate.dot(previousSide) < 0) sideCandidate.negate();
+          across.copy(cordSides[i].copy(sideCandidate));
+          facing.crossVectors(tangent, across).normalize();
+          const progress = i / (SAMPLES - 1);
+          const twist = -sim.twist * Math.pow(progress, 1.3);
+          across.multiplyScalar(Math.cos(twist)).addScaledVector(facing, Math.sin(twist)).normalize();
+          radial.copy(cardRight).addScaledVector(tangent, -cardRight.dot(tangent));
+          if (radial.lengthSq() > 1e-8) {
+            radial.normalize();
+            const correction = Math.atan2(
+              tangent.dot(sideCandidate.crossVectors(across, radial)),
+              across.dot(radial)
+            );
+            const align = clamp((progress - 0.78) / 0.22, 0, 1);
+            across.applyAxisAngle(tangent, correction * align * align * (3 - 2 * align));
+          }
+          facing.crossVectors(tangent, across).normalize();
+          const v = (1 - progress) * repeats;
+          for (let c = 0; c < columns; c++) {
+            const k = i * columns + c;
+            const offset = (BAND_COLUMNS[c] - 0.5) * width;
+            const [bendCos, bendSin] = bends[c];
+            cordRows[cord][i][c].copy(samples[i]).addScaledVector(across, offset)
+              .sub(sim.body.position).applyQuaternion(inverseCardRotation);
+            normal.setXYZ(k,
+              facing.x * bendCos + across.x * bendSin,
+              facing.y * bendCos + across.y * bendSin,
+              facing.z * bendCos + across.z * bendSin);
+            uv.setXY(k, BAND_COLUMNS[c], v);
+          }
+        }
+      }
+
+      markRibbonCardOverlap(cordRows, protectedRows, layout);
+      const inContact = protectedRows.some(Boolean);
+      if (inContact) {
+        if (clearContactFrames >= 5) {
+          const cameraSide: 1 | -1 = toCamera.copy(camera.position).sub(sim.body.position)
+            .applyQuaternion(inverseCardRotation).z >= 0 ? 1 : -1;
+          contactSide = preferredRibbonSide(cordRows, protectedRows, cameraSide);
+        }
+        clearContactFrames = 0;
+      } else {
+        clearContactFrames = Math.min(5, clearContactFrames + 1);
+      }
+      const deformed = inContact && keepRibbonOutsideCard(cordRows, protectedRows, contactSide);
+      bandBackZ = Infinity;
+      for (let cord = 0; cord < 2; cord++) {
+        const geometry = bandGeometries[cord];
+        const position = geometry.getAttribute('position');
+        const normal = geometry.getAttribute('normal');
+        const uv = geometry.getAttribute('uv');
+        const shadowPosition = bandShadowGeometries[cord].getAttribute('position');
+        const shadowUv = bandShadowGeometries[cord].getAttribute('uv');
+        for (let i = 0; i < SAMPLES; i++) {
+          for (let c = 0; c < columns; c++) {
+            const vertex = cordRows[cord][i][c].applyQuaternion(sim.body.quaternion).add(sim.body.position);
+            position.setXYZ(i * columns + c, vertex.x, vertex.y, vertex.z);
+            bandBackZ = Math.min(bandBackZ, vertex.z);
+          }
+          const left = cordRows[cord][i][0];
+          const right = cordRows[cord][i][columns - 1];
+          for (let c = 0; c < BAND_COLUMNS.length; c++) {
+            const spread = 0.5 + (BAND_COLUMNS[c] - 0.5) * 1.75;
+            const k = i * BAND_COLUMNS.length + c;
+            shadowPosition.setXYZ(k,
+              left.x + (right.x - left.x) * spread,
+              left.y + (right.y - left.y) * spread,
+              left.z + (right.z - left.z) * spread);
+            shadowUv.setXY(k, BAND_COLUMNS[c], 0.5);
+          }
+        }
+        position.needsUpdate = true;
+        if (deformed) geometry.computeVertexNormals();
+        else normal.needsUpdate = true;
+        uv.needsUpdate = true;
+        shadowPosition.needsUpdate = true;
+        shadowUv.needsUpdate = true;
+        clampGroups[cord].position.copy(attachments[cord]);
+        clampGroups[cord].quaternion.copy(sim.body.quaternion);
+      }
     };
     const render = () => {
       if (!isVisible() || failed) return false;
@@ -1584,18 +1715,20 @@ const Lanyard = ({
           shadowZ);
       }
       cardShadowPosition.needsUpdate = true;
-      const bandShadowPosition = bandShadowGeometry.getAttribute('position');
-      for (let i = 0; i < bandShadowPosition.count; i++) {
-        const sourceX = bandShadowPosition.getX(i);
-        const sourceY = bandShadowPosition.getY(i);
-        const sourceZ = bandShadowPosition.getZ(i) - 0.28;
-        const depthRatio = (cameraZ - shadowZ) / (cameraZ - sourceZ);
-        bandShadowPosition.setXYZ(i,
-          camera.position.x + (sourceX + 0.08 - camera.position.x) * depthRatio,
-          camera.position.y + (sourceY - 0.11 - camera.position.y) * depthRatio,
-          shadowZ);
+      for (const geometry of bandShadowGeometries) {
+        const bandShadowPosition = geometry.getAttribute('position');
+        for (let i = 0; i < bandShadowPosition.count; i++) {
+          const sourceX = bandShadowPosition.getX(i);
+          const sourceY = bandShadowPosition.getY(i);
+          const sourceZ = bandShadowPosition.getZ(i) - 0.28;
+          const depthRatio = (cameraZ - shadowZ) / (cameraZ - sourceZ);
+          bandShadowPosition.setXYZ(i,
+            camera.position.x + (sourceX + 0.08 - camera.position.x) * depthRatio,
+            camera.position.y + (sourceY - 0.11 - camera.position.y) * depthRatio,
+            shadowZ);
+        }
+        bandShadowPosition.needsUpdate = true;
       }
-      bandShadowPosition.needsUpdate = true;
       try {
         renderer.render(scene, camera);
       } catch {
@@ -1678,6 +1811,7 @@ const Lanyard = ({
       const body = sim.body;
       if (!Number.isFinite(body.position.x + body.position.y + body.position.z + body.quaternion.w)) {
         sim.grab = null;
+        resetRibbonRoute();
         placeHanging(sim, layout, false);
       }
       const visuallyResting = sampleVisualMotion(dt);
@@ -1793,6 +1927,7 @@ const Lanyard = ({
       reset: () => {
         if (failed) return;
         cancelDrag();
+        resetRibbonRoute();
         placeHanging(sim, layout, false);
         activated = false;
         container.dataset.face = 'front';
@@ -1868,8 +2003,10 @@ const Lanyard = ({
       canvas.removeEventListener('lostpointercapture', onPointerUp);
       canvas.removeEventListener('touchstart', onTouchStart);
       canvas.removeEventListener('webglcontextlost', onContextLost);
-      [bodyMesh, frontMesh, backMesh, ring, clampMesh, eyelet, cardShadow, band, bandShadow].forEach(mesh => mesh.geometry?.dispose());
-      [frontMaterial, backMaterial, edgeMaterial, metalMaterial, bandMaterial, cardShadowMaterial, bandShadowMaterial].forEach(material => material.dispose());
+      [bodyMesh, frontMesh, backMesh, cardShadow, ...rings, ...clampMeshes, ...eyelets, ...bands, ...bandShadows]
+        .forEach(mesh => mesh.geometry?.dispose());
+      [frontMaterial, backMaterial, edgeMaterial, metalMaterial, bandMaterial, cardShadowMaterial, bandShadowMaterial]
+        .forEach(material => material.dispose());
       [frontTexture, backTexture, strapTexture, grain, weave, cardShadowTexture, bandShadowTexture].forEach(texture => texture.dispose());
       environment.dispose();
       renderer.dispose();

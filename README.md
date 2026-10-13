@@ -37,7 +37,7 @@ npm run preview -- 4322
 | 다국어 | 한국어 `/`, 영어 `/en/`. 언어별 라우트가 공통 화면에 `locale`을 전달 |
 | 콘텐츠 | `getPortfolio(locale)`에서 언어별 데이터를 선택하고 같은 컴포넌트로 렌더링 |
 | 화면 설정 | `@hyeonse/design-system`의 토큰·설정 Provider·화면 설정 UI 공유. `<head>`에서 저장값 먼저 적용 |
-| 배지 | `IdentityBadge`가 `Lanyard`를 지연 로드하고, 하나의 Three.js 렌더러가 카드와 굵은 한 가닥 끈을 표시. 준비 중·WebGL 실패·JavaScript 비활성화·움직임 감소에서는 DOM 배지를 표시 |
+| 배지 | `IdentityBadge`가 `Lanyard`를 지연 로드하고, 하나의 Three.js 렌더러가 카드와 상단 양쪽의 금속 연결부에 각각 매달린 두 가닥 넓적한 끈을 표시. 앞면은 이름·직무, 뒷면은 소개·주요 기술. 준비 중·WebGL 실패·JavaScript 비활성화·움직임 감소에서는 DOM 배지를 표시 |
 | 배지 조작 | 데스크톱·모바일에서 드래그하거나 탭해 뒤집기. 방향키 이동, Enter 뒤집기, Home·Escape 초기화. 기존 우측 상단 드래그 가이드 유지 |
 | 배지 렌더링 | 데스크톱 `maxDpr` 1.5, 모바일 1.25, `breeze` 0. 정지·화면 밖·문서 숨김 상태에서 애니메이션을 멈춤 |
 | 글꼴 | DM Sans와 Noto Sans KR WOFF2 자체 호스팅. 한국어는 소스 문자 기반 서브셋 |

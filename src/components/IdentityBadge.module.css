@@ -16,11 +16,16 @@
 .fallback { position: absolute; inset: 0; pointer-events: none; filter: drop-shadow(14px 20px 12px rgb(14 23 18 / 13%)); }
 .scene[data-renderer='webgl'] .fallback { visibility: hidden; }
 .scene[data-renderer='fallback'] .hint { visibility: hidden; }
-.strap { position: absolute; top: 0; height: calc(var(--badge-top) - var(--card-height) * .0571111); width: calc(var(--card-height) * .064); left: calc(50% - var(--card-height) * .032); background: #30372f; }
+/* Duplicate the original strap and connector at 18% / 82% of the card width. */
+.strap { position: absolute; top: 0; height: calc(var(--badge-top) - var(--card-height) * .0571111); width: calc(var(--card-height) * .064); background: #30372f; transform: translateX(-50%); }
+.strapLeft { left: calc(50% - var(--card-width) * .32); }
+.strapRight { left: calc(50% + var(--card-width) * .32); }
 :global(:root[data-theme='dark']) .strap { background: #586252; }
 .card { position: absolute; top: var(--badge-top); left: 50%; width: var(--card-width); aspect-ratio: .785; transform: translateX(-50%); border-radius: calc(var(--card-height) * .042067); background: #f9faf9; overflow: hidden; }
-.slot { position: absolute; top: 4.22%; left: 40.37%; width: 19.25%; height: 3.11%; border-radius: 999px; background: var(--paper); box-shadow: inset 0 1px 2px rgb(14 23 18 / 13%); }
-.hardware { position: absolute; top: calc(var(--badge-top) - var(--card-height) * .111111); left: 50%; width: calc(var(--card-height) * .266667); height: calc(var(--card-height) * .2); transform: translateX(-50%); overflow: visible; }
+.slot { position: absolute; top: 4.22%; width: 19.25%; height: 3.11%; border-radius: 999px; background: var(--paper); box-shadow: inset 0 1px 2px rgb(14 23 18 / 13%); }
+.slotLeft { left: 8.375%; }
+.slotRight { left: 72.375%; }
+.hardware { position: absolute; top: calc(var(--badge-top) - var(--card-height) * .111111); width: calc(var(--card-height) * .266667); height: calc(var(--card-height) * .2); transform: translateX(-50%); overflow: visible; }
 .hint { position: absolute; top: calc(var(--badge-top) - 38px); right: 0; margin: 0; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; pointer-events: none; transition: opacity 180ms ease; }
 .hint > span[aria-hidden] { margin-left: 5px; color: var(--accent-solid); }
 .scene:has([data-moving='true']) .hint { opacity: 0; }

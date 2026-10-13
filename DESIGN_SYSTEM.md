@@ -40,9 +40,9 @@
 
 설정은 `hyeonse-site-preferences` 키에 저장한다. 저장값은 정해진 열거형만 허용한다. 저장소 접근 실패 시 현재 탭에서는 계속 조작할 수 있다. 다른 탭에서의 변경과 기기 테마 변경도 반영한다. 고정된 초기 스크립트가 `<head>`에서 값을 적용해 첫 화면과 수화 이후의 테마 차이를 줄인다. JavaScript가 꺼져 있으면 CSS가 기기의 다크모드를 따른다.
 
-데스크톱과 모바일은 같은 배지 조작을 제공한다. 카드를 드래그하거나 탭해 뒤집고, 방향키로 움직이며 Enter로 뒤집을 수 있다. Home과 Escape는 원위치로 돌린다. 기존 우측 상단 드래그 가이드를 유지하고 모바일에서는 숨긴다. 시스템 또는 사이트에서 움직임 감소를 선택하면 CSS 배지를 유지한다.
+데스크톱과 모바일은 같은 배지 조작을 제공한다. 카드를 드래그하거나 탭해 뒤집고, 방향키로 움직이며 Enter로 뒤집을 수 있다. 앞면은 이름·직무, 뒷면은 짧은 소개와 주요 기술을 보여준다. Home과 Escape는 원위치로 돌린다. 기존 우측 상단 드래그 가이드를 유지하고 모바일에서는 숨긴다. 시스템 또는 사이트에서 움직임 감소를 선택하면 CSS 배지를 유지한다.
 
-`IdentityBadge`는 `Lanyard`를 지연 로드한다. [Lanyard.tsx](src/components/Lanyard.tsx)의 단일 Three.js 렌더러가 카드와 굵은 한 가닥 끈을 그린다. 초기 DOM 배지도 같은 형태를 사용한다. 데스크톱 `maxDpr`는 1.5, 모바일은 1.25다. 바람 설정은 0이고, 움직임이 멎거나 배지가 화면 밖에 있거나 문서가 숨겨지면 렌더러가 멈춘다.
+`IdentityBadge`는 `Lanyard`를 지연 로드한다. [Lanyard.tsx](src/components/Lanyard.tsx)의 단일 Three.js 렌더러가 카드와 상단 양쪽의 금속 연결부에 각각 매달린 두 가닥 넓적한 끈을 그린다. 초기 DOM 배지도 같은 형태를 사용한다. 데스크톱 `maxDpr`는 1.5, 모바일은 1.25다. 바람 설정은 0이고, 움직임이 멎거나 배지가 화면 밖에 있거나 문서가 숨겨지면 렌더러가 멈춘다.
 
 DOM 배지는 처음 로딩할 때와 JavaScript 비활성화, WebGL 오류, 움직임 감소 상태에 표시한다. [badge-artwork.ts](src/lib/badge-artwork.ts)는 같은 HS·이름·직무·경력 데이터를 로컬 DM Sans·Noto Sans KR 글꼴로 카드 이미지에 그린다. Three.js 구현은 [React Bits Lanyard 원본 리비전](https://github.com/DavidHDev/react-bits/commit/3329f3bde763a37a2a89b24598e9f50fa0d4de3d)에서 적용했고, [MIT + Commons Clause 라이선스](licenses/react-bits-LICENSE.md)에 따라 포트폴리오 앱의 일부로 사용한다.
 
