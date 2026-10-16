@@ -8,6 +8,7 @@
     "build": "next build",
     "preview": "node scripts/preview.mjs",
     "check": "tsc --noEmit",
+    "check:lanyard": "node scripts/check-lanyard.mjs",
     "audit:content": "node scripts/audit-content.mjs",
     "audit:design-system": "hds-audit ."
   },

@@ -17,6 +17,7 @@ NEXT_TELEMETRY_DISABLED=1 npm run dev -- --port 4321
 
 ```sh
 npm run check
+npm run check:lanyard
 NEXT_TELEMETRY_DISABLED=1 npm run build
 npm run audit:content
 npm run audit:design-system
@@ -24,6 +25,7 @@ npm run preview -- 4322
 ```
 
 - `check`: TypeScript 검사
+- `check:lanyard`: 실제 배지 소스에서 끈·클립 지오메트리를 추출해 정지·회전·접점 회귀 검사
 - `build`: 정적 HTML·CSS·JS를 `out/`에 생성
 - `audit:content`: 빌드된 페이지의 내부 링크·메타데이터·콘텐츠와 소스의 글꼴 문자 범위 검사
 - `audit:design-system`: 공통 토큰 재정의와 문서화되지 않은 CSS 원시 색상 검사

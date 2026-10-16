@@ -1515,6 +1515,8 @@ const Lanyard = ({
       Array.from({ length: SAMPLES }, () => new THREE.Vector3()));
     const sides = Array.from({ length: 2 }, () =>
       Array.from({ length: SAMPLES }, () => new THREE.Vector3()));
+    const tangents = Array.from({ length: 2 }, () =>
+      Array.from({ length: SAMPLES }, () => new THREE.Vector3()));
     const cordRows = Array.from({ length: 2 }, () =>
       Array.from({ length: SAMPLES }, () =>
         BAND_COLUMNS.map(() => new THREE.Vector3())));
@@ -1561,7 +1563,7 @@ const Lanyard = ({
         const sign = cord === 0 ? -1 : 1;
         const attachment = attachments[cord].set(sign * attachmentX, layout.hangY, 0)
           .applyQuaternion(sim.body.quaternion).add(sim.body.position);
-        approaches[cord].copy(attachment).addScaledVector(cardUp, 0.35);
+        approaches[cord].copy(attachment).addScaledVector(cardUp, 0.26);
         const controls = controlPoints[cord];
         controls.length = 0;
         for (let nodeIndex = 0; nodeIndex <= guide; nodeIndex++) {
@@ -1575,53 +1577,68 @@ const Lanyard = ({
         const compression = clamp((0.18 - guideHeight) / 0.38, 0, 1);
         const fold = guide > 0 ? compression * compression * (3 - 2 * compression) : 0;
         cordNodes[cord][guide].addScaledVector(cardRight, sign * 0.18 * fold);
-        approaches[cord].addScaledVector(cardUp, 0.04 * fold)
-          .addScaledVector(cardRight, sign * 0.12 * fold);
-        terminalBends[cord].copy(attachment).addScaledVector(cardUp, 0.29);
+        approaches[cord].addScaledVector(cardRight, sign * 0.12 * fold);
+        terminalBends[cord].copy(attachment).addScaledVector(cardUp, 0.23);
         terminalLeads[cord].copy(attachment).addScaledVector(cardUp,
-          EYELET_RADIUS + CLAMP_BODY + 0.05);
+          EYELET_RADIUS + CLAMP_BODY + 0.019);
         tucks[cord].copy(attachment).addScaledVector(cardUp,
           EYELET_RADIUS + CLAMP_BODY * 0.35);
         controls.push(approaches[cord], terminalBends[cord], terminalLeads[cord], tucks[cord]);
         const curve = curves[cord];
         curve.updateArcLengths();
         for (let i = 0; i < SAMPLES; i++) curve.getPointAt(i / (SAMPLES - 1), points[cord][i]);
-        const length = curve.getLength();
         const restLength = sim.rest * JOINTS;
         const repeats = restLength / (strapScale * tileRatio);
-        const width = strapScale / Math.pow(Math.max(1, length / Math.max(restLength, 0.001)), 0.35);
+        const width = strapScale;
         const geometry = bandGeometries[cord];
         const normal = geometry.getAttribute('normal');
         const uv = geometry.getAttribute('uv');
         const cordSides = sides[cord];
+        const cordTangents = tangents[cord];
         for (let i = 0; i < SAMPLES; i++) {
           const samples = points[cord];
           tangent.subVectors(samples[Math.min(SAMPLES - 1, i + 1)], samples[Math.max(0, i - 1)]);
           if (tangent.lengthSq() < 1e-12) tangent.copy(cardUp).negate();
           tangent.normalize();
-          toCamera.subVectors(camera.position, samples[i]).normalize();
-          sideCandidate.crossVectors(toCamera, tangent);
+          if (i === 0) {
+            sideCandidate.copy(worldRight);
+          } else {
+            sideCandidate.copy(cordSides[i - 1]);
+          }
+          sideCandidate.addScaledVector(tangent, -sideCandidate.dot(tangent));
           if (sideCandidate.lengthSq() < 1e-10) {
-            sideCandidate.copy(i > 0 ? cordSides[i - 1] : cardRight);
+            sideCandidate.copy(cardRight).addScaledVector(tangent, -cardRight.dot(tangent));
           }
-          sideCandidate.normalize();
-          const previousSide = i > 0 ? cordSides[i - 1] : cordSides[0];
-          if (previousSide.lengthSq() > 0.5 && sideCandidate.dot(previousSide) < 0) sideCandidate.negate();
-          across.copy(cordSides[i].copy(sideCandidate));
-          facing.crossVectors(tangent, across).normalize();
+          if (sideCandidate.lengthSq() < 1e-10) {
+            toCamera.subVectors(camera.position, samples[i]).normalize();
+            sideCandidate.crossVectors(toCamera, tangent);
+          }
+          if (sideCandidate.lengthSq() < 1e-10) {
+            sideCandidate.set(0, Math.abs(tangent.y) < 0.9 ? 1 : 0, Math.abs(tangent.y) < 0.9 ? 0 : 1);
+            sideCandidate.addScaledVector(tangent, -sideCandidate.dot(tangent));
+          }
+          if (i > 0 && sideCandidate.dot(cordSides[i - 1]) < 0) sideCandidate.negate();
+          cordTangents[i].copy(tangent);
+          cordSides[i].copy(sideCandidate.normalize());
+        }
+        const last = SAMPLES - 1;
+        tangent.copy(cordTangents[last]);
+        radial.copy(cardRight).addScaledVector(tangent, -cardRight.dot(tangent));
+        if (radial.lengthSq() < 1e-10) radial.copy(cordSides[last]);
+        radial.normalize();
+        const endAngle = Math.atan2(
+          tangent.dot(sideCandidate.crossVectors(cordSides[last], radial)),
+          cordSides[last].dot(radial)
+        );
+        // The metal connector can swivel; the two width directions describe the same flat ribbon.
+        const turn = endAngle - Math.round(endAngle / Math.PI) * Math.PI;
+        for (let i = 0; i < SAMPLES; i++) {
+          const samples = points[cord];
+          tangent.copy(cordTangents[i]);
+          across.copy(cordSides[i]);
           const progress = i / (SAMPLES - 1);
-          const twist = -sim.twist * Math.pow(progress, 1.3);
-          across.multiplyScalar(Math.cos(twist)).addScaledVector(facing, Math.sin(twist)).normalize();
-          radial.copy(cardRight).addScaledVector(tangent, -cardRight.dot(tangent));
-          if (radial.lengthSq() > 1e-8) {
-            radial.normalize();
-            const correction = Math.atan2(
-              tangent.dot(sideCandidate.crossVectors(across, radial)),
-              across.dot(radial)
-            );
-            const align = clamp((progress - 0.78) / 0.22, 0, 1);
-            across.applyAxisAngle(tangent, correction * align * align * (3 - 2 * align));
-          }
+          const wind = clamp((progress - 0.04) / 0.86, 0, 1);
+          across.applyAxisAngle(tangent, turn * wind * wind * (3 - 2 * wind));
           facing.crossVectors(tangent, across).normalize();
           const v = (1 - progress) * repeats;
           for (let c = 0; c < columns; c++) {
