@@ -6,12 +6,16 @@ Next.js App Router로 만든 한국어·영어 정적 포트폴리오.
 
 ## 실행
 
-Node.js 22 이상. 저장소 루트에서 실행한다.
+Node.js 24 LTS의 24.22.1 이상을 사용한다. `.nvmrc`는 검증한 버전인 24.22.1을 지정하며, `package.json`의 `engines.node`는 24.x의 후속 패치를 허용한다. 저장소 루트에서 실행한다.
 
 ```sh
+nvm install
+nvm use
 npm ci
 NEXT_TELEMETRY_DISABLED=1 npm run dev -- --port 4321
 ```
+
+nvm을 사용하지 않으면 Node.js 24.22.1 이상의 24.x를 직접 설치한다. 기준 버전은 [2026-10-21 Node.js 보안 업데이트](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)의 TLS·DNS·Brotli 수정이 포함된 릴리스다. 이 프로젝트는 정적 출력이므로 Node.js는 로컬 개발과 빌드에 사용한다. Vercel은 24.x 안의 패치를 자동 관리하므로 배포 환경의 실제 버전은 빌드 로그로 확인한다.
 
 개발 서버: `http://127.0.0.1:4321`
 
