@@ -20,20 +20,25 @@ nvm을 사용하지 않으면 Node.js 24.22.1 이상의 24.x를 직접 설치한
 개발 서버: `http://127.0.0.1:4321`
 
 ```sh
-npm run check
-npm run check:lanyard
-NEXT_TELEMETRY_DISABLED=1 npm run build
-npm run audit:content
-npm run audit:design-system
+NEXT_TELEMETRY_DISABLED=1 npm run verify
 npm run preview -- 4322
 ```
 
-- `check`: TypeScript 검사
+- `verify`: 타입·배지 회귀·정적 빌드·콘텐츠·디자인 시스템 검사를 순서대로 실행. GitHub CI와 Vercel 배포에서 공통 사용
+- `check`: Next.js 라우트 타입을 생성한 뒤 TypeScript 검사
 - `check:lanyard`: 실제 배지 소스에서 끈·클립 지오메트리를 추출해 정지·회전·접점 회귀 검사
 - `build`: 정적 HTML·CSS·JS를 `out/`에 생성
 - `audit:content`: 빌드된 페이지의 내부 링크·메타데이터·콘텐츠와 소스의 글꼴 문자 범위 검사
 - `audit:design-system`: 공통 토큰 재정의와 문서화되지 않은 CSS 원시 색상 검사
 - `preview`: `out/`을 `http://127.0.0.1:4322`에서 제공. Ctrl+C로 종료
+
+## 보안 업데이트와 자동 검사
+
+Next.js 16.4.2와 React·React DOM 19.3.1을 사용한다. [2026-10-14 Next.js 보안 업데이트](https://nextjs.org/blog/nextjs-security-update-october-14-2026)가 포함된 버전이며, 의존성 설치는 잠금 파일을 사용하는 `npm ci`를 기준으로 한다.
+
+GitHub Actions의 `CI`는 main 푸시·main 대상 PR·수동 실행·주간 일정에서 `verify`와 `security-audit`를 실행한다. 보안 감사는 고위험 이상 취약점이나 레지스트리 오류가 있으면 실패한다. 감사 실패가 코드 검증을 생략하지 않도록 두 작업을 분리했다. Dependabot은 npm·GitHub Actions 의존성을 매주 확인하고 minor·patch 업데이트를 묶어 PR을 만든다. 보안 수정 PR은 자동으로 병합하지 않는다.
+
+Vercel 빌드 명령은 `npm run verify`다. 타입·배지·콘텐츠 검사 중 하나라도 실패하면 새 배포가 진행되지 않는다. GitHub의 보안 감사 작업은 별도로 실행되며, 이 저장소에 PR 강제·필수 상태 검사나 Vercel Deployment Checks를 추가 설정한 것은 아니다.
 
 ## 구현 구조
 
