@@ -38,6 +38,8 @@ Next.js 16.4.2와 React·React DOM 19.3.1을 사용한다. [2026-10-14 Next.js �
 
 GitHub Actions의 `CI`는 main 푸시·main 대상 PR·수동 실행·주간 일정에서 `verify`와 `security-audit`를 실행한다. 보안 감사는 고위험 이상 취약점이나 레지스트리 오류가 있으면 실패한다. 감사 실패가 코드 검증을 생략하지 않도록 두 작업을 분리했다. Dependabot은 npm·GitHub Actions 의존성을 매주 확인하고 minor·patch 업데이트를 묶어 PR을 만든다. 보안 수정 PR은 자동으로 병합하지 않는다.
 
+TypeScript는 배지 회귀 검사의 `transpileModule` 등 JavaScript 컴파일러 API가 필요해 검증한 5.9 계열을 유지한다. [TypeScript 7.0](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/)은 해당 API를 제공하지 않으므로 검증 도구의 이전을 먼저 확인해야 한다. `@types/node`는 실제 실행 환경과 같은 24 계열을 사용한다. 두 패키지의 일반 버전 업데이트에서는 major 전환을 제외하고, 같은 major의 minor·patch 업데이트와 취약점 검사는 계속 수행한다. 보안 수정 PR은 이 제외 규칙의 대상이 아니며, major 전환이 필요하면 컴파일러 API·실행 환경의 호환성을 함께 검토한다.
+
 Vercel 빌드 명령은 `npm run verify`다. 타입·배지·콘텐츠 검사 중 하나라도 실패하면 새 배포가 진행되지 않는다. GitHub의 보안 감사 작업은 별도로 실행되며, 이 저장소에 PR 강제·필수 상태 검사나 Vercel Deployment Checks를 추가 설정한 것은 아니다.
 
 ## 구현 구조

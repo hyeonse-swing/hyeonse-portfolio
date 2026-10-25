@@ -4,6 +4,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # The badge regression harness needs the JavaScript compiler API.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Keep type definitions aligned with the Node.js 24 runtime.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
     groups:
       npm-minor-and-patch:
         patterns: ['*']
