@@ -4,6 +4,12 @@
   "buildCommand": "npm run verify",
   "outputDirectory": "out",
   "trailingSlash": true,
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "**": false
+    }
+  },
   "headers": [
     { "source": "/(.*)", "headers": [
       {"key": "X-Content-Type-Options", "value": "nosniff"},
