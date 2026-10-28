@@ -28,7 +28,7 @@ npm run preview -- 4322
 - `check`: Next.js 라우트 타입을 생성한 뒤 TypeScript 검사
 - `check:lanyard`: 실제 배지 소스에서 끈·클립 지오메트리를 추출해 정지·회전·접점 회귀 검사
 - `build`: 정적 HTML·CSS·JS를 `out/`에 생성
-- `audit:content`: 빌드된 페이지의 내부 링크·메타데이터·콘텐츠와 소스의 글꼴 문자 범위 검사
+- `audit:content`: 내부 링크·대표 주소·사이트맵·검색 허용 정책·콘텐츠와 소스의 글꼴 문자 범위 검사
 - `audit:design-system`: 공통 토큰 재정의와 문서화되지 않은 CSS 원시 색상 검사
 - `preview`: `out/`을 `http://127.0.0.1:4322`에서 제공. Ctrl+C로 종료
 
@@ -48,6 +48,8 @@ Vercel의 Git 연동 자동 배포는 main 푸시에만 실행하며, 빌드 명
 | --- | --- |
 | 정적 페이지 | `output: 'export'`와 `trailingSlash: true`. Vercel에서 `out/` 호스팅 |
 | 다국어 | 한국어 `/`, 영어 `/en/`. 언어별 라우트가 공통 화면에 `locale`을 전달 |
+| 검색 노출 | 기본 대표 주소 `https://hyeonse.dev`, 한·영 14개 페이지의 `sitemap.xml`과 언어 대체 링크, `robots.txt`. 미리보기는 noindex·nofollow 및 크롤링 차단 |
+| 탐색 | About·Studio·작업 상세의 현재 메뉴 표시. 본문 바로가기로 main 영역에 키보드 초점 이동 |
 | 콘텐츠 | `getPortfolio(locale)`에서 언어별 데이터를 선택하고 같은 컴포넌트로 렌더링 |
 | 화면 설정 | `@hyeonse/design-system`의 토큰·설정 Provider·화면 설정 UI 공유. `<head>`에서 저장값 먼저 적용 |
 | 배지 | `IdentityBadge`가 `Lanyard`를 지연 로드하고, 하나의 Three.js 렌더러가 카드와 상단 양쪽의 금속 연결부에 각각 매달린 두 가닥 넓적한 끈을 표시. 앞면은 이름·직무, 뒷면은 소개·주요 기술. 준비 중·WebGL 실패·JavaScript 비활성화·움직임 감소에서는 DOM 배지를 표시 |

@@ -20,6 +20,8 @@ for (const { name: file, text } of await collectFontSources()) {
   assert.equal(missing.length, 0, `${file}: 글꼴 서브셋 재생성 필요: ${missing.join('')}`);
 }
 let checkedLinks = 0;
+const canonicalPages = new Map();
+const preview = process.env.VERCEL_ENV === 'preview';
 for (const file of htmlFiles) {
   const html = await readFile(join(root, file), 'utf8');
   for (const pattern of forbidden) assert(!pattern.test(html), `${file}: 공개 금지 패턴 ${pattern}`);
@@ -30,6 +32,13 @@ for (const file of htmlFiles) {
     assert.match(html, /rel="canonical"/, `${file}: canonical 누락`);
     assert.match(html, /hrefLang="ko"/, `${file}: 한국어 alternate 누락`);
     assert.match(html, /hrefLang="en"/, `${file}: 영어 alternate 누락`);
+    const canonical = html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]+)"/)?.[1];
+    const pathname = `/${file.replace(/index\.html$/, '')}`;
+    assert.equal(new URL(canonical).pathname, pathname, `${file}: canonical 경로 불일치`);
+    canonicalPages.set(pathname, canonical);
+    const robots = html.match(/<meta\b[^>]*name="robots"[^>]*content="([^"]+)"/)?.[1] || '';
+    assert.equal(robots.includes('noindex'), preview, `${file}: 검색 노출 환경 정책 불일치`);
+    assert.equal(robots.includes('nofollow'), preview, `${file}: 링크 추적 환경 정책 불일치`);
   }
   for (const [, url] of html.matchAll(/href="([^"]+)"/g)) {
     if (!url.startsWith('/') && !url.startsWith('#')) continue;
@@ -42,6 +51,35 @@ for (const file of htmlFiles) {
     checkedLinks++;
   }
 }
+const expectedSite = new URL(process.env.NEXT_PUBLIC_SITE_URL || (preview && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://hyeonse.dev'));
+for (const canonical of canonicalPages.values()) {
+  const url = new URL(canonical);
+  assert.equal(url.origin, expectedSite.origin, '대표 도메인 불일치');
+  assert.equal(url.search + url.hash, '', 'canonical에 검색 조건이나 앵커가 포함되면 안 됩니다.');
+}
+const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
+const sitemapEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(([, body]) => ({
+  body,
+  url: body.match(/<loc>([^<]+)<\/loc>/)?.[1],
+}));
+assert.equal(sitemapEntries.length, canonicalPages.size, '사이트맵 페이지 수 불일치');
+assert.deepEqual(sitemapEntries.map(entry => entry.url).sort(), [...canonicalPages.values()].sort(), '사이트맵은 공개 페이지의 canonical과 일치해야 합니다.');
+for (const { body, url } of sitemapEntries) {
+  const pathname = new URL(url).pathname;
+  const koPath = pathname.startsWith('/en/') ? pathname.slice(3) : pathname;
+  const expected = { ko: canonicalPages.get(koPath), en: canonicalPages.get(`/en${koPath}`), 'x-default': canonicalPages.get(koPath) };
+  const alternates = Object.fromEntries([...body.matchAll(/<xhtml:link\b[^>]*hreflang="([^"]+)"[^>]*href="([^"]+)"[^>]*\/>/g)].map(([, locale, href]) => [locale, href]));
+  assert.deepEqual(alternates, expected, `${pathname}: 사이트맵 언어 대체 링크 불일치`);
+}
+const robots = await readFile(join(root, 'robots.txt'), 'utf8');
+assert.match(robots, /User-Agent: \*/, '기본 크롤러 규칙 누락');
+if (preview) {
+  assert.match(robots, /^Disallow: \/$/m, '미리보기 검색 차단 누락');
+  assert(!robots.includes('Sitemap:'), '미리보기에서는 사이트맵을 광고하지 않습니다.');
+} else {
+  assert.match(robots, /^Allow: \/$/m, '공개 페이지 검색 허용 누락');
+  assert(robots.includes(`Sitemap: ${new URL('/sitemap.xml', expectedSite).href}`), '사이트맵 안내 주소 불일치');
+}
 const data = JSON.parse(await readFile('src/data/content.json', 'utf8'));
 const english = JSON.parse(await readFile('src/data/en/content.json', 'utf8'));
 assert.deepEqual(english.featuredCases.map(item => item.id), data.featuredCases.map(item => item.id), '언어별 대표 사례 일치');
@@ -53,4 +91,4 @@ const performanceCase = data.featuredCases.find(item => item.id === 'swing-home-
 assert.match(performanceCase.verification, /로컬.*3회.*5회.*중앙값/);
 assert.match(performanceCase.boundary, /실사용자/);
 assert.equal(data.otherWork.find(item => item.id === 'opensource').period, '2025.06');
-console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, privateDataScan: 'passed' }, null, 2));
+console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, privateDataScan: 'passed' }, null, 2));

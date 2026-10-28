@@ -2,11 +2,9 @@ import type { Metadata } from 'next';
 import { localizedPath, type Locale } from './locale';
 import { getPortfolio } from '../data/localized';
 
-// Keep preview metadata on its own host unless NEXT_PUBLIC_SITE_URL overrides it.
-const deploymentHost = (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL)
-  || process.env.VERCEL_PROJECT_PRODUCTION_URL
-  || process.env.VERCEL_URL;
-export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || (deploymentHost ? `https://${deploymentHost}` : 'http://127.0.0.1:4322'));
+// Preview metadata uses its deployment host unless a public site URL is explicit.
+const previewHost = process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL;
+export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || (previewHost ? `https://${previewHost}` : 'https://hyeonse.dev'));
 
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
   return {
@@ -25,5 +23,6 @@ export function rootMetadata(locale: Locale): Metadata {
     title: { default: locale === 'ko' ? '임현세 — Frontend Engineer' : 'Hyeonse Im — Frontend Engineer', template: locale === 'ko' ? '%s | 임현세' : '%s | Hyeonse Im' },
     description: profile.identity.headline,
     icons: { icon: '/favicon.svg' },
+    ...(process.env.VERCEL_ENV === 'preview' ? { robots: { index: false, follow: false } } : {}),
   };
 }
