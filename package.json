@@ -11,8 +11,9 @@
     "build": "next build",
     "preview": "node scripts/preview.mjs",
     "check": "next typegen && tsc --noEmit",
+    "check:search": "node scripts/check-search.mjs",
     "check:lanyard": "node scripts/check-lanyard.mjs",
-    "verify": "npm run check && npm run check:lanyard && npm run build && npm run audit:content && npm run audit:design-system",
+    "verify": "npm run check && npm run check:search && npm run check:lanyard && npm run build && npm run audit:content && npm run audit:design-system",
     "audit:content": "node scripts/audit-content.mjs",
     "audit:design-system": "hds-audit ."
   },

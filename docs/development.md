@@ -62,6 +62,12 @@ npm run audit:content
 
 현재 검사는 `src/`의 TS·TSX·JSON과 공통 디자인 시스템의 React·설정 모듈을 읽으므로 외부 패키지의 한국어 UI와 주석에 추가한 문자도 검사 대상이다. 생성과 검사는 `scripts/font-sources.mjs`에서 같은 문자 소스를 사용한다. 원본 TTF 캐시는 Git·배포 대상에서 제외하며, 일반 빌드는 저장된 서브셋을 사용한다.
 
+## 사이트 검색 자료
+
+`site-search-index.ts`는 공개 화면에서 사용한 필드만 선택해 한·영 검색 자료를 만든다. `search-index/ko.json`과 `search-index/en.json`은 `force-static` GET 라우트로 출력한다. 전체 profile 객체나 비공개 근거 자료를 색인에 넣지 않는다.
+
+클라이언트에는 순위·정규화·자료 검증을 담당하는 `site-search-engine.ts`만 연결한다. 전체 콘텐츠는 검색창을 처음 열 때 가져오고, 같은 언어의 성공한 응답은 다시 사용한다. `check:search`는 검색 동작을, `audit:content`는 출력된 자료의 언어·개인정보 패턴·실제 내부 경로와 앵커를 검사한다.
+
 ## 배포와 메타데이터 URL
 
 [vercel.json](../vercel.json)은 Other 프리셋(`framework: null`)으로 `out/`을 호스팅한다. 정적 출력 폴더에 Next.js 서버용 manifest를 요구하지 않도록 정적 호스팅 설정을 사용한다.

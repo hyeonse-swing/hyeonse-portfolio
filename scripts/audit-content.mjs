@@ -80,6 +80,37 @@ if (preview) {
   assert.match(robots, /^Allow: \/$/m, '공개 페이지 검색 허용 누락');
   assert(robots.includes(`Sitemap: ${new URL('/sitemap.xml', expectedSite).href}`), '사이트맵 안내 주소 불일치');
 }
+const searchCounts = {};
+let searchLinks = 0;
+let searchIds;
+for (const locale of ['ko', 'en']) {
+  const text = await readFile(join(root, `search-index/${locale}.json`), 'utf8');
+  for (const pattern of forbidden) assert(!pattern.test(text), `${locale}: 검색 자료에 공개 금지 패턴 ${pattern}`);
+  const index = JSON.parse(text);
+  assert.equal(index.locale, locale, '검색 자료 언어 불일치');
+  assert(Array.isArray(index.documents) && index.documents.length > 0, '검색 자료 누락');
+  const ids = index.documents.map(document => document.id);
+  assert.equal(new Set(ids).size, ids.length, '검색 식별자 중복');
+  if (searchIds) assert.deepEqual(ids, searchIds, '언어별 검색 항목 불일치');
+  searchIds = ids;
+  assert(index.documents.some(document => document.featured), '검색 바로 가기 누락');
+  for (const document of index.documents) {
+    assert(typeof document.id === 'string' && document.id && typeof document.title === 'string' && document.title, '검색 항목 식별자·제목 누락');
+    assert(typeof document.summary === 'string' && typeof document.content === 'string', '검색 본문 형식 불일치');
+    assert(['page', 'project', 'experience', 'skill', 'tool'].includes(document.category), '검색 분류 불일치');
+    assert(typeof document.featured === 'boolean' && Array.isArray(document.keywords) && document.keywords.every(value => typeof value === 'string'), '검색 키워드·바로 가기 형식 불일치');
+    assert(typeof document.href === 'string' && document.href.startsWith('/') && !document.href.startsWith('//') && !document.href.includes('\\'), '검색 결과는 안전한 내부 경로여야 합니다.');
+    const url = new URL(document.href, 'https://search.invalid');
+    assert.equal(url.origin, 'https://search.invalid');
+    assert.equal(url.search, '', '검색 결과 경로에 검색어를 기록하지 않습니다.');
+    assert.equal(url.pathname.startsWith('/en/'), locale === 'en', '검색 결과 언어 경로 불일치');
+    const target = `${url.pathname.slice(1)}${url.pathname.endsWith('/') ? 'index.html' : ''}`;
+    const html = await readFile(join(root, target), 'utf8');
+    if (url.hash) assert(html.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${document.id}: 없는 검색 결과 앵커 ${document.href}`);
+    searchLinks++;
+  }
+  searchCounts[locale] = index.documents.length;
+}
 const data = JSON.parse(await readFile('src/data/content.json', 'utf8'));
 const english = JSON.parse(await readFile('src/data/en/content.json', 'utf8'));
 assert.deepEqual(english.featuredCases.map(item => item.id), data.featuredCases.map(item => item.id), '언어별 대표 사례 일치');
@@ -91,4 +122,4 @@ const performanceCase = data.featuredCases.find(item => item.id === 'swing-home-
 assert.match(performanceCase.verification, /로컬.*3회.*5회.*중앙값/);
 assert.match(performanceCase.boundary, /실사용자/);
 assert.equal(data.otherWork.find(item => item.id === 'opensource').period, '2025.06');
-console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, privateDataScan: 'passed' }, null, 2));
+console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', searchDocuments: searchCounts, searchLinks, casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, privateDataScan: 'passed' }, null, 2));
