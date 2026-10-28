@@ -16,7 +16,7 @@
 
 ## 첫 화면의 테마 적용
 
-[공통 preferences 모듈](https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/src/preferences.ts)는 설정값의 허용 목록과 기본값을 정의한다. localStorage의 값은 파싱한 뒤 허용 목록과 대조하고, 잘못된 값은 기본값으로 대체한다.
+[공통 preferences 모듈](https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/src/preferences.ts)는 설정값의 허용 목록과 기본값을 정의한다. localStorage의 값은 파싱한 뒤 허용 목록과 대조하고, 잘못된 값은 기본값으로 대체한다. 포트폴리오는 `site-preferences.ts`의 `corners: soft`를 초기 스크립트와 Provider 양쪽에 전달한다. 첫 HTML에도 `data-corners="soft"`를 넣어 JavaScript 없이도 같은 기본 모서리를 표시한다. 저장된 유효한 모서리 선택은 유지하며 기본값 복원은 soft로 돌아간다.
 
 저장된 테마를 React 초기화 이후에만 적용하면 첫 화면과 초기화 후의 색이 달라질 수 있다. 그래서 `SiteDocument`가 `<head>`에 고정된 `preferenceScript`를 넣고, 먼저 `<html>`의 `data-*` 속성을 설정한다. 저장된 문자열을 HTML에 삽입하지 않고 허용된 값만 속성에 반영한다.
 

@@ -5,7 +5,7 @@ import '../styles/global.css';
 import '@hyeonse/design-system/tokens.css';
 import '@hyeonse/design-system/components.css';
 import { PreferencesProvider, ThemeToggle } from './SitePreferences';
-import { preferenceScript } from '@hyeonse/design-system/preferences';
+import { preferenceDefaults, preferenceScript } from '../lib/site-preferences';
 import { localizedPath, type Locale } from '../lib/locale';
 import LanguageSwitcher from './LanguageSwitcher';
 import SiteNavigation from './SiteNavigation';
@@ -15,7 +15,7 @@ import SearchTargetReveal from './SearchTargetReveal';
 export default function SiteDocument({ children, locale }: { children: ReactNode; locale: Locale }) {
   const { profile, siteCopy } = getPortfolio(locale);
   const en = locale === 'en';
-  return <html lang={locale} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/noto-kr-subset.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><PreferencesProvider>
+  return <html lang={locale} data-corners={preferenceDefaults.corners} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/noto-kr-subset.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><PreferencesProvider>
     <SearchTargetReveal />
     <a className="skip-link" href="#main" tabIndex={0}>{en ? 'Skip to content' : '본문으로 건너뛰기'}</a>
     <header className="site-header">
