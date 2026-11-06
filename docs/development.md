@@ -62,11 +62,28 @@ npm run audit:content
 
 현재 검사는 `src/`의 TS·TSX·JSON과 공통 디자인 시스템의 React·설정 모듈을 읽으므로 외부 패키지의 한국어 UI와 주석에 추가한 문자도 검사 대상이다. 생성과 검사는 `scripts/font-sources.mjs`에서 같은 문자 소스를 사용한다. 원본 TTF 캐시는 Git·배포 대상에서 제외하며, 일반 빌드는 저장된 서브셋을 사용한다.
 
+## 포트폴리오 인터랙션
+
+- `WorkExplorer`: 서버가 만든 대표 작업 카드에 필터만 적용한다. `work=operations|performance|migration` 쿼리와 뒤로 가기를 동기화하고, 기존 쿼리·언어 전환도 유지한다.
+- `CaseNavigator`: 사례 본문의 실제 스크롤 위치를 rAF로 읽어 현재 섹션과 진행률을 표시한다. 모바일은 현재 항목을 가로 목차 안에 유지하며, 키보드 초점이 있는 동안에는 목차를 강제로 이동하지 않는다.
+- `EngineeringFlow`: 기존 사례 데이터의 단계를 선택해 읽는다. 전체 단계는 native details로 제공한다.
+- `FrontendLab`: CSS 컨테이너 쿼리로 카드 너비별 배치를 바꾸고, 로컬 타이머로 응답 순서와 최신 요청 ID 검증을 비교한다. A/B 지연은 200–1600ms로 조절하며 B는 항상 120ms 뒤 시작한다. 두 응답이 모두 끝나야 완료 상태가 되고 실행 중에는 지연 설정을 잠근다. 외부 서비스 요청이나 실제 성능 측정이 아니다. 타이머는 초기화·언마운트 때 정리한다.
+- `ToolchainExplorer`: 소개 페이지에서 Browser Error Log → Error to Test → Flow QA의 입력·출력·검토 과정을 선택해 읽는다. 데이터는 가상 예시이며 실제 도구를 실행하지 않는다. 세 단계 전체는 native details로 읽을 수 있다.
+- `PerformanceEvidence`: 기존 성능 사례의 홈페이지 전후 측정과 별도 폰트 실험을 구분한다. 지표별 막대와 정확한 값을 함께 표시하며 전체 표는 실험별 tbody와 측정 조건을 가진다. 수치는 `performance-evidence.ts`에 두며 기존 사례 근거와 일치해야 한다.
+- `ArchiveExplorer`: 기존 native details를 감싸 전체 펼침·접기와 열린 개수를 제공한다. 직접 조작과 검색 앵커로 열린 경우도 capture 단계의 toggle 이벤트로 동기화한다.
+- `WorkContextLink`: 홈 필터의 허용된 `work` 값만 사례·다음 사례·목록 복귀 링크에 전달한다. 임의의 쿼리를 복사하지 않는다. 서버 HTML/no-JS에서는 전체 목록 링크를 제공한다.
+
+동적 조작은 수화 후 활성화한다. no-JS에서도 본문과 전체 단계는 읽을 수 있다. 신규 실험·개인 프로젝트의 문제/설계/검증 필드도 검색 색인에 포함한다. 문구 변경 뒤 글꼴 서브셋을 갱신하고 `npm run verify`와 관련 화면/동작을 확인한다.
+
 ## 사이트 검색 자료
 
 `site-search-index.ts`는 공개 화면에서 사용한 필드만 선택해 한·영 검색 자료를 만든다. `search-index/ko.json`과 `search-index/en.json`은 `force-static` GET 라우트로 출력한다. 전체 profile 객체나 비공개 근거 자료를 색인에 넣지 않는다.
 
 클라이언트에는 순위·정규화·자료 검증을 담당하는 `site-search-engine.ts`만 연결한다. 전체 콘텐츠는 검색창을 처음 열 때 가져오고, 같은 언어의 성공한 응답은 다시 사용한다. `check:search`는 검색 동작을, `audit:content`는 출력된 자료의 언어·개인정보 패턴·실제 내부 경로와 앵커를 검사한다.
+
+검색 버튼은 수화 전 비활성화한다. `SearchTargetReveal`은 검색 및 직접 앵커 이동 시 열린 아카이브의 summary 또는 대상의 제목으로 초점을 옮긴다. 임시 tabindex는 초점이 떠나면 제거하고, 일반 앵커의 스크롤은 브라우저 기본 동작에 맡긴다.
+
+`audit:content`의 공개 정보 검사는 HTML·검색 JSON뿐 아니라 RSC 텍스트, JavaScript, CSS, SVG 등 모든 공개 텍스트 산출물을 검사한다. 환경 파일·개인 키 파일은 출력 자체를 거부한다. 패턴 검사는 알려진 문자열 유형을 찾는 검사이며, 별도의 의존성 취약점 감사와 실제 배포 확인을 대체하지 않는다.
 
 ## 배포와 메타데이터 URL
 

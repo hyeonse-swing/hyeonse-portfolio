@@ -1,0 +1,22 @@
+.root { min-width: 0; padding: 18px 0 24px; border-top: 1px solid var(--ink); }
+.heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.percent { color: var(--accent-text); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.track { height: 3px; margin-top: 14px; background: var(--line); overflow: hidden; }
+.track::before { display: block; content: ''; width: var(--reading-progress); height: 100%; background: var(--accent-solid); transition: width 120ms linear; }
+.current { min-height: 18px; margin-top: 14px; color: var(--ink); font-size: 12px; font-weight: 650; line-height: 1.5; }
+:global(.case-index) .nav { display: flex; flex-direction: column; gap: 5px; margin-top: 18px; font-size: 12px; }
+.nav a { display: flex; align-items: baseline; min-height: 40px; gap: 12px; padding: 10px 12px; border-left: 2px solid transparent; border-radius: 0 var(--radius-control) var(--radius-control) 0; color: var(--muted); line-height: 1.5; }
+.nav a:hover { color: var(--accent-text); background: var(--surface); }
+.nav a[aria-current] { border-left-color: var(--accent-solid); color: var(--accent-text); background: var(--surface); font-weight: 650; }
+.nav a span { flex: none; color: var(--accent-text); font-size: 10px; font-weight: 700; }
+@media (max-width: 700px) {
+  .root.root { position: sticky; top: 0; z-index: 8; margin-bottom: 38px; padding: 10px 0 5px; background: var(--paper); border-top: 0; border-bottom: 1px solid var(--line); }
+  .root + :global(.case-prose) > section { scroll-margin-top: 82px; }
+  .heading, .current { display: none; }
+  .track { margin: 0 0 5px; }
+  :global(.case-index) .nav { display: flex; flex-direction: row; gap: 4px; overflow-x: auto; overscroll-behavior-x: contain; margin-top: 0; padding: 3px 0 8px; scrollbar-width: thin; font-size: 11px; }
+  .nav a { flex: none; min-height: 42px; max-width: 180px; padding: 10px; border-left: 0; border-bottom: 2px solid transparent; border-radius: var(--radius-control) var(--radius-control) 0 0; white-space: nowrap; }
+  .nav a[aria-current] { border-left-color: transparent; border-bottom-color: var(--accent-solid); }
+}
+@media (prefers-reduced-motion: reduce) { .track::before { transition: none; } }
+:global(:root[data-motion='reduced']) .track::before { transition: none; }

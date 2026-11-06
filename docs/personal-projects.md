@@ -1,45 +1,37 @@
 # 개인 프로젝트 소개 근거
 
-최초 확인일: 2026-10-08. Error to Test 추가 확인일: 2026-10-13. 공개 GitHub 소스·문서와 npm 메타데이터를 확인해 홈과 소개 페이지의 한국어·영어 문구를 작성했다. 기존 세 프로젝트의 아래 확인 기록은 최초 확인 시점 기준이다. 실제 사용자 수, 시간 절감, 운영 도입률은 확인하지 않았으므로 성과 수치로 사용하지 않는다.
+2026-11-07에 각 공개 저장소의 `main`, README·관련 구현·검증 문서, npm 메타데이터와 GitHub 릴리스를 확인했다. 화면의 문구는 [personal-projects.ts](../src/data/personal-projects.ts)의 한·영 데이터로 관리한다. 공개 릴리스 기능과 기록된 로컬 검증을 설명하며, 실제 사용자 수·시간 절감·운영 도입률은 주장하지 않는다. 버전은 이 근거 문서에만 기록하고 사이트 문구에는 고정하지 않는다.
+
+| 프로젝트 | 확인한 공개 소스 | npm / 릴리스 상태 |
+| --- | --- | --- |
+| Hyeonse Design System | [`d04bda5`](https://github.com/hyeonse-swing/hyeonse-design-system/tree/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6) | GitHub에서 설치하는 패키지. npm 레지스트리 게시 제품으로 소개하지 않음 |
+| Flow QA | [`45aa9dc`](https://github.com/hyeonse-swing/flow-qa/tree/45aa9dce110f9a2b1397b11b14fc2e3a47810d12) | [`@ihyeon/flow-qa` 0.8.1](https://www.npmjs.com/package/@ihyeon/flow-qa/v/0.8.1), [v0.8.1 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.8.1) |
+| Browser Error Log | [`413c8d1`](https://github.com/hyeonse-swing/browser-error-log/tree/413c8d1e42532a84a314e6b1003b52f9eb64a091) | [`@ihyeon/browser-error-log` 0.2.1](https://www.npmjs.com/package/@ihyeon/browser-error-log), [`@ihyeon/browser-error-log-react` 0.2.1](https://www.npmjs.com/package/@ihyeon/browser-error-log-react), [`@ihyeon/browser-error-log-protocol` 0.2.0](https://www.npmjs.com/package/@ihyeon/browser-error-log-protocol). GitHub 공개 최신 릴리스 목록은 v0.2.0으로 관찰되어 npm 버전과 동일한 태그라고 쓰지 않음 |
+| Error to Test | [`514616f`](https://github.com/hyeonse-swing/error-to-test/tree/514616f3cb7a1c31845b07de6faad26f14b8f935) | [`@ihyeon/error-to-test` 0.2.1](https://www.npmjs.com/package/@ihyeon/error-to-test/v/0.2.1), [v0.2.1 릴리스](https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.2.1) |
+
+이 표는 확인일의 공개 상태다. Browser Error Log의 무스코프 npm 패키지 3개는 `deprecated` 안내를 확인했으므로 화면에는 새 `@ihyeon/*` 주소만 연결했다. Browser Error Log `main`의 자동 릴리스 작업은 조회 시 진행 중이었고, 완료를 단정하지 않는다.
 
 ## Hyeonse Design System
 
-- 확인 커밋: [`38978c6`](https://github.com/hyeonse-swing/hyeonse-design-system/tree/38978c6a86f422fc0e63e919f600bc2dd3451e5c), Git 태그 `v0.1.0`.
-- [README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/38978c6a86f422fc0e63e919f600bc2dd3451e5c/README.md): CSS 토큰, 선호 설정 유틸리티, React 설정 UI, 재사용 스킬, CSS 검사 CLI.
-- [기초 규칙](https://github.com/hyeonse-swing/hyeonse-design-system/blob/38978c6a86f422fc0e63e919f600bc2dd3451e5c/docs/foundations.md): 테마·강조색·밀도·모서리·움직임 설정.
-- 적용 근거: 이 포트폴리오의 [package.json](../package.json)과 Flow QA의 [package.json](https://github.com/hyeonse-swing/flow-qa/blob/f21045c414fbfb1a2334687bd0499d30e1d29d52/package.json), [구현 안내](https://github.com/hyeonse-swing/flow-qa/blob/f21045c414fbfb1a2334687bd0499d30e1d29d52/README.ko.md#구현과-출처).
-- 배포 범위: GitHub에서 설치하는 패키지. npm 게시나 범용 React Button/Input 라이브러리로 표현하지 않는다.
-- [통합 검증 기록](https://github.com/hyeonse-swing/hyeonse-design-system/blob/38978c6a86f422fc0e63e919f600bc2dd3451e5c/docs/verification.md)은 로컬 화면 비교와 설정 동작 검증이다.
+- [README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/README.md), [설정 구현](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts): 역할별 CSS 토큰과 React 설정 UI, 첫 페인트 스크립트·Provider에 같은 사이트 기본값 전달, 저장된 유효한 선택 우선.
+- [CSS 점검 범위](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md): 원시 CSS 색상과 공유 토큰 재정의 검사. TS·JS·3D 재질 전체를 검사한다고 확대하지 않는다.
+- [통합 검증 기록](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md): 포트폴리오 이관 전후 로컬 Chrome 36개 조건과 화면 설정 복원·탭 동기화 등. 실제 기기·운영 배포 확인이 아니다. Flow QA에 적용한 사실은 공개 [Flow QA README](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/README.ko.md)의 구현·출처에도 적혀 있다.
 
 ## Flow QA
 
-- 확인 커밋: [`f21045c`](https://github.com/hyeonse-swing/flow-qa/tree/f21045c414fbfb1a2334687bd0499d30e1d29d52).
-- [README](https://github.com/hyeonse-swing/flow-qa/blob/f21045c414fbfb1a2334687bd0499d30e1d29d52/README.ko.md): 플로우·케이스 스키마, 모델 연결, 허용된 단계의 컴파일, 실행 조율, 리포트와 로컬 CLI/UI.
-- [아키텍처](https://github.com/hyeonse-swing/flow-qa/blob/f21045c414fbfb1a2334687bd0499d30e1d29d52/docs/architecture.md): 검토 가능한 케이스, 원본 해시, 실행별 결과와 증거 연결. 브라우저 엔진은 외부 `tester-army/e2e`를 사용한다.
-- 공개 상태: [`@ihyeon/flow-qa`](https://www.npmjs.com/package/@ihyeon/flow-qa)의 `latest`·`alpha` 태그 모두 `0.1.0-alpha.2`. `npm view`로 직접 확인했다.
-- [GitHub 알파 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.1.0-alpha.2)와 해당 커밋의 [CI 성공](https://github.com/hyeonse-swing/flow-qa/actions/runs/37747008856)을 확인했다.
-- 범위: 로컬 CLI와 루프백 웹 UI를 제공하는 공개 알파. 호스팅 서비스, 팀 공유 서버, 인증된 외부 서비스의 검증 성과로 표현하지 않는다. 로컬 데모 검사와 실제 모델 품질은 별개다.
+- [README](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/README.ko.md), [아키텍처](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/docs/architecture.md): 원본 플로우 해시, 명시적 assertion과 단계 허용 목록, 미확인 질문의 실행 차단. 플로우 계획과 실행을 분리하고 실제 브라우저 실행은 `tester-army/e2e`에 위임한다.
+- [케이스 선택 구현](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/src/case-selection.ts), [UI 안내](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/docs/ui.md): 선택 실행, 실패·오류 케이스 재실행 준비, 저장 기록 검색·두 실행 비교, 상세 보고서의 케이스 검색과 시도·증거 탐색. 누락된 케이스와 실패 결과를 구분한다.
+- [v0.8.1 검증 기록](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/docs/releases.md): 공개 기록상 macOS Node 24.22.1에서 118개 테스트·타입·패키지·로컬 Chromium 검사, 새 설치의 브라우저 케이스 7개 통과. 이번 포트폴리오 편집자가 그 명령을 재실행한 것은 아니다. 실제 iOS/Android 기기와 인증된 외부 서비스 결과를 이 검증으로 설명하지 않는다.
 
 ## Browser Error Log
 
-- 확인 커밋: [`d7d8ace`](https://github.com/hyeonse-swing/browser-error-log/tree/d7d8acebe895e82d7f17c7f6e5b8e810c5495762).
-- [README](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/README.ko.md): 프레임워크 독립 SDK → 공유 이벤트 계약 → Node.js 수집기 또는 자체 백엔드 → React 뷰어.
-- [SDK](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/packages/browser/src/index.ts): 전역 오류, unhandled rejection, fetch/XHR 실패 수집과 큐·배치·재시도 설정.
-- [React 어댑터](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/packages/react/src/index.tsx): Error Boundary와 fallback/reset.
-- [수집기](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/examples/micro-server/src/server.ts)와 [뷰어](https://github.com/hyeonse-swing/browser-error-log/blob/d7d8acebe895e82d7f17c7f6e5b8e810c5495762/apps/viewer/src/Dashboard.tsx): SQLite/JSONL 저장, 필터, 스택·요청 정보, JSON 가져오기·내보내기.
-- `npm view`로 확인한 공개 버전: [`browser-error-log`](https://www.npmjs.com/package/browser-error-log) `0.1.1`, [`browser-error-log-react`](https://www.npmjs.com/package/browser-error-log-react) `0.1.0`, [`browser-error-log-protocol`](https://www.npmjs.com/package/browser-error-log-protocol) `0.1.1`. 저장소 문서의 이전 게시 기록과 달라 npm 현재 응답을 기준으로 삼았다. 화면에는 유지보수를 고려해 버전 번호를 고정하지 않았다.
-- 범위: npm 패키지와 자체 호스팅 수집기·뷰어. 관리형 SaaS, 전송 보장, 완전한 개인정보 마스킹, 알림·소스맵·세션 리플레이를 제공한다고 표현하지 않는다.
+- [README](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/README.ko.md), [브라우저 SDK](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/packages/browser/src/index.ts): 기본 오류 수집, 선택적인 페이지 이동·네트워크 breadcrumb, `beforeBreadcrumb`·`beforeSend` 훅과 URL 정제, 큐·재시도 한도. 자동 맥락은 opt-in이며 사용자 지정 transport가 네트워크 수집을 켜려면 endpoint가 필요하다.
+- [수집기·뷰어 설명](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/README.ko.md#얻을-수-있는-것): Node 마이크로 서버의 SQLite/회전 JSONL 보관과 조회 제한, 뷰어 필터·스택·JSON 스냅샷. 수집량 차트는 사용자 수나 오류율이 아니다.
+- [검증 명령](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/README.ko.md#다른-실행-경로)과 [과거 릴리스 기록](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/docs/ko/releasing.md): 패키지·마이크로 서버·Chromium/WebKit 전송 검사가 기록돼 있다. 이번 확인에서 진행 중이던 최신 자동 릴리스 작업의 성공으로 승격해 쓰지 않는다. 기본 마스킹은 최선형이고 전달 보장·완전한 비식별화·운영 인증 검증은 제공하지 않는다.
 
 ## Error to Test
 
-- 확인 커밋: [`840a870`](https://github.com/hyeonse-swing/error-to-test/tree/840a87021542cdb8117b615a6d2e1d2bfe6da03e), 공개 GitHub 릴리스 `v0.1.1`.
-- 공개 상태: `npm view @ihyeon/error-to-test version dist-tags --json`으로 [`@ihyeon/error-to-test`](https://www.npmjs.com/package/@ihyeon/error-to-test)의 현재 버전·`latest`가 모두 `0.1.1`인 것을 확인했다. 화면에는 버전을 고정하지 않는다.
-- [README](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/README.ko.md): Browser Error Log v1 내보내기, 텍스트·수동 제보를 분석해 오류 그룹, 검토용 회귀 테스트 후보와 Flow QA 테스트 묶음을 만든다. 모델이나 외부 서비스 연결 없이 로컬에서 분석한다.
-- [후보 생성](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/candidates.ts)과 [Flow QA 내보내기](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/exports/flow-qa.ts): 확인된 재현 조건·기대값을 연결하고, 부족한 맥락과 미검토 상태를 질문으로 남겨 실행을 차단한다.
-- [결과물 처리](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/src/artifacts.ts)와 README의 `verify`·`link-run`: 원본·시나리오·결과물 해시와 이벤트 → 그룹 → 케이스의 연결을 기록한다. 실행 리포트의 테스트 묶음 해시와 케이스 ID를 대조하고, 서로 다른 결과를 섞거나 기존 결과를 덮어쓰지 않는다.
-- [릴리스·검증 기록](https://github.com/hyeonse-swing/error-to-test/blob/840a87021542cdb8117b615a6d2e1d2bfe6da03e/docs/releases.md)은 통제된 로컬 Chromium 데모에서 Browser Error Log → Error to Test → Flow QA 연결을 검증한 기록이다. 이 포트폴리오 편집에서 통합 실행을 재수행하지 않았으므로 직접 수행한 검증으로 표현하지 않는다.
-- 범위: CLI·JavaScript API와 테스트 후보 생성. 분석 명령 자체는 브라우저를 실행하지 않으며 Flow QA는 별도 설치·설정·검토가 필요하다. 오류 수정 자동 완료, 운영 서비스 품질, 원인 확정, 실제 기기·WebView 검증 성과로 표현하지 않는다.
-
-## 편집 위치
-
-문구는 [personal-projects.ts](../src/data/personal-projects.ts)에 언어별로 보관한다. [PersonalProjects.tsx](../src/components/PersonalProjects.tsx)는 홈 요약과 소개 상세에 같은 데이터를 사용한다. 전문 경력 사례 4개와 기존 다른 작업 목록은 유지한다.
+- [README](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/README.ko.md): Browser Error Log JSON, 수동 오류 메시지, 텍스트, 엄격하게 파싱하는 JSONL 입력. 여러 파일의 원본 바이트 해시와 순서를 보존하고 중복 ID 충돌·부분 입력을 검사한다.
+- [원본 지문 구현](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/input-source.ts), [비교 구현](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/comparison.ts): 이전/현재에만 있거나 양쪽에 있는 서명을 구분하고 입력 범위·부분 내보내기 경고를 유지한다. 이전에만 남은 서명은 수정 완료를 뜻하지 않는다.
+- [후보·Flow QA 내보내기](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/candidates.ts), [결과 연결](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/results.ts): 사람의 검토가 필요한 질문과 실행 차단 상태, suite 해시·case ID 검사, 오류 묶음별 결과 연결.
+- [로컬 통합 기록](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/docs/releases.md): 2026-10-13 통제된 로컬 Chromium에서 SDK 오류 → 후보 → Flow QA 보고서 연결과 미확인 후보 차단을 확인했다. 최신 v0.2.1 기능 전체나 실제 서비스·기기 검증을 재수행했다고 주장하지 않는다.

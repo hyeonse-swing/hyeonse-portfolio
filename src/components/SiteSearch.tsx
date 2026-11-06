@@ -150,9 +150,9 @@ export default function SiteSearch({ locale }: { locale: Locale }) {
   const resultLinks = () => Array.from(resultsRef.current?.querySelectorAll<HTMLAnchorElement>('a[href]') ?? []);
 
   return <>
-    <button ref={triggerRef} type="button" className={styles.trigger} onClick={open} aria-label={t.open} aria-haspopup="dialog" title={t.open}>
+    <button ref={triggerRef} type="button" className={styles.trigger} disabled={!mounted} onClick={open} aria-label={`${t.open} ⌘ / Ctrl K`} aria-keyshortcuts="Meta+K Control+K" aria-haspopup="dialog" title={t.open}>
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m15.7 15.7 5 5"/></svg>
-      <span className={styles.triggerText}>{t.open}</span><kbd className={styles.shortcut}>⌘ / Ctrl K</kbd>
+      <span className={styles.triggerText}>{t.open}</span><kbd className={styles.shortcut} aria-hidden="true">⌘ / Ctrl K</kbd>
     </button>
     {mounted && createPortal(<dialog ref={dialogRef} className={styles.dialog} aria-labelledby="site-search-title" onClose={() => {
       if (lockedRef.current) {

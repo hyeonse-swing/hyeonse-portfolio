@@ -14,9 +14,11 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
     update();
     window.addEventListener('hashchange', update);
     window.addEventListener('popstate', update);
+    window.addEventListener('portfolio:locationchange', update);
     return () => {
       window.removeEventListener('hashchange', update);
       window.removeEventListener('popstate', update);
+      window.removeEventListener('portfolio:locationchange', update);
     };
   }, [pathname]);
 
@@ -25,7 +27,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
     href={alternatePath(pathname || '/', target) + suffix}
     hrefLang={target}
     lang={target}
-    aria-label={target === 'en' ? 'Switch to English' : '한국어로 전환'}
+    aria-label={target === 'en' ? 'EN — Switch to English' : 'KO — 한국어로 전환'}
     title={target === 'en' ? 'English' : '한국어'}
   >{target.toUpperCase()}</a>;
 }

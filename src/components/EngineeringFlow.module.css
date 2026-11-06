@@ -1,0 +1,43 @@
+.figure { margin: 35px 0 40px; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+.topline { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.kicker { color: var(--accent-text); font-weight: 700; letter-spacing: .07em; }
+.track { position: relative; height: 2px; margin: 31px 7px -2px; background: var(--line); }
+.track span { display: block; width: var(--flow-progress); height: 100%; background: var(--accent-solid); transition: width 220ms ease; }
+.stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.stage { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; min-height: 110px; gap: 12px; padding: 20px 12px 14px; border: 1px solid transparent; border-radius: var(--radius-control); background: transparent; color: var(--ink); cursor: pointer; text-align: left; }
+.stage:hover { background: var(--surface-raised); }
+.stage[aria-pressed='true'] { border-color: var(--accent-solid); background: var(--surface-raised); }
+.stage .index { color: var(--accent-text); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stage strong { overflow-wrap: anywhere; font-size: 13px; font-weight: 650; line-height: 1.5; }
+.marker { position: absolute; right: 11px; top: 18px; color: var(--accent-text); font-size: 15px; line-height: 1; }
+.inspector { display: grid; grid-template-columns: minmax(100px, .75fr) minmax(0, 2fr); gap: 24px; min-height: 145px; margin-top: 22px; padding: 25px; border-radius: var(--radius-control); background: var(--inverse-surface); color: var(--inverse-ink); }
+.inspectorIndex { color: color-mix(in srgb, var(--inverse-ink) 74%, transparent); font-size: 10px; font-weight: 700; letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.inspector h3 { font-size: 21px; line-height: 1.4; letter-spacing: -.04em; font-weight: 600; }
+.inspector p { margin-top: 12px; color: color-mix(in srgb, var(--inverse-ink) 85%, transparent); font-size: 14px; line-height: 1.8; }
+.controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 15px; }
+.controls button { min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--surface-raised); color: var(--ink); cursor: pointer; font-size: 12px; }
+.controls button:hover:not(:disabled) { border-color: var(--accent-text); color: var(--accent-text); }
+.controls button:disabled { opacity: .42; cursor: not-allowed; }
+.controls span { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.allSteps { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.allSteps summary { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 2px; color: var(--accent-text); cursor: pointer; font-size: 12px; font-weight: 650; }
+.allSteps ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; margin: 14px 0 0; padding: 0; list-style: none; }
+.allSteps li { display: flex; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
+.allSteps li>span { flex: none; color: var(--accent-text); font-size: 10px; font-weight: 700; }
+.allSteps strong { font-size: 13px; line-height: 1.5; }
+.allSteps li p { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.figure figcaption { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.8; }
+@media (max-width: 700px) {
+  .figure { margin: 26px 0 25px; padding: 16px; }
+  .topline { font-size: 10px; }
+  .track { display: none; }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+  .stage { min-height: 93px; padding: 12px; }
+  .stage strong { font-size: 12px; }
+  .inspector { grid-template-columns: 1fr; gap: 10px; min-height: 0; padding: 18px; }
+  .inspector h3 { font-size: 18px; }
+  .inspector p { font-size: 12px; }
+  .allSteps ol { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .track span { transition: none; } }
+:global(:root[data-motion='reduced']) .track span { transition: none; }

@@ -10,10 +10,10 @@ interface Props {
 }
 
 const koreanDescriptions: Record<Kind, string> = {
-  bike: '바이크 운영 흐름 설명용 구성. 첫 주문, 계약 발송, 차량 인계, 이후 보험 변경과 납부 조회로 이어지는 업무 단계.',
-  performance: '로컬 Lighthouse 모바일 시뮬레이션의 전 3회, 후 5회 중앙값. Performance 점수 54에서 95, 초기 전송량 19.805MB에서 0.488MB. 실사용자 지표는 아닙니다.',
-  bus: '옐로우버스 운행 흐름 설명용 구성. 배차에서 탑승, 도착까지 이어지는 운영 업무의 개념도.',
-  migration: 'SWAP Admin V1과 V2의 공존 설명용 구성. 새 V2 화면과 API가 도입되는 동안 기존 작업 조회 경로도 연결됩니다.',
+  bike: '바이크 운영 흐름을 설명하는 도식이에요. 첫 주문, 계약 발송, 차량 인계에서 보험 변경과 납부 조회로 이어져요.',
+  performance: '로컬 Lighthouse 모바일 시뮬레이션의 개선 전 3회, 후 5회 중앙값이에요. Performance 점수는 54에서 95로, 초기 전송량은 19.805MB에서 0.488MB로 바뀌었어요. 실사용자 지표는 아니에요.',
+  bus: '옐로우버스의 운행 흐름을 설명하는 도식이에요. 배차에서 탑승, 도착까지 이어지는 운영 업무를 나타내요.',
+  migration: 'SWAP Admin V1과 V2가 함께 쓰이던 구조를 설명하는 도식이에요. 새 V2 화면과 API를 도입하는 동안 기존 작업 조회 경로도 연결했어요.',
 };
 const englishDescriptions: Record<Kind, string> = {
   bike: 'Illustrative bike operations flow: first order, contract delivery, vehicle handover, then insurance changes and payment lookup.',
@@ -37,7 +37,7 @@ function BikeVisual({ locale }: { locale: Locale }) {
   return (
     <div className={styles.bike}>
       <div className={styles.bikeHeader}><span>BIKE / OPERATIONS</span><span>01 — 04</span></div>
-      <div className={styles.bikeTitle}>{en ? 'Workflows' : '업무는'}<br /><strong>{en ? 'connect.' : '이어진다.'}</strong></div>
+      <div className={styles.bikeTitle}>{en ? 'Orders &' : '주문부터'}<br /><strong>{en ? 'contracts' : '계약까지'}</strong></div>
       <div className={styles.bikeTrack}>
         {steps.map(([number, title, english]) => (
           <div className={styles.bikeStep} key={number}>
@@ -63,7 +63,7 @@ function PerformanceVisual({ locale }: { locale: Locale }) {
           <div><s>19.805 MB</s><svg viewBox="0 0 34 12" focusable="false"><path d="M0 6h33m-8-5 8 5-8 5" fill="none" stroke="currentColor" /></svg><strong>0.488 MB</strong></div>
         </div>
       </div>
-      <div className={styles.perfFoot}>{locale === 'ko' ? '로컬 모바일 시뮬레이션 · 개선 전 3회 / 후 5회 중앙값' : 'Local mobile simulations · median of 3 before / 5 after'}<span>{locale === 'ko' ? '실사용자 지표 아님' : 'Not real-user metrics'}</span></div>
+      <div className={styles.perfFoot}>{locale === 'ko' ? '로컬 모바일 시뮬레이션 · 개선 전 3회 / 후 5회 중앙값' : 'Local mobile simulations · median of 3 before / 5 after'}<span>{locale === 'ko' ? '실사용자 지표는 아니에요.' : 'Not real-user metrics'}</span></div>
     </div>
   );
 }
@@ -84,7 +84,7 @@ function BusVisual({ locale }: { locale: Locale }) {
         </svg>
         <div className={styles.busLabel}><span>01 / {en ? 'Dispatch' : '배차'}</span><span>02 / {en ? 'Boarding' : '탑승'}</span><span>03 / {en ? 'Arrival' : '도착'}</span></div>
       </div>
-      <div className={styles.busFoot}><strong>{en ? 'One flow for daily operations.' : '매일의 운행을 하나의 흐름으로.'}</strong><span>{en ? 'Operations flow · illustrative diagram' : '운행 흐름 · 설명용 구성'}</span></div>
+      <div className={styles.busFoot}><strong>{en ? 'From dispatch to arrival' : '배차부터 도착까지의 운행 흐름'}</strong><span>{en ? 'Operations flow · illustrative diagram' : '운행 흐름 · 설명용 구성'}</span></div>
     </div>
   );
 }

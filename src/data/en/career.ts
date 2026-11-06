@@ -111,10 +111,10 @@ export const workAreasEn: { number: string; title: string; description: string; 
 ];
 
 export const workingNotesEn: { title: string; detail: string; example: string; href?: string }[] = [
-  { title: 'I ask about the workflow first', detail: 'I check why a screen is needed and what the user does next, then identify API fields and exceptional states.', example: 'For the Yellow Bus student list, I discussed how the new response contract should handle missing or multiple guardians.', href: '/work/yellow-bus/' },
-  { title: 'I check paths during transitions', detail: 'When adding a new screen, I check whether old data and navigation paths remain and plan how to connect them.', example: 'In SWAP Admin V2, I contributed to screen and API changes while old and new task data coexisted.', href: '/work/swap-admin-v2/' },
-  { title: 'I check screens and results', detail: 'Even after automation passes, I inspect empty states and differences in real responses on screen.', example: 'On Bike screens, I found a response object missing for one user type, then repeated E2E and manual checks after the fix.', href: '/work/bike-operations/' },
-  { title: 'I compare the reasons for a choice', detail: 'I consider rendering and transferred assets together, then measure before and after under the same conditions.', example: 'On the SWING website, I adjusted video, images, fonts, and rendering paths, then compared medians from local Lighthouse mobile simulations.', href: '/work/swing-home-performance/' },
+  { title: 'Workflow first', detail: 'I check why a screen is needed and what the user does next, then identify API fields and exceptional states.', example: 'For the Yellow Bus student list, I discussed how the new response contract should handle missing or multiple guardians.', href: '/work/yellow-bus/' },
+  { title: 'Migration paths', detail: 'When adding a new screen, I check whether old data and navigation paths remain and plan how to connect them.', example: 'In SWAP Admin V2, I contributed to screen and API changes while old and new task data coexisted.', href: '/work/swap-admin-v2/' },
+  { title: 'Screen checks beyond automation', detail: 'Even after automation passes, I inspect empty states and differences in real responses on screen.', example: 'On Bike screens, I found a response object missing for one user type, then repeated E2E and manual checks after the fix.', href: '/work/bike-operations/' },
+  { title: 'Trade-offs and measurement', detail: 'I consider rendering and transferred assets together, then measure before and after under the same conditions.', example: 'On the SWING website, I adjusted video, images, fonts, and rendering paths, then compared medians from local Lighthouse mobile simulations.', href: '/work/swing-home-performance/' },
 ];
 
 export const publicWorkEn: { title: string; description: string; href: string; label: string }[] = [

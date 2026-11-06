@@ -1,5 +1,7 @@
 import { getPortfolio } from '../data/localized';
 import { getPersonalProjects } from '../data/personal-projects';
+import { getToolchainCopy } from '../data/toolchain';
+import { performanceEvidence } from '../data/performance-evidence';
 import { localizedPath, type Locale } from './locale';
 import type { SearchDocument, SearchIndex } from './site-search-engine';
 
@@ -17,6 +19,11 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   add({ id: 'home', title: en ? 'Selected work' : '대표 작업', category: 'page', href: href('/#work'), summary: siteCopy.work.intro.join(' '), content: text(siteCopy.work.heading.join(' '), ...siteCopy.work.evidence), keywords: [], featured: true });
   add({ id: 'about', title: en ? 'About Hyeonse Im' : '임현세 소개', category: 'page', href: href('/about/#introduction-title'), summary: careerIntroduction[0], content: careerIntroduction.join(' '), keywords: [en ? 'Frontend Engineer' : '프론트엔드 엔지니어'], featured: true });
   add({ id: 'studio', title: en ? 'Display settings' : '화면 설정', category: 'page', href: href('/studio/'), summary: en ? 'Try different colors, spacing and corners.' : '색, 간격, 모서리를 직접 골라 보세요.', content: en ? 'Theme accent density corners motion. About this site and design system.' : '테마 강조색 밀도 모서리 움직임. 사이트 구성과 디자인 시스템.', keywords: [], featured: false });
+  add({ id: 'responsive-lab', title: en ? 'Reflow inside a container' : '너비에 따라 다시 배치', category: 'skill', href: href('/studio/#responsive-lab'), summary: en ? 'Resize a live card to explore CSS container queries.' : '카드 너비를 바꾸며 CSS 컨테이너 쿼리에 따른 배치를 살펴보세요.', content: en ? 'Card width. Compact and wide layouts. React CSS Container Queries.' : '카드 너비. 좁게 넓게. 반응형 컴포넌트. React CSS Container Queries.', keywords: ['CSS', 'React', 'ResizeObserver'], featured: false });
+  add({ id: 'async-lab', title: en ? 'Handle a late response' : '늦게 온 응답을 다루기', category: 'skill', href: href('/studio/#async-lab'), summary: en ? 'A local simulation comparing arrival order and latest-request updates.' : '로컬 시뮬레이션으로 도착순 반영과 마지막 요청만 반영하는 동작을 비교해 보세요.', content: en ? 'Request timeline. Slow A, fast B. Ignore stale responses. Reset.' : '요청 타임라인. 느린 A와 빠른 B. 오래된 응답 무시. 초기화.', keywords: ['React', '비동기', 'race condition'], featured: false });
+  const toolchain = getToolchainCopy(locale);
+  add({ id: 'toolchain', title: toolchain.title, category: 'tool', href: href('/about/#toolchain'), summary: toolchain.intro, content: text(toolchain.note, ...toolchain.stages.map(stage => text(stage.name, stage.role, stage.input, stage.output, stage.example, stage.handoff))), keywords: ['Browser Error Log', 'Error to Test', 'Flow QA'], featured: false });
+  add({ id: 'performance-evidence', title: en ? 'Results with their measurement conditions' : '측정 조건과 함께 보는 변화', category: 'skill', href: href('/work/swing-home-performance/#performance-evidence'), summary: performanceEvidence.homepage.condition[locale], content: Object.values(performanceEvidence).map(group => text(group.title[locale], group.condition[locale], ...group.metrics.map(metric => `${metric.label[locale]} ${metric.before} ${metric.after} ${metric.unit[locale]}`))).join(' '), keywords: ['Lighthouse', 'Performance', 'WOFF2'], featured: false });
 
   for (const work of works) {
     const base = `/work/${work.id}/`;
@@ -42,7 +49,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   add({ id: 'toolbox', title: en ? 'Technology toolbox' : '사용 기술', category: 'skill', href: href('/#toolbox'), summary: profile.technology.join(' · '), content: profile.technology.join(' '), keywords: profile.technology, featured: false });
 
   for (const project of projects) {
-    add({ id: `personal-${project.id}`, title: project.name, category: 'tool', href: href(`/about/#${project.id}`), summary: project.summary, content: text(...project.highlights.slice(0, 2), project.release), keywords: [...project.stack, project.category], featured: project.id === 'flow-qa' });
+    add({ id: `personal-${project.id}`, title: project.name, category: 'tool', href: href(`/about/#${project.id}`), summary: project.summary, content: text(project.problem, ...project.highlights, ...project.decisions.map(decision => text(decision.title, decision.detail)), project.verification, project.release), keywords: [...project.stack, project.category], featured: project.id === 'flow-qa' });
   }
 
   for (const item of profile.otherWork) {

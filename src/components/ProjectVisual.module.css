@@ -12,6 +12,7 @@
 }
 
 .visual.large { min-height: 460px; }
+:global(.work-visual) :is(.bikeHeader, .perfHeader, .busHeader, .migrationHeader) { padding-right: 44px; }
 .visual > div { height: 100%; min-height: inherit; }
 .bike, .performance, .bus, .migration { box-sizing: border-box; height: 100%; min-height: inherit; overflow: hidden; }
 .bikeHeader, .perfHeader, .busHeader, .migrationHeader, .bikeFoot, .perfFoot, .busFoot, .migrationFoot {

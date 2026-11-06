@@ -13,14 +13,14 @@
     "linkedin": "https://www.linkedin.com/in/hyeonse-im-131b54141/"
   },
   "strengths": [
-    { "title": "Connecting operations to usable screens", "description": "I learn how contracts, dispatch, and customer support work in practice, then shape web flows for the staff and customers who use them." },
-    { "title": "Connecting old and new systems", "description": "Where migration happens in stages, I check API, screen, and permission boundaries and connect the systems incrementally." },
-    { "title": "Comparing performance under the same conditions", "description": "I improved initial rendering and transferred assets, then compared before and after results under the same local test conditions." }
+    { "title": "Operations workflows", "description": "I learn how contracts, dispatch, and customer support work in practice, then shape web flows for the staff and customers who use them." },
+    { "title": "Legacy and new systems", "description": "Where migration happens in stages, I check API, screen, and permission boundaries and connect the systems incrementally." },
+    { "title": "Performance measurement", "description": "I improved initial rendering and transferred assets, then compared before and after results under the same local test conditions." }
   ],
   "featuredCases": [
     {
       "id": "bike-operations",
-      "title": "Connecting Bike operations across staff admin and business portal screens",
+      "title": "Bike operations: staff Admin and business portal",
       "period": "2026 · Major API integration in June / business portal in July",
       "role": "Responsible for the project's frontend work",
       "context": "First orders, contract delivery, vehicle handover, insurance changes, and payment history spanned staff operations and the business customer's experience. Existing operations continued while the new system was being built.",
@@ -36,7 +36,7 @@
     },
     {
       "id": "swap-admin-v2",
-      "title": "Contributing to the SWAP Admin V1 to V2 transition",
+      "title": "SWAP Admin V1/V2 transition",
       "period": "Major release in 2025.12",
       "role": "SWAP FE development and technical review",
       "context": "The existing task lookup path remained in use as V2 subscription, task, and factoring screens and APIs were introduced.",
@@ -52,7 +52,7 @@
     },
     {
       "id": "yellow-bus",
-      "title": "Rebuilding Yellow Bus legacy operations in a new Admin",
+      "title": "Yellow Bus operations Admin rebuild",
       "period": "2024.11–2025.08",
       "role": "Frontend engineer in the Yellow Bus squad",
       "context": "The acquired school shuttle service had several operations tools built with PHP, JavaScript, and React. Internal staff and academies used different functions and permissions.",
@@ -68,7 +68,7 @@
     },
     {
       "id": "swing-home-performance",
-      "title": "Reducing first-screen display delay and transferred assets",
+      "title": "SWING homepage performance",
       "period": "2026.07",
       "role": "Frontend development for the SWING website",
       "context": "The initial rendering approach and large media, fonts, and external content delayed display of the first screen.",
