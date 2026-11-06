@@ -13,7 +13,15 @@ const forbidden = [
   /(?<!\d)01[016789][- ]?\d{3,4}[- ]?\d{4}(?!\d)/,
   /(?:\/Users\/|private\/evidence|private\/portfolio)/,
   /(?:ghp_|github_pat_|sk-proj-)[A-Za-z0-9_]{10,}/,
+  /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
 ];
+// Client bundles and RSC payloads are public even when their text is not visible.
+const publicTextFiles = entries.filter(file => /\.(?:html|js|json|txt|xml|map|css|svg|webmanifest)$/.test(file));
+assert(!entries.some(file => /(?:^|\/)(?:\.env(?:\.[^/]*)?|[^/]+\.(?:pem|key|p12|pfx))$/.test(file)), '공개 산출물에 환경·개인 키 파일을 포함할 수 없습니다.');
+for (const file of publicTextFiles) {
+  const contents = await readFile(join(root, file), 'utf8');
+  for (const pattern of forbidden) assert(!pattern.test(contents), `${file}: 공개 금지 패턴 ${pattern}`);
+}
 const fontCoverage = JSON.parse(await readFile('scripts/font-coverage.json', 'utf8')).characters;
 for (const { name: file, text } of await collectFontSources()) {
   const missing = [...new Set([...text].filter(char => char.codePointAt(0) > 0xff && !fontCoverage.includes(char)))];
@@ -24,7 +32,6 @@ const canonicalPages = new Map();
 const preview = process.env.VERCEL_ENV === 'preview';
 for (const file of htmlFiles) {
   const html = await readFile(join(root, file), 'utf8');
-  for (const pattern of forbidden) assert(!pattern.test(html), `${file}: 공개 금지 패턴 ${pattern}`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: h1은 하나여야 합니다.`);
   if (file !== '404.html') {
     const locale = file.startsWith('en/') ? 'en' : 'ko';
@@ -85,7 +92,6 @@ let searchLinks = 0;
 let searchIds;
 for (const locale of ['ko', 'en']) {
   const text = await readFile(join(root, `search-index/${locale}.json`), 'utf8');
-  for (const pattern of forbidden) assert(!pattern.test(text), `${locale}: 검색 자료에 공개 금지 패턴 ${pattern}`);
   const index = JSON.parse(text);
   assert.equal(index.locale, locale, '검색 자료 언어 불일치');
   assert(Array.isArray(index.documents) && index.documents.length > 0, '검색 자료 누락');
@@ -122,4 +128,4 @@ const performanceCase = data.featuredCases.find(item => item.id === 'swing-home-
 assert.match(performanceCase.verification, /로컬.*3회.*5회.*중앙값/);
 assert.match(performanceCase.boundary, /실사용자/);
 assert.equal(data.otherWork.find(item => item.id === 'opensource').period, '2025.06');
-console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', searchDocuments: searchCounts, searchLinks, casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, privateDataScan: 'passed' }, null, 2));
+console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', searchDocuments: searchCounts, searchLinks, casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, publicTextFiles: publicTextFiles.length, privateDataScan: 'passed' }, null, 2));
