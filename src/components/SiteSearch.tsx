@@ -12,6 +12,9 @@ const copy = {
     placeholder: '프로젝트, 경력, 기술 검색', loading: '검색 자료를 불러오는 중…',
     error: '검색 자료를 불러오지 못했습니다.', retry: '다시 시도',
     featured: '바로 가기', empty: '검색 결과가 없습니다.',
+    emptyHelp: '다른 검색어를 시도해 보세요.', clear: '검색어 지우기',
+    keyboardHint: '↑ ↓ 결과 이동 · Enter 열기 · Esc 닫기',
+    suggestions: ['React', '성능', '운영'],
     count: (n: number) => `검색 결과 ${n}개`,
     categories: { page: '페이지', project: '프로젝트', experience: '경력', skill: '기술', tool: '도구' },
   },
@@ -20,6 +23,9 @@ const copy = {
     placeholder: 'Search projects, experience, skills', loading: 'Loading search index…',
     error: 'Could not load the search index.', retry: 'Try again',
     featured: 'Quick links', empty: 'No results found.',
+    emptyHelp: 'Try another search term.', clear: 'Clear search',
+    keyboardHint: '↑ ↓ Move through results · Enter open · Esc close',
+    suggestions: ['React', 'performance', 'operations'],
     count: (n: number) => `${n} ${n === 1 ? 'result' : 'results'}`,
     categories: { page: 'Page', project: 'Project', experience: 'Experience', skill: 'Skill', tool: 'Tool' },
   },
@@ -67,8 +73,10 @@ export default function SiteSearch({ locale }: { locale: Locale }) {
     if (!mounted) return;
     const viewport = window.visualViewport;
     const syncViewport = () => {
-      dialogRef.current?.style.setProperty('--search-viewport-height', `${viewport?.height ?? window.innerHeight}px`);
+      const height = viewport?.height ?? window.innerHeight;
+      dialogRef.current?.style.setProperty('--search-viewport-height', `${height}px`);
       dialogRef.current?.style.setProperty('--search-viewport-top', `${viewport?.offsetTop ?? 0}px`);
+      dialogRef.current?.toggleAttribute('data-compact-height', height <= 400);
     };
     syncViewport();
     viewport?.addEventListener('resize', syncViewport);
@@ -169,14 +177,17 @@ export default function SiteSearch({ locale }: { locale: Locale }) {
       <div className={styles.panel}>
         <div className={styles.heading}><h2 id="site-search-title">{t.title}</h2><button type="button" className={styles.close} onClick={close} aria-label={t.close}>×</button></div>
         <label className={styles.label} htmlFor="site-search-input">{t.label}</label>
-        <input ref={inputRef} id="site-search-input" className={styles.input} type="search" value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => {
+        <div className={styles.inputWrap}><input ref={inputRef} id="site-search-input" className={styles.input} type="search" value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => {
           if (event.nativeEvent.isComposing || event.keyCode === 229) return;
           const links = resultLinks();
           if (event.key === 'ArrowDown' && links.length) { event.preventDefault(); links[0].focus(); }
           if (event.key === 'ArrowUp' && links.length) { event.preventDefault(); links[links.length - 1].focus(); }
           if (event.key === 'Enter' && links.length) { event.preventDefault(); links[0].click(); }
         }} placeholder={t.placeholder} autoComplete="off" />
+          {query && <button type="button" className={styles.clear} aria-label={t.clear} onClick={() => { setQuery(''); inputRef.current?.focus(); }}>×</button>}
+        </div>
         <div className={styles.resultsHead} aria-live="polite" aria-atomic="true">{status === 'loading' ? t.loading : status === 'error' ? t.error : documents ? query.trim() ? t.count(results.length) : t.featured : ''}</div>
+        <p className={styles.keyboardHint}>{t.keyboardHint}</p>
         {status === 'error' && <button type="button" className={styles.retry} onClick={() => void load()}>{t.retry}</button>}
         {documents && status !== 'error' && <div ref={resultsRef} className={styles.results} onKeyDown={(event) => {
           if (event.nativeEvent.isComposing || event.keyCode === 229 || (event.key !== 'ArrowDown' && event.key !== 'ArrowUp')) return;
@@ -186,7 +197,7 @@ export default function SiteSearch({ locale }: { locale: Locale }) {
           event.preventDefault();
           links[(current + (event.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length].focus();
         }}>
-          {results.length === 0 ? <p className={styles.empty}>{t.empty}</p> : <ul>{results.map((result) => <li key={result.id}>
+          {results.length === 0 ? <div className={styles.empty}><p>{t.empty}</p>{query.trim() && <><p>{t.emptyHelp}</p><div className={styles.suggestions}>{t.suggestions.map((suggestion) => <button key={suggestion} type="button" onClick={() => { setQuery(suggestion); inputRef.current?.focus(); }}>{suggestion}</button>)}</div></>}</div> : <ul>{results.map((result) => <li key={result.id}>
             <a href={result.href} onClick={(event) => {
               if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               restoreFocusRef.current = false;

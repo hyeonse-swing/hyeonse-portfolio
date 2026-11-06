@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '../lib/locale';
 import styles from './FrontendLab.module.css';
 
-type DemoEvent = { key: string; label: string; state: 'started' | 'applied' | 'ignored' };
+type DemoEvent = { key: string; label: string; at: number; state: 'started' | 'applied' | 'ignored' };
 
 const copy = {
   ko: {
@@ -23,6 +23,11 @@ const copy = {
     noRequest: '없음', waiting: '응답 대기 중', resultA: 'A의 결과', resultB: 'B의 결과',
     pending: '실행 전', correct: '최신 결과 유지', stale: '이전 결과로 덮임',
     timeline: '요청 타임라인', startA: 'A 요청 시작', startB: 'B 요청 시작', receiveB: 'B 응답 · 왼쪽과 오른쪽에 표시', receiveA: 'A 응답 · 왼쪽에 표시, 오른쪽은 무시',
+    timelineNote: '시점은 시작을 0ms로 둔 시뮬레이션 설정값이에요.',
+    idleSummary: '응답 시간을 바꾸고 실행해 보세요. 시간을 바꾸면 이전 결과는 초기화돼요.',
+    runningSummary: '두 요청의 응답을 기다리고 있어요.',
+    staleSummary: 'B 다음에 도착한 A가 왼쪽 화면을 덮었어요. 오른쪽은 최신 요청 B의 결과를 유지해요.',
+    sameSummary: '이번에는 A 다음에 B가 도착해 두 화면의 최종 결과가 같아요. A가 늦게 도착하는 조건도 비교해 보세요.',
     demoNote: '두 화면 모두 같은 가상 응답을 받습니다. 오른쪽은 최신 요청 ID와 다르면 오래된 응답을 버려요. 실제 서비스 요청이나 성능 측정값은 아닙니다.',
   },
   en: {
@@ -41,6 +46,11 @@ const copy = {
     noRequest: 'None', waiting: 'Waiting for response', resultA: 'Result A', resultB: 'Result B',
     pending: 'Not started', correct: 'Latest result stays', stale: 'Overwritten by old result',
     timeline: 'Request timeline', startA: 'Request A starts', startB: 'Request B starts', receiveB: 'B arrives · shown on left and right', receiveA: 'A arrives · shown on left, ignored on right',
+    timelineNote: 'Times are simulation settings, relative to a 0ms start.',
+    idleSummary: 'Set the response times and run the sequence. Changing a time clears the previous results.',
+    runningSummary: 'Waiting for both requests to respond.',
+    staleSummary: 'A arrived after B and overwrote the left panel. The right panel kept the latest request, B.',
+    sameSummary: 'B arrived after A, so both panels ended with the same result. Try making A arrive later to compare.',
     demoNote: 'Both panels receive the same simulated responses. The right panel ignores a response when its request ID is no longer the latest. This does not call a service or represent measured performance.',
   },
 } as const;
@@ -72,7 +82,7 @@ function ResponsiveLab({ locale, ready }: { locale: Locale; ready: boolean }) {
       <div className={styles.controls}>
         <label htmlFor="responsive-width">{t.width} <output htmlFor="responsive-width" data-frame-width>{ready ? `${width} px` : '—'}</output></label>
         <div className={styles.controlRow}>
-          <input id="responsive-width" type="range" name="responsive-width" disabled={!ready} min={minWidth} max={maxWidth} value={width} onChange={event => setRequestedWidth(Number(event.target.value))} />
+          <input id="responsive-width" type="range" name="responsive-width" disabled={!ready} min={minWidth} max={maxWidth} value={width} aria-valuetext={`${width} px`} onChange={event => setRequestedWidth(Number(event.target.value))} />
           <div className={styles.presets}><button type="button" disabled={!ready} onClick={() => setRequestedWidth(compactWidth)} aria-pressed={width === compactWidth}>{t.compact}</button><button type="button" onClick={() => setRequestedWidth(640)} aria-pressed={requestedWidth === 640 && maxWidth > 460} disabled={!ready || maxWidth <= 460}>{t.wide}</button></div>
         </div>
       </div>
@@ -119,6 +129,12 @@ function AsyncLab({ locale, ready }: { locale: Locale; ready: boolean }) {
     setGuardedResult(null);
     setEvents([]);
   };
+  const changeTiming = (a: number, b: number) => {
+    if (a === delayA && b === delayB) return;
+    reset();
+    setDelayA(a);
+    setDelayB(b);
+  };
   const run = () => {
     clearTimers();
     const currentRun = runId.current;
@@ -139,42 +155,44 @@ function AsyncLab({ locale, ready }: { locale: Locale; ready: boolean }) {
     setRequested('A');
     setArrivalResult(null);
     setGuardedResult(null);
-    setEvents([{ key: 'start-a', label: t.startA, state: 'started' }]);
+    setEvents([{ key: 'start-a', label: t.startA, at: 0, state: 'started' }]);
     schedule(120, () => {
       latestRequestId.current = 2;
       setRequested('B');
-      setEvents(previous => [...previous, { key: 'start-b', label: t.startB, state: 'started' }]);
+      setEvents(previous => [...previous, { key: 'start-b', label: t.startB, at: 120, state: 'started' }]);
     });
     schedule(120 + bDuration, () => {
       complete('B', 2);
-      setEvents(previous => [...previous, { key: 'receive-b', label: t.receiveB, state: 'applied' }]);
+      setEvents(previous => [...previous, { key: 'receive-b', label: t.receiveB, at: 120 + bDuration, state: 'applied' }]);
     });
     schedule(aDuration, () => {
       complete('A', 1);
-      setEvents(previous => [...previous, { key: 'receive-a', label: t.receiveA, state: 'ignored' }]);
+      setEvents(previous => [...previous, { key: 'receive-a', label: t.receiveA, at: aDuration, state: 'ignored' }]);
     });
   };
 
   const resultLabel = (value: 'A' | 'B' | null) => value === 'A' ? t.resultA : value === 'B' ? t.resultB : phase === 'idle' ? t.pending : t.waiting;
   const statusLabel = (value: 'A' | 'B' | null) => phase !== 'done' ? t.waiting : value === 'A' ? t.stale : t.correct;
   const timingDisabled = !ready || phase === 'running';
+  const summary = phase === 'idle' ? t.idleSummary : phase === 'running' ? t.runningSummary : arrivalResult === 'A' ? t.staleSummary : t.sameSummary;
 
   return <section className={styles.lab} id="async-lab" aria-labelledby="async-lab-title">
     <div className={styles.heading}><span className={styles.index}>INTERACTION / 02</span><div><h2 id="async-lab-title">{t.async}</h2><p>{t.asyncIntro}</p></div></div>
     <div className={styles.asyncSurface} data-phase={phase}>
       <div className={styles.asyncTiming}>
         <div className={styles.asyncSliders}>
-          <div><label htmlFor="async-delay-a">{t.delayA} <output htmlFor="async-delay-a">{delayA} ms</output></label><input id="async-delay-a" type="range" min={200} max={1600} step={20} value={delayA} disabled={timingDisabled} onChange={event => setDelayA(Number(event.target.value))} /></div>
-          <div><label htmlFor="async-delay-b">{t.delayB} <output htmlFor="async-delay-b">{delayB} ms</output></label><input id="async-delay-b" type="range" min={200} max={1600} step={20} value={delayB} disabled={timingDisabled} onChange={event => setDelayB(Number(event.target.value))} /></div>
+          <div><label htmlFor="async-delay-a">{t.delayA} <output htmlFor="async-delay-a">{delayA} ms</output></label><input id="async-delay-a" name="async-delay-a" type="range" min={200} max={1600} step={20} value={delayA} aria-valuetext={`${delayA} ms`} disabled={timingDisabled} onChange={event => changeTiming(Number(event.target.value), delayB)} /></div>
+          <div><label htmlFor="async-delay-b">{t.delayB} <output htmlFor="async-delay-b">{delayB} ms</output></label><input id="async-delay-b" name="async-delay-b" type="range" min={200} max={1600} step={20} value={delayB} aria-valuetext={`${delayB} ms`} disabled={timingDisabled} onChange={event => changeTiming(delayA, Number(event.target.value))} /></div>
         </div>
-        <div className={styles.asyncPresets}><button type="button" disabled={timingDisabled} aria-pressed={delayA === 1200 && delayB === 320} onClick={() => { setDelayA(1200); setDelayB(320); }}>{t.slowA}</button><button type="button" disabled={timingDisabled} aria-pressed={delayA === 320 && delayB === 1200} onClick={() => { setDelayA(320); setDelayB(1200); }}>{t.slowB}</button></div>
+        <div className={styles.asyncPresets}><button type="button" disabled={timingDisabled} aria-pressed={delayA === 1200 && delayB === 320} onClick={() => changeTiming(1200, 320)}>{t.slowA}</button><button type="button" disabled={timingDisabled} aria-pressed={delayA === 320 && delayB === 1200} onClick={() => changeTiming(320, 1200)}>{t.slowB}</button></div>
       </div>
       <div className={styles.asyncControls}><p>{t.schedule(delayA, delayB)}</p><div><button type="button" className={styles.runButton} onClick={run} disabled={timingDisabled}>{t.run} <span aria-hidden="true">↗</span></button><button type="button" className={styles.resetButton} onClick={reset} disabled={!ready || phase === 'idle'}>{t.reset}</button></div></div>
       <div className={styles.comparison}>
         <article className={styles.resultCard} data-result={arrivalResult ?? 'none'}><span className={styles.resultIndex}>01 / ARRIVAL ORDER</span><h3>{t.arrival}</h3><dl><div><dt>{t.current}</dt><dd>{requested ?? t.noRequest}</dd></div><div><dt>{t.rendered}</dt><dd aria-live="polite" aria-atomic="true">{resultLabel(arrivalResult)}</dd></div></dl><p className={phase === 'done' ? arrivalResult === 'A' ? styles.stale : styles.correct : styles.status}>{phase === 'idle' ? t.pending : statusLabel(arrivalResult)}</p></article>
         <article className={styles.resultCard} data-result={guardedResult ?? 'none'}><span className={styles.resultIndex}>02 / LATEST REQUEST</span><h3>{t.latest}</h3><dl><div><dt>{t.current}</dt><dd>{requested ?? t.noRequest}</dd></div><div><dt>{t.rendered}</dt><dd aria-live="polite" aria-atomic="true">{resultLabel(guardedResult)}</dd></div></dl><p className={phase === 'done' ? styles.correct : styles.status}>{phase === 'idle' ? t.pending : statusLabel(guardedResult)}</p></article>
       </div>
-      <div className={styles.timeline}><h3>{t.timeline}</h3><ol aria-live="polite">{events.map(event => <li key={event.key} data-state={event.state}>{event.label}</li>)}</ol></div>
+      <p className={styles.outcome} role="status" aria-atomic="true">{summary}</p>
+      <div className={styles.timeline}><h3>{t.timeline}</h3><p className={styles.note}>{t.timelineNote}</p><ol>{events.map(event => <li key={event.key} data-state={event.state}><span className={styles.eventTime}>{event.at} ms</span><span>{event.label}</span></li>)}</ol></div>
     </div>
     <p className={styles.note}>{t.demoNote}</p>
   </section>;

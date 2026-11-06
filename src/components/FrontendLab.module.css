@@ -68,5 +68,10 @@
 .timeline li { counter-increment: event; display: flex; align-items: baseline; gap: 8px; color: var(--muted); font-size: 11px; line-height: 1.8; }
 .timeline li::before { content: counter(event, decimal-leading-zero); color: var(--accent-text); font-variant-numeric: tabular-nums; font-weight: 700; }
 .timeline li[data-state='ignored'] { color: var(--ink); }
+.outcome { margin-top: 20px; padding: 16px 18px; border-left: 2px solid var(--accent-solid); background: var(--paper); color: var(--ink); font-size: 13px; line-height: 1.8; }
+.timeline .note { margin-top: 5px; font-size: 11px; }
+.timeline li { gap: 10px; }
+.timeline li::before { content: none; }
+.eventTime { flex: none; min-width: 58px; color: var(--accent-text); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 @media (max-width: 800px) { .heading { grid-template-columns: 1fr; gap: 10px; }.asyncControls { align-items: stretch; flex-direction: column; }.asyncControls > div { flex-wrap: wrap; }.comparison { gap: 10px; } }
 @media (max-width: 600px) { .root { margin-top: calc(75px * var(--space-factor)); }.lab + .lab { margin-top: calc(75px * var(--space-factor)); }.heading { margin-bottom: 24px; }.heading p { font-size: 13px; }.controlRow { flex-direction: column; align-items: stretch; gap: 15px; }.controlRow input { min-height: 30px; }.presets button { flex: 1; }.rail { padding-top: 22px; }.asyncSliders { grid-template-columns: 1fr; }.asyncSliders input { min-height: 30px; }.comparison { grid-template-columns: 1fr; }.resultCard h3 { margin-bottom: 16px; }.timeline ol { display: grid; gap: 8px; } }
