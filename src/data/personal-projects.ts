@@ -108,7 +108,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
-        { label: '최신 릴리스', href: 'https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.2.1' },
+        { label: '최신 릴리스', href: 'https://github.com/hyeonse-swing/error-to-test/releases/latest' },
       ],
     },
   ],
@@ -205,7 +205,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
-        { label: 'Latest release', href: 'https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.2.1' },
+        { label: 'Latest release', href: 'https://github.com/hyeonse-swing/error-to-test/releases/latest' },
       ],
     },
   ],
