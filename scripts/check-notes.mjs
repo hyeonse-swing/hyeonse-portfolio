@@ -21,6 +21,12 @@ try {
   assert.equal(notes.find(note => note.slug === 'older').readingMinutes, 1);
   assert.equal(notes.filter(note => note.slug === 'english-only').length, 1, 'unpaired translation is published');
 
+  write('ko', 'work-case.md', metadata('2026-02-01').replace('hovershot', 'swap-admin-v2'));
+  write('en', 'archive-case.md', metadata('2026-02-01').replace('hovershot', 'ai-development'));
+  const projectNotes = readNotesDirectory(fixture);
+  assert.ok(projectNotes.some(note => note.projects.includes('swap-admin-v2')), 'featured work can have a note');
+  assert.ok(projectNotes.some(note => note.projects.includes('ai-development')), 'archive work can have a note');
+
   write('ko', 'bad-date.md', metadata('2026-02-30'));
   assert.throws(() => readNotesDirectory(fixture), /date must be/);
   rmSync(join(dir('ko'), 'bad-date.md'));

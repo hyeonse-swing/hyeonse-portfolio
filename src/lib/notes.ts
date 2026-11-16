@@ -2,7 +2,7 @@ import 'server-only';
 import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
-import { getPersonalProjects } from '../data/personal-projects';
+import { getNoteProjects } from '../data/note-projects';
 import type { Locale } from './locale';
 
 export type Note = {
@@ -50,7 +50,7 @@ function parseNote(source: string, slug: string, locale: Locale): { note: Note; 
   if (data.updated !== undefined && !validDate(data.updated)) throw new Error(`${source}: updated must be a quoted, valid YYYY-MM-DD date`);
   const tags = requireList(data.tags, 'tags', source);
   const projects = requireList(data.projects, 'projects', source);
-  const projectIds = new Set(getPersonalProjects(locale).map(project => project.id));
+  const projectIds = new Set(getNoteProjects(locale).map(project => project.id));
   for (const project of projects) {
     if (!projectIds.has(project)) throw new Error(`${source}: unknown project ${project}`);
   }
@@ -88,6 +88,10 @@ export function readNotesDirectory(root: string): Note[] {
 function allNotes(): Note[] { return readNotesDirectory(join(process.cwd(), 'content', 'notes')); }
 
 export function getNotes(locale: Locale): Note[] { return allNotes().filter(note => note.locale === locale); }
+export function getProjectNotes(notes: readonly Note[], projectId: string): Note[] {
+  return notes.filter(note => note.projects.includes(projectId))
+    .sort((a, b) => Number(b.slug === projectId) - Number(a.slug === projectId));
+}
 export function getNote(locale: Locale, slug: string): Note | undefined { return getNotes(locale).find(note => note.slug === slug); }
 export function getAllNotes(): Note[] { return allNotes(); }
 export function getNoteLocales(slug: string): Locale[] { return locales.filter(locale => getNote(locale, slug)); }

@@ -41,7 +41,7 @@ npm run preview -- 4322
 
 ## 프로젝트 기록
 
-짧은 기술 기록은 한국어 `/notes/`, 영어 `/en/notes/`에서 읽을 수 있다. 원고는 `content/notes/ko/`와 `content/notes/en/`의 Markdown 파일로 관리한다. 같은 글의 한·영 댓글은 같은 slug를 쓰는 Giscus 토론에 연결된다.
+개인 프로젝트, 대표 업무 사례와 기타 작업 기록은 한국어 `/notes/`, 영어 `/en/notes/`에서 읽을 수 있다. 원고는 `content/notes/ko/`와 `content/notes/en/`의 Markdown 파일로 관리한다. 같은 글의 한·영 댓글은 같은 slug를 쓰는 Giscus 토론에 연결된다. 기존 프로젝트 소개와 사례·아카이브에는 연결된 글 제목을 표시하고, 글에서는 원래 프로젝트로 돌아갈 수 있다.
 
 새 글은 [작성 안내](docs/writing-notes.md)와 [초안 템플릿](content/templates/note.md)을 참고한다. `draft: true`인 파일은 사이트의 목록·검색·사이트맵에서 제외되지만, 공개 GitHub 저장소의 파일 자체는 비공개가 아니다. 배포 전에 `npm run verify` 결과를 확인한다.
 

@@ -7,12 +7,14 @@ import ArchiveExplorer from './ArchiveExplorer';
 import { getPortfolio } from '../data/localized';
 import { getPersonalProjects } from '../data/personal-projects';
 import { localizedPath, type Locale } from '../lib/locale';
+import { getNotes } from '../lib/notes';
 
 const lines = (items: readonly string[]) => items.map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>);
 
 export default function HomePage({ locale }: { locale: Locale }) {
   const { works, profile, siteCopy, projectDetails } = getPortfolio(locale);
   const en = locale === 'en';
+  const notes = getNotes(locale);
   return <>
     <section className="hero" id="top" data-badge-stage aria-labelledby="hero-name">
       <div className="hero-intro"><span className="eyebrow">FRONTEND ENGINEER</span><p>{lines(siteCopy.hero.intro)}</p></div>
@@ -44,7 +46,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       <div className="section-heading"><div><span className="eyebrow">03 / MORE FROM THE DESK</span><h2 id="archive-title">{lines(siteCopy.archive.heading)}<span className="blue">.</span></h2></div><p>{lines(siteCopy.archive.intro)}</p></div>
       <ArchiveExplorer locale={locale} total={profile.otherWork.length}><div className="archive-list">{profile.otherWork.map((item, i) => {
         const detail = projectDetails[item.id];
-        return <details id={`archive-${item.id}`} data-search-target className="archive-item" key={item.id}><summary tabIndex={0}><span className="archive-number">{String(i + 1).padStart(2, '0')}</span><h3>{item.title}</h3><span className="archive-scope">{item.scope}</span><span className="archive-plus" aria-hidden="true">+</span></summary><div className="archive-body"><span className="eyebrow">{item.period}</span><p>{detail?.lead ?? item.summary}</p>{detail && <><dl className="archive-contributions">{detail.contributions.map(contribution => <div key={contribution.title}><dt>{contribution.title}</dt><dd>{contribution.detail}</dd></div>)}</dl><ul className="project-tags">{detail.tags.map(tag => <li key={tag}>{tag}</li>)}</ul></>}{'note' in item && <p className="archive-note">{item.note}</p>}{detail?.publicLink && <a className="text-link" href={detail.publicLink.href} target="_blank" rel="noopener noreferrer">{detail.publicLink.label} ↗</a>}</div></details>;
+        return <details id={`archive-${item.id}`} data-search-target className="archive-item" key={item.id}><summary tabIndex={0}><span className="archive-number">{String(i + 1).padStart(2, '0')}</span><h3>{item.title}</h3><span className="archive-scope">{item.scope}</span><span className="archive-plus" aria-hidden="true">+</span></summary><div className="archive-body"><span className="eyebrow">{item.period}</span><p>{detail?.lead ?? item.summary}</p>{detail && <><dl className="archive-contributions">{detail.contributions.map(contribution => <div key={contribution.title}><dt>{contribution.title}</dt><dd>{contribution.detail}</dd></div>)}</dl><ul className="project-tags">{detail.tags.map(tag => <li key={tag}>{tag}</li>)}</ul></>}{'note' in item && <p className="archive-note">{item.note}</p>}{detail?.publicLink && <a className="text-link" href={detail.publicLink.href} target="_blank" rel="noopener noreferrer">{detail.publicLink.label} ↗</a>}{notes.filter(note => note.projects.includes(item.id)).map(note => <p key={note.slug}><a className="text-link" href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a></p>)}</div></details>;
       })}</div></ArchiveExplorer>
     </section>
     <section id="personal-projects" className="section-space" aria-labelledby="personal-projects-title">

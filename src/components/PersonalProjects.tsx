@@ -1,7 +1,7 @@
 import type { PersonalProject } from '../data/personal-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import styles from './PersonalProjects.module.css';
-import { getNotes } from '../lib/notes';
+import { getNotes, getProjectNotes } from '../lib/notes';
 
 type Props = {
   locale: Locale;
@@ -17,6 +17,7 @@ function ProjectLink({ label, href }: { label: string; href: string }) {
 export default function PersonalProjects({ locale, projects, detailed = false }: Props) {
   const en = locale === 'en';
   const notes = getNotes(locale);
+  const notesByProject = new Map(projects.map(project => [project.id, getProjectNotes(notes, project.id)]));
 
   if (detailed) {
     return <div className={styles.details}>
@@ -36,7 +37,7 @@ export default function PersonalProjects({ locale, projects, detailed = false }:
           {project.stack.length > 0 && <ul className={styles.stack} aria-label={en ? 'Technology stack' : '기술 스택'}>{project.stack.map(item => <li key={item}>{item}</li>)}</ul>}
           <div className={styles.detailFooter}>
             <p className={styles.release}><span>{en ? 'RELEASE' : '배포'}</span>{project.release}</p>
-            <div className={styles.links}>{project.links.map(link => <ProjectLink key={link.href} {...link} />)}{notes.filter(note => note.projects.includes(project.id)).map(note => <a key={note.slug} href={localizedPath(locale, `/notes/${note.slug}/`)}>{en ? 'Read the project note' : '프로젝트 기록 읽기'} →</a>)}</div>
+            <div className={styles.links}>{project.links.map(link => <ProjectLink key={link.href} {...link} />)}{notesByProject.get(project.id)!.map(note => <a key={note.slug} href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a>)}</div>
           </div>
         </div>
       </article>)}
@@ -53,7 +54,7 @@ export default function PersonalProjects({ locale, projects, detailed = false }:
       <div className={styles.cardLinks}>
         {project.links[0] && <ProjectLink {...project.links[0]} />}
         <a href={localizedPath(locale, `/about/#${project.id}`)}>{en ? 'Project details' : '자세히 보기'} <span aria-hidden="true">→</span></a>
-        {notes.find(note => note.projects.includes(project.id)) && <a href={localizedPath(locale, `/notes/${notes.find(note => note.projects.includes(project.id))!.slug}/`)}>{en ? 'Project note' : '프로젝트 기록'} <span aria-hidden="true">→</span></a>}
+        {notesByProject.get(project.id)?.[0] && <a href={localizedPath(locale, `/notes/${notesByProject.get(project.id)![0].slug}/`)}>{en ? 'Project note' : '프로젝트 기록'} <span aria-hidden="true">→</span></a>}
       </div>
     </article>)}
   </div>;

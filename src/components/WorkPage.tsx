@@ -6,6 +6,8 @@ import CaseNavigator from './CaseNavigator';
 import PerformanceEvidence from './PerformanceEvidence';
 import WorkContextLink from './WorkContextLink';
 import { localizedPath, type Locale } from '../lib/locale';
+import { getNotes, getProjectNotes } from '../lib/notes';
+import noteStyles from './Notes.module.css';
 
 export default function WorkPage({ id, locale }: { id: string; locale: Locale }) {
   const { works, siteCopy, caseStories, caseEngineering } = getPortfolio(locale);
@@ -14,6 +16,7 @@ export default function WorkPage({ id, locale }: { id: string; locale: Locale })
   const story = caseStories[id];
   const engineering = caseEngineering[id];
   if (!work || !story || !engineering) notFound();
+  const notes = getProjectNotes(getNotes(locale), id);
   const next = works[(works.findIndex(item => item.id === work.id) + 1) % works.length];
   const sections = [
     { id: 'context', title: siteCopy.case.contextTitle },
@@ -34,6 +37,10 @@ export default function WorkPage({ id, locale }: { id: string; locale: Locale })
       <section id="engineering"><span className="eyebrow">03 / ENGINEERING</span><h2>{siteCopy.case.engineeringTitle}</h2><TechnicalDetails story={engineering} locale={locale} /></section>
       <section id="verification"><span className="eyebrow">04 / VERIFICATION</span><h2>{siteCopy.case.verificationTitle}</h2><dl className="verification-list">{story.verification.map(item => <div key={item.title}><dt>{item.title}</dt><dd><p>{item.detail}</p></dd></div>)}</dl><div className="outcome-note"><span className="eyebrow">OUTCOME</span><p>{work.outcome}</p></div><p className="boundary-note">{work.boundary}</p></section>
       <section id="reflection"><span className="eyebrow">05 / REFLECTION</span><h2>{siteCopy.case.reflectionTitle}</h2><blockquote>{story.takeaway}</blockquote><p className="case-disclosure">{siteCopy.case.disclosure}</p></section>
+      {notes.length > 0 && <aside className={noteStyles.related} aria-label={en ? 'Project notes and comments' : '프로젝트 기록과 댓글'}>
+        <h2>{en ? 'Project notes and comments' : '프로젝트 기록과 댓글'}</h2>
+        <ul>{notes.map(note => <li key={note.slug}><a href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a></li>)}</ul>
+      </aside>}
     </div></div>
     <WorkContextLink className="next-work" href={localizedPath(locale, `/work/${next.id}/`)}><div><span className="eyebrow">NEXT / {next.brand}</span><h2>{next.short}</h2></div><span aria-hidden="true">↗</span></WorkContextLink>
   </article>;

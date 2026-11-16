@@ -1,17 +1,17 @@
 import Link from 'next/link';
-import { getPersonalProjects } from '../data/personal-projects';
+import { getNoteProjects } from '../data/note-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import type { Note } from '../lib/notes';
 import styles from './Notes.module.css';
 
 export default function NotesPage({ locale, notes }: { locale: Locale; notes: Note[] }) {
   const en = locale === 'en';
-  const projects = new Map(getPersonalProjects(locale).map(project => [project.id, project.name]));
+  const projects = new Map(getNoteProjects(locale).map(project => [project.id, project.name]));
   return <section className={styles.page} id="top" aria-labelledby="notes-title">
     <header className={styles.intro}>
-      <p className="eyebrow">{en ? 'FIELD NOTES / PERSONAL PROJECTS' : 'FIELD NOTES / PERSONAL PROJECTS'}</p>
+      <p className="eyebrow">FIELD NOTES / PROJECTS & WORK</p>
       <h1 id="notes-title">{en ? 'Project notes' : '프로젝트 기록'}<span aria-hidden="true">.</span></h1>
-      <p>{en ? 'Decisions, experiments, and fixes from projects I build and maintain.' : '직접 만들고 운영하는 프로젝트에서 마주한 문제와 선택을 기록합니다.'}</p>
+      <p>{en ? 'Problems, decisions, and verification from my work and personal projects.' : '프로젝트와 업무에서 마주한 문제, 선택, 검증 과정을 기록해요.'}</p>
     </header>
     {notes.length ? <ol className={styles.list}>{notes.map(note => <li key={note.slug}>
       <article className={styles.card}>

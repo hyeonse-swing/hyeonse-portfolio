@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { getPersonalProjects } from '../data/personal-projects';
+import { getNoteProjects } from '../data/note-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import type { Note } from '../lib/notes';
 import BlogComments from './BlogComments';
@@ -10,7 +10,7 @@ import styles from './Notes.module.css';
 export default function NotePage({ note }: { note: Note }) {
   const { locale, slug } = note;
   const en = locale === 'en';
-  const projectNames = new Map(getPersonalProjects(locale).map(project => [project.id, project.name]));
+  const projects = new Map(getNoteProjects(locale).map(project => [project.id, project]));
   return <article className={styles.page} id="top">
     <Link className={styles.back} href={localizedPath(locale, '/notes/')}>← {en ? 'All notes' : '모든 기록'}</Link>
     <header className={styles.articleHeader}>
@@ -33,7 +33,7 @@ export default function NotePage({ note }: { note: Note }) {
     </div>
     {note.projects.length > 0 && <aside className={styles.related} aria-label={en ? 'Related projects' : '관련 프로젝트'}>
       <h2>{en ? 'Related projects' : '관련 프로젝트'}</h2>
-      <ul>{note.projects.map(id => <li key={id}><Link href={localizedPath(locale, `/about/#${id}`)}>{projectNames.get(id)} ↗</Link></li>)}</ul>
+      <ul>{note.projects.map(id => <li key={id}><Link href={projects.get(id)!.href}>{projects.get(id)!.name} ↗</Link></li>)}</ul>
     </aside>}
     <BlogComments locale={locale} term={`notes/${slug}`} />
   </article>;
