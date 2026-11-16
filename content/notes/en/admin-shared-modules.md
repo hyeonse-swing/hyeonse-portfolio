@@ -10,10 +10,10 @@ projects: ['swing-admin']
 draft: false
 ---
 
-## State across an operator's tasks
+## Returning to a screen with the right state
 
-[SWING Admin](/en/#archive-swing-admin) supports operators moving across multiple menus. The order in which user information and menus update after login, an expired session, and a return to an earlier screen can all affect the UI. I fixed issues around those states and built screens for finding and viewing partner settlement summaries and trip records by statement. Building lookup screens is distinct from designing or verifying the settlement calculations themselves.
+Operators move between menus in [SWING Admin](/en/#archive-swing-admin). The order of user-information and menu updates after login, an expired session, or returning to an earlier screen could change what the UI showed. I fixed issues around those states and built screens for finding and viewing partner settlement summaries and trip records by statement. Designing or verifying settlement calculations was outside that screen work.
 
-I also contributed to moving existing JavaScript and MUI features to TypeScript and Ant Design, separating domain-specific Admin applications, and integrating them into a monorepo. Changes to one screen had to be considered in the context of other operations tasks. The public archive also records my work on personal-data masking and formatting modules, tested with Vitest and published as an npm package. Reusing presentation logic in this way does not establish the security of the entire access-control system.
+I also helped move existing JavaScript and MUI features to TypeScript and Ant Design while domain-specific Admin applications were split and integrated into a monorepo. A change to one screen could touch another operations task. The public archive records my contribution to personal-data masking and formatting modules, tested with Vitest and published as an npm package. The reusable presentation logic did not by itself verify data access permissions or the entire security system.
 
-The public record identifies the work, but gives no measured reduction in operator time or errors. This account therefore stays with the screens, shared modules, and technical boundaries of my contribution.
+The public archive lists the work, but contains no measured change in operator time or error rate.

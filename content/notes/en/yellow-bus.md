@@ -13,20 +13,16 @@ projects: ['yellow-bus']
 draft: false
 ---
 
-## Trip work spread across several tools
+## Trip work across several tools
 
-I worked as a frontend engineer in the Yellow Bus squad from November 2024 to August 2025. The acquired school shuttle service had student, dispatch, and route work spread across operations tools built with PHP, JavaScript, and React. Internal operators and academies also used different functions and permissions. I helped assess technical debt and a migration approach, then moved existing functions into a trip workflow in a React and TypeScript Admin.
+Yellow Bus student, dispatch, and route work was spread across operations tools built with PHP, JavaScript, and React. Internal operators and academies had different functions and permissions as well. From November 2024 to August 2025, I worked as a frontend engineer in the squad, assessing early technical debt and a migration approach before moving existing functions into a React and TypeScript Admin trip flow.
 
-Login and basic UI came first, but not all operations APIs were ready. I proposed defining endpoints and data shapes feature by feature with the backend team, then connecting screens as each API became available. We also reconciled the student-list response against the existing operations screen. Real records could have no guardian information or multiple guardians, so I treated both as UI exceptions. The backend shared a revised response proposal, and I continued the list screen against that contract.
+We could build login and the basic UI first, but the operations APIs were not all ready together. I proposed defining endpoints and data shapes feature by feature with the backend team and connecting each screen as its API became available. For the student list, I compared the response with the existing operations screen. Some records had no guardian information; others had multiple guardians. I handled both as UI exceptions and continued the list against the backend's revised response proposal.
 
-## Keeping list, map, and selection aligned
+## A date change had to reach the map
 
-Academy staff needed to inspect and change dispatches by date, multiple routes, student boarding states, and pickup and drop-off stops. I connected academy-specific dispatch lookup, a multi-route map, boarding and stop changes, and access restrictions in the new trip screen. Monitoring used data polling, while route and stop management used Kakao Map. The related trip-screen changes were merged. Bulk registration of student boarding schedules and locations followed as another operations function.
+Academy staff needed to inspect dispatches by date and multiple routes, then check or change boarding states and pickup and drop-off stops. I connected academy-specific dispatch lookup, a multi-route map, boarding and stop changes, and access restrictions. Monitoring data refreshed by polling; route and stop management used Kakao Map. The trip-screen changes were merged, and bulk registration of student boarding schedules and locations followed as another operations function.
 
-Selections for academy, date, time, and dispatch had to stay consistent between the list and map. I managed that selection state so changing academy reset prior selections and changing date cleared time and route selections. After a successful boarding-status or stop change, I invalidated the related dispatch detail, student schedule, and stop-list query keys so the screen fetched server results. Dragging a pickup or drop-off stop also required checks for the same stop, route direction, departure and arrival constraints, and reversed boarding order before a confirmation dialog appeared.
+The academy, date, time, and dispatch selections had to refer to the same trip across the list and map. Changing academy reset the previous selections; changing date cleared time and route. After a boarding-status or stop change succeeded, I invalidated the related dispatch detail, student schedule, and stop-list query keys to fetch the server result again. A dragged stop also went through checks for the same stop, route direction, departure and arrival constraints, and reversed boarding order before the confirmation dialog.
 
-## What was delivered and what remained a proposal
-
-I proposed address search or a list of stops associated with an academy for operators who did not know a stop's exact name. That is a recorded proposal, not evidence that every search option reached production. The student-list exceptions involved a backend response agreement; access scope was included in the trip screen.
-
-The work rebuilt distributed functions around the trip workflow in the new Admin and contributed to its initial stabilization. I do not attach a completion date for the entire legacy migration or a measured stabilization effect to this case. The [Yellow Bus case](/en/work/yellow-bus/) has more on the screen and query flow.
+I also proposed address search or a list of stops associated with an academy for operators who did not know a stop's exact name. Those are recorded proposals; I cannot say every search option reached production. I contributed to rebuilding the trip screens and their initial stabilization, but have no completion date for the entire legacy migration or a measured stabilization effect. The [Yellow Bus case](/en/work/yellow-bus/) has more on the screens and query flow.

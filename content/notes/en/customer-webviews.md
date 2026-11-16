@@ -13,12 +13,14 @@ projects: ['swing-webview', 'swap-customer', 'swing-japan']
 draft: false
 ---
 
-## Where a screen hands off
+## From the WebView to the next screen
 
-A screen inside an app does not finish its job at the WebView boundary. Entry into another product, state after login, and the return from payment all need to connect to the app. For [SWING customer WebViews](/en/#archive-swing-webview), I built a hub that led from an external service to other products in the app, with guidance for each destination. I worked on membership purchase information and the points screen while preserving existing history routes and Korean and English display. I later contributed to login and identity verification screen changes, a point top-up payment widget, and its return screen.
+Returning from a point top-up payment takes more than a screen inside the WebView. It was one of the boundaries I worked on at [SWING customer WebViews](/en/#archive-swing-webview), where I contributed to the payment widget and return screen. I also built a hub from an external service to other products in the app, with guidance for each destination. On the membership purchase list and points screen, I checked existing history routes and Korean and English display. Later, I contributed to login and identity verification screen changes.
 
-At [SWAP](/en/#archive-swap-customer), my work covered early web and WebView builds, product discovery, first orders, receipts, and the business portal. I separated accessory purchases from subscription inputs in first orders and connected receipts to server lookup results. With the team, I moved bicycle customer login to a new OAuth2 contract and addressed token-state races just after login, signup, and consent flows. In the business portal I handled access checks and return paths after payment. These screens depend on server and app contracts; checking a screen does not establish that the whole payment or authentication system was verified.
+At [SWAP](/en/#archive-swap-customer), I worked on the initial web and WebView screens, then product discovery, first orders, receipts, and the business portal. First orders separated accessory purchases from subscription inputs; receipts used server lookup results. With the team, I moved bicycle customer login to a new OAuth2 contract and addressed token-state races just after login, along with signup and consent flows. The business portal needed access checks and a return path after payment. Payment and authentication also depend on server and app contracts, so screen checks alone cannot establish that those systems were verified end to end.
 
-## A bridge call is not completed native work
+## What a bridge call tells us
 
-For SWAP, I added Flutter `callHandler` and `JavaScriptChannel.postMessage` paths alongside existing Android and iOS bridge calls. The channel determined whether an object or serialized JSON was sent, and a synchronous exception during a call led to trying the next method. Sending a call successfully does not establish that native processing finished. On the [SWING Japan](/en/#archive-swing-japan) TF, I also contributed to the website, back office, Japanese WebView text, and a WebKit bridge connection. The public record supports those contributions, without quantified usage or conversion outcomes.
+For SWAP, I added Flutter `callHandler` and `JavaScriptChannel.postMessage` alongside existing Android and iOS bridge paths. Depending on the channel, the message carried an object or serialized JSON. If a call threw synchronously, the bridge tried the next method. A successful call tells us the message was sent, but not that native processing finished.
+
+On the [SWING Japan](/en/#archive-swing-japan) TF, I contributed to the website, back office, Japanese WebView text, and a WebKit bridge connection. There are no figures for usage or conversion in the public record.

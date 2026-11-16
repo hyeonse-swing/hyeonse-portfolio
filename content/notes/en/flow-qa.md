@@ -13,23 +13,23 @@ projects: ['flow-qa']
 draft: false
 ---
 
-## The review step between a flow and a run
+## A click sequence is not enough
 
-[Flow QA](/en/about/#flow-qa) is a local tool for turning user flows into reviewable cases and browser runs into reports. A flow may describe which button to press without saying what success means or which conditions make the result valid. Running that description directly could produce a passing test without establishing that it checked the intended behavior.
+[Flow QA](/en/about/#flow-qa) turns user flows into reviewable cases and browser runs into reports locally. A flow document may say which buttons to press while leaving out the success condition or the environment in which to check it. A passing automated run would then say little about the behavior the flow was meant to cover.
 
-I separated planning from execution for that reason. Flow QA keeps a hash of the source flow, checks that case steps belong to an allowed set, and requires explicit assertions. An unanswered question stays visible and blocks its case instead of being converted into an invented expectation. Fixed steps can run without a model. The actual browser execution is delegated to `tester-army/e2e`; Flow QA prepares the input and keeps the result tied to what was reviewed.
+That's why planning and execution are separate. Flow QA keeps the source flow's hash, checks that case steps use allowed actions, and requires explicit assertions. An unanswered question stays visible and blocks its case. Fixed steps can run without a model, while `tester-army/e2e` handles the actual browser execution. Flow QA ties the result back to the input and expectations that were reviewed.
 
-## A selected run has a selected scope
+## A partial run produces partial results
 
-Rerunning every case is not always useful. Flow QA can execute selected cases and prepare reruns of failed or error cases. The run still retains the full suite identity and records which cases were selected. A case omitted from a run is not a pass. When comparing two runs, the tool does not fill a missing result with a pass from an earlier execution.
+Flow QA can run selected cases or prepare reruns of failed and error cases. It retains the full suite identity alongside the selection made for this run. Omitted cases are not passes, and a comparison of two runs does not fill missing results with earlier passes.
 
-Detailed reports keep attempts and evidence with their cases. Saved runs and report contents can be searched, and cases with at least two attempts can be filtered. The IDs currently visible under a report filter can be downloaded for a handoff. That list reflects the filtered view; it does not change the scope of the full Markdown or JSON report. This distinction matters when a short handoff list is read alongside an entire run.
+Detailed reports keep attempts and evidence with each case. You can search saved runs and cases inside a report, then filter for cases with at least two attempts. The IDs visible under the current filter can be downloaded for a handoff. That list reflects only the filtered view; the full Markdown and JSON reports keep their original scope.
 
-## When display settings cannot be saved
+## When a display setting fails to save
 
-The local UI can encounter browser storage read or write failures. A display change still applies in the current tab, but the UI explains that it has not been saved. A successful later save or a reset clears the warning. The message makes the difference between a temporary view and a preference that will survive another visit visible to the person using the report.
+If browser storage cannot be read or written, a display change may apply only in the current tab. The UI says it was not saved. A later successful save or a reset clears that warning, so the current view isn't mistaken for a preference that will survive another visit.
 
-The public v0.8.9 record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases. Storage failure and recovery were exercised in a browser fixture. Those are previously published checks, not tests rerun for this article. Authentication against a real service, iOS or Android devices, and behavior under actual browser policies and permissions remain outside that record.
+The public v0.8.9 record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases. Storage failure and recovery were checked in a browser fixture. I did not rerun those checks for this article. The record does not cover authentication against a real service, iOS or Android devices, or the effects of browser policies and permissions in a user's environment.
 
 ## Public sources
 

@@ -10,18 +10,16 @@ projects: ['swap-admin-v2']
 draft: false
 ---
 
-## Data did not change at the same moment as the screens
+## A V2 screen with a V1 task behind it
 
-The major December 2025 SWAP operations Admin release introduced V2 screens for subscriptions, tasks, and factoring with the Fleet API. Existing task data still needed a lookup path. Since September 2025, I have served as SWAP FE Part Lead for frontend technical decisions, development, and review. In this team release, I contributed major feature work, technical review, and code review. The case covers the operations Admin transition, not completion of a migration across the entire service.
+The December 2025 SWAP operations Admin release introduced V2 screens for subscriptions, tasks, and factoring with the Fleet API. Opening a new list did not remove the need to look up existing task data. A task reached through an older detail URL could itself be V2 data and needed to land on the new detail screen.
 
-A new screen entry point could not simply assume that the URL and task data had the same version. The transition included checking the response version on the legacy task detail screen and sending V2 tasks to the new detail screen. Navigation used `replace` so the transitional entry URL did not add another step to browser history. At release time, task details also attempted a V2 lookup first and queried V1 if the request failed. That describes the coexistence path at the time; it does not establish that every cause of failure was identified and safely classified.
+The transition checked the response version on the legacy detail screen and sent V2 tasks to the new one. Navigation used `replace` so the transitional URL did not add an extra browser-history step. At release time, task detail also tried a V2 lookup first and queried V1 if the request failed. This was the coexistence path then; it did not classify every failure cause before switching.
 
-## Where new lists met legacy detail workflows
+## New lists, existing follow-on work
 
-I worked on new entry screens for subscriptions, tasks, and factoring and their Fleet API integration. The factoring list managed filters together with page state: empty filters were omitted from lookups, a filter change returned to page one, and the Fleet API's total and page values fed table pagination. New lists used Fleet API page responses, while related detail, contract, and attachment workflows still had legacy API paths. I also contributed to the team release with Suspense and ErrorBoundary loading and error boundaries for the factoring V2 list.
+I worked on the new entry screens for subscriptions, tasks, and factoring and their Fleet API integration. The factoring list omitted empty filters from lookups, returned to page one when filters changed, and connected the API's total and page values to table pagination. Related detail, contract, and attachment work still had legacy API paths even while new lists used Fleet API page responses. I also contributed to the team release that put Suspense and ErrorBoundary loading and error boundaries around the factoring V2 list.
 
-The employee's path through the Admin mattered alongside the data calls. I participated in the transition of permissions, sidebar navigation, payment lookup, and bulk-work functions. Those paths had to connect existing Admin work with V2 screens. V2 was a team release; this account does not assign every design or implementation decision to me alone.
+Staff needed a way into those screens too. I participated in transitioning permissions, sidebar navigation, payment lookup, and bulk-work functions, checking how the menus and access paths connected old and V2 work. Since September 2025, my SWAP FE Part Lead scope has been frontend technical decisions, development, and review. For this team release, I contributed major feature development, technical review, and code review; the design and implementation were shared across the team.
 
-## The observed transition boundary
-
-The December 2025 release merged the subscription, task, and factoring V2 screens with Fleet API integration. The contemporaneous task detail flow included V2-first lookup and a V1 path on request failure. The production error rate of that coexistence path was not separately measured, and this case does not give a completion date for remaining legacy API workflows. It describes my contribution to navigation and lookup while old and new task data coexisted. The [SWAP Admin V2 case](/en/work/swap-admin-v2/) shows the screen boundaries in more detail.
+The three V2 screens and Fleet API integration were merged in the December 2025 release. The V2-first task lookup and V1 path on request failure were recorded at the time. We did not separately measure the production error rate of that coexistence path, and this case does not establish when remaining legacy API work finished migrating. It covers the operations Admin transition; the [SWAP Admin V2 case](/en/work/swap-admin-v2/) has the screen boundaries in more detail.

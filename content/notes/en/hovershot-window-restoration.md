@@ -10,23 +10,23 @@ projects: ['hovershot']
 draft: false
 ---
 
-## When a capture appears on another screen
+## When the capture panel lands on another screen
 
-[HoverShot](/en/about/#personal-projects) is a macOS menu bar app that shows area, window and timed captures in floating panels above other apps. It also offers annotations, OCR search in the shot library, and trimming or GIF export for area and window recordings. People can choose a panel's opacity and click-through behavior, then save its position and state.
+[HoverShot](/en/about/#personal-projects) is a macOS menu bar app that shows area, window and timed captures in floating panels above other apps. It supports annotations and OCR search in the shot library, plus trimming or GIF export for area and window recordings. A person can set each panel's opacity and click-through behavior and save its position and state.
 
-For a floating reference, placement matters alongside the image itself. If a shot taken on one monitor appears on another, the person has to find and move it before continuing. The public v0.2.2 release addresses a case where v0.2.1 calculated the target position for an area or window capture, but AppKit changed the panel's position while creating the actual window. The same path also needed to preserve the position of a panel the user had moved and opened again.
+With multiple monitors, a capture is less useful if its floating panel opens on a different screen and has to be moved back. In v0.2.1, HoverShot calculated the target position for an area or window capture, but AppKit could change that position while creating the actual panel. The public v0.2.2 release fixes that path and also checks that a moved panel reopens where the user left it.
 
-## Coordinates and window creation order
+## Applying coordinates after panel creation
 
-The change is about the order of operations, not merely a different coordinate calculation. HoverShot first determines the intended position in global screen coordinates. After it creates and configures the AppKit panel, it reapplies that position. AppKit can adjust the position during panel creation, so the final display step has to restore the intended coordinates.
+HoverShot determines the intended position in global screen coordinates first. It then creates and configures the AppKit panel before applying those coordinates again. AppKit can adjust the panel position during creation, so the final display step needs that second placement.
 
-The rule covers both new capture panels and panels reopened after a user move. A new result should appear on the monitor that was captured; a reopened panel should follow the saved user position. Opacity and click-through remain user choices. Position restoration carries the existing screen context forward instead of deciding how the person should arrange their workspace.
+The same sequence applies to new capture panels and panels reopened after a move. New results use the captured monitor; reopened panels use the saved position. Opacity and click-through stay under the user's control.
 
-## Observed behavior and limits
+## What the three-monitor check covered
 
-The release record says the pre-fix AppKit creation and display check reproduced a failure on an external monitor in a three-monitor setup. After the change, multiple result panels were displayed across three connected monitors to check their target screens. A move-and-reopen check and existing regressions brought the total to 25 passing tests. The record also lists a Release build, app signature verification and ZIP integrity check. I did not rerun those checks while writing this note.
+The release record describes a failed pre-fix AppKit creation and display check on an external monitor in a three-monitor setup. After the change, multiple result panels were displayed across the three monitors to check their target screens. A move-and-reopen check and existing regressions brought the total to 25 passing tests. The record also lists a Release build, app signature verification and ZIP integrity check. I did not rerun those checks for this article.
 
-The panel display checks used synthetic images. They do not verify the complete real screen capture and macOS permission flow in a user's environment. The public ZIP targets Apple Silicon on macOS 14 or later; recording requires macOS 15 or later. It is packaged with a local development signature and has not been notarized by Apple, which matters when installing it.
+The panel display checks used synthetic images, so they do not cover the complete real screen capture and macOS permission flow in a user's environment. The public ZIP targets Apple Silicon on macOS 14 or later; recording requires macOS 15 or later. It has a local development signature and has not been notarized by Apple, which is relevant when installing it.
 
 ## Public sources
 

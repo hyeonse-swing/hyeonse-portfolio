@@ -13,23 +13,23 @@ projects: ['error-to-test']
 draft: false
 ---
 
-## An error is not yet a test
+## What the error log cannot tell us
 
-[Error to Test](/en/about/#error-to-test) is a local tool that turns Browser Error Log exports, pasted errors and JSONL into regression test candidates. Repeated occurrences of an error message do not tell us how to reproduce it or what the correct behavior should be. Instead of immediately producing a runnable script, the tool separates what the source establishes from the questions a reviewer still needs to answer.
+[Error to Test](/en/about/#error-to-test) reads Browser Error Log exports, pasted errors and JSONL to prepare regression test candidates locally. Seeing the same error repeatedly still doesn't tell me how to reproduce it or what should have happened. The tool starts by separating what the source actually shows from the questions a reviewer needs to answer.
 
-When it reads multiple files, it records each input’s byte hash and order and checks for duplicate ID collisions and partial input. It groups errors by signature, then prepares a review report and a candidate Flow QA suite. If the setup or source for an expected result is missing, the case remains blocked. A reviewer supplies the missing information and analyzes again before execution. Candidate generation and browser verification are intentionally separate steps.
+With multiple input files, it records each file's byte hash and order and checks for duplicate ID collisions and partial input. It groups errors by signature and prepares a review report and candidate Flow QA suite. A case stays blocked if its reproduction setup or the source of its expected result is missing. Once a reviewer supplies that information, the input must be analyzed again before the case can run. Writing a candidate and verifying it in a browser are separate steps.
 
-## Reading differences between two collections
+## When an old error disappears
 
-Comparing a previous analysis bundle with current input can highlight signatures seen only in the current collection. A signature present only in the previous bundle, however, is not proof that the problem was fixed. The collections may cover different periods or scopes, and one export may be partial. Error to Test keeps collection-scope warnings alongside the comparison so “not observed here” is not silently turned into “resolved.”
+Comparing an earlier analysis bundle with new input shows signatures observed only this time. If an old signature is absent, that alone does not mean the bug is fixed. The two collections may cover different periods or scopes, and one export may be partial. Scope warnings sit beside the comparison so “not observed here” stays distinct from “resolved.”
 
-Linking Flow QA results back to errors has a similar source check. The tool compares the suite hash and case IDs in the analysis bundle and run report before showing results for source error groups. Two web or mobile targets can share a display name. In v0.3.0, a SHA-256 fingerprint derived from the canonical target identity scopes the latest run and failure decision to the actual target. Older reports without a fingerprint and reports without target information remain readable, but are not counted as results for a particular target. A case omitted from a selected run is not filled with an earlier pass.
+The same care applies when linking Flow QA runs back to error groups. The tool first compares the suite hash and case IDs in the analysis bundle and run report. Since two web or mobile targets can share a display name, v0.3.0 derives a SHA-256 fingerprint from the canonical target identity. It uses that fingerprint to distinguish each target's latest run and failure decision. Older reports without a fingerprint and reports with no target can still be read, but cannot count toward a particular target. A selected run also leaves omitted cases unfilled rather than borrowing an earlier pass.
 
-## What the public checks establish
+## Where the result stops
 
-The public v0.3.0 record lists 203 local tests, type checking, a build and an isolated installed-package check. A separate controlled Chromium integration record dates from October 2026. I did not rerun those checks for this article. They also do not establish the full flow against authenticated services or native devices.
+The public v0.3.0 record lists 203 local tests, type checking, a build and an isolated installed-package check. There is also a controlled Chromium integration record from October 2026. I did not rerun those checks for this article, and they do not cover the full flow with authenticated services or native devices.
 
-The target fingerprint identifies result scope; it is not an anonymization method. A team using the tool still needs to review sensitive information in source errors and the permissions of its execution environment. The output is a set of candidates and a bounded account of observed runs. Declaring an error fixed requires evidence beyond the absence of its signature from one collection.
+The target fingerprint identifies which run a result belongs to; it does not anonymize it. Whoever uses the tool needs to review sensitive information in source errors and the execution environment's permissions. These results describe candidates and observed runs. Confirming a fix takes evidence beyond an absent signature in one collection.
 
 ## Public sources
 

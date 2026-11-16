@@ -10,23 +10,23 @@ projects: ['hyeonse-design-system']
 draft: false
 ---
 
-## A visual language beyond one portfolio
+## When color values get copied around
 
-[Hyeonse Design System](/en/about/#hyeonse-design-system) grew from the colors and display settings used in this portfolio. Copying color values into each screen makes a later theme or accent change depend on finding every instance of the same visual role. I separated those roles into CSS tokens for surfaces, text and accents, alongside type and spacing. The package also provides React controls for theme, accent, density, corners and motion.
+[Hyeonse Design System](/en/about/#hyeonse-design-system) packages the colors and display settings from this portfolio for use in other personal projects. Copying color values into every screen means hunting down each use when a theme or accent changes. I gave visual roles such as surfaces, text and accents CSS tokens, and handled type and spacing the same way. The package also includes React controls for theme, accent, density, corners and motion.
 
-Each site supplies its own defaults. A valid preference already saved by a visitor takes priority, so sharing the system does not force every site to start with identical choices. The public project record describes its use in this portfolio and Flow QA. What carries over is the vocabulary of roles and the behavior of the controls, rather than a requirement that their screens look the same.
+Each site chooses its defaults, while a valid saved visitor preference takes priority. The public project record covers integration in this portfolio and Flow QA. They share the meaning of the tokens and the settings behavior without needing identical screens.
 
-## One rule before and after React starts
+## Keeping the first paint consistent
 
-Applying a theme only after React runs can make the first paint disagree with the setting that follows. The integration therefore passes the same site defaults to an initial script and to the React provider. It checks a saved choice before using it, and also responds to system theme and reduced-motion settings. Changes made in another tab can update the current one.
+If a theme applies only after React starts, the first paint can briefly show a different setting. The integration passes the same site defaults to an initial script and the React provider. It validates a saved choice before using it, responds to system theme and reduced-motion settings, and updates the current tab when a setting changes in another one.
 
-The ordering of these values matters more than the number of controls. The initial script and provider need the same starting point; otherwise the page can change appearance during startup even when no visitor has made a new choice. Preserving a valid saved choice also keeps a site default from unexpectedly replacing the visitor’s preference.
+If the initial script and provider start with different defaults, the page can change appearance during startup even when the visitor has made no new choice. Checking stored values and using one priority order also prevents a site default from unexpectedly replacing a valid preference.
 
-## What the checks cover
+## Finding colors outside the tokens
 
-The package includes a CLI that checks raw CSS colors and redefinitions of shared tokens. That gives a concrete check when creating or migrating a screen. Its documented scope is CSS: it does not inspect every color in TypeScript, JavaScript or 3D materials. A reusable skill helps with interface creation, migration and review, but human design decisions remain distinct from this automated check.
+When creating or migrating a screen, it's easy for a color to bypass the tokens. The package's CLI checks raw CSS colors and redefinitions of shared tokens. It covers CSS, not every color in TypeScript, JavaScript or 3D materials. There is also a reusable skill for interface creation, migration and review, while design choices still require a person.
 
-The public integration record describes 36 local Chrome view conditions around the portfolio migration, including preference restoration and cross-tab updates. I did not rerun those checks while writing this article. The record does not establish behavior on physical devices or a deployed site. The package is installed from GitHub; it is not presented as an npm registry release.
+The public integration record describes 36 local Chrome view conditions before and after the portfolio migration, including preference restoration and cross-tab updates. I did not rerun those checks for this article. They do not establish behavior on physical devices or a deployed site. The package is installed from GitHub and has not been published to the npm registry.
 
 ## Public sources
 

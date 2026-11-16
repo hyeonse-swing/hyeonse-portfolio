@@ -10,25 +10,25 @@ projects: ['browser-error-log', 'error-to-test', 'flow-qa']
 draft: false
 ---
 
-## Where the tools meet
+## Moving from error logs to tests
 
-[Browser Error Log](/en/about/#personal-projects) collects browser errors and stores them in a self-hosted collector. Error to Test reads those errors and manual reports to prepare regression test candidates. Flow QA runs reviewed cases in a browser and records the outcome. Connecting the tools does not make an error log a complete test: reproduction conditions and the correct expected behavior still need a human source. The pipeline has to keep questions open and show which input and run support each judgment.
+[Browser Error Log](/en/about/#personal-projects) collects browser errors in a self-hosted collector. Error to Test reads those records and manual reports to prepare regression test candidates, then Flow QA runs reviewed cases in a browser and records the outcome. An error log still cannot supply reproduction conditions or the correct expected behavior on its own. Questions for a reviewer need to stay open, with each judgment traceable to its input and run.
 
-Three public releases in November 2026 address different boundaries in that flow. Browser Error Log adds a way to move SQLite records into another tool. Error to Test narrows how linked results are read for a particular execution target. Flow QA improves report exploration and warns when display preferences cannot be saved. These are changes in separate local tools; this note describes what their public source and release records establish.
+Three public releases from November 2026 changed different parts of that path. Browser Error Log gained a way to export SQLite records, Error to Test became more precise about which execution target a result belongs to, and Flow QA made reports easier to explore while warning about unsaved display settings. Each change lives in its own local tool.
 
-## Export and result scope
+## Exporting records and connecting results
 
-Browser Error Log now offers a CLI export for records held in the collector's default SQLite storage. It makes the storage choice and size limit explicit and avoids changing the source database. This gives an analysis tool a way to receive those events without writing to the collector's database. It is a read-only route for SQLite records alongside the existing JSONL storage path.
+SQLite is the Browser Error Log collector's default store. Its CLI export states the storage choice and size limit explicitly and reads records without changing the source database. An analysis tool can receive those events without writing to the collector's database. The existing JSONL storage path remains separate.
 
-Error to Test no longer relies on a target name alone when linking Flow QA runs to source error groups. Two web or mobile targets can share a display name. A SHA-256 fingerprint derived from Flow QA's canonical target identity scopes the latest run, case counts and failure decision to the selected target. Older results without that fingerprint and reports without a target remain readable, but they cannot be treated as results for a specific target. Cases omitted from a selected run are not filled in with passes from a previous run. Readers can therefore examine both the outcome and the target and execution scope behind it.
+When Error to Test links Flow QA runs to source error groups, a display name alone is unreliable: two web or mobile targets may share it. A SHA-256 fingerprint derived from Flow QA's canonical target identity separates the latest run, case counts and failure decision by target. Older results without a fingerprint and reports without a target remain readable, but cannot count toward a specific target. Omitted cases in a selected run do not inherit earlier passes.
 
-In Flow QA, the detailed report can filter for cases with at least two recorded attempts and download the IDs currently visible under its filters. That list helps with a QA handoff; it does not narrow the complete Markdown or JSON report. When browser storage cannot be read or written, display preferences still apply in the current tab, and the UI says they have not been saved. A later successful save or reset clears the warning.
+Flow QA's detailed report can filter for cases with at least two attempts and download the IDs visible under the current filters. The downloaded handoff list is narrower than the full Markdown and JSON reports, which keep their original scope. If browser storage cannot be read or written, a display preference still applies in the current tab, but the UI says it was not saved. A later successful save or reset clears the warning.
 
-## What the records verify
+## Checks in the release records
 
-Flow QA's release record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases. Its storage failure and recovery were exercised with a browser fixture. Error to Test records 203 local tests, type checking, a build and an isolated installed-package check. The Browser Error Log change describes a check of the original database hash and collector restart after export. These are the projects' published checks, not tests rerun while writing this note.
+Flow QA's release record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases; storage failure and recovery were exercised with a browser fixture. Error to Test records 203 local tests, type checking, a build and an isolated installed-package check. The Browser Error Log change records an original database hash check and collector restart after export. These are published checks from the projects, not tests rerun for this article.
 
-The records do not establish behavior with authenticated services, native devices, real browser policy restrictions or delivery guarantees in production. A target fingerprint is an identifier, not anonymization. Anyone applying the tools still needs to review the information carried in errors and the permissions of their own environment.
+Those records do not cover authenticated services, native devices, storage restrictions under actual browser policies or delivery guarantees in production. A target fingerprint identifies a target; it does not anonymize it. The information carried in errors and the permissions of the operating environment still need review when applying the tools.
 
 ## Public sources
 
