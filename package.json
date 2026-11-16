@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@giscus/react": "3.1.0",
-    "@hyeonse/design-system": "https://codeload.github.com/hyeonse-swing/hyeonse-design-system/tar.gz/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6",
+    "@hyeonse/design-system": "https://codeload.github.com/hyeonse-swing/hyeonse-design-system/tar.gz/090e10e066b933c3c9565b4553c4c35ace45eb99",
     "gray-matter": "4.0.3",
     "next": "16.4.2",
     "react": "19.3.1",
