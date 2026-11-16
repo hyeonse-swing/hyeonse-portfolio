@@ -4,13 +4,30 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadNotesModule } from './load-notes.mjs';
 
-const { readNotesDirectory, getAllNotes, getNotes, getNote, getNoteLocales, getRelatedNotes } = loadNotesModule();
+const { readNotesDirectory, getAllNotes, getNotes, getNote, getNoteLocales, getRelatedNotes, paginateNotes, paginationItems, notePagePath, getNoteListPages } = loadNotesModule();
 const fixture = mkdtempSync(join(tmpdir(), 'portfolio-notes-'));
 const dir = locale => join(fixture, locale);
 const metadata = (date, extra = '') => `---\ntitle: Example\ndescription: A project note\ndate: '${date}'\ntags: [engineering]\nprojects: [hovershot]\n${extra}---\n\nA short note.\n`;
 const write = (locale, file, source) => { mkdirSync(dir(locale), { recursive: true }); writeFileSync(join(dir(locale), file), source); };
 
 try {
+  const entries = Array.from({ length: 17 }, (_, index) => ({ slug: `note-${index}`, locale: 'ko' }));
+  const pages = [1, 2, 3].map(page => paginateNotes(entries, page));
+  assert.deepEqual(pages.map(page => page.notes.length), [8, 8, 1], 'last page contains only remaining notes');
+  assert.deepEqual(pages.flatMap(page => page.notes), entries, 'pagination preserves order without omissions or duplicates');
+  assert.equal(paginateNotes(entries.slice(0, 8)).totalPages, 1);
+  assert.equal(paginateNotes(entries.slice(0, 16)).totalPages, 2, 'exact page boundary does not create an empty page');
+  assert.deepEqual(paginateNotes([]), { notes: [], page: 1, totalPages: 1, totalNotes: 0 });
+  for (const invalid of [0, -1, 1.5, NaN, Infinity, 4]) assert.equal(paginateNotes(entries, invalid), undefined);
+  assert.equal(notePagePath(1), '/notes/');
+  assert.equal(notePagePath(2), '/notes/page/2/');
+  assert.deepEqual(paginationItems(1, 2), [1, 2]);
+  assert.deepEqual(paginationItems(10, 20), [1, 'ellipsis', 9, 10, 11, 'ellipsis', 20]);
+  assert.deepEqual(paginationItems(1, 20), [1, 2, 3, 4, 'ellipsis', 20]);
+  assert.deepEqual(paginationItems(20, 20), [1, 'ellipsis', 17, 18, 19, 20]);
+  const uneven = getNoteListPages([...entries, { locale: 'en' }]);
+  assert.deepEqual(uneven.map(({ locale, page }) => `${locale}/${page}`), ['ko/1', 'ko/2', 'ko/3', 'en/1'], 'language page counts are independent');
+
   write('ko', 'older.md', metadata('2026-01-01'));
   write('ko', 'newer.md', metadata('2026-02-01'));
   write('ko', 'draft.md', metadata('2026-03-01', 'draft: true\n'));
@@ -20,6 +37,7 @@ try {
   assert.ok(notes.every(note => !('draft' in note)));
   assert.equal(notes.find(note => note.slug === 'older').readingMinutes, 1);
   assert.equal(notes.filter(note => note.slug === 'english-only').length, 1, 'unpaired translation is published');
+  assert.deepEqual(paginateNotes(notes.filter(note => note.locale === 'ko')).notes.map(note => note.slug), ['newer', 'older'], 'pagination uses published locale-specific notes');
   const current = notes.find(note => note.slug === 'older');
   assert.deepEqual(getRelatedNotes(notes, current).map(note => note.slug), ['newer'], 'related notes exclude self, drafts and other languages');
   const candidate = (slug, tags, projects, date = '2026-01-01') => ({ ...current, slug, tags, projects, date });

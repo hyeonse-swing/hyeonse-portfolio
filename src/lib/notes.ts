@@ -5,6 +5,8 @@ import matter from 'gray-matter';
 import { getNoteProjects } from '../data/note-projects';
 import type { Locale } from './locale';
 import { activityDateKey, isActivityDate, noteDateSortKey, type NoteActivity } from './note-dates';
+import { notePageCount, notePagePath, paginateNotes } from './note-pagination';
+export { notePageCount, notePagePath, paginateNotes, paginationItems } from './note-pagination';
 
 export type Note = {
   slug: string;
@@ -122,6 +124,12 @@ export function readNotesDirectory(root: string): Note[] {
 function allNotes(): Note[] { return readNotesDirectory(join(process.cwd(), 'content', 'notes')); }
 
 export function getNotes(locale: Locale): Note[] { return allNotes().filter(note => note.locale === locale); }
+export function getNotesPage(locale: Locale, page = 1) { return paginateNotes(getNotes(locale), page); }
+export function getNoteListPages(notes: readonly Pick<Note, 'locale'>[] = allNotes()) {
+  return locales.flatMap(locale => Array.from({ length: notePageCount(notes.filter(note => note.locale === locale).length) }, (_, index) => ({
+    locale, page: index + 1, path: notePagePath(index + 1),
+  })));
+}
 export function getProjectNotes(notes: readonly Note[], projectId: string): Note[] {
   return notes.filter(note => note.projects.includes(projectId))
     .sort((a, b) => Number(b.slug === projectId) - Number(a.slug === projectId));

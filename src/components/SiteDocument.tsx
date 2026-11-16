@@ -11,12 +11,16 @@ import LanguageSwitcher from './LanguageSwitcher';
 import SiteNavigation from './SiteNavigation';
 import SiteSearch from './SiteSearch';
 import SearchTargetReveal from './SearchTargetReveal';
-import { getAllNotes } from '../lib/notes';
+import { getAllNotes, getNoteListPages } from '../lib/notes';
 
 export default function SiteDocument({ children, locale }: { children: ReactNode; locale: Locale }) {
   const { profile, siteCopy } = getPortfolio(locale);
   const en = locale === 'en';
-  const notePaths = getAllNotes().map(note => localizedPath(note.locale, `/notes/${note.slug}/`));
+  const notes = getAllNotes();
+  const notePaths = [
+    ...notes.map(note => localizedPath(note.locale, `/notes/${note.slug}/`)),
+    ...getNoteListPages(notes).map(entry => localizedPath(entry.locale, entry.path)),
+  ];
   return <html lang={locale} data-corners={preferenceDefaults.corners} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/noto-kr-subset.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><PreferencesProvider>
     <SearchTargetReveal />
     <a className="skip-link" href="#main" tabIndex={0}>{en ? 'Skip to content' : '본문으로 건너뛰기'}</a>

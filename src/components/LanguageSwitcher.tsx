@@ -10,7 +10,7 @@ export default function LanguageSwitcher({ locale, notePaths = [] }: { locale: L
   const [suffix, setSuffix] = useState('');
   const alternate = alternatePath(pathname || '/', target);
   const normalized = `${alternate.replace(/\/+$/, '')}/`;
-  const missingTranslation = /^\/(?:en\/)?notes\/[^/]+\/$/.test(normalized) && !notePaths.includes(normalized);
+  const missingTranslation = /^\/(?:en\/)?notes\/(?:[^/]+|page\/[1-9]\d*)\/$/.test(normalized) && !notePaths.includes(normalized);
 
   useEffect(() => {
     const update = () => {

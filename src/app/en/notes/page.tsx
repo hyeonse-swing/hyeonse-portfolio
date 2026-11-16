@@ -1,6 +1,6 @@
 import NotesPage from '../../../components/NotesPage';
-import { getNotes } from '../../../lib/notes';
-import { pageMetadata } from '../../../lib/metadata';
+import { getNotesPage } from '../../../lib/notes';
+import { noteListMetadata } from '../../../lib/note-list-metadata';
 
-export const metadata = pageMetadata('en', '/notes/', 'Notes', 'Things I have built, problems I have worked through, and notes along the way.');
-export default function Page() { return <NotesPage locale="en" notes={getNotes('en')} />; }
+export const metadata = noteListMetadata('en');
+export default function Page() { return <NotesPage locale="en" pagination={getNotesPage('en')!} />; }

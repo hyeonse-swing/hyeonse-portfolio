@@ -7,10 +7,13 @@ import { loadNotesModule } from './load-notes.mjs';
 const root = resolve('out');
 const entries = await readdir(root, { recursive: true });
 const htmlFiles = entries.filter(file => file.endsWith('.html') && !file.startsWith('_not-found/') && !file.startsWith('_global-not-found/') && file !== '404/index.html');
-const notes = loadNotesModule().getAllNotes();
+const { getAllNotes, getNoteListPages } = loadNotesModule();
+const notes = getAllNotes();
 const career = JSON.parse(await readFile('src/data/content.json', 'utf8'));
-const basePaths = ['/', '/about/', '/studio/', '/notes/', ...career.featuredCases.map(item => `/work/${item.id}/`)];
-const expectedPaths = [...basePaths.flatMap(path => [path, `/en${path}`]), ...notes.map(note => `${note.locale === 'en' ? '/en' : ''}/notes/${note.slug}/`)];
+const basePaths = ['/', '/about/', '/studio/', ...career.featuredCases.map(item => `/work/${item.id}/`)];
+const expectedPaths = [...basePaths.flatMap(path => [path, `/en${path}`]),
+  ...getNoteListPages(notes).map(entry => `${entry.locale === 'en' ? '/en' : ''}${entry.path}`),
+  ...notes.map(note => `${note.locale === 'en' ? '/en' : ''}/notes/${note.slug}/`)];
 assert.deepEqual([...htmlFiles].sort(), [...expectedPaths.map(path => `${path.slice(1)}index.html`), '404.html'].sort(), '공개 페이지와 게시된 기록만 출력되어야 합니다.');
 const forbidden = [
   /github\.com\/(?:the-swing|reverse-lab-corporation|IHyeon)(?:\/|["<\s])/i,
