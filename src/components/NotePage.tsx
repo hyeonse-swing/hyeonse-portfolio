@@ -8,7 +8,7 @@ import BlogComments from './BlogComments';
 import NoteActivityDate from './NoteActivityDate';
 import styles from './Notes.module.css';
 
-export default function NotePage({ note }: { note: Note }) {
+export default function NotePage({ note, relatedNotes = [] }: { note: Note; relatedNotes?: Note[] }) {
   const { locale, slug } = note;
   const en = locale === 'en';
   const projects = new Map(getNoteProjects(locale).map(project => [project.id, project]));
@@ -36,6 +36,15 @@ export default function NotePage({ note }: { note: Note }) {
       <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>
       {note.updated && <span>{en ? 'Updated' : '수정'} <time dateTime={note.updated}>{note.updated}</time></span>}
     </footer>
+    {relatedNotes.length > 0 && <nav className={styles.readNext} aria-labelledby="read-next-title">
+      <h2 id="read-next-title">{en ? 'Keep reading' : '함께 읽을 글'}</h2>
+      <ul>{relatedNotes.map(related => <li key={related.slug}>
+        <Link href={localizedPath(locale, `/notes/${related.slug}/`)} aria-labelledby={`read-next-${related.slug}`}>
+          <h3 id={`read-next-${related.slug}`}>{related.title}<span aria-hidden="true">↗</span></h3>
+          <p>{related.description}</p>
+        </Link>
+      </li>)}</ul>
+    </nav>}
     {note.projects.length > 0 && <aside className={styles.related} aria-label={en ? 'Related projects' : '관련 프로젝트'}>
       <h2>{en ? 'Related projects' : '관련 프로젝트'}</h2>
       <ul>{note.projects.map(id => <li key={id}><Link href={projects.get(id)!.href}>{projects.get(id)!.name} ↗</Link></li>)}</ul>

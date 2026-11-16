@@ -1,6 +1,6 @@
 ---
-title: '브라우저 오류의 수집과 보관을 직접 다루기'
-description: 'Browser Error Log에서 맥락 수집을 선택하게 하고, 전송·보관·내보내기의 범위를 제한한 설계예요.'
+title: 'Browser Error Log에서 필요한 오류 맥락만 수집하기'
+description: '앱이 수집할 맥락을 고르고, 브라우저 전송 큐와 자체 호스팅 저장소의 보관·조회 범위를 제한했어요.'
 date: '2026-11-16'
 activity:
   label: '공개 릴리스'

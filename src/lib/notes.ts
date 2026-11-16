@@ -126,6 +126,21 @@ export function getProjectNotes(notes: readonly Note[], projectId: string): Note
   return notes.filter(note => note.projects.includes(projectId))
     .sort((a, b) => Number(b.slug === projectId) - Number(a.slug === projectId));
 }
+/** Prefer the same project, then shared topics; never fill the list with unrelated notes. */
+export function getRelatedNotes(notes: readonly Note[], current: Note): Note[] {
+  const projects = new Set(current.projects);
+  const tags = new Set(current.tags.map(tag => tag.toLocaleLowerCase(current.locale)));
+  return notes.filter(note => note.locale === current.locale && note.slug !== current.slug)
+    .map(note => ({
+      note,
+      projects: [...new Set(note.projects)].filter(project => projects.has(project)).length,
+      tags: [...new Set(note.tags.map(tag => tag.toLocaleLowerCase(note.locale)))].filter(tag => tags.has(tag)).length,
+    }))
+    .filter(match => match.projects > 0 || match.tags > 0)
+    .sort((a, b) => b.projects - a.projects || b.tags - a.tags || noteDateSortKey(b.note) - noteDateSortKey(a.note) || a.note.slug.localeCompare(b.note.slug))
+    .slice(0, 3)
+    .map(match => match.note);
+}
 export function getNote(locale: Locale, slug: string): Note | undefined { return getNotes(locale).find(note => note.slug === slug); }
 export function getAllNotes(): Note[] { return allNotes(); }
 export function getNoteLocales(slug: string): Locale[] { return locales.filter(locale => getNote(locale, slug)); }

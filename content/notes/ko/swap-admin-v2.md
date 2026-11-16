@@ -1,6 +1,6 @@
 ---
-title: '기존 작업 데이터가 남아 있는 SWAP Admin V2 전환'
-description: '새 Fleet API와 화면을 도입하면서 기존 조회·이동 경로를 함께 다룬 팀 릴리스입니다.'
+title: 'SWAP Admin V2에서 기존 작업 데이터 찾아가기'
+description: '구독·작업·팩토링 V2 화면과 Fleet API를 연결하면서, 기존 작업 상세 주소와 V1 조회 경로를 함께 다룬 팀 릴리스예요.'
 date: '2026-11-16'
 activity:
   label: '주요 릴리스'

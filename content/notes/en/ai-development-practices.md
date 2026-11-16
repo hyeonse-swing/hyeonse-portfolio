@@ -1,6 +1,6 @@
 ---
-title: 'Sharing project-specific AI development practices'
-description: 'Repository-aware work rules and scope-based verification shared with the frontend team.'
+title: 'Checking module boundaries in AI-assisted code'
+description: 'I built tool rules around SWAP monorepo dependencies and checks matched to each change, then shared them with the frontend team.'
 date: '2026-11-16'
 activity:
   label: 'Shared with the team'

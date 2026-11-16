@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadNotesModule } from './load-notes.mjs';
 
-const { readNotesDirectory, getAllNotes, getNotes, getNote, getNoteLocales } = loadNotesModule();
+const { readNotesDirectory, getAllNotes, getNotes, getNote, getNoteLocales, getRelatedNotes } = loadNotesModule();
 const fixture = mkdtempSync(join(tmpdir(), 'portfolio-notes-'));
 const dir = locale => join(fixture, locale);
 const metadata = (date, extra = '') => `---\ntitle: Example\ndescription: A project note\ndate: '${date}'\ntags: [engineering]\nprojects: [hovershot]\n${extra}---\n\nA short note.\n`;
@@ -20,6 +20,25 @@ try {
   assert.ok(notes.every(note => !('draft' in note)));
   assert.equal(notes.find(note => note.slug === 'older').readingMinutes, 1);
   assert.equal(notes.filter(note => note.slug === 'english-only').length, 1, 'unpaired translation is published');
+  const current = notes.find(note => note.slug === 'older');
+  assert.deepEqual(getRelatedNotes(notes, current).map(note => note.slug), ['newer'], 'related notes exclude self, drafts and other languages');
+  const candidate = (slug, tags, projects, date = '2026-01-01') => ({ ...current, slug, tags, projects, date });
+  const relatedPool = [
+    current,
+    candidate('unrelated', ['other'], ['flow-qa']),
+    candidate('many-tags', ['engineering', 'React', 'React'], ['flow-qa'], '2026-04-01'),
+    candidate('shared-project', ['other'], ['hovershot']),
+    candidate('recent-topic', ['ENGINEERING'], ['flow-qa'], '2026-03-01'),
+    candidate('older-topic', ['engineering'], ['flow-qa'], '2026-02-01'),
+  ];
+  const related = getRelatedNotes(relatedPool, current);
+  assert.deepEqual(related.map(note => note.slug), ['shared-project', 'many-tags', 'recent-topic'], 'same project is first; matching topics follow with a maximum of three');
+  assert.deepEqual(relatedPool.map(note => note.slug), ['older', 'unrelated', 'many-tags', 'shared-project', 'recent-topic', 'older-topic'], 'selection does not reorder its input');
+  assert.deepEqual(getRelatedNotes([relatedPool[1]], current), [], 'unrelated notes are not used as filler');
+  assert.deepEqual(getRelatedNotes([
+    candidate('repeated-tag', ['engineering', 'ENGINEERING'], []),
+    candidate('recent-tag', ['engineering'], [], '2026-03-01'),
+  ], current).map(note => note.slug), ['recent-tag', 'repeated-tag'], 'duplicate tags do not increase relevance');
 
   write('ko', 'work-case.md', metadata('2026-02-01').replace('hovershot', 'swap-admin-v2'));
   write('en', 'archive-case.md', metadata('2026-02-01').replace('hovershot', 'ai-development'));

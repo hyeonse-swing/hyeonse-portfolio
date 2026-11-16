@@ -1,6 +1,6 @@
 ---
-title: 'Connecting voice AI to a customer flow'
-description: 'Vendor and CX scenario review alongside a phone guidance path from subscription completion.'
+title: 'Connecting subscription completion to voice guidance'
+description: 'I reviewed vendors and guidance scenarios with CX, then connected the contract guidance entry and return path from the phone app.'
 date: '2026-11-16'
 activity:
   label: 'Work period'

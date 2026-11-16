@@ -1,6 +1,6 @@
 ---
 title: 'Rebuilding Yellow Bus trip operations in a new Admin'
-description: 'Bringing distributed tools into one trip flow while handling data exceptions and access scope.'
+description: 'I moved student, dispatch and route screens into the new Admin, handling guardian data exceptions and academy-specific access.'
 date: '2026-11-16'
 activity:
   label: 'Work period'

@@ -1,6 +1,6 @@
 ---
-title: 'The review boundary between an error and a test'
-description: 'How Error to Test tracks source inputs, leaves unknown expectations as questions and reads results for the right target.'
+title: 'Turning error logs into regression test candidates'
+description: 'Error to Test traces each source, leaves missing reproduction steps and expectations as questions, and separates run results by target.'
 date: '2026-11-16'
 activity:
   label: 'Public releases'

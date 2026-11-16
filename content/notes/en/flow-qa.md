@@ -1,6 +1,6 @@
 ---
-title: 'Connecting flow descriptions to execution evidence'
-description: 'How Flow QA separates case review from browser execution and preserves the scope of selected runs.'
+title: 'Reviewing flows before running them in the browser'
+description: 'Flow QA leaves missing success conditions as questions, runs reviewed cases, and records which cases a selected run covered.'
 date: '2026-11-16'
 activity:
   label: 'Public releases'

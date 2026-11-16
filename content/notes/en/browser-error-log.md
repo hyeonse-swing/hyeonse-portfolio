@@ -1,6 +1,6 @@
 ---
-title: 'Owning the path from browser error to stored record'
-description: 'How Browser Error Log makes context collection optional and sets limits on delivery, retention and export.'
+title: 'Collecting only the error context an app needs'
+description: 'Browser Error Log lets an app choose context while bounding its browser queue and self-hosted storage and query scope.'
 date: '2026-11-16'
 activity:
   label: 'Public releases'

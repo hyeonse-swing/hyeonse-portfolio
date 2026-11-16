@@ -1,6 +1,6 @@
 ---
 title: 'Making the SWING homepage appear sooner'
-description: 'A local comparison of rendering and asset changes, followed by a build-time image fix.'
+description: 'I changed rendering, media, fonts and image conversion timing, then compared performance and initial transfer in local Lighthouse runs.'
 date: '2026-11-16'
 activity:
   label: 'Improvement and measurement'

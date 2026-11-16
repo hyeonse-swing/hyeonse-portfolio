@@ -1,6 +1,6 @@
 ---
-title: 'Connecting customer WebViews to the app'
-description: 'The boundaries between entry, login, payment, and app bridges in my SWING and SWAP customer work.'
+title: 'Connecting login and payment return paths in customer WebViews'
+description: 'Across SWING and SWAP screens, I worked on app entry, payment returns, login state and native bridge calls.'
 date: '2026-11-16'
 activity:
   label: 'Work period'

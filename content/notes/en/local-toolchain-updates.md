@@ -1,6 +1,6 @@
 ---
-title: 'Recent changes across three local error and QA tools'
-description: 'How public releases of Browser Error Log, Error to Test and Flow QA handle data export, result scope and storage failures.'
+title: 'Recent changes to the tools that carry errors into tests'
+description: 'Browser Error Log gained SQLite export, Error to Test separated results by target, and Flow QA improved reports and storage failure feedback.'
 date: '2026-11-16'
 activity:
   label: 'Releases covered'

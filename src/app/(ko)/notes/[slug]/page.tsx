@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import NotePage from '../../../../components/NotePage';
-import { getNote, getNoteLocales, getNotes } from '../../../../lib/notes';
+import { getNote, getNoteLocales, getNotes, getRelatedNotes } from '../../../../lib/notes';
 import { localizedPath } from '../../../../lib/locale';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -29,5 +29,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const note = getNote('ko', (await params).slug);
   if (!note) notFound();
-  return <NotePage note={note} />;
+  return <NotePage note={note} relatedNotes={getRelatedNotes(getNotes('ko'), note)} />;
 }

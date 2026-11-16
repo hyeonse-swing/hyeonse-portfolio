@@ -1,6 +1,6 @@
 ---
-title: '오류 수집부터 QA 결과까지, 도구 세 개의 최근 변경'
-description: 'Browser Error Log, Error to Test, Flow QA의 공개 릴리스에서 데이터 이동과 결과 해석의 경계를 살펴봅니다.'
+title: '오류 기록을 테스트로 옮기는 세 도구의 최근 변경'
+description: 'Browser Error Log의 SQLite 내보내기, Error to Test의 대상별 결과 구분, Flow QA의 보고서·저장 실패 안내를 다뤄요.'
 date: '2026-11-16'
 activity:
   label: '대상 릴리스'

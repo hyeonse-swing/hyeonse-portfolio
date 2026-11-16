@@ -1,6 +1,6 @@
 ---
-title: 'Bike orders and contracts across staff and business screens'
-description: 'Building an operations flow while keeping early fixtures separate from the eventual API contract.'
+title: 'Building bike operations screens for staff and businesses'
+description: 'I connected staff order and contract work with status views in the business portal, using non-production fixtures before the APIs were settled.'
 date: '2026-11-16'
 activity:
   label: 'Main integrations'

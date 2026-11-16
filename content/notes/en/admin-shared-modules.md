@@ -1,6 +1,6 @@
 ---
-title: 'Operations Admin and shared modules'
-description: 'Session state, migration work, and reusable masking and formatting in SWING Admin.'
+title: 'Handling screen state and shared display logic in SWING Admin'
+description: 'Fixing UI state around login and session changes, building settlement views, and packaging masking and formatting logic.'
 date: '2026-11-16'
 activity:
   label: 'Work period'

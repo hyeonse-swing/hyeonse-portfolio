@@ -1,6 +1,6 @@
 ---
-title: 'SWAP Admin V2 while legacy task data remained'
-description: 'A team release connecting Fleet API screens with version-aware navigation and existing lookup paths.'
+title: 'Finding existing task data from SWAP Admin V2'
+description: 'The team connected subscription, task and factoring V2 screens to Fleet API while retaining old task detail URLs and a V1 lookup path.'
 date: '2026-11-16'
 activity:
   label: 'Main release'
