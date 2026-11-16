@@ -32,6 +32,9 @@ assert.deepEqual(searchDocuments(duplicate, 'react').map(item => item.id), ['rea
 
 const index = { locale: 'ko', documents };
 assert(isSearchIndex(index, 'ko'));
+const note = document('note-example', '프로젝트 기록', { category: 'note', href: '/notes/example/', keywords: ['QA'] });
+assert(isSearchIndex({ locale: 'ko', documents: [note] }, 'ko'), '기록 검색 분류와 경로 허용');
+assert.equal(searchDocuments([note], 'QA')[0]?.href, '/notes/example/', '글의 태그로 검색');
 assert(!isSearchIndex(index, 'en'), '다른 언어 색인 거부');
 for (const href of ['//example.com', '/\\example.com', 'javascript:alert(1)', '/en/about/']) {
   assert(!isSearchIndex({ ...index, documents: [{ ...documents[0], href }] }, 'ko'), `안전하지 않거나 언어가 다른 경로 거부: ${href}`);

@@ -1,0 +1,10 @@
+{
+  "origins": [
+    "https://hyeonse.dev",
+    "https://hyeonse-portfolio.vercel.app",
+    "http://127.0.0.1:4321",
+    "http://127.0.0.1:4322"
+  ],
+  "originsRegex": ["^https://hyeonse-portfolio-[a-z0-9-]+-ihyeons-projects\\.vercel\\.app$"],
+  "defaultCommentOrder": "oldest"
+}

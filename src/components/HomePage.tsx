@@ -48,7 +48,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       })}</div></ArchiveExplorer>
     </section>
     <section id="personal-projects" className="section-space" aria-labelledby="personal-projects-title">
-      <div className="section-heading"><div><span className="eyebrow">04 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? <>Tools I build<br />and share</> : <>직접 만들고<br />공개한 도구</>}<span className="blue">.</span></h2></div><p>{en ? 'From shared design foundations to error collection, regression test candidates and browser QA. Tools built around problems I encounter in development.' : <>화면의 바탕이 되는 디자인 시스템부터<br />오류 수집·회귀 테스트 후보 작성·QA 실행까지.<br />개발하며 만난 문제를 도구로 풀고 연결했어요.</>}</p></div>
+      <div className="section-heading"><div><span className="eyebrow">04 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? <>Projects I build<br />and share</> : <>직접 만들고<br />공개한 프로젝트</>}<span className="blue">.</span></h2></div><p>{en ? 'From reusable interfaces and browser QA to a native macOS capture app. Projects built around problems I encounter while working.' : <>화면의 바탕이 되는 디자인 시스템부터<br />오류 수집·QA 도구와 macOS 캡처 앱까지.<br />직접 쓰며 만난 문제를 프로젝트로 풀었어요.</>}</p></div>
       <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} />
       <a className="toolchain-link" href={localizedPath(locale, '/about/#toolchain')}>{en ? 'Explore how the tools connect' : '도구가 이어지는 과정 살펴보기'} <span aria-hidden="true">→</span></a>
     </section>

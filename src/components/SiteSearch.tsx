@@ -16,7 +16,7 @@ const copy = {
     keyboardHint: '↑ ↓ 결과 이동 · Enter 열기 · Esc 닫기',
     suggestions: ['React', '성능', '운영'],
     count: (n: number) => `검색 결과 ${n}개`,
-    categories: { page: '페이지', project: '프로젝트', experience: '경력', skill: '기술', tool: '도구' },
+    categories: { page: '페이지', project: '프로젝트', experience: '경력', skill: '기술', tool: '도구', note: '기록' },
   },
   en: {
     open: 'Search', title: 'Search this site', close: 'Close search', label: 'Search terms',
@@ -27,7 +27,7 @@ const copy = {
     keyboardHint: '↑ ↓ Move through results · Enter open · Esc close',
     suggestions: ['React', 'performance', 'operations'],
     count: (n: number) => `${n} ${n === 1 ? 'result' : 'results'}`,
-    categories: { page: 'Page', project: 'Project', experience: 'Experience', skill: 'Skill', tool: 'Tool' },
+    categories: { page: 'Page', project: 'Project', experience: 'Experience', skill: 'Skill', tool: 'Tool', note: 'Note' },
   },
 };
 

@@ -4,6 +4,7 @@ import { getToolchainCopy } from '../data/toolchain';
 import { performanceEvidence } from '../data/performance-evidence';
 import { localizedPath, type Locale } from './locale';
 import type { SearchDocument, SearchIndex } from './site-search-engine';
+import { getNotes } from './notes';
 
 const text = (...parts: (string | undefined)[]) => parts.filter(Boolean).join(' ');
 
@@ -15,6 +16,10 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   const href = (path: string) => localizedPath(locale, path);
   const documents: SearchDocument[] = [];
   const add = (document: SearchDocument) => documents.push(document);
+  add({ id: 'notes', title: en ? 'Project notes' : '프로젝트 기록', category: 'page', href: href('/notes/'), summary: en ? 'Decisions, experiments, and fixes from projects I build and maintain.' : '직접 만들고 운영하는 프로젝트에서 마주한 문제와 선택을 기록합니다.', content: '', keywords: en ? ['blog', 'notes'] : ['블로그', '기록'], featured: true });
+  for (const note of getNotes(locale)) {
+    add({ id: `note-${note.slug}`, title: note.title, category: 'note', href: href(`/notes/${note.slug}/`), summary: note.description, content: '', keywords: note.tags, featured: false });
+  }
 
   add({ id: 'home', title: en ? 'Selected work' : '대표 작업', category: 'page', href: href('/#work'), summary: siteCopy.work.intro.join(' '), content: text(siteCopy.work.heading.join(' '), ...siteCopy.work.evidence), keywords: [], featured: true });
   add({ id: 'about', title: en ? 'About Hyeonse Im' : '임현세 소개', category: 'page', href: href('/about/#introduction-title'), summary: careerIntroduction[0], content: careerIntroduction.join(' '), keywords: [en ? 'Frontend Engineer' : '프론트엔드 엔지니어'], featured: true });

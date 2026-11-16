@@ -8,7 +8,10 @@ export async function collectFontSources() {
     .map(entry => ({ name: join(entry.parentPath, entry.name), path: join(entry.parentPath, entry.name) }));
   const shared = ['@hyeonse/design-system/react', '@hyeonse/design-system/preferences']
     .map(name => ({ name, path: new URL(import.meta.resolve(name)) }));
-  return Promise.all([...local, ...shared].map(async ({ name, path }) => ({
+  const notes = (await readdir('content/notes', { recursive: true, withFileTypes: true }))
+    .filter(entry => entry.isFile() && entry.name.endsWith('.md'))
+    .map(entry => ({ name: join(entry.parentPath, entry.name), path: join(entry.parentPath, entry.name) }));
+  return Promise.all([...local, ...shared, ...notes].map(async ({ name, path }) => ({
     name, text: await readFile(path, 'utf8'),
   })));
 }

@@ -1,7 +1,7 @@
 export type SearchDocument = {
   id: string;
   title: string;
-  category: 'page' | 'project' | 'experience' | 'skill' | 'tool';
+  category: 'page' | 'project' | 'experience' | 'skill' | 'tool' | 'note';
   href: string;
   summary: string;
   content: string;
@@ -11,7 +11,7 @@ export type SearchDocument = {
 
 export type SearchIndex = { locale: 'ko' | 'en'; documents: SearchDocument[] };
 
-const categories = new Set<SearchDocument['category']>(['page', 'project', 'experience', 'skill', 'tool']);
+const categories = new Set<SearchDocument['category']>(['page', 'project', 'experience', 'skill', 'tool', 'note']);
 const aliases: Record<string, string> = {
   리액트: 'react', react: 'react',
   타입스크립트: 'typescript', typescript: 'typescript',

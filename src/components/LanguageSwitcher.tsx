@@ -4,13 +4,20 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { alternatePath, type Locale } from '../lib/locale';
 
-export default function LanguageSwitcher({ locale }: { locale: Locale }) {
+export default function LanguageSwitcher({ locale, notePaths = [] }: { locale: Locale; notePaths?: readonly string[] }) {
   const pathname = usePathname();
   const target = locale === 'ko' ? 'en' : 'ko';
   const [suffix, setSuffix] = useState('');
+  const alternate = alternatePath(pathname || '/', target);
+  const normalized = `${alternate.replace(/\/+$/, '')}/`;
+  const missingTranslation = /^\/(?:en\/)?notes\/[^/]+\/$/.test(normalized) && !notePaths.includes(normalized);
 
   useEffect(() => {
-    const update = () => setSuffix(window.location.search + window.location.hash);
+    const update = () => {
+      const query = new URLSearchParams(window.location.search);
+      query.delete('giscus');
+      setSuffix((query.size ? `?${query}` : '') + window.location.hash);
+    };
     update();
     window.addEventListener('hashchange', update);
     window.addEventListener('popstate', update);
@@ -24,7 +31,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
 
   return <a
     className="language-switch"
-    href={alternatePath(pathname || '/', target) + suffix}
+    href={missingTranslation ? (target === 'en' ? '/en/notes/' : '/notes/') : alternate + suffix}
     hrefLang={target}
     lang={target}
     aria-label={target === 'en' ? 'EN — Switch to English' : 'KO — 한국어로 전환'}

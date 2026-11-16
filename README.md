@@ -39,6 +39,12 @@ npm run preview -- 4322
 
 검색창을 처음 열 때 해당 언어의 정적 JSON 자료만 불러오며, 검색어는 브라우저에서 처리한다. 색인은 공개 페이지에 실제 표시한 필드만 담는다. 빌드 감사에서 검색 자료의 비공개 패턴과 모든 결과 페이지·앵커를 확인한다.
 
+## 프로젝트 기록
+
+짧은 기술 기록은 한국어 `/notes/`, 영어 `/en/notes/`에서 읽을 수 있다. 원고는 `content/notes/ko/`와 `content/notes/en/`의 Markdown 파일로 관리한다. 같은 글의 한·영 댓글은 같은 slug를 쓰는 Giscus 토론에 연결된다.
+
+새 글은 [작성 안내](docs/writing-notes.md)와 [초안 템플릿](content/templates/note.md)을 참고한다. `draft: true`인 파일은 사이트의 목록·검색·사이트맵에서 제외되지만, 공개 GitHub 저장소의 파일 자체는 비공개가 아니다. 배포 전에 `npm run verify` 결과를 확인한다.
+
 ## 보안 업데이트와 자동 검사
 
 Next.js 16.4.2와 React·React DOM 19.3.1을 사용한다. [2026-10-14 Next.js 보안 업데이트](https://nextjs.org/blog/nextjs-security-update-october-14-2026)가 포함된 버전이며, 의존성 설치는 잠금 파일을 사용하는 `npm ci`를 기준으로 한다.

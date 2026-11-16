@@ -12,6 +12,7 @@ export default function SiteNavigation({ locale }: { locale: Locale }) {
   return <>
     <WorkContextLink href={localizedPath(locale, '/#work')} aria-current={isWorkDetail ? 'location' : undefined}>Work<span>04</span></WorkContextLink>
     <a href={localizedPath(locale, '/about/')} aria-current={normalizedPath === '/about/' ? 'page' : undefined} tabIndex={0}>About</a>
+    <a href={localizedPath(locale, '/notes/')} aria-current={normalizedPath === '/notes/' ? 'page' : normalizedPath.startsWith('/notes/') ? 'location' : undefined}>{locale === 'ko' ? '기록' : 'Notes'}</a>
     <a href={localizedPath(locale, '/studio/')} aria-current={normalizedPath === '/studio/' ? 'page' : undefined} tabIndex={0}>Studio</a>
   </>;
 }

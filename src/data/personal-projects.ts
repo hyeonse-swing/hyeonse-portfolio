@@ -52,9 +52,9 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         '플로우·케이스 스키마와 CLI·한국어/영어 로컬 UI를 만들었어요. 고정 단계는 모델 없이 실행할 수 있고, 브라우저 실행 엔진은 tester-army/e2e를 사용해요.',
         '선택 케이스 실행, 실패·오류 케이스의 안전한 재실행 준비, 시도·증거가 연결된 상세 보고서를 제공해요.',
-        '저장된 실행 기록과 보고서 내용을 검색·필터링하고, 호환되는 두 실행의 상태 변화를 비교·내보낼 수 있어요.',
+        '저장된 실행 기록과 보고서 내용을 검색·필터링하고, 두 번 이상 시도한 케이스의 ID를 내보낼 수 있어요. 화면 설정을 저장할 수 없을 때는 현재 탭에만 적용된다는 안내와 복구 상태를 보여줘요.',
       ],
-      verification: '공개 릴리스 기록상 로컬 Chromium 데모, 새 설치의 브라우저 검사와 타입·패키지 검사를 통과했어요. 실제 서비스 인증과 iOS·Android 기기 실행은 별도 확인이 필요해요.',
+      verification: '공개 릴리스 기록상 로컬 테스트 118개, UI 검사 8개와 새 설치 패키지·브라우저 검사를 통과했어요. 저장소 실패는 브라우저 fixture로 재현했으며, 실제 서비스 인증과 기기 실행은 별도 확인이 필요해요.',
       stack: ['TypeScript', 'Node.js', 'e2e', 'Zod'],
       release: 'npm 공개 · CLI·로컬 웹 UI',
       links: [
@@ -76,7 +76,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         '브라우저 SDK, 선택적 React Error Boundary 어댑터, 공유 이벤트 계약을 별도의 @ihyeon npm 패키지로 공개했어요.',
         '전역 오류·처리되지 않은 Promise 거부·네트워크 실패를 수집하고, 선택적으로 정제된 페이지 이동·네트워크 맥락을 연결해요.',
-        '자체 호스팅 Node.js 수집기와 뷰어에서 SQLite/JSONL 보관, 프로젝트·종류·기간 필터, 스택 확인과 제한된 JSON 입출력을 제공해요.',
+        '자체 호스팅 Node.js 수집기와 뷰어에서 SQLite/JSONL 보관, 프로젝트·종류·기간 필터, 스택 확인을 제공해요. SQLite 로그는 원본을 바꾸지 않고 크기 제한을 둔 내보내기로 옮길 수 있어요.',
       ],
       verification: '공개 저장소의 로컬 패키지·마이크로 서버·브라우저 전송 검사 범위를 확인했어요. 실제 운영 환경의 전달 보장이나 완전한 개인정보 제거를 뜻하지 않아요.',
       stack: ['TypeScript', 'React', 'Node.js', 'SQLite'],
@@ -100,15 +100,37 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         'Browser Error Log 내보내기, 직접 입력한 메시지와 JSONL을 같은 로컬 분석 흐름으로 받아 오류를 묶고 회귀 테스트 후보를 만들어요.',
         '여러 파일을 함께 분석하거나 이전 번들과 서명을 비교해, 현재 입력에만 나타난 서명에 집중할 수 있어요. 수집 범위 차이도 함께 표시해요.',
-        '검토용 리포트·Flow QA 묶음을 만든 뒤 실행 결과를 원본 오류 묶음에 연결해요. 불명확한 기대값은 질문으로 남아 실행을 차단해요.',
+        '검토용 리포트·Flow QA 묶음을 만든 뒤 실행 결과를 원본 오류 묶음에 연결해요. 대상의 실제 식별값으로 결과 이력을 구분해, 같은 이름의 다른 대상이나 이전 통과 결과가 현재 실패·미실행을 가리지 않도록 해요.',
       ],
-      verification: '통제된 로컬 Chromium 통합 기록에서 SDK 오류→후보→Flow QA 결과 연결을 확인했어요. 이전 입력에만 있던 오류를 수정 완료로 판정하지 않아요.',
+      verification: '공개 기록상 로컬 테스트 203개·타입·빌드와 격리 설치 패키지 검사를 통과했어요. 이전 입력에만 있던 오류나 대상 범위 밖의 통과 결과를 수정·실행 완료로 판정하지 않아요.',
       stack: ['TypeScript', 'Node.js', 'CLI', 'Flow QA'],
       release: 'npm 공개 · CLI·JavaScript API',
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
         { label: '최신 릴리스', href: 'https://github.com/hyeonse-swing/error-to-test/releases/latest' },
+      ],
+    },
+    {
+      id: 'hovershot',
+      name: 'HoverShot',
+      category: 'NATIVE DESKTOP APP',
+      summary: '화면 일부나 창을 캡처해 다른 앱 위에 띄우고, 필요한 장면을 찾거나 녹화 파일로 정리하는 macOS 메뉴 막대 앱이에요.',
+      problem: '작업 중 참고할 화면을 계속 전환하지 않고 가까이 두면서, 캡처와 짧은 녹화를 다시 찾아 활용하고 싶었어요.',
+      decisions: [
+        { title: '사용자가 정하는 떠 있는 창', detail: '투명도와 클릭 통과 여부를 조절하고 창 상태를 저장해, 다른 앱에서 작업하는 동안 필요한 장면만 띄울 수 있게 했어요.' },
+        { title: '모니터 위치 복원', detail: '전체 화면 좌표로 창 위치를 계산하고 AppKit의 패널 생성이 끝난 뒤 다시 적용해, 캡처한 모니터와 사용자가 옮긴 위치를 유지해요.' },
+      ],
+      highlights: [
+        '영역·창·시간 지연 캡처를 떠 있는 패널로 열고, 주석·OCR 검색·메타데이터 편집·내보내기를 제공해요.',
+        '영역·창 녹화를 라이브러리에서 찾아 자르거나 GIF로 내보낼 수 있어요.',
+      ],
+      verification: '공개 릴리스 기록상 25개 테스트, 연결된 모니터 3대의 합성 이미지 창 표시·위치 복원, Release 빌드·서명·ZIP 검사를 확인했어요. 실제 캡처와 권한 흐름 전체를 검증한 결과는 아니에요.',
+      stack: ['Swift', 'SwiftUI', 'AppKit', 'ScreenCaptureKit', 'Vision'],
+      release: 'macOS 앱 · GitHub 다운로드 · Apple 미공증',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hovershot-macos' },
+        { label: '최신 릴리스', href: 'https://github.com/hyeonse-swing/hovershot-macos/releases/latest' },
       ],
     },
   ],
@@ -149,9 +171,9 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         'Built the flow and case schemas, CLI and English/Korean local UI. Fixed steps run without a model; browser execution uses tester-army/e2e.',
         'Supports selected-case runs, safe preparation of failed/error cases, and detailed reports that keep attempts and evidence together.',
-        'Searches and filters saved run history and report content, then compares and exports status changes between compatible runs.',
+        'Searches saved runs and reports, filters cases with multiple attempts and exports their IDs. When display settings cannot be saved, the UI warns that changes apply only to the current tab and clears the warning after recovery.',
       ],
-      verification: 'Public release notes record local Chromium demos, fresh-install browser checks, and type/package checks. Real service authentication and iOS/Android device execution need separate verification.',
+      verification: 'Public release notes record 118 local tests, eight UI checks, and fresh-install package and browser checks. Storage failures were simulated in browser fixtures; real service authentication and device execution need separate verification.',
       stack: ['TypeScript', 'Node.js', 'e2e', 'Zod'],
       release: 'Published on npm · CLI and local web UI',
       links: [
@@ -173,7 +195,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         'Published the browser SDK, optional React Error Boundary adapter and event contract as separate @ihyeon npm packages.',
         'Captures global errors, unhandled rejections and network failures, with optional sanitized navigation and network breadcrumbs.',
-        'A self-hosted Node.js collector and viewer provide SQLite/JSONL storage, project/type/date filters, stack inspection and bounded JSON import/export.',
+        'A self-hosted Node.js collector and viewer provide SQLite/JSONL storage, project/type/date filters and stack inspection. SQLite logs can be exported with a size limit without changing the source database.',
       ],
       verification: 'The public repository records local package, micro-server and browser delivery checks. It does not prove delivery guarantees or complete removal of personal data in a production environment.',
       stack: ['TypeScript', 'React', 'Node.js', 'SQLite'],
@@ -197,15 +219,37 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       highlights: [
         'Accepts Browser Error Log exports, pasted errors and JSONL through one local pipeline to group errors and prepare regression test candidates.',
         'Combines multiple files or compares signatures with a previous bundle to focus on signatures seen only in the current input, while showing collection-scope warnings.',
-        'Creates review reports and Flow QA suites, then links run results back to the source error groups. Unresolved expectations remain blocked.',
+        'Creates review reports and Flow QA suites, then links run results back to source error groups. Result history uses the target’s actual identity so another target with the same name or an earlier pass cannot mask a current failure or unrun case.',
       ],
-      verification: 'A controlled local Chromium integration record links SDK events, candidates and Flow QA results. A signature seen only in an earlier input does not prove a fix.',
+      verification: 'Public records show 203 local tests, type checking, build and an isolated installed-package check. A signature seen only in an earlier input, or a pass outside the selected target, does not prove a fix.',
       stack: ['TypeScript', 'Node.js', 'CLI', 'Flow QA'],
       release: 'Published on npm · CLI and JavaScript API',
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/error-to-test' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/error-to-test' },
         { label: 'Latest release', href: 'https://github.com/hyeonse-swing/error-to-test/releases/latest' },
+      ],
+    },
+    {
+      id: 'hovershot',
+      name: 'HoverShot',
+      category: 'NATIVE DESKTOP APP',
+      summary: 'A macOS menu bar app for keeping screen captures above other apps and finding or preparing saved shots and recordings.',
+      problem: 'I wanted to keep a reference on screen while working elsewhere, then find and reuse captures and short recordings later.',
+      decisions: [
+        { title: 'User-controlled floating panels', detail: 'Opacity and click-through controls, with saved window state, let people keep only the references they need over other apps.' },
+        { title: 'Restore positions across monitors', detail: 'Panel positions use global screen coordinates and are reapplied after AppKit creates each window, preserving the captured monitor and user-moved position.' },
+      ],
+      highlights: [
+        'Opens area, window and timed captures in floating panels, with annotations, OCR search, metadata editing and export.',
+        'Find area and window recordings in the library, trim them or export a GIF.',
+      ],
+      verification: 'Public release notes record 25 tests, synthetic-image panel display and position restoration across three connected monitors, plus Release build, signature and ZIP checks. They do not establish the full real capture and permission flow.',
+      stack: ['Swift', 'SwiftUI', 'AppKit', 'ScreenCaptureKit', 'Vision'],
+      release: 'macOS app · GitHub download · Not Apple-notarized',
+      links: [
+        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hovershot-macos' },
+        { label: 'Latest release', href: 'https://github.com/hyeonse-swing/hovershot-macos/releases/latest' },
       ],
     },
   ],

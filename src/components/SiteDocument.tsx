@@ -11,16 +11,18 @@ import LanguageSwitcher from './LanguageSwitcher';
 import SiteNavigation from './SiteNavigation';
 import SiteSearch from './SiteSearch';
 import SearchTargetReveal from './SearchTargetReveal';
+import { getAllNotes } from '../lib/notes';
 
 export default function SiteDocument({ children, locale }: { children: ReactNode; locale: Locale }) {
   const { profile, siteCopy } = getPortfolio(locale);
   const en = locale === 'en';
+  const notePaths = getAllNotes().map(note => localizedPath(note.locale, `/notes/${note.slug}/`));
   return <html lang={locale} data-corners={preferenceDefaults.corners} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/noto-kr-subset.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><PreferencesProvider>
     <SearchTargetReveal />
     <a className="skip-link" href="#main" tabIndex={0}>{en ? 'Skip to content' : '본문으로 건너뛰기'}</a>
     <header className="site-header">
       <a className="wordmark" href={localizedPath(locale, '/')} aria-label={en ? 'im. — Hyeonse Im home' : 'im. — 임현세 홈'} tabIndex={0}>im<span aria-hidden="true">.</span></a>
-      <nav aria-label={en ? 'Main navigation' : '주요 메뉴'}><SiteNavigation locale={locale} /><div className="nav-tools"><SiteSearch locale={locale} /><ThemeToggle locale={locale} /><LanguageSwitcher locale={locale} /></div></nav>
+      <nav aria-label={en ? 'Main navigation' : '주요 메뉴'}><SiteNavigation locale={locale} /><div className="nav-tools"><SiteSearch locale={locale} /><ThemeToggle locale={locale} /><LanguageSwitcher locale={locale} notePaths={notePaths} /></div></nav>
     </header>
     <main id="main" tabIndex={-1}>{children}</main>
     <footer id="contact" className="contact">
