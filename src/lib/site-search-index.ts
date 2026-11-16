@@ -18,7 +18,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   const add = (document: SearchDocument) => documents.push(document);
   add({ id: 'notes', title: en ? 'Notes' : '기록', category: 'page', href: href('/notes/'), summary: en ? 'Things I have built, problems I have worked through, and notes along the way.' : '만들어 본 것, 막혔던 문제, 그 과정에서 배운 것을 적어요.', content: '', keywords: en ? ['blog', 'notes'] : ['블로그', '기록'], featured: true });
   for (const note of getNotes(locale)) {
-    add({ id: `note-${note.slug}`, title: note.title, category: 'note', href: href(`/notes/${note.slug}/`), summary: note.description, content: '', keywords: note.tags, featured: false });
+    add({ id: `note-${note.slug}`, title: note.title, category: 'note', href: href(`/notes/${note.slug}/`), summary: note.description, content: note.body, keywords: note.tags, featured: false });
   }
 
   add({ id: 'home', title: en ? 'Selected work' : '대표 작업', category: 'page', href: href('/#work'), summary: siteCopy.work.intro.join(' '), content: text(siteCopy.work.heading.join(' '), ...siteCopy.work.evidence), keywords: [], featured: true });

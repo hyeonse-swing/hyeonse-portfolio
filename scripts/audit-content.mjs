@@ -3,6 +3,7 @@ import { resolve, join } from 'node:path';
 import assert from 'node:assert/strict';
 import { collectFontSources } from './font-sources.mjs';
 import { loadNotesModule } from './load-notes.mjs';
+import { searchDocuments } from '../src/lib/site-search-engine.ts';
 
 const root = resolve('out');
 const entries = await readdir(root, { recursive: true });
@@ -115,6 +116,19 @@ for (const locale of ['ko', 'en']) {
   if (searchIds) assert.deepEqual(sharedIds, searchIds, '언어별 공통 검색 항목 불일치');
   searchIds = sharedIds;
   assert.deepEqual(ids.filter(id => id.startsWith('note-')).sort(), notes.filter(note => note.locale === locale).map(note => `note-${note.slug}`).sort(), '게시된 해당 언어 글만 검색에 포함해야 합니다.');
+  const bodyQuery = locale === 'ko' ? '무결성' : 'integrity';
+  const bodyNoteId = 'note-hovershot-window-restoration';
+  const bodyNote = index.documents.find(document => document.id === bodyNoteId);
+  assert(bodyNote, '본문 검색을 확인할 공개 글 누락');
+  assert.equal(searchDocuments([{ ...bodyNote, content: '' }], bodyQuery).length, 0, '본문 전용 검색어로 회귀를 확인해야 합니다.');
+  assert(searchDocuments(index.documents, bodyQuery).some(document => document.id === bodyNoteId), `${locale}: 본문 전용 검색어로 글을 찾을 수 있어야 합니다.`);
+  for (const [query, expected] of [
+    ['HoverShot', bodyNoteId],
+    ['Flow QA', locale === 'ko' ? 'note-flow-qa' : 'personal-flow-qa'],
+    ['SWING', 'note-swing-home-performance'],
+  ]) {
+    assert.equal(searchDocuments(index.documents, query)[0]?.id, expected, `${locale}: 제목·프로젝트 검색의 우선 결과 유지 (${query})`);
+  }
   assert(index.documents.some(document => document.featured), '검색 바로 가기 누락');
   for (const document of index.documents) {
     assert(typeof document.id === 'string' && document.id && typeof document.title === 'string' && document.title, '검색 항목 식별자·제목 누락');
