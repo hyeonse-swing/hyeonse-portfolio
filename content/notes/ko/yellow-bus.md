@@ -2,6 +2,10 @@
 title: 'Yellow Bus 운행 도구를 새 Admin의 흐름으로 옮기기'
 description: '분산된 운영 기능과 데이터 예외, 직원·학원 권한을 함께 정리한 경험입니다.'
 date: '2026-11-16'
+activity:
+  label: '작업 기간'
+  start: '2024-11'
+  end: '2025-08'
 tags: ['운영 플랫폼', 'React', '지도']
 projects: ['yellow-bus']
 draft: false

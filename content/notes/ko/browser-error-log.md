@@ -2,6 +2,10 @@
 title: '브라우저 오류의 수집과 보관을 직접 다루기'
 description: 'Browser Error Log에서 맥락 수집을 선택하게 하고, 전송·보관·내보내기의 범위를 제한한 설계예요.'
 date: '2026-11-16'
+activity:
+  label: '공개 릴리스'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['오류 수집', 'TypeScript', 'SQLite']
 projects: ['browser-error-log']
 draft: false

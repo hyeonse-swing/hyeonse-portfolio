@@ -2,6 +2,10 @@
 title: 'Owning the path from browser error to stored record'
 description: 'How Browser Error Log makes context collection optional and sets limits on delivery, retention and export.'
 date: '2026-11-16'
+activity:
+  label: 'Public releases'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['error collection', 'TypeScript', 'SQLite']
 projects: ['browser-error-log']
 draft: false

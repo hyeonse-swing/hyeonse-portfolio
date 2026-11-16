@@ -2,6 +2,9 @@
 title: 'Putting HoverShot floating windows back on the right monitor'
 description: 'How a multi-monitor placement issue led to reapplying global coordinates after AppKit creates a floating panel.'
 date: '2026-11-16'
+activity:
+  label: 'v0.2.2 release'
+  start: '2026-10-12'
 tags: ['macOS', 'AppKit', 'screen capture']
 projects: ['hovershot']
 draft: false

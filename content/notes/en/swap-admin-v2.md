@@ -2,6 +2,9 @@
 title: 'SWAP Admin V2 while legacy task data remained'
 description: 'A team release connecting Fleet API screens with version-aware navigation and existing lookup paths.'
 date: '2026-11-16'
+activity:
+  label: 'Main release'
+  start: '2025-12'
 tags: ['Operations Admin', 'Migration', 'React']
 projects: ['swap-admin-v2']
 draft: false

@@ -2,6 +2,9 @@
 title: '화면 설정을 여러 프로젝트에서 일관되게 쓰기'
 description: '포트폴리오의 색과 화면 설정을 토큰과 React UI로 분리하면서 첫 화면과 저장된 선택을 맞춘 과정이에요.'
 date: '2026-11-16'
+activity:
+  label: '공개 개발'
+  start: '2026-10'
 tags: ['디자인 시스템', 'React', 'CSS']
 projects: ['hyeonse-design-system']
 draft: false

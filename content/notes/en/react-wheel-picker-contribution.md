@@ -2,6 +2,9 @@
 title: 'Keeping a wheel selection aligned as options change'
 description: 'A small react-wheel-picker contribution for selection position after dynamic option updates.'
 date: '2026-11-16'
+activity:
+  label: 'PR merged'
+  start: '2025-06-30'
 tags: ['Open source', 'React', 'Bug fix']
 projects: ['opensource']
 draft: false

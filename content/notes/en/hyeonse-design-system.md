@@ -2,6 +2,9 @@
 title: 'Keeping display preferences consistent across projects'
 description: 'Extracting the portfolio’s visual language into tokens and React controls, with one rule for the first paint and saved choices.'
 date: '2026-11-16'
+activity:
+  label: 'Public development'
+  start: '2026-10'
 tags: ['design system', 'React', 'CSS']
 projects: ['hyeonse-design-system']
 draft: false

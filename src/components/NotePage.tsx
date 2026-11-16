@@ -5,6 +5,7 @@ import { getNoteProjects } from '../data/note-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import type { Note } from '../lib/notes';
 import BlogComments from './BlogComments';
+import NoteActivityDate from './NoteActivityDate';
 import styles from './Notes.module.css';
 
 export default function NotePage({ note }: { note: Note }) {
@@ -18,7 +19,8 @@ export default function NotePage({ note }: { note: Note }) {
       <h1>{note.title}</h1>
       <p className={styles.summary}>{note.description}</p>
       <div className={styles.articleMeta}>
-        <time dateTime={note.date}>{note.date}</time>
+        {note.activity && <NoteActivityDate activity={note.activity} locale={locale} />}
+        <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>
         {note.updated && <span>{en ? 'Updated' : '수정'} <time dateTime={note.updated}>{note.updated}</time></span>}
         <span>{note.readingMinutes} {en ? 'min read' : '분 읽기'}</span>
       </div>

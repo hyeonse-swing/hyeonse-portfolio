@@ -2,6 +2,10 @@
 title: '음성 AI를 고객 접점에 연결하며 확인한 범위'
 description: '벤더·CX 시나리오 검토와 구독 완료 화면의 전화 안내 연결을 구분해 기록했어요.'
 date: '2026-11-16'
+activity:
+  label: '작업 기간'
+  start: '2026-04'
+  ongoing: true
 tags: ['제품 연동', 'CX 협업', 'WebView']
 projects: ['vox']
 draft: false

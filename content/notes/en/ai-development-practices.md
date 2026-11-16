@@ -2,6 +2,9 @@
 title: 'Sharing project-specific AI development practices'
 description: 'Repository-aware work rules and scope-based verification shared with the frontend team.'
 date: '2026-11-16'
+activity:
+  label: 'Shared with the team'
+  start: '2026-09'
 tags: ['Development practices', 'Code review', 'Team sharing']
 projects: ['ai-development']
 draft: false

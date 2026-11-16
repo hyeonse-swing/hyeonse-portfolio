@@ -2,6 +2,10 @@
 title: 'iOS·Android 웹뷰를 확인하는 QA Shell'
 description: '로컬·스테이지 화면을 네이티브 웹뷰에서 열고 안전 영역과 로그를 살펴보는 공개 도구예요.'
 date: '2026-11-16'
+activity:
+  label: '공개 개발'
+  start: '2026-05'
+  end: '2026-10'
 tags: ['React Native', 'WebView', 'QA 도구']
 projects: ['webview-qa-shell']
 draft: false

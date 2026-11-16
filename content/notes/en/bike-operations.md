@@ -2,6 +2,10 @@
 title: 'Bike orders and contracts across staff and business screens'
 description: 'Building an operations flow while keeping early fixtures separate from the eventual API contract.'
 date: '2026-11-16'
+activity:
+  label: 'Main integrations'
+  start: '2026-06'
+  end: '2026-07'
 tags: ['Operations Admin', 'API contracts', 'Playwright']
 projects: ['bike-operations']
 draft: false

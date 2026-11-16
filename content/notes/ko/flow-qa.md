@@ -2,6 +2,10 @@
 title: '플로우 문서에서 실행 근거까지 잇기'
 description: 'Flow QA에서 검토와 실행을 나누고, 선택 실행의 결과 범위를 보존하는 방식을 정리해요.'
 date: '2026-11-16'
+activity:
+  label: '공개 릴리스'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['QA', '브라우저 테스트', '리포트']
 projects: ['flow-qa']
 draft: false

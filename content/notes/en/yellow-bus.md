@@ -2,6 +2,10 @@
 title: 'Rebuilding Yellow Bus trip operations in a new Admin'
 description: 'Bringing distributed tools into one trip flow while handling data exceptions and access scope.'
 date: '2026-11-16'
+activity:
+  label: 'Work period'
+  start: '2024-11'
+  end: '2025-08'
 tags: ['Operations platform', 'React', 'Maps']
 projects: ['yellow-bus']
 draft: false

@@ -43,6 +43,35 @@ try {
   assert.throws(() => readNotesDirectory(fixture), /date must be/);
   rmSync(join(dir('ko'), 'unquoted.md'));
 
+  const timelineRoot = join(fixture, 'timeline');
+  const timelineDir = join(timelineRoot, 'ko');
+  mkdirSync(timelineDir, { recursive: true });
+  const timelineNote = (slug, activity = '', date = '2026-11-16') => {
+    writeFileSync(join(timelineDir, `${slug}.md`), metadata(date, activity));
+  };
+  timelineNote('older-work', "activity:\n  label: Work period\n  start: '2024'\n  end: '2025-08'\n");
+  timelineNote('newer-work', "activity:\n  label: Measurement\n  start: '2026-07'\n");
+  timelineNote('merged', "activity:\n  label: PR merged\n  start: '2025-06-30'\n");
+  timelineNote('ongoing', "activity:\n  label: Work period\n  start: '2026-04'\n  ongoing: true\n");
+  timelineNote('unknown', "activity:\n  label: Work period\n  text: During employment\n");
+  timelineNote('new-publication', '', '2026-11-15');
+  const timeline = readNotesDirectory(timelineRoot);
+  assert.deepEqual(timeline.map(note => note.slug), ['ongoing', 'new-publication', 'newer-work', 'older-work', 'merged', 'unknown']);
+  assert.equal(timeline.find(note => note.slug === 'older-work').date, '2026-11-16', 'work periods never rewrite publication dates');
+  assert.equal(timeline.find(note => note.slug === 'older-work').activity.start, '2024', 'source year precision is preserved');
+  assert.equal(timeline.find(note => note.slug === 'merged').activity.start, '2025-06-30');
+  for (const [fields, error] of [
+    ["start: '2026-02-29'", /activity.start/],
+    ["start: '2026-07'\n  end: '2025-08'", /must not precede/],
+    ["start: '2026-04'\n  end: '2026-11'\n  ongoing: true", /cannot have an end/],
+    ["start: '2026-04'\n  text: Uncertain", /cannot be combined/],
+    ["start: 2026-11-16", /activity.start/],
+  ]) {
+    timelineNote('invalid', `activity:\n  label: Work period\n  ${fields}\n`);
+    assert.throws(() => readNotesDirectory(timelineRoot), error);
+  }
+  rmSync(join(timelineDir, 'invalid.md'));
+
   notes = getAllNotes();
   assert.equal(notes.length, getNotes('ko').length + getNotes('en').length);
   assert.ok(notes.every(note => getNote(note.locale, note.slug)?.title === note.title));

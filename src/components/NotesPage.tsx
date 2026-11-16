@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getNoteProjects } from '../data/note-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import type { Note } from '../lib/notes';
+import NoteActivityDate from './NoteActivityDate';
 import styles from './Notes.module.css';
 
 export default function NotesPage({ locale, notes }: { locale: Locale; notes: Note[] }) {
@@ -15,7 +16,10 @@ export default function NotesPage({ locale, notes }: { locale: Locale; notes: No
     </header>
     {notes.length ? <ol className={styles.list}>{notes.map(note => <li key={note.slug}>
       <article className={styles.card}>
-        <div className={styles.cardMeta}><time dateTime={note.date}>{note.date}</time><span>{note.readingMinutes} {en ? 'min read' : '분 읽기'}</span></div>
+        <div className={styles.cardMeta}>
+          {note.activity ? <NoteActivityDate activity={note.activity} locale={locale} /> : <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>}
+          <span>{note.readingMinutes} {en ? 'min read' : '분 읽기'}</span>
+        </div>
         <h2><Link href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title}<span aria-hidden="true"> ↗</span></Link></h2>
         <p>{note.description}</p>
         <div className={styles.labels} aria-label={en ? 'Tags and projects' : '태그와 프로젝트'}>

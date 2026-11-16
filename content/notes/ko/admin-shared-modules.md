@@ -2,6 +2,9 @@
 title: '운영 Admin과 공통 모듈을 다룬 기록'
 description: '운영 화면의 상태 문제와 기술 이전, 공통 마스킹·포맷팅 모듈 작업을 정리했어요.'
 date: '2026-11-16'
+activity:
+  label: '작업 기간'
+  text: '더스윙 재직 중'
 tags: ['운영 도구', 'TypeScript', '공통 모듈']
 projects: ['swing-admin']
 draft: false

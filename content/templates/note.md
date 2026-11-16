@@ -2,6 +2,11 @@
 title: '글 제목'
 description: '목록과 검색 결과에 표시할 한두 문장의 설명'
 date: '2026-11-16'
+# 과거 작업을 다루는 경우, 확인된 정밀도로 아래 필드를 추가합니다.
+# activity:
+#   label: '작업 기간'
+#   start: '2024-11'
+#   end: '2025-08'
 tags: ['주제']
 projects: ['flow-qa']
 draft: true

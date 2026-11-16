@@ -2,6 +2,9 @@
 title: 'Operations Admin and shared modules'
 description: 'Session state, migration work, and reusable masking and formatting in SWING Admin.'
 date: '2026-11-16'
+activity:
+  label: 'Work period'
+  text: 'During my time at The Swing'
 tags: ['Operations tools', 'TypeScript', 'Shared modules']
 projects: ['swing-admin']
 draft: false

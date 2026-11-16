@@ -2,6 +2,9 @@
 title: '기존 작업 데이터가 남아 있는 SWAP Admin V2 전환'
 description: '새 Fleet API와 화면을 도입하면서 기존 조회·이동 경로를 함께 다룬 팀 릴리스입니다.'
 date: '2026-11-16'
+activity:
+  label: '주요 릴리스'
+  start: '2025-12'
 tags: ['운영 어드민', '마이그레이션', 'React']
 projects: ['swap-admin-v2']
 draft: false

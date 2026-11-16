@@ -2,6 +2,10 @@
 title: 'The review boundary between an error and a test'
 description: 'How Error to Test tracks source inputs, leaves unknown expectations as questions and reads results for the right target.'
 date: '2026-11-16'
+activity:
+  label: 'Public releases'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['regression testing', 'error analysis', 'CLI']
 projects: ['error-to-test']
 draft: false

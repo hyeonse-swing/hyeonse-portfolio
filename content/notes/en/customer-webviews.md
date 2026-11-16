@@ -2,6 +2,10 @@
 title: 'Connecting customer WebViews to the app'
 description: 'The boundaries between entry, login, payment, and app bridges in my SWING and SWAP customer work.'
 date: '2026-11-16'
+activity:
+  label: 'Work period'
+  start: '2022'
+  end: '2026'
 tags: ['WebView', 'React', 'App bridge']
 projects: ['swing-webview', 'swap-customer', 'swing-japan']
 draft: false

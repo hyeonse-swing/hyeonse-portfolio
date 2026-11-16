@@ -2,6 +2,10 @@
 title: 'A QA Shell for iOS and Android WebViews'
 description: 'A public tool for opening local and staging screens in native WebViews and inspecting safe areas and logs.'
 date: '2026-11-16'
+activity:
+  label: 'Public development'
+  start: '2026-05'
+  end: '2026-10'
 tags: ['React Native', 'WebView', 'QA tool']
 projects: ['webview-qa-shell']
 draft: false

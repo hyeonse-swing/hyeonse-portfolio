@@ -2,6 +2,10 @@
 title: 'Connecting flow descriptions to execution evidence'
 description: 'How Flow QA separates case review from browser execution and preserves the scope of selected runs.'
 date: '2026-11-16'
+activity:
+  label: 'Public releases'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['QA', 'browser testing', 'reports']
 projects: ['flow-qa']
 draft: false

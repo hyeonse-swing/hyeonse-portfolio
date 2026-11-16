@@ -2,6 +2,9 @@
 title: 'HoverShot의 떠 있는 창을 원래 모니터에 놓기'
 description: '여러 모니터에서 캡처 결과 창의 위치가 어긋난 문제와 AppKit 창 생성 후 위치를 다시 적용한 수정을 정리합니다.'
 date: '2026-11-16'
+activity:
+  label: 'v0.2.2 릴리스'
+  start: '2026-10-12'
 tags: ['macOS', 'AppKit', '화면 캡처']
 projects: ['hovershot']
 draft: false

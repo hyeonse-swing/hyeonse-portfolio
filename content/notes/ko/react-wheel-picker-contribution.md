@@ -2,6 +2,9 @@
 title: '동적으로 바뀌는 옵션에 선택 위치 맞추기'
 description: 'react-wheel-picker에서 옵션 변경 후 선택 위치가 남던 문제를 수정한 작은 오픈소스 기여예요.'
 date: '2026-11-16'
+activity:
+  label: 'PR 병합'
+  start: '2025-06-30'
 tags: ['오픈소스', 'React', '버그 수정']
 projects: ['opensource']
 draft: false

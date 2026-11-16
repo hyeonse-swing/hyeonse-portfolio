@@ -2,6 +2,9 @@
 title: 'SWING 홈페이지의 첫 화면을 빠르게 보이게 한 작업'
 description: '렌더링, 미디어, 폰트, 이미지 변환을 나누어 개선하고 로컬 조건에서 비교한 기록입니다.'
 date: '2026-11-16'
+activity:
+  label: '개선·측정'
+  start: '2026-07'
 tags: ['Next.js', '웹 성능', 'Lighthouse']
 projects: ['swing-home-performance']
 draft: false

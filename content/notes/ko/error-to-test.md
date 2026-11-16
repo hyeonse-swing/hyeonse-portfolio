@@ -2,6 +2,10 @@
 title: '오류 기록을 테스트 후보로 바꾸는 검토 경계'
 description: 'Error to Test에서 원본을 추적하고, 모르는 기대 동작은 질문으로 남기며, 결과를 대상별로 읽는 방법이에요.'
 date: '2026-11-16'
+activity:
+  label: '공개 릴리스'
+  start: '2026-10'
+  end: '2026-11'
 tags: ['회귀 테스트', '오류 분석', 'CLI']
 projects: ['error-to-test']
 draft: false

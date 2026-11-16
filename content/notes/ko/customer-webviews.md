@@ -2,6 +2,10 @@
 title: '고객 웹뷰에서 앱과 화면을 잇는 일'
 description: 'SWING과 SWAP의 고객 화면을 만들며 다룬 진입, 로그인, 결제, 앱 브릿지의 경계를 정리했어요.'
 date: '2026-11-16'
+activity:
+  label: '작업 기간'
+  start: '2022'
+  end: '2026'
 tags: ['WebView', 'React', '앱 브릿지']
 projects: ['swing-webview', 'swap-customer', 'swing-japan']
 draft: false

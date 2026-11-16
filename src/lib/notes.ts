@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import matter from 'gray-matter';
 import { getNoteProjects } from '../data/note-projects';
 import type { Locale } from './locale';
+import { activityDateKey, isActivityDate, noteDateSortKey, type NoteActivity } from './note-dates';
 
 export type Note = {
   slug: string;
@@ -12,6 +13,7 @@ export type Note = {
   description: string;
   date: string;
   updated?: string;
+  activity?: NoteActivity;
   tags: string[];
   projects: string[];
   body: string;
@@ -41,6 +43,27 @@ function requireList(value: unknown, field: string, source: string): string[] {
   return value.map(item => item.trim());
 }
 
+function parseActivity(value: unknown, source: string): NoteActivity | undefined {
+  if (value === undefined) return undefined;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${source}: activity must be an object`);
+  const activity = value as Record<string, unknown>;
+  const label = requireText(activity.label, 'activity.label', source);
+  if (activity.text !== undefined) {
+    if (activity.start !== undefined || activity.end !== undefined || activity.ongoing !== undefined) {
+      throw new Error(`${source}: activity.text cannot be combined with dates`);
+    }
+    return { label, text: requireText(activity.text, 'activity.text', source) };
+  }
+  if (!isActivityDate(activity.start)) throw new Error(`${source}: activity.start must be a quoted, valid YYYY, YYYY-MM or YYYY-MM-DD date`);
+  if (activity.end !== undefined && !isActivityDate(activity.end)) throw new Error(`${source}: activity.end must be a quoted, valid YYYY, YYYY-MM or YYYY-MM-DD date`);
+  if (activity.ongoing !== undefined && typeof activity.ongoing !== 'boolean') throw new Error(`${source}: activity.ongoing must be a boolean`);
+  if (activity.ongoing && activity.end !== undefined) throw new Error(`${source}: an ongoing activity cannot have an end date`);
+  if (typeof activity.end === 'string' && activityDateKey(activity.end, 'end') < activityDateKey(activity.start, 'start')) {
+    throw new Error(`${source}: activity.end must not precede activity.start`);
+  }
+  return { label, start: activity.start, end: activity.end as string | undefined, ongoing: activity.ongoing as boolean | undefined };
+}
+
 function parseNote(source: string, slug: string, locale: Locale): { note: Note; draft: boolean } {
   const parsed = matter(readFileSync(source, 'utf8'));
   const data = parsed.data;
@@ -48,6 +71,7 @@ function parseNote(source: string, slug: string, locale: Locale): { note: Note; 
   const description = requireText(data.description, 'description', source);
   if (!validDate(data.date)) throw new Error(`${source}: date must be a quoted, valid YYYY-MM-DD date`);
   if (data.updated !== undefined && !validDate(data.updated)) throw new Error(`${source}: updated must be a quoted, valid YYYY-MM-DD date`);
+  const activity = parseActivity(data.activity, source);
   const tags = requireList(data.tags, 'tags', source);
   const projects = requireList(data.projects, 'projects', source);
   const projectIds = new Set(getNoteProjects(locale).map(project => project.id));
@@ -58,7 +82,7 @@ function parseNote(source: string, slug: string, locale: Locale): { note: Note; 
   const words = parsed.content.trim().match(/[\p{L}\p{N}]+/gu)?.length ?? 0;
   return {
     draft: data.draft === true,
-    note: { slug, locale, title, description, date: data.date, updated: data.updated,
+    note: { slug, locale, title, description, date: data.date, updated: data.updated, activity,
       tags, projects, body: parsed.content.trim(), readingMinutes: Math.max(1, Math.ceil(words / 200)) },
   };
 }
@@ -82,7 +106,7 @@ export function readNotesDirectory(root: string): Note[] {
       if (!draft) notes.push(note);
     }
   }
-  return notes.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug) || a.locale.localeCompare(b.locale));
+  return notes.sort((a, b) => noteDateSortKey(b) - noteDateSortKey(a) || b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug) || a.locale.localeCompare(b.locale));
 }
 
 function allNotes(): Note[] { return readNotesDirectory(join(process.cwd(), 'content', 'notes')); }

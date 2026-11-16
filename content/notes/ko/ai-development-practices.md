@@ -2,6 +2,9 @@
 title: '프로젝트별 AI 개발 규칙과 검증 기준 공유'
 description: '저장소 구조를 반영한 작업 규칙과 변경 범위별 검증을 FE 팀에 공유한 기록이에요.'
 date: '2026-11-16'
+activity:
+  label: '팀 공유'
+  start: '2026-09'
 tags: ['개발 방식', '코드 검토', '팀 공유']
 projects: ['ai-development']
 draft: false

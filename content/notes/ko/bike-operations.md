@@ -2,6 +2,10 @@
 title: '바이크 주문과 계약, 직원 업무에서 사업자 조회까지'
 description: 'API가 확정되기 전의 화면 검증과 실제 응답을 연결하며 바이크 운영 흐름을 만든 과정입니다.'
 date: '2026-11-16'
+activity:
+  label: '주요 연동'
+  start: '2026-06'
+  end: '2026-07'
 tags: ['운영 어드민', 'API 계약', 'Playwright']
 projects: ['bike-operations']
 draft: false

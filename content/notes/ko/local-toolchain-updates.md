@@ -2,6 +2,9 @@
 title: '오류 수집부터 QA 결과까지, 도구 세 개의 최근 변경'
 description: 'Browser Error Log, Error to Test, Flow QA의 공개 릴리스에서 데이터 이동과 결과 해석의 경계를 살펴봅니다.'
 date: '2026-11-16'
+activity:
+  label: '대상 릴리스'
+  start: '2026-11-16'
 tags: ['오류 수집', 'QA', '로컬 도구']
 projects: ['browser-error-log', 'error-to-test', 'flow-qa']
 draft: false

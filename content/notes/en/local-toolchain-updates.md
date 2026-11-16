@@ -2,6 +2,9 @@
 title: 'Recent changes across three local error and QA tools'
 description: 'How public releases of Browser Error Log, Error to Test and Flow QA handle data export, result scope and storage failures.'
 date: '2026-11-16'
+activity:
+  label: 'Releases covered'
+  start: '2026-11-16'
 tags: ['error collection', 'QA', 'local tools']
 projects: ['browser-error-log', 'error-to-test', 'flow-qa']
 draft: false

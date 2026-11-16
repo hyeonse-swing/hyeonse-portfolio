@@ -2,6 +2,10 @@
 title: 'Connecting voice AI to a customer flow'
 description: 'Vendor and CX scenario review alongside a phone guidance path from subscription completion.'
 date: '2026-11-16'
+activity:
+  label: 'Work period'
+  start: '2026-04'
+  ongoing: true
 tags: ['Product integration', 'CX collaboration', 'WebView']
 projects: ['vox']
 draft: false

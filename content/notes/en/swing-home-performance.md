@@ -2,6 +2,9 @@
 title: 'Making the SWING homepage appear sooner'
 description: 'A local comparison of rendering and asset changes, followed by a build-time image fix.'
 date: '2026-11-16'
+activity:
+  label: 'Improvement and measurement'
+  start: '2026-07'
 tags: ['Next.js', 'Web performance', 'Lighthouse']
 projects: ['swing-home-performance']
 draft: false
