@@ -6,6 +6,8 @@ activity:
   label: '작업 기간'
   start: '2024-11'
   end: '2025-08'
+  point: '2025-08'
+  pointLabel: '참여 기간 종료'
 tags: ['운영 플랫폼', 'React', '지도']
 projects: ['yellow-bus']
 draft: false

@@ -6,6 +6,8 @@ activity:
   label: 'Public releases'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-08'
+  pointLabel: 'v0.1.0-alpha.1 release'
 tags: ['QA', 'browser testing', 'reports']
 projects: ['flow-qa']
 draft: false

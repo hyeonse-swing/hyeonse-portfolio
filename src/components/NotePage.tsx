@@ -15,13 +15,11 @@ export default function NotePage({ note }: { note: Note }) {
   return <article className={styles.page} id="top">
     <Link className={styles.back} href={localizedPath(locale, '/notes/')}>← {en ? 'All notes' : '모든 기록'}</Link>
     <header className={styles.articleHeader}>
-      <p className="eyebrow">{en ? 'PROJECT NOTE' : '프로젝트 기록'}</p>
+      <p className="eyebrow">NOTES</p>
       <h1>{note.title}</h1>
       <p className={styles.summary}>{note.description}</p>
       <div className={styles.articleMeta}>
-        {note.activity && <NoteActivityDate activity={note.activity} locale={locale} />}
-        <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>
-        {note.updated && <span>{en ? 'Updated' : '수정'} <time dateTime={note.updated}>{note.updated}</time></span>}
+        {note.activity ? <NoteActivityDate activity={note.activity} locale={locale} compact /> : <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>}
         <span>{note.readingMinutes} {en ? 'min read' : '분 읽기'}</span>
       </div>
       {note.tags.length > 0 && <div className={styles.labels} aria-label={en ? 'Tags' : '태그'}>{note.tags.map(tag => <span key={tag}>#{tag}</span>)}</div>}
@@ -33,6 +31,11 @@ export default function NotePage({ note }: { note: Note }) {
         table: ({ children }) => <div className={styles.tableScroll}><table>{children}</table></div>,
       }}>{note.body}</ReactMarkdown>
     </div>
+    <footer className={styles.publicationMeta}>
+      {note.activity && <NoteActivityDate activity={note.activity} locale={locale} />}
+      <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>
+      {note.updated && <span>{en ? 'Updated' : '수정'} <time dateTime={note.updated}>{note.updated}</time></span>}
+    </footer>
     {note.projects.length > 0 && <aside className={styles.related} aria-label={en ? 'Related projects' : '관련 프로젝트'}>
       <h2>{en ? 'Related projects' : '관련 프로젝트'}</h2>
       <ul>{note.projects.map(id => <li key={id}><Link href={projects.get(id)!.href}>{projects.get(id)!.name} ↗</Link></li>)}</ul>

@@ -6,6 +6,8 @@ activity:
   label: '작업 기간'
   start: '2022'
   end: '2026'
+  point: '2022'
+  pointLabel: '웹뷰 작업 시작'
 tags: ['WebView', 'React', '앱 브릿지']
 projects: ['swing-webview', 'swap-customer', 'swing-japan']
 draft: false

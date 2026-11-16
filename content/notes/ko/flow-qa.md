@@ -6,6 +6,8 @@ activity:
   label: '공개 릴리스'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-08'
+  pointLabel: 'v0.1.0-alpha.1 공개'
 tags: ['QA', '브라우저 테스트', '리포트']
 projects: ['flow-qa']
 draft: false

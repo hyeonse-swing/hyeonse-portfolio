@@ -6,6 +6,8 @@ activity:
   label: '공개 릴리스'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-13'
+  pointLabel: 'v0.1.0 공개'
 tags: ['회귀 테스트', '오류 분석', 'CLI']
 projects: ['error-to-test']
 draft: false

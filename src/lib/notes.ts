@@ -49,19 +49,29 @@ function parseActivity(value: unknown, source: string): NoteActivity | undefined
   const activity = value as Record<string, unknown>;
   const label = requireText(activity.label, 'activity.label', source);
   if (activity.text !== undefined) {
-    if (activity.start !== undefined || activity.end !== undefined || activity.ongoing !== undefined) {
+    if (activity.start !== undefined || activity.end !== undefined || activity.ongoing !== undefined || activity.point !== undefined || activity.pointLabel !== undefined) {
       throw new Error(`${source}: activity.text cannot be combined with dates`);
     }
     return { label, text: requireText(activity.text, 'activity.text', source) };
   }
   if (!isActivityDate(activity.start)) throw new Error(`${source}: activity.start must be a quoted, valid YYYY, YYYY-MM or YYYY-MM-DD date`);
   if (activity.end !== undefined && !isActivityDate(activity.end)) throw new Error(`${source}: activity.end must be a quoted, valid YYYY, YYYY-MM or YYYY-MM-DD date`);
+  if (activity.point !== undefined && !isActivityDate(activity.point)) throw new Error(`${source}: activity.point must be a quoted, valid YYYY, YYYY-MM or YYYY-MM-DD date`);
+  if (activity.point === undefined && activity.pointLabel !== undefined) throw new Error(`${source}: activity.pointLabel requires a point`);
+  const pointLabel = activity.point === undefined ? undefined : requireText(activity.pointLabel, 'activity.pointLabel', source);
   if (activity.ongoing !== undefined && typeof activity.ongoing !== 'boolean') throw new Error(`${source}: activity.ongoing must be a boolean`);
   if (activity.ongoing && activity.end !== undefined) throw new Error(`${source}: an ongoing activity cannot have an end date`);
   if (typeof activity.end === 'string' && activityDateKey(activity.end, 'end') < activityDateKey(activity.start, 'start')) {
     throw new Error(`${source}: activity.end must not precede activity.start`);
   }
-  return { label, start: activity.start, end: activity.end as string | undefined, ongoing: activity.ongoing as boolean | undefined };
+  if (typeof activity.point === 'string') {
+    const end = typeof activity.end === 'string' ? activity.end : activity.ongoing ? undefined : activity.start;
+    if (activityDateKey(activity.point, 'end') < activityDateKey(activity.start, 'start') ||
+      (end && activityDateKey(activity.point, 'start') > activityDateKey(end, 'end'))) {
+      throw new Error(`${source}: activity.point must fall within the activity period`);
+    }
+  }
+  return { label, start: activity.start, end: activity.end as string | undefined, ongoing: activity.ongoing as boolean | undefined, point: activity.point as string | undefined, pointLabel };
 }
 
 function parseNote(source: string, slug: string, locale: Locale): { note: Note; draft: boolean } {

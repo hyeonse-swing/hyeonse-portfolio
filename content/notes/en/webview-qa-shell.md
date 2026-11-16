@@ -6,6 +6,8 @@ activity:
   label: 'Public development'
   start: '2026-05'
   end: '2026-10'
+  point: '2026-05-15'
+  pointLabel: 'v0.1.0 release'
 tags: ['React Native', 'WebView', 'QA tool']
 projects: ['webview-qa-shell']
 draft: false

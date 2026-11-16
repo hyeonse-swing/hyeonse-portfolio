@@ -5,6 +5,8 @@ date: '2026-11-16'
 activity:
   label: 'Work period'
   start: '2026-04'
+  point: '2026-04'
+  pointLabel: 'Integration work started'
   ongoing: true
 tags: ['Product integration', 'CX collaboration', 'WebView']
 projects: ['vox']

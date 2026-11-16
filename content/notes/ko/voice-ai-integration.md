@@ -5,6 +5,8 @@ date: '2026-11-16'
 activity:
   label: '작업 기간'
   start: '2026-04'
+  point: '2026-04'
+  pointLabel: '연동 작업 시작'
   ongoing: true
 tags: ['제품 연동', 'CX 협업', 'WebView']
 projects: ['vox']

@@ -1,5 +1,5 @@
 export type NoteActivity =
-  | { label: string; start: string; end?: string; ongoing?: boolean }
+  | { label: string; start: string; end?: string; ongoing?: boolean; point?: string; pointLabel?: string }
   | { label: string; text: string };
 
 /** Preserve the precision of the source: year, month or calendar day. */
@@ -21,12 +21,16 @@ export function activityDateKey(value: string, edge: 'start' | 'end'): number {
   return year * 10000 + (month ?? (edge === 'end' ? 12 : 1)) * 100 + (day ?? (edge === 'end' ? 31 : 1));
 }
 
+export function activityPoint(activity: Exclude<NoteActivity, { text: string }>): string {
+  return activity.point ?? (activity.ongoing ? activity.start : activity.end ?? activity.start);
+}
+
 export function noteDateSortKey({ date, activity }: { date: string; activity?: NoteActivity }): number {
   const published = activityDateKey(date, 'end');
   if (!activity) return published;
   if ('text' in activity) return 0;
-  // An ongoing or imprecise period is bounded by when this account was published.
-  return activity.ongoing ? published : Math.min(published, activityDateKey(activity.end ?? activity.start, 'end'));
+  // A selected milestone keeps a long-running project out of the publication-day cluster.
+  return Math.min(published, activityDateKey(activityPoint(activity), 'end'));
 }
 
-export function formatActivityDate(value: string): string { return value.replaceAll('-', '.'); }
+export function formatActivityDate(value: string): string { return value.replaceAll('-', '. '); }

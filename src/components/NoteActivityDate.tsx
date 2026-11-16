@@ -1,5 +1,5 @@
 import type { Locale } from '../lib/locale';
-import { formatActivityDate, type NoteActivity } from '../lib/note-dates';
+import { activityPoint, formatActivityDate, type NoteActivity } from '../lib/note-dates';
 import styles from './Notes.module.css';
 
 function DateValue({ value }: { value: string }) {
@@ -7,13 +7,17 @@ function DateValue({ value }: { value: string }) {
   return value.length === 4 ? <span>{value}</span> : <time dateTime={value}>{formatActivityDate(value)}</time>;
 }
 
-export default function NoteActivityDate({ activity, locale }: { activity: NoteActivity; locale: Locale }) {
+export default function NoteActivityDate({ activity, locale, compact = false }: { activity: NoteActivity; locale: Locale; compact?: boolean }) {
+  if (compact && !('text' in activity) && (activity.point || (!activity.end && !activity.ongoing))) return <span className={styles.activityDate}>
+    <DateValue value={activityPoint(activity)} />
+    <span className={styles.activityLabel}>{activity.pointLabel ?? activity.label}</span>
+  </span>;
   return <span className={styles.activityDate}>
     <span className={styles.activityLabel}>{activity.label}</span>
     <span>{'text' in activity ? activity.text : <>
       <DateValue value={activity.start} />
-      {activity.end && activity.end !== activity.start && <>–<DateValue value={activity.end} /></>}
-      {activity.ongoing && <>–{locale === 'ko' ? '게시 당시 진행 중' : 'ongoing at publication'}</>}
+      {activity.end && activity.end !== activity.start && <> – <DateValue value={activity.end} /></>}
+      {activity.ongoing && <> – {locale === 'ko' ? '게시 당시 진행 중' : 'ongoing at publication'}</>}
     </>}</span>
   </span>;
 }

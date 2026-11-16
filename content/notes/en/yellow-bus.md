@@ -6,6 +6,8 @@ activity:
   label: 'Work period'
   start: '2024-11'
   end: '2025-08'
+  point: '2025-08'
+  pointLabel: 'End of involvement'
 tags: ['Operations platform', 'React', 'Maps']
 projects: ['yellow-bus']
 draft: false

@@ -6,6 +6,8 @@ activity:
   label: '공개 개발'
   start: '2026-05'
   end: '2026-10'
+  point: '2026-05-15'
+  pointLabel: 'v0.1.0 공개'
 tags: ['React Native', 'WebView', 'QA 도구']
 projects: ['webview-qa-shell']
 draft: false

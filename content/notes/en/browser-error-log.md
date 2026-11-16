@@ -6,6 +6,8 @@ activity:
   label: 'Public releases'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-12'
+  pointLabel: 'v0.1.5 release'
 tags: ['error collection', 'TypeScript', 'SQLite']
 projects: ['browser-error-log']
 draft: false

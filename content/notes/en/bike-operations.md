@@ -6,6 +6,8 @@ activity:
   label: 'Main integrations'
   start: '2026-06'
   end: '2026-07'
+  point: '2026-07'
+  pointLabel: 'Business portal integration'
 tags: ['Operations Admin', 'API contracts', 'Playwright']
 projects: ['bike-operations']
 draft: false

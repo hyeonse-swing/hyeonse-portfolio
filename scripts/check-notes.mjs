@@ -56,7 +56,7 @@ try {
   timelineNote('unknown', "activity:\n  label: Work period\n  text: During employment\n");
   timelineNote('new-publication', '', '2026-11-15');
   const timeline = readNotesDirectory(timelineRoot);
-  assert.deepEqual(timeline.map(note => note.slug), ['ongoing', 'new-publication', 'newer-work', 'older-work', 'merged', 'unknown']);
+  assert.deepEqual(timeline.map(note => note.slug), ['new-publication', 'newer-work', 'ongoing', 'older-work', 'merged', 'unknown']);
   assert.equal(timeline.find(note => note.slug === 'older-work').date, '2026-11-16', 'work periods never rewrite publication dates');
   assert.equal(timeline.find(note => note.slug === 'older-work').activity.start, '2024', 'source year precision is preserved');
   assert.equal(timeline.find(note => note.slug === 'merged').activity.start, '2025-06-30');
@@ -71,6 +71,17 @@ try {
     assert.throws(() => readNotesDirectory(timelineRoot), error);
   }
   rmSync(join(timelineDir, 'invalid.md'));
+  timelineNote('project-milestone', "activity:\n  label: Release\n  start: '2026-05'\n  end: '2026-11'\n  point: '2026-05-15'\n  pointLabel: First release\n");
+  assert.deepEqual(readNotesDirectory(timelineRoot).map(note => note.slug), ['new-publication', 'newer-work', 'project-milestone', 'ongoing', 'older-work', 'merged', 'unknown']);
+  for (const point of ['2026-02-30', '2026-04-30', '2026-12-01']) {
+    timelineNote('invalid', `activity:\n  label: Release\n  start: '2026-05'\n  end: '2026-11'\n  point: '${point}'\n  pointLabel: First release\n`);
+    assert.throws(() => readNotesDirectory(timelineRoot), /activity.point/);
+  }
+  rmSync(join(timelineDir, 'invalid.md'));
+
+  timelineNote('missing-label', "activity:\n  label: Work period\n  start: '2026'\n  point: '2026-05'\n");
+  assert.throws(() => readNotesDirectory(timelineRoot), /activity.pointLabel/);
+  rmSync(join(timelineDir, 'missing-label.md'));
 
   notes = getAllNotes();
   assert.equal(notes.length, getNotes('ko').length + getNotes('en').length);

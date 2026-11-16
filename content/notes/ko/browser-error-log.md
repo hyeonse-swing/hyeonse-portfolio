@@ -6,6 +6,8 @@ activity:
   label: '공개 릴리스'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-12'
+  pointLabel: 'v0.1.5 공개'
 tags: ['오류 수집', 'TypeScript', 'SQLite']
 projects: ['browser-error-log']
 draft: false

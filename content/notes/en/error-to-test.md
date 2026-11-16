@@ -6,6 +6,8 @@ activity:
   label: 'Public releases'
   start: '2026-10'
   end: '2026-11'
+  point: '2026-10-13'
+  pointLabel: 'v0.1.0 release'
 tags: ['regression testing', 'error analysis', 'CLI']
 projects: ['error-to-test']
 draft: false

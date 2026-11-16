@@ -6,6 +6,8 @@ activity:
   label: '주요 연동'
   start: '2026-06'
   end: '2026-07'
+  point: '2026-07'
+  pointLabel: '사업자 포털 연동'
 tags: ['운영 어드민', 'API 계약', 'Playwright']
 projects: ['bike-operations']
 draft: false

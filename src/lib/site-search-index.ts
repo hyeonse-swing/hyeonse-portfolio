@@ -16,7 +16,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   const href = (path: string) => localizedPath(locale, path);
   const documents: SearchDocument[] = [];
   const add = (document: SearchDocument) => documents.push(document);
-  add({ id: 'notes', title: en ? 'Project notes' : '프로젝트 기록', category: 'page', href: href('/notes/'), summary: en ? 'Problems, decisions, and verification from my work and personal projects.' : '프로젝트와 업무에서 마주한 문제, 선택, 검증 과정을 기록해요.', content: '', keywords: en ? ['blog', 'notes'] : ['블로그', '기록'], featured: true });
+  add({ id: 'notes', title: en ? 'Notes' : '기록', category: 'page', href: href('/notes/'), summary: en ? 'Things I have built, problems I have worked through, and notes along the way.' : '만들어 본 것, 막혔던 문제, 그 과정에서 배운 것을 적어요.', content: '', keywords: en ? ['blog', 'notes'] : ['블로그', '기록'], featured: true });
   for (const note of getNotes(locale)) {
     add({ id: `note-${note.slug}`, title: note.title, category: 'note', href: href(`/notes/${note.slug}/`), summary: note.description, content: '', keywords: note.tags, featured: false });
   }

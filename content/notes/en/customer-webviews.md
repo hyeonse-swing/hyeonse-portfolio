@@ -6,6 +6,8 @@ activity:
   label: 'Work period'
   start: '2022'
   end: '2026'
+  point: '2022'
+  pointLabel: 'WebView work started'
 tags: ['WebView', 'React', 'App bridge']
 projects: ['swing-webview', 'swap-customer', 'swing-japan']
 draft: false
