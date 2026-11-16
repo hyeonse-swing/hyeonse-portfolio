@@ -1,10 +1,10 @@
 # 개인 프로젝트 소개 근거
 
-2026-11-07에 각 공개 저장소의 `main`, README·관련 구현·검증 문서, npm 메타데이터와 GitHub 릴리스를 확인했다. 2026-11-16에는 Flow QA, Browser Error Log, Error to Test의 아래 고정 커밋·릴리스와 검증 기록을 GitHub CLI로 다시 확인했다. 화면의 문구는 [personal-projects.ts](../src/data/personal-projects.ts)의 한·영 데이터로 관리한다. 공개 릴리스 기능과 기록된 로컬 검증을 설명하며, 실제 사용자 수·시간 절감·운영 도입률은 주장하지 않는다. 버전은 이 근거 문서에만 기록하고 사이트 문구에는 고정하지 않는다.
+2026-11-07에 각 공개 저장소의 `main`, README·관련 구현·검증 문서, npm 메타데이터와 GitHub 릴리스를 확인했다. 2026-11-16에는 Hyeonse Design System, Flow QA, Browser Error Log, Error to Test의 아래 고정 커밋·릴리스와 검증 기록을 확인했다. 화면의 문구는 [personal-projects.ts](../src/data/personal-projects.ts)의 한·영 데이터로 관리한다. 공개 릴리스 기능과 기록된 로컬 검증을 설명하며, 실제 사용자 수·시간 절감·운영 도입률은 주장하지 않는다. 사이트에서 버전을 언급하는 경우 해당 기능의 시작 버전만 명시한다.
 
 | 프로젝트 | 확인한 공개 소스 | npm / 릴리스 상태 |
 | --- | --- | --- |
-| Hyeonse Design System | [`d04bda5`](https://github.com/hyeonse-swing/hyeonse-design-system/tree/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6) | GitHub에서 설치하는 패키지. npm 레지스트리 게시 제품으로 소개하지 않음 |
+| Hyeonse Design System | [`090e10e` · v0.2.0](https://github.com/hyeonse-swing/hyeonse-design-system/tree/090e10e066b933c3c9565b4553c4c35ace45eb99) | GitHub 태그에서 설치하는 패키지와 [공개 쇼케이스](https://hyeonse-design-system.vercel.app). npm 레지스트리 게시 제품으로 소개하지 않음 |
 | Flow QA | [`413c07c`](https://github.com/hyeonse-swing/flow-qa/tree/413c07c615bc2f3b02ead438e647147be28088a6) | [`@ihyeon/flow-qa` 0.8.9](https://www.npmjs.com/package/@ihyeon/flow-qa/v/0.8.9), [v0.8.9 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.8.9) |
 | Browser Error Log | [`62be063`](https://github.com/hyeonse-swing/browser-error-log/tree/62be06359dbb0c706925bb2508ed2cdfcbc37007) | [v0.2.11 릴리스](https://github.com/hyeonse-swing/browser-error-log/releases/tag/v0.2.11): [`@ihyeon/browser-error-log`](https://www.npmjs.com/package/@ihyeon/browser-error-log/v/0.2.11), [`@ihyeon/browser-error-log-react`](https://www.npmjs.com/package/@ihyeon/browser-error-log-react/v/0.2.11), [`@ihyeon/browser-error-log-protocol`](https://www.npmjs.com/package/@ihyeon/browser-error-log-protocol/v/0.2.11) 모두 0.2.11 |
 | Error to Test | [`8fa0651`](https://github.com/hyeonse-swing/error-to-test/tree/8fa0651ea18833206423010e1d71be99537afea6) | [`@ihyeon/error-to-test` 0.3.0](https://www.npmjs.com/package/@ihyeon/error-to-test/v/0.3.0), [v0.3.0 릴리스](https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.3.0) |
@@ -14,7 +14,8 @@
 
 ## Hyeonse Design System
 
-- [README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/README.md), [설정 구현](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts): 역할별 CSS 토큰과 React 설정 UI, 첫 페인트 스크립트·Provider에 같은 사이트 기본값 전달, 저장된 유효한 선택 우선.
+- [v0.2.0 README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/README.md), [설정 구현](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts): 역할별 CSS 토큰과 React 설정 UI, 첫 페인트 스크립트·Provider에 같은 사이트 기본값 전달, 저장된 유효한 선택 우선.
+- [AI 사용 안내](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/docs/ai.md), [카탈로그 스키마](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/schemas/catalog.schema.json): 설치 버전의 공개 API·토큰·예제를 읽기 전용 `hds` CLI, 카탈로그와 문서에서 조회한다. 일반 Button·Input·Card React 컴포넌트를 제공한다는 뜻은 아니다. v0.2.0의 별도 `npm run verify` 기록은 타입·빌드·소비 예제 타입 검사·17개 테스트와 설치 패키지의 CLI·카탈로그·예제 확인을 포함한다. 이 포트폴리오 편집자가 그 검사를 재실행한 것은 아니다. [v0.2.0 CI](https://github.com/hyeonse-swing/hyeonse-design-system/actions/runs/43814736366)의 성공과 대상 커밋 일치를 확인했다.
 - [CSS 점검 범위](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md): 원시 CSS 색상과 공유 토큰 재정의 검사. TS·JS·3D 재질 전체를 검사한다고 확대하지 않는다.
 - [통합 검증 기록](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md): 포트폴리오 이관 전후 로컬 Chrome 36개 조건과 화면 설정 복원·탭 동기화 등. 실제 기기·운영 배포 확인이 아니다. Flow QA에 적용한 사실은 공개 [Flow QA README](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/README.ko.md)의 구현·출처에도 적혀 있다.
 

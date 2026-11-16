@@ -20,7 +20,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       id: 'hyeonse-design-system',
       name: 'Hyeonse Design System',
       category: 'DESIGN FOUNDATIONS',
-      summary: '포트폴리오에서 쓰던 색과 화면 설정을 다른 개인 프로젝트에서도 쓸 수 있도록 분리한 디자인 시스템이에요.',
+      summary: '포트폴리오의 색과 화면 설정을 재사용하고, v0.2.0부터 설치 버전의 API·토큰·예제를 조회할 수 있는 디자인 시스템이에요.',
       problem: '사이트마다 색과 화면 설정이 달라지지 않도록, 같은 시각 언어를 여러 개인 프로젝트에서 재사용하고 싶었어요.',
       decisions: [
         { title: '역할로 이름 붙인 토큰', detail: '바탕·글자·강조처럼 쓰임을 기준으로 CSS 토큰을 나눠 화면별 색값 복사를 줄였어요.' },
@@ -30,13 +30,16 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         '색상·서체·간격을 역할별 CSS 토큰으로 정리하고, 테마·강조색·밀도·모서리·움직임 설정을 React UI와 함께 패키지로 제공해요.',
         '이 포트폴리오와 Flow QA에 적용했어요. 저장된 선택, 다른 탭 변경, 기기 테마·움직임 감소도 반영해요.',
         'CSS 원시 색상과 공유 토큰 재정의를 검사하는 CLI, 화면 제작·이관·리뷰용 재사용 스킬도 제공해요.',
+        'v0.2.0부터 설치한 버전의 공개 API·토큰·예제를 읽기 전용 hds CLI와 문서에서 찾아볼 수 있어요.',
       ],
-      verification: '포트폴리오 통합 기록에서 Chrome 36개 화면과 설정 복원·탭 동기화 등을 확인했어요. 실제 기기·운영 배포 검증과는 구분해요.',
+      verification: '이전 포트폴리오 통합에서 로컬 Chrome 36개 화면과 설정 복원·탭 동기화를 확인했어요. v0.2.0 조회 기능은 별도로 17개 테스트와 설치 패키지 검사를 거쳤어요. 실제 기기 검증과는 구분해요.',
       stack: ['TypeScript', 'React', 'CSS tokens'],
       release: 'GitHub 패키지 공개 · 포트폴리오·Flow QA 적용',
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hyeonse-design-system' },
         { label: '통합 검증 기록', href: 'https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/docs/verification.md' },
+        { label: '쇼케이스', href: 'https://hyeonse-design-system.vercel.app' },
+        { label: 'AI 사용 안내', href: 'https://github.com/hyeonse-swing/hyeonse-design-system/blob/v0.2.0/docs/ai.md' },
       ],
     },
     {
@@ -129,7 +132,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       stack: ['Swift', 'SwiftUI', 'AppKit', 'ScreenCaptureKit', 'Vision'],
       release: 'macOS 앱 · GitHub 다운로드 · Apple 미공증',
       links: [
-        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hovershot-macos' },
+        { label: 'GitHub · v0.2.2 소스', href: 'https://github.com/hyeonse-swing/hovershot-macos/tree/93b8f824ec84eb8d1fc32c257e077d3212784273' },
         { label: '최신 릴리스', href: 'https://github.com/hyeonse-swing/hovershot-macos/releases/latest' },
       ],
     },
@@ -139,7 +142,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       id: 'hyeonse-design-system',
       name: 'Hyeonse Design System',
       category: 'DESIGN FOUNDATIONS',
-      summary: 'A reusable design system extracted from this portfolio, bringing its visual language and display settings to other personal projects.',
+      summary: 'A reusable design system for this portfolio’s visual language and display settings, with installed-version API, token and example lookup since v0.2.0.',
       problem: 'I wanted one visual language and set of display controls to stay consistent across my personal projects.',
       decisions: [
         { title: 'Name tokens by role', detail: 'Paper, text and accent roles replace copied color values in individual screens.' },
@@ -149,13 +152,16 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         'Packaged semantic CSS tokens for color, type and spacing with React controls for theme, accent, density, corners and motion.',
         'Used in this portfolio and Flow QA, with saved choices, cross-tab changes, system theme and reduced-motion settings.',
         'Includes a CLI that checks raw CSS colors and shared-token overrides, plus a reusable skill for building, migrating and reviewing interfaces.',
+        'Since v0.2.0, a read-only hds CLI and docs let you look up the installed version’s public APIs, tokens and examples.',
       ],
-      verification: 'The portfolio integration record covers 36 local Chrome views, preference restoration and cross-tab updates. It does not establish behavior on physical devices or a deployed site.',
+      verification: 'Earlier portfolio integration checks covered 36 local Chrome views, preference restoration and cross-tab updates. The v0.2.0 lookup interface separately passed 17 tests and installed-package checks. Neither establishes behavior on physical devices.',
       stack: ['TypeScript', 'React', 'CSS tokens'],
       release: 'GitHub package · Used in this portfolio and Flow QA',
       links: [
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hyeonse-design-system' },
         { label: 'Integration checks', href: 'https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/docs/verification.md' },
+        { label: 'Showcase', href: 'https://hyeonse-design-system.vercel.app' },
+        { label: 'AI usage guide', href: 'https://github.com/hyeonse-swing/hyeonse-design-system/blob/v0.2.0/docs/ai.md' },
       ],
     },
     {
@@ -248,7 +254,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       stack: ['Swift', 'SwiftUI', 'AppKit', 'ScreenCaptureKit', 'Vision'],
       release: 'macOS app · GitHub download · Not Apple-notarized',
       links: [
-        { label: 'GitHub', href: 'https://github.com/hyeonse-swing/hovershot-macos' },
+        { label: 'GitHub · v0.2.2 source', href: 'https://github.com/hyeonse-swing/hovershot-macos/tree/93b8f824ec84eb8d1fc32c257e077d3212784273' },
         { label: 'Latest release', href: 'https://github.com/hyeonse-swing/hovershot-macos/releases/latest' },
       ],
     },

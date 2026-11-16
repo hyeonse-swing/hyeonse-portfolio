@@ -16,6 +16,8 @@ draft: false
 
 Each site chooses its defaults, while a valid saved visitor preference takes priority. The public project record covers integration in this portfolio and Flow QA. They share the meaning of the tokens and the settings behavior without needing identical screens.
 
+In v0.2.0, the read-only `hds` CLI lets a consuming project look up the public APIs, tokens and examples in its installed package version. The package also includes a catalog and usage docs, so the reference matches that version. The [public showcase](https://hyeonse-design-system.vercel.app) shows the tokens and settings in use. Its general buttons, inputs and cards are examples, not React components exported by the package.
+
 ## Keeping the first paint consistent
 
 If a theme applies only after React starts, the first paint can briefly show a different setting. The integration passes the same site defaults to an initial script and the React provider. It validates a saved choice before using it, responds to system theme and reduced-motion settings, and updates the current tab when a setting changes in another one.
@@ -28,8 +30,10 @@ When creating or migrating a screen, it's easy for a color to bypass the tokens.
 
 The public integration record describes 36 local Chrome view conditions before and after the portfolio migration, including preference restoration and cross-tab updates. I did not rerun those checks for this article. They do not establish behavior on physical devices or a deployed site. The package is installed from GitHub and has not been published to the npm registry.
 
+The newer lookup interface has separate type, build and consuming-example checks, 17 tests, and installed-package checks of the CLI, catalog and examples. Those checks do not mean the 36 Chrome views were rerun for this version.
+
 ## Public sources
 
-- [Pinned README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/README.md)
-- [Preference implementation](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts) · [CSS audit scope](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md)
-- [Portfolio integration record](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md)
+- [v0.2.0 README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/README.md) · [AI usage guide](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/docs/ai.md)
+- [Earlier preference implementation](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts) · [CSS audit scope](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md)
+- [Earlier portfolio integration record](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md)
