@@ -4,7 +4,8 @@ import type { ReactNode } from 'react';
 import { PreferencesProvider as DesignSystemProvider } from '@hyeonse/design-system/react';
 import { preferenceDefaults, preferencesKey } from '../lib/site-preferences';
 
-export { ThemeToggle, PreferencesPanel, usePreferences } from '@hyeonse/design-system/react';
+export { PreferencesPanel, usePreferences } from '@hyeonse/design-system/react';
+export { ThemeToggle } from './ThemeToggle';
 
 // Keep the badge's existing preference event and persisted browser settings.
 export function PreferencesProvider({ children }: { children: ReactNode }) {
