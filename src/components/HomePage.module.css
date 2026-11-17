@@ -1,0 +1,93 @@
+/* The badge remains the signature; the surrounding page reads like a work index. */
+section.heroStage {
+  height: clamp(660px, calc(100svh - 100px), 860px);
+  min-height: 660px;
+}
+.heroStage :global(.hero-intro) { top: 40px; }
+.heroStage :global(.hero-intro p) {
+  margin-top: 0;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.55;
+  letter-spacing: -.035em;
+}
+.heroStage :global(.hero-side) { top: 45px; letter-spacing: 0; }
+.heroStage :global(.hero-name) {
+  left: -.025em;
+  font-size: clamp(90px, 15.8vw, 260px);
+  letter-spacing: -.04em;
+}
+.heroLinks { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 22px; }
+.heroLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 550;
+  border-bottom: 1px solid var(--line);
+  transition: color 160ms, border-color 160ms;
+}
+.heroLinks a:first-child { color: var(--accent-text); border-color: currentColor; }
+.heroLinks a:hover { color: var(--accent-text); border-color: currentColor; }
+.heroLinks svg { width: 16px; height: 16px; }
+.heroStage :global(.hero-baseline) svg { width: 18px; height: 18px; }
+.sectionHeading > div > h2 { margin-top: 0; letter-spacing: -.04em; line-height: 1.08; }
+.sectionHeading > p { max-width: 390px; text-wrap: pretty; }
+.workSection :global(.work-caption h3) { letter-spacing: -.035em; }
+.workSection :global(.work-caption p) { max-width: 48ch; }
+.aboutSection :global(.about-opening) { margin-top: 0; margin-bottom: 72px; }
+.aboutSection :global(.about-opening h2),
+.aboutSection :global(.about-lead) { letter-spacing: -.035em; }
+.timelineTitle { font-size: 18px; font-weight: 550; letter-spacing: -.02em; line-height: 1.6; }
+.notesSection { padding-top: 0; }
+.notesHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.notesHeading h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 550; line-height: 1.35; letter-spacing: -.035em; }
+.notesHeading > a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; font-size: 14px; white-space: nowrap; }
+.notesHeading > a:hover { color: var(--accent-text); }
+.notesHeading svg { width: 18px; height: 18px; }
+.noteList { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; list-style: none; padding: 0; margin: 0; }
+.noteList li { min-width: 0; border-top: 1px solid var(--line); padding-top: 20px; }
+.noteMeta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.noteList h3 { margin-top: 18px; font-size: 21px; line-height: 1.5; letter-spacing: -.025em; font-weight: 550; }
+.noteList h3 a { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding-block: 4px; }
+.noteList h3 a:hover { color: var(--accent-text); }
+.noteList h3 svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 7px; color: var(--accent-text); }
+.noteList article > p { max-width: 55ch; margin-top: 16px; color: var(--muted); font-size: 15px; line-height: 1.9; text-wrap: pretty; }
+a.studioInvitation { grid-template-columns: 1fr auto; align-items: center; padding-block: 32px; border-bottom: 1px solid var(--line); }
+.studioInvitation > div { display: grid; grid-template-columns: 1fr 1fr; align-items: baseline; gap: 40px; }
+.studioInvitation > div > h2 { font-size: clamp(25px, 2.6vw, 38px); letter-spacing: -.035em; }
+.studioInvitation > div > p { margin-top: 0; max-width: 44ch; }
+.studioInvitation > svg { width: 36px; height: 36px; color: var(--accent-text); }
+@media (max-width: 1050px) {
+  section.heroStage { height: clamp(660px, calc(100svh - 85px), 860px); }
+  .heroStage :global(.hero-intro) { top: 30px; }
+  .heroStage :global(.hero-side) { top: 35px; }
+  .noteList { gap: 24px; }
+  .noteList h3 { font-size: 19px; }
+  .studioInvitation > div { gap: 24px; }
+}
+@media (max-width: 700px) {
+  section.heroStage { height: calc(100svh - 116px); min-height: 710px; max-height: 860px; }
+  .heroStage :global(.hero-intro) { top: 20px; }
+  .heroStage :global(.hero-intro p) { font-size: 19px; line-height: 1.65; }
+  .heroStage :global(.hero-side) { top: 155px; font-size: 12px; }
+  .heroLinks { margin-top: 12px; gap: 8px 24px; }
+  .heroLinks a { font-size: 13px; }
+  .heroStage :global(.hero-name) { font-size: 17vw; letter-spacing: -.04em; }
+  .heroStage :global(.hero-name) > span:first-child { font-size: 1.2em; }
+  .heroStage :global(.hero-name) > span + span { font-size: 1.5em; }
+  .aboutSection :global(.about-opening) { margin-bottom: 44px; }
+  .notesHeading { display: block; margin-bottom: 16px; }
+  .notesHeading > a { margin-top: 8px; }
+  .noteList { grid-template-columns: 1fr; gap: 28px; }
+  .noteList li { padding-top: 18px; }
+  .noteList h3 { margin-top: 12px; font-size: 21px; }
+  .noteList article > p { margin-top: 10px; }
+  a.studioInvitation { gap: 20px; }
+  .studioInvitation > div { grid-template-columns: 1fr; gap: 12px; }
+  .studioInvitation > svg { width: 28px; height: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroLinks a { transition: none; }
+}
+:global(:root[data-motion='reduced']) .heroLinks a { transition: none; }
