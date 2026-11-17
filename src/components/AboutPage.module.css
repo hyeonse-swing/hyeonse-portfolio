@@ -14,3 +14,26 @@
 @media(max-width: 700px) { .page { padding-bottom: 65px; }.header { grid-template-columns: 1fr; gap: 42px; padding: 40px 0 55px; }.header h1 { font-size: 99px; margin-top: 29px; }.identity { justify-self: start; }.identity>p { font-size: 28px; line-height: 1.5; margin-top: 18px; }.current { margin-top: 24px; font-size: 9px; }.introduction { grid-template-columns: 1fr; gap: 30px; padding: 33px 0 30px; }.introduction h2 { font-size: 36px; }.prose>p { font-size: 14px; line-height: 2; }.prose>p+p { margin-top: 19px; }.section { margin-top: calc(65px * var(--space-factor)); }.sectionHeading { margin-bottom: 28px; }.sectionHeading h2 { font-size: 29px; margin-top: 17px; }.sectionHeading>p { font-size: 11px; }.area { grid-template-columns: 22px 1fr; gap: 12px; padding: 26px 0; }.area h3 { font-size: 23px; }.area>div { grid-column: 2; }.area p { font-size: 13px; }.area ul { margin-top: 17px; }.area li { font-size: 9px; }.notes { grid-template-columns: 1fr; gap: 20px; }.note { padding: calc(25px * var(--space-factor)); }.note h3 { font-size: 23px; margin-top: 18px; }.note>p { font-size: 13px; }.example>p { font-size: 12px; }.history>div { grid-template-columns: 1fr; gap: 9px; padding: 23px 0; }.history h3 { font-size: 18px; }.history p { font-size: 12px; }.history>div>span { font-size: 10px; }.background { gap: 20px; }.background p { font-size: 12px; }.background p span { font-size: 11px; }.publicWorks { grid-template-columns: 1fr; gap: 22px; }.publicWorks h3 { font-size: 26px; }.publicWorks p { font-size: 12px; }.selectedLink { margin-top: 65px; gap: 15px; }.selectedLink p { font-size: 29px; }.selectedLink>span { font-size: 45px; } }
 @media(max-width: 360px) { .header h1 { font-size: 86px; }.background { grid-template-columns: 1fr; } }
 @media(max-width: 700px) { .technical>article { grid-template-columns: 1fr; gap: 20px; padding: 28px 0; }.technical h3 { font-size: 25px; }.technical p { font-size: 13px; }.technical a { font-size: 11px; } }
+
+/* Keep editorial titles expressive while body and metadata stay readable. */
+.header { padding-bottom: calc(72px * var(--space-factor)); }
+.current, .index, .history > div > span, .example > span, .background p span { font-size: var(--portfolio-meta-font); }
+.sectionHeading > p, .publicWorks p { font-size: 14px; }
+.area li { font-size: 12px; padding: 8px 11px; }
+.note > p, .example > p, .history p, .publicWorks p { font-size: 15px; }
+.links a, .technical a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
+.note { padding: calc(28px * var(--space-factor)); }
+.selectedLink { margin-top: calc(72px * var(--space-factor)); }
+@media (max-width: 700px) {
+  .header { padding-bottom: 48px; }
+  .header h1 { font-size: clamp(76px, 16vw, 99px); }
+  .prose > p, .area p, .technical p, .note > p, .example > p,
+  .history p, .background p, .publicWorks p, .sectionHeading > p { font-size: 15px; }
+  .current, .index, .history > div > span, .example > span,
+  .background p span { font-size: 12px; }
+  .area li { font-size: 12px; }
+  .note { padding: calc(22px * var(--space-factor)); }
+}
+@media (any-pointer: coarse) {
+  .links a, .technical a { min-height: 44px; }
+}

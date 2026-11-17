@@ -96,7 +96,8 @@ for (const { body, url } of sitemapEntries) {
 const robots = await readFile(join(root, 'robots.txt'), 'utf8');
 assert.match(robots, /User-Agent: \*/, '기본 크롤러 규칙 누락');
 if (preview) {
-  assert.match(robots, /^Disallow: \/$/m, '미리보기 검색 차단 누락');
+  assert.match(robots, /^Allow: \/$/m, '미리보기 noindex 지시를 읽을 수 있어야 합니다.');
+  assert(!/^Disallow: \/$/m.test(robots), '미리보기 noindex 지시를 robots.txt로 차단하면 안 됩니다.');
   assert(!robots.includes('Sitemap:'), '미리보기에서는 사이트맵을 광고하지 않습니다.');
 } else {
   assert.match(robots, /^Allow: \/$/m, '공개 페이지 검색 허용 누락');

@@ -11,3 +11,9 @@
   .toolbar { align-items: flex-start; }
   .status { flex-basis: 100%; margin-left: 0; }
 }
+
+.controls button { min-height: var(--portfolio-control-md); padding: 7px 12px; font-size: var(--portfolio-control-font); }
+.status { font-size: var(--portfolio-meta-font); }
+@media (any-pointer: coarse) {
+  .controls button { min-width: 44px; min-height: 44px; }
+}

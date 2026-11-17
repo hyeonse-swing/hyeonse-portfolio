@@ -38,3 +38,18 @@
 @media(max-width:380px){.toolbar{font-size:9px}.tabs button{padding:8px}.io{grid-template-columns:1fr;gap:15px}.example{padding:14px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.all summary span{transform:none!important}}
 :global(:root[data-motion='reduced']) .all summary span{transform:none!important}
+
+.micro, .toolbar, .tabs button span:first-child { font-size: var(--portfolio-meta-font); }
+.heading p, .io p, .example, .handoff, .note { font-size: 15px; }
+.tabs button strong { font-size: clamp(13px, 1.25vw, 16px); }
+.stageHead a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
+.all summary { font-size: 14px; }
+@media (max-width: 700px) {
+  .heading p, .io p, .example, .handoff, .note { font-size: 14px; }
+  .tabs button strong { font-size: 13px; }
+  .toolbar, .micro, .tabs button span:first-child { font-size: 12px; }
+}
+@media (any-pointer: coarse) {
+  .tabs button, .stageHead a, .all summary { min-height: 44px; }
+  .stageHead a { min-width: 44px; }
+}

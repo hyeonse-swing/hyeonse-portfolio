@@ -63,3 +63,83 @@
   .archive-item summary{row-gap:5px}
   #performance-evidence{scroll-margin-top:92px}
 }
+
+/* Portfolio sizing roles follow the shared small / medium / large control steps. */
+:root {
+  --portfolio-control-sm: 32px;
+  --portfolio-control-md: 36px;
+  --portfolio-control-lg: 40px;
+  --portfolio-control-font: 13px;
+  --portfolio-meta-font: 12px;
+  --portfolio-body-font: 16px;
+}
+.eyebrow, .hero-side, .hero-side > span:last-child, .hero-baseline,
+.work-caption-top, .work-category, .archive-number, .archive-scope,
+.case-eyebrow, .case-meta span, .role-note > span, .footer-baseline {
+  font-size: var(--portfolio-meta-font);
+  line-height: 1.5;
+}
+.site-header nav a > span { font-size: 10px; }
+.site-header nav .language-switch { font-size: var(--portfolio-control-font); }
+.section-space { padding-block: calc(clamp(72px, 8vw, 104px) * var(--space-factor)); }
+.section-heading { margin-bottom: 48px; }
+.work-grid { row-gap: calc(56px * var(--space-factor)); }
+.work-card:nth-child(even) { margin-top: 56px; }
+.work-caption h3 { line-height: 1.3; }
+.work-caption p, .about-copy > p:not(.about-lead), .timeline-row > p,
+.archive-body p, .archive-contributions dd, .studio-invitation p,
+.case-meta p, .case-prose p, .decision-list p, .verification-list dd p {
+  font-size: var(--portfolio-body-font);
+}
+.work-caption p { font-size: 14px; }
+.archive-body .archive-note, .case-prose .boundary-note,
+.case-prose .case-disclosure, .metric-table p, .flow-note small {
+  font-size: var(--portfolio-meta-font);
+}
+.work-category, .project-tags li { padding: 8px 10px; }
+.project-tags li { font-size: var(--portfolio-meta-font); }
+.archive-item summary { min-height: 64px; padding-block: 22px; }
+.archive-scope { line-height: 1.5; }
+.case-eyebrow { margin-top: 48px; }
+.case-meta { margin-top: 40px; }
+.case-content { margin-top: 80px; }
+.case-prose section { margin-bottom: calc(72px * var(--space-factor)); }
+.case-index nav a, .back-link, .text-link, .about-links a,
+.studio-invitation, .toolchain-link { font-size: 14px; }
+.back-link, .text-link, .about-links a { min-height: var(--portfolio-control-md); }
+.metric-table .metric-table-head, .metric-table > div { font-size: var(--portfolio-meta-font); }
+.hero-baseline a { min-height: var(--portfolio-control-lg); }
+.work-open { width: var(--portfolio-control-lg); height: var(--portfolio-control-lg); }
+.hero-intro .eyebrow { font-size: var(--portfolio-meta-font); }
+@media (max-width: 700px) {
+  .eyebrow, .hero-side, .hero-baseline, .work-caption-top, .work-category,
+  .archive-number, .archive-scope, .case-eyebrow, .case-meta span,
+  .footer-baseline, .about-top .eyebrow:last-child,
+  .contact-top .eyebrow:last-child { font-size: var(--portfolio-meta-font); }
+  .hero-baseline > span:last-child { font-size: 11px; }
+  .hero-baseline > a { font-size: 12px; min-height: 44px; }
+  .section-space { padding-block: calc(64px * var(--space-factor)); }
+  .section-heading { margin-bottom: 30px; }
+  .work-grid { row-gap: calc(36px * var(--space-factor)); }
+  .work-card:nth-child(even) { margin-top: 0; }
+  .work-caption p, .about-copy > p:not(.about-lead), .timeline-row > p,
+  .archive-body p, .archive-contributions dd, .studio-invitation p,
+  .case-meta p, .case-prose p, .decision-list p, .verification-list dd p {
+    font-size: 15px;
+  }
+  .archive-body .archive-note, .case-prose .boundary-note,
+  .case-prose .case-disclosure, .metric-table p, .flow-note small { font-size: 12px; }
+  .work-open { width: 44px; height: 44px; }
+  .case-content { margin-top: 52px; }
+  .case-index { margin-bottom: 38px; }
+  .case-prose section { margin-bottom: calc(58px * var(--space-factor)); }
+  .metric-table .metric-table-head, .metric-table > div { font-size: 12px; }
+  .project-tags li { font-size: 12px; padding: 7px 10px; }
+}
+@media (any-pointer: coarse) {
+  .site-header nav .language-switch, .work-open, .back-link,
+  .text-link, .about-links a { min-width: 44px; min-height: 44px; }
+}
+@media (max-width: 480px) {
+  .site-header nav > a { min-width: 44px; justify-content: center; }
+}

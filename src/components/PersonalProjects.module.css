@@ -37,3 +37,17 @@
 @media (max-width: 900px) { .overview { grid-template-columns: 1fr; }.card { padding: calc(24px * var(--space-factor)); }.card .release { margin-top: 0; }.detail { gap: 28px; } }
 @media (max-width: 700px) { .detail { grid-template-columns: 1fr; gap: 24px; padding: 28px 0; }.detailIntro p, .highlights li { font-size: 13px; }.card h3, .detail h3 { font-size: 24px; } }
 @media (max-width: 480px) { .decisions { grid-template-columns: 1fr; gap: 18px; }.problem { margin-top: 20px; }.verification { padding: 16px; } }
+
+.index, .release, .release span, .problem > span, .decisions > div > span,
+.verification > span { font-size: var(--portfolio-meta-font); }
+.summary, .detailIntro p, .detailIntro .problem p, .decisions p,
+.verification p, .highlights li { font-size: 15px; }
+.stack li { font-size: 12px; padding: 7px 10px; }
+.cardLinks a, .links a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
+@media (max-width: 700px) {
+  .detailIntro p, .detailIntro .problem p, .decisions p,
+  .verification p, .highlights li { font-size: 15px; }
+}
+@media (any-pointer: coarse) {
+  .cardLinks a, .links a { min-width: 44px; min-height: 44px; }
+}

@@ -75,3 +75,22 @@
 .eventTime { flex: none; min-width: 58px; color: var(--accent-text); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 @media (max-width: 800px) { .heading { grid-template-columns: 1fr; gap: 10px; }.asyncControls { align-items: stretch; flex-direction: column; }.asyncControls > div { flex-wrap: wrap; }.comparison { gap: 10px; } }
 @media (max-width: 600px) { .root { margin-top: calc(75px * var(--space-factor)); }.lab + .lab { margin-top: calc(75px * var(--space-factor)); }.heading { margin-bottom: 24px; }.heading p { font-size: 13px; }.controlRow { flex-direction: column; align-items: stretch; gap: 15px; }.controlRow input { min-height: 30px; }.presets button { flex: 1; }.rail { padding-top: 22px; }.asyncSliders { grid-template-columns: 1fr; }.asyncSliders input { min-height: 30px; }.comparison { grid-template-columns: 1fr; }.resultCard h3 { margin-bottom: 16px; }.timeline ol { display: grid; gap: 8px; } }
+
+.index, .frameBar, .resultIndex, .sampleIndex, .sampleFooter,
+.resultCard dt, .timeline li, .timeline .note { font-size: var(--portfolio-meta-font); }
+.heading p, .sample p, .note, .asyncControls p, .resultCard p,
+.outcome { font-size: 14px; }
+.presets button, .resetButton, .runButton, .asyncPresets button {
+  min-height: var(--portfolio-control-md); font-size: var(--portfolio-control-font);
+}
+.controlRow input, .asyncSliders input { min-height: var(--portfolio-control-md); }
+@media (max-width: 600px) {
+  .heading p, .sample p, .note, .asyncControls p, .resultCard p,
+  .outcome { font-size: 14px; }
+  .presets button, .resetButton, .runButton, .asyncPresets button { min-height: 44px; }
+  .controlRow input, .asyncSliders input { min-height: 44px; }
+}
+@media (any-pointer: coarse) {
+  .presets button, .resetButton, .runButton, .asyncPresets button { min-width: 44px; min-height: 44px; }
+  .controlRow input, .asyncSliders input { min-height: 44px; }
+}

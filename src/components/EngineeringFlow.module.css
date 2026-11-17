@@ -41,3 +41,17 @@
 }
 @media (prefers-reduced-motion: reduce) { .track span { transition: none; } }
 :global(:root[data-motion='reduced']) .track span { transition: none; }
+
+.topline, .stage .index, .inspectorIndex, .controls span,
+.allSteps li > span, .figure figcaption { font-size: var(--portfolio-meta-font); }
+.stage strong, .allSteps strong { font-size: 14px; }
+.inspector p, .allSteps li p { font-size: 14px; }
+.controls button { min-height: var(--portfolio-control-md); font-size: var(--portfolio-control-font); }
+.allSteps summary { font-size: 14px; }
+@media (max-width: 700px) {
+  .stage strong, .inspector p, .allSteps li p { font-size: 14px; }
+  .controls button, .allSteps summary { min-height: 44px; }
+}
+@media (any-pointer: coarse) {
+  .stage, .controls button, .allSteps summary { min-width: 44px; min-height: 44px; }
+}

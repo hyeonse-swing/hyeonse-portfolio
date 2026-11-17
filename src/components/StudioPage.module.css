@@ -41,3 +41,22 @@
 @media(max-width: 1050px) { .playground { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; }.intro { gap: 40px; }.introCopy p { font-size: 14px; }.sampleArt { height: 180px; }.sampleArt span { font-size: 130px; } }
 @media(max-width: 800px) { .playground { grid-template-columns: 1fr; gap: 38px; }.preview { display: grid; grid-template-columns: 1fr 1fr; gap: 0 25px; }.previewHeading { grid-column: 1 / -1; }.sampleCard { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }.sampleArt { height: 100%; min-height: 250px; }.note { grid-column: 1 / -1; } }
 @media(max-width: 600px) { .page { padding-bottom: 70px; }.intro { grid-template-columns: 1fr; gap: 40px; padding: 42px 0 48px; }.intro h1 { font-size: 90px; margin-top: 27px; }.introCopy { justify-self: start; }.smallMark { display: none; }.introCopy p { font-size: 14px; }.preview { display: block; }.sampleCard { display: block; }.sampleArt { min-height: 0; height: 170px; }.sampleBody h2 { font-size: 36px; }.system, .making { margin-top: calc(75px * var(--space-factor)); }.palette { grid-template-columns: repeat(3, 1fr); gap: 22px 12px; }.colorChip { height: 85px; }.specimens { grid-template-columns: 1fr; gap: 36px; margin-top: 48px; }.typeEnglish { font-size: 60px; }.makingRows article { grid-template-columns: 25px 1fr; gap: 9px 12px; }.makingRows p { grid-column: 2; font-size: 13px; }.makingRows h3 { font-size: 19px; }.backHome { font-size: 28px; padding: 22px 0; } }
+
+.intro { padding-bottom: 64px; }
+.playground { gap: calc(28px * var(--space-factor)); }
+.sampleBody { padding: calc(24px * var(--space-factor)); }
+.sampleBody p, .note, .sectionTitle p, .specimens article > p:last-child,
+.makingRows p { font-size: 15px; }
+.sampleBody a { min-height: var(--portfolio-control-lg); padding: 8px 14px; font-size: 14px; }
+.liveDot, .colorToken p, .makingRows article > span { font-size: var(--portfolio-meta-font); }
+.system, .making { margin-top: calc(88px * var(--space-factor)); }
+@media (max-width: 600px) {
+  .intro { padding-bottom: 48px; }
+  .intro h1 { font-size: clamp(72px, 17vw, 90px); }
+  .introCopy p, .sampleBody p, .note, .sectionTitle p,
+  .specimens article > p:last-child, .makingRows p { font-size: 15px; }
+  .system, .making { margin-top: calc(64px * var(--space-factor)); }
+}
+@media (any-pointer: coarse) {
+  .sampleBody a { min-width: 44px; min-height: 44px; }
+}

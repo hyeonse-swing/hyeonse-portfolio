@@ -20,3 +20,13 @@
 }
 @media (prefers-reduced-motion: reduce) { .track::before { transition: none; } }
 :global(:root[data-motion='reduced']) .track::before { transition: none; }
+
+.percent, .current, .nav a span { font-size: var(--portfolio-meta-font); }
+.nav a { min-height: var(--portfolio-control-lg); font-size: 13px; }
+@media (max-width: 700px) {
+  :global(.case-index) .nav { font-size: 12px; }
+  .nav a { min-height: 44px; font-size: 12px; }
+}
+@media (any-pointer: coarse) {
+  .nav a { min-width: 44px; min-height: 44px; }
+}

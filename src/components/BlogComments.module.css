@@ -8,3 +8,10 @@
 .button:hover, .heading a:hover { color: var(--accent-text); border-color: var(--accent-text); }
 .widget { margin-top: 24px; min-width: 0; }
 .widget:empty { margin-top: 0; }
+
+.heading a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
+.intro, .status, .comments noscript { font-size: 15px; }
+.button { min-height: var(--portfolio-control-lg); padding: 9px 16px; font-size: 14px; }
+@media (any-pointer: coarse) {
+  .heading a, .button { min-width: 44px; min-height: 44px; }
+}

@@ -51,3 +51,12 @@
 .dialog[data-compact-height] .results a{padding:10px 6px}
 .dialog[data-compact-height] .empty{padding:8px 6px}
 @media(prefers-reduced-motion:reduce){.dialog{scroll-behavior:auto}}
+
+.trigger { min-height: var(--portfolio-control-md); min-width: var(--portfolio-control-md); font-size: var(--portfolio-control-font); }
+.shortcut, .category, .keyboardHint { font-size: var(--portfolio-meta-font); }
+.summary { font-size: 14px; }
+.resultsHead, .label { font-size: 13px; }
+.suggestions button, .retry { min-height: var(--portfolio-control-md); font-size: 14px; }
+@media (max-width: 700px), (any-pointer: coarse) {
+  .trigger, .suggestions button, .retry { min-width: 44px; min-height: 44px; }
+}

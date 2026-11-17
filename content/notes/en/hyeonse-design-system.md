@@ -16,7 +16,7 @@ draft: false
 
 Each site chooses its defaults, while a valid saved visitor preference takes priority. The public project record covers integration in this portfolio and Flow QA. They share the meaning of the tokens and the settings behavior without needing identical screens.
 
-In v0.2.0, the read-only `hds` CLI lets a consuming project look up the public APIs, tokens and examples in its installed package version. The package also includes a catalog and usage docs, so the reference matches that version. The [public showcase](https://hyeonse-design-system.vercel.app) shows the tokens and settings in use. Its general buttons, inputs and cards are examples, not React components exported by the package.
+In v0.2.0, the read-only `hds` CLI lets a consuming project look up the public APIs, tokens and examples in its installed package version. The package also includes a catalog and usage docs, so the reference matches that version. The [public showcase](https://design-system.hyeonse.dev) shows the tokens and settings in use. In v0.2.0, general buttons, inputs and cards were examples rather than exported React components.
 
 ## Keeping the first paint consistent
 
@@ -31,6 +31,12 @@ When creating or migrating a screen, it's easy for a color to bypass the tokens.
 The public integration record describes 36 local Chrome view conditions before and after the portfolio migration, including preference restoration and cross-tab updates. I did not rerun those checks for this article. They do not establish behavior on physical devices or a deployed site. The package is installed from GitHub and has not been published to the npm registry.
 
 The newer lookup interface has separate type, build and consuming-example checks, 17 tests, and installed-package checks of the CLI, catalog and examples. Those checks do not mean the 36 Chrome views were rerun for this version.
+
+## Sharing size across components and layouts
+
+On November 17, 2026, I extended sizing to inputs, cards, tables, dialogs and layouts. A `SizeProvider`, `Stack` or `Grid` can set a size from `xs` to `xl` for its contents, while individual components can override it. Menus and dialogs retain that scope when rendered through a portal.
+
+The default button is 36px high with a fine pointer, while touch devices keep a minimum 44px target even for smaller variants. Local checks covered sizing, portals and narrow layouts in three browser engines. Some WebKit VoiceOver focus guards still need further verification and remain documented. The current [showcase and installation guide](https://design-system.hyeonse.dev/#start) provide the components alongside their [verification scope](https://design-system.hyeonse.dev/docs/code-freeze.md).
 
 ## Public sources
 

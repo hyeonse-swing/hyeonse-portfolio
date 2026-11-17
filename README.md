@@ -2,7 +2,7 @@
 
 Next.js App Router로 만든 한국어·영어 정적 포트폴리오.
 
-[한국어 사이트](https://hyeonse-portfolio.vercel.app/) · [English](https://hyeonse-portfolio.vercel.app/en/)
+[한국어 사이트](https://hyeonse.dev/) · [English](https://hyeonse.dev/en/)
 
 ## 실행
 

@@ -12,3 +12,15 @@
 .context>span { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .results[data-work-filter='performance'] { grid-template-columns: minmax(0, 1fr); max-width: 880px; }
 @media(max-width:700px) { .explorer { margin-top: 0; padding-top: 20px; margin-bottom: 16px; }.filters { gap: 7px; }.filters button { flex: 1 1 calc(50% - 7px); justify-content: space-between; font-size: 12px; padding: 10px 12px; gap: 8px; }.context { display: block; min-height: 92px; }.context>span { display: block; margin-top: 10px; font-size: 10px; } }
+
+.filters button { min-height: var(--portfolio-control-md); padding: 7px 12px; gap: 12px; font-size: var(--portfolio-control-font); }
+.filters button span, .label, .context, .context > span { font-size: var(--portfolio-meta-font); }
+.context { min-height: 0; }
+@media (max-width: 700px) {
+  .filters button { min-height: 44px; font-size: 13px; padding: 8px 12px; }
+  .context { min-height: 0; }
+  .context > span { font-size: 12px; }
+}
+@media (any-pointer: coarse) {
+  .filters button { min-width: 44px; min-height: 44px; }
+}

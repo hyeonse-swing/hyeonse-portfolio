@@ -54,3 +54,12 @@
 }
 @media (prefers-reduced-motion: reduce) { .barTrack span { transition: none; } }
 :global(:root[data-motion='reduced']) .barTrack span { transition: none; }
+
+.eyebrow, .chartHeading span, .rowLabel, .value small, .notes strong,
+.details caption, .details table, .tableConditions { font-size: var(--portfolio-meta-font); }
+.heading p, .notes p { font-size: 14px; }
+.selector button { min-height: var(--portfolio-control-md); padding: 7px 12px; font-size: var(--portfolio-control-font); }
+.details summary { font-size: 14px; }
+@media (max-width: 600px), (any-pointer: coarse) {
+  .selector button, .details summary { min-width: 44px; min-height: 44px; }
+}

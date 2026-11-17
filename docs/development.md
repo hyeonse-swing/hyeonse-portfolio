@@ -24,7 +24,7 @@
 
 ## 공통 디자인 시스템
 
-색·다크모드·강조색·기본 글꼴·gutter와 설정 UI는 별도 [Hyeonse Design System](https://github.com/hyeonse-swing/hyeonse-design-system)에서 가져온다. 의존성은 GitHub의 특정 커밋으로 고정한다. 패키지의 초기 스크립트와 Provider는 기존 `hyeonse-site-preferences` 저장 키를 사용하며, 얇은 `SitePreferences.tsx` 어댑터가 배지의 `portfolio:preferences` 이벤트를 유지한다.
+색·다크모드·강조색·기본 글꼴·gutter와 설정 UI는 별도 [Hyeonse Design System](https://github.com/hyeonse-swing/hyeonse-design-system)에서 가져온다. 의존성은 design-system.hyeonse.dev의 버전별 아카이브 URL로 고정하고 package-lock.json의 integrity로 파일을 검증한다. 현재 설치 버전은 0.4.0이다. 패키지의 초기 스크립트와 Provider는 기존 `hyeonse-site-preferences` 저장 키를 사용하며, 얇은 `SitePreferences.tsx` 어댑터가 배지의 `portfolio:preferences` 이벤트를 유지한다.
 
 `npm run audit:design-system`은 `src/`의 CSS에서 원시 색상과 공유 토큰 재정의를 검사한다. 물리 배지 재질과 작업실 그림의 색상만 `design-system.audit.json`에 사용 횟수와 이유를 기록했다. 새 예외를 무조건 추가하지 말고 먼저 역할 토큰으로 표현할 수 있는지 확인한다. 이 검사는 TS·TSX나 3D 재질 값의 전체 검사와는 범위가 다르다.
 
@@ -97,6 +97,6 @@ npm run audit:content
 
 이 기준 URL을 canonical·언어별 alternate·Open Graph·사이트맵 주소에 사용한다. Vercel의 자동 별칭이나 로컬 검증 주소가 공개 대표 주소로 섞이지 않도록 한다. `NEXT_PUBLIC_SITE_URL`은 명시적으로 우선 적용한다.
 
-`sitemap.xml`에는 홈·소개·작업실·대표 사례 4개의 한국어·영어 경로 14개와 언어 대체 링크를 담는다. 404·검색 조건·앵커는 포함하지 않으며 수정일을 임의로 생성하지 않는다. 메타데이터 라우트는 `dynamic = 'force-static'`으로 정적 출력한다.
+`sitemap.xml`에는 홈·소개·작업실·대표 사례, 공개 노트의 목록 페이지와 개별 글의 한국어·영어 URL 및 언어 대체 링크를 담는다. URL 수는 공개 글과 목록 페이지 수에 따라 달라진다. 404·검색 조건·앵커는 포함하지 않으며 수정일을 임의로 생성하지 않는다. 메타데이터 라우트는 `dynamic = 'force-static'`으로 정적 출력한다.
 
-일반 빌드는 `robots.txt`에서 크롤링을 허용하고 사이트맵을 안내한다. `VERCEL_ENV=preview` 빌드는 모든 페이지에 noindex·nofollow를 넣고 robots에서 전체 경로를 차단하며 사이트맵을 광고하지 않는다. `npm run audit:content`로 정적 산출물의 대표 주소·사이트맵·검색 허용 정책을 함께 검사한다.
+일반 빌드는 `robots.txt`에서 크롤링을 허용하고 사이트맵을 안내한다. `VERCEL_ENV=preview` 빌드는 모든 페이지에 noindex·nofollow를 넣고 robots에서는 크롤링을 허용해 검색 엔진이 noindex 지시를 읽을 수 있게 하며 사이트맵을 광고하지 않는다. 대표 도메인 이외의 배포 호스트에는 `X-Robots-Tag: noindex, nofollow` 응답 헤더도 적용한다. `npm run audit:content`로 정적 산출물의 대표 주소·사이트맵·검색 허용 정책을 함께 검사한다.
