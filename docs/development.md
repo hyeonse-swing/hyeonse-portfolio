@@ -22,7 +22,7 @@
 
 이후 [공통 PreferencesProvider](https://github.com/hyeonse-swing/hyeonse-design-system/blob/main/src/react.tsx)가 설정 변경, 기기 테마·움직임 설정, 다른 탭의 `storage` 이벤트를 처리한다. 시스템의 `prefers-reduced-motion`이 사용자 설정보다 우선한다. localStorage를 사용할 수 없어도 현재 탭의 설정은 바꿀 수 있다.
 
-헤더의 [ThemeToggle](../src/components/ThemeToggle.tsx)은 세 표시 상태를 서버 HTML부터 렌더한다. 초기 스크립트가 설정한 `data-theme-preference`에 맞는 상태만 CSS로 보여 주므로, 저장된 선택을 읽기 전에 기본값인 ‘기기 설정’이 잠깐 표시되지 않는다. 상태들을 같은 Grid 셀에 겹쳐 가장 긴 라벨의 너비를 확보하고, 모바일에서는 시각 라벨만 숨긴다. 숨은 상태는 접근성 트리에서 제외되며, 현재 상태의 스크린리더 이름만 남는다. 클릭은 공통 Provider의 `setPreference`를 사용하고 별도의 저장·동기화 로직은 만들지 않는다.
+헤더의 [ThemeToggle](../src/components/ThemeToggle.tsx)은 세 표시 상태를 서버 HTML부터 렌더한다. 초기 스크립트가 설정한 `data-theme-preference`에 맞는 상태만 CSS로 보여 주므로, 저장된 선택을 읽기 전에 기본값인 ‘기기 설정’이 잠깐 표시되지 않는다. 데스크톱에서는 현재 아이콘과 라벨에 맞춰 너비가 정해지고, 모바일에서는 아이콘만 44×44px 영역에 표시한다. 숨은 상태는 접근성 트리에서 제외되며, 현재 상태의 스크린리더 이름만 남는다. 클릭은 공통 Provider의 `setPreference`를 사용하고 별도의 저장·동기화 로직은 만들지 않는다.
 
 ## 공통 디자인 시스템
 

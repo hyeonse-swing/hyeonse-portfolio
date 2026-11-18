@@ -1,15 +1,13 @@
 :global(.hds-themeToggle).button {
-  display: grid;
-  gap: 0;
-  grid-template-columns: max-content;
+  min-height: var(--portfolio-control-lg);
+  padding: 0 8px;
 }
 
 .button .state {
-  grid-area: 1 / 1;
-  display: inline-flex;
+  display: none;
   align-items: center;
-  gap: calc(9px * var(--space-factor));
-  visibility: hidden;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .button .srOnly {
@@ -29,7 +27,13 @@
 :global(html[data-theme-preference='light']) .button .light,
 :global(html[data-theme-preference='dark']) .button .dark,
 :global(html:not([data-theme-preference])) .button .system {
-  visibility: visible;
+  display: inline-flex;
+}
+
+@media (max-width: 700px), (any-pointer: coarse) {
+  :global(.hds-themeToggle).button {
+    min-height: 44px;
+  }
 }
 
 @media (max-width: 700px) {
