@@ -28,7 +28,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       ],
       highlights: [
         '색상·서체·간격을 역할별 CSS 토큰으로 정리하고, 테마·강조색·밀도·모서리·움직임 설정을 React UI와 함께 패키지로 제공해요.',
-        '이 포트폴리오와 Flow QA, 리턴 데스크, 하루코토바에 적용했어요. 저장된 선택, 다른 탭 변경, 기기 테마·움직임 감소도 반영해요.',
+        '이 포트폴리오와 Flow QA, 리턴 데스크에 적용했어요. 저장된 선택, 다른 탭 변경, 기기 테마·움직임 감소도 반영해요.',
         'CSS 원시 색상과 공유 토큰 재정의를 검사하는 CLI, 화면 제작·이관·리뷰용 재사용 스킬도 제공해요.',
         '버튼·입력·메뉴·모달·표와 Stack·Grid를 제공해요. 영역 전체에 xs부터 xl까지 크기를 적용하고, 설치 버전의 API·토큰·예제는 hds CLI로 조회해요.',
       ],
@@ -91,7 +91,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/browser-error-log' },
         { label: 'SDK · npm', href: 'https://www.npmjs.com/package/@ihyeon/browser-error-log' },
         { label: 'React · npm', href: 'https://www.npmjs.com/package/@ihyeon/browser-error-log-react' },
-        { label: '검증 예제 · 리턴 데스크', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md' },
+        { label: '오류 ID → 테스트 → 복구 예제', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md#한국어' },
       ],
     },
     {
@@ -181,7 +181,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       ],
       highlights: [
         'Packaged semantic CSS tokens for color, type and spacing with React controls for theme, accent, density, corners and motion.',
-        'Used in this portfolio, Flow QA, Return Desk and Harukotoba, with saved choices, cross-tab changes, system theme and reduced-motion settings.',
+        'Used in this portfolio, Flow QA and Return Desk, with saved choices, cross-tab changes, system theme and reduced-motion settings.',
         'Includes a CLI that checks raw CSS colors and shared-token overrides, plus a reusable skill for building, migrating and reviewing interfaces.',
         'Includes buttons, fields, menus, dialogs, tables, Stack and Grid, with inherited sizes from xs to xl. The hds CLI reads APIs, tokens and examples from the installed version.',
       ],
@@ -244,7 +244,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/browser-error-log' },
         { label: 'SDK · npm', href: 'https://www.npmjs.com/package/@ihyeon/browser-error-log' },
         { label: 'React · npm', href: 'https://www.npmjs.com/package/@ihyeon/browser-error-log-react' },
-        { label: 'QA example · Return Desk', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md' },
+        { label: 'Error ID → test → recovery example', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md#english' },
       ],
     },
     {
