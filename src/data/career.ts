@@ -124,6 +124,8 @@ export const workingNotes: { title: string; detail: string; example: string; hre
 ];
 
 export const publicWork: { title: string; description: string; href: string; label: string }[] = [
+  { title: '하루코토바', description: 'Hyeonse Design System을 사용하는 한국어 학습 서비스예요. 학습 화면을 공개 주소에서 살펴볼 수 있어요.', href: 'https://korean.hyeonse.dev', label: '웹사이트 보기' },
+  { title: 'StreamSift', description: 'Twitch VOD 채팅 분석과 자막·OBS 출력을 제공하는 macOS·Windows 데스크톱 앱이에요. 웹 서비스는 종료했고 기본판·Rust판 설치 파일을 공개해요.', href: 'https://github.com/hyeonse-swing/twitch-chat-desk-web', label: '저장소·릴리스 보기' },
   { title: 'WebView QA Shell', description: 'iOS·Android WebView에서 로컬·스테이지 웹서비스의 화면과 로그를 살펴보는 공개 도구예요.', href: 'https://github.com/hyeonse-swing/webview-qa-shell', label: '저장소 보기' },
   { title: 'react-wheel-picker 기여', description: '옵션이 동적으로 바뀔 때 선택 위치가 어긋나는 오류를 수정한 병합 PR이에요.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54', label: '기여 보기' },
 ];

@@ -118,6 +118,8 @@ export const workingNotesEn: { title: string; detail: string; example: string; h
 ];
 
 export const publicWorkEn: { title: string; description: string; href: string; label: string }[] = [
+  { title: 'Harukotoba', description: 'A Korean learning app built with Hyeonse Design System. Its learning interface is available on the web.', href: 'https://korean.hyeonse.dev', label: 'Visit website' },
+  { title: 'StreamSift', description: 'A macOS and Windows desktop app for Twitch VOD chat analysis, captions and OBS output. The web service has ended; Standard and Rust installers are available.', href: 'https://github.com/hyeonse-swing/twitch-chat-desk-web', label: 'Repository and releases' },
   { title: 'WebView QA Shell', description: 'A public tool for inspecting screens and logs from local or staging web services inside iOS and Android WebViews.', href: 'https://github.com/hyeonse-swing/webview-qa-shell', label: 'View repository' },
   { title: 'react-wheel-picker contribution', description: 'A merged PR fixing a selected-position mismatch when options change dynamically.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54', label: 'View contribution' },
 ];
