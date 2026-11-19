@@ -127,6 +127,16 @@ for (const locale of ['ko', 'en']) {
     ['HoverShot', bodyNoteId],
     ['Flow QA', locale === 'ko' ? 'note-flow-qa' : 'personal-flow-qa'],
     ['SWING', 'note-swing-home-performance'],
+    ['@ihyeon/return-review-console', 'personal-return-review-console'],
+    ['리턴데스크', 'personal-return-review-console'],
+    ['@ihyeon/browser-error-log', 'personal-browser-error-log'],
+    ['@ihyeon/browser-error-log-react', 'personal-browser-error-log'],
+    ['@ihyeon/error-to-test', 'personal-error-to-test'],
+    ['ETT', 'personal-error-to-test'],
+    ['@ihyeon/flow-qa', 'personal-flow-qa'],
+    ['FlowQA', 'personal-flow-qa'],
+    ['hds', 'personal-hyeonse-design-system'],
+    ['@hyeonse/design-system', 'personal-hyeonse-design-system'],
   ]) {
     assert.equal(searchDocuments(index.documents, query)[0]?.id, expected, `${locale}: 제목·프로젝트 검색의 우선 결과 유지 (${query})`);
   }

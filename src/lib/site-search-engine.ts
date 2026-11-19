@@ -6,6 +6,7 @@ export type SearchDocument = {
   summary: string;
   content: string;
   keywords: string[];
+  identifiers?: readonly string[];
   featured: boolean;
 };
 
@@ -34,12 +35,20 @@ function fieldMatch(field: string, word: string): boolean {
   return field.includes(word);
 }
 
+function normalizeIdentifier(value: string): string {
+  return value.normalize('NFKC').trim().toLowerCase();
+}
+
 export function searchDocuments(documents: readonly SearchDocument[], query: string): SearchDocument[] {
   const words = terms(query);
   if (!words.length && query.trim()) return [];
+  const identifier = normalizeIdentifier(query);
 
   const ranked = documents.flatMap((document, order) => {
-    if (!words.length) return document.featured ? [{ document, order, score: 0 }] : [];
+    if (!words.length) return document.featured ? [{ document, order, exact: 0, score: 0 }] : [];
+    if (document.identifiers?.some(value => normalizeIdentifier(value) === identifier)) {
+      return [{ document, order, exact: 1, score: 0 }];
+    }
     const title = searchable(document.title);
     const keywords = searchable(document.keywords.join(' '));
     const summary = searchable(document.summary);
@@ -52,9 +61,9 @@ export function searchDocuments(documents: readonly SearchDocument[], query: str
       else if (fieldMatch(content, word)) score += 10;
       else return [];
     }
-    return [{ document, order, score }];
+    return [{ document, order, exact: 0, score }];
   });
-  ranked.sort((a, b) => b.score - a.score || a.order - b.order);
+  ranked.sort((a, b) => b.exact - a.exact || b.score - a.score || a.order - b.order);
 
   const seen = new Set<string>();
   return ranked.filter(({ document }) => {
@@ -75,6 +84,8 @@ export function isSearchIndex(value: unknown, locale: 'ko' | 'en'): value is Sea
     if (typeof item.title !== 'string' || typeof item.summary !== 'string' || typeof item.content !== 'string') return false;
     if (!categories.has(item.category as SearchDocument['category'])) return false;
     if (typeof item.featured !== 'boolean' || !Array.isArray(item.keywords) || !item.keywords.every(keyword => typeof keyword === 'string')) return false;
+    if (item.identifiers !== undefined &&
+      (!Array.isArray(item.identifiers) || !item.identifiers.every(identifier => typeof identifier === 'string' && identifier.trim().length > 0))) return false;
     if (typeof item.href !== 'string' || !item.href.startsWith('/') || item.href.startsWith('//') || item.href.includes('\\')) return false;
     if (locale === 'en' ? !item.href.startsWith('/en/') : item.href.startsWith('/en/')) return false;
     return true;

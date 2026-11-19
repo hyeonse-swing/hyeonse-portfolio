@@ -7,6 +7,13 @@ import type { SearchDocument, SearchIndex } from './site-search-engine';
 import { getNotes } from './notes';
 
 const text = (...parts: (string | undefined)[]) => parts.filter(Boolean).join(' ');
+const projectIdentifiers: Partial<Record<string, readonly string[]>> = {
+  'return-review-console': ['return-review-console', '@ihyeon/return-review-console', '리턴 데스크', '리턴데스크'],
+  'browser-error-log': ['browser-error-log', '@ihyeon/browser-error-log', '@ihyeon/browser-error-log-react', '@ihyeon/browser-error-log-protocol'],
+  'error-to-test': ['error-to-test', '@ihyeon/error-to-test', 'ETT'],
+  'flow-qa': ['flow-qa', '@ihyeon/flow-qa', 'FlowQA'],
+  'hyeonse-design-system': ['hds', 'hyeonse-design-system', '@hyeonse/design-system'],
+};
 
 /** Only fields visibly rendered on the public pages are selected here. */
 export function buildSearchIndex(locale: Locale): SearchIndex {
@@ -54,7 +61,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
   add({ id: 'toolbox', title: en ? 'Technology toolbox' : '사용 기술', category: 'skill', href: href('/#toolbox'), summary: profile.technology.join(' · '), content: profile.technology.join(' '), keywords: profile.technology, featured: false });
 
   for (const project of projects) {
-    add({ id: `personal-${project.id}`, title: project.name, category: 'tool', href: href(`/about/#${project.id}`), summary: project.summary, content: text(project.problem, ...project.highlights, ...project.decisions.map(decision => text(decision.title, decision.detail)), project.verification, project.release), keywords: [...project.stack, project.category], featured: project.id === 'flow-qa' });
+    add({ id: `personal-${project.id}`, title: project.name, category: 'tool', href: href(`/about/#${project.id}`), summary: project.summary, content: text(project.problem, ...project.highlights, ...project.decisions.map(decision => text(decision.title, decision.detail)), project.verification, project.release), keywords: [...project.stack, project.category], identifiers: projectIdentifiers[project.id], featured: project.id === 'flow-qa' });
   }
 
   for (const item of profile.otherWork) {
