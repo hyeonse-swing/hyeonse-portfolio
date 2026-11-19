@@ -52,5 +52,8 @@ export default function ToolchainExplorer({ locale }: { locale: Locale }) {
       </details>
     </div>
     <p className={styles.note}>{t.note}</p>
+    <p className={styles.note}><a href={localizedPath(locale, '/notes/return-desk-approval-regression/')}>
+      {locale === 'en' ? 'Follow one captured error through a reviewed case and two runs ↗' : '오류 하나가 검토 케이스와 두 실행으로 이어진 사례 보기 ↗'}
+    </a></p>
   </section>;
 }

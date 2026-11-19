@@ -143,6 +143,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/return-review-console' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/return-review-console' },
         { label: 'QA 연결 예제', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md' },
+        { label: '실행 근거 사례', href: '/notes/return-desk-approval-regression/' },
       ],
     },
     {
@@ -296,6 +297,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         { label: 'GitHub', href: 'https://github.com/hyeonse-swing/return-review-console' },
         { label: 'npm', href: 'https://www.npmjs.com/package/@ihyeon/return-review-console' },
         { label: 'QA example', href: 'https://github.com/hyeonse-swing/return-review-console/blob/main/qa/README.md' },
+        { label: 'Case with execution evidence', href: '/en/notes/return-desk-approval-regression/' },
       ],
     },
     {

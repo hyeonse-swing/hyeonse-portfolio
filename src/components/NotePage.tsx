@@ -5,6 +5,7 @@ import { getNoteProjects } from '../data/note-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import type { Note } from '../lib/notes';
 import BlogComments from './BlogComments';
+import ApprovalRegressionEvidence from './ApprovalRegressionEvidence';
 import NoteActivityDate from './NoteActivityDate';
 import styles from './Notes.module.css';
 
@@ -31,6 +32,7 @@ export default function NotePage({ note, relatedNotes = [] }: { note: Note; rela
         table: ({ children }) => <div className={styles.tableScroll}><table>{children}</table></div>,
       }}>{note.body}</ReactMarkdown>
     </div>
+    {slug === 'return-desk-approval-regression' && <ApprovalRegressionEvidence locale={locale} />}
     <footer className={styles.publicationMeta}>
       {note.activity && <NoteActivityDate activity={note.activity} locale={locale} />}
       <span>{en ? 'Published' : '게시'} <time dateTime={note.date}>{note.date}</time></span>
