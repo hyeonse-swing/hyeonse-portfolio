@@ -2,10 +2,11 @@
 title: '오류 로그를 회귀 테스트 후보로 만들기'
 description: 'Error to Test는 원본 오류를 추적하고 재현 조건과 기대 동작이 비면 질문으로 남겨요. 실행 결과는 대상별로 구분합니다.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: '공개 릴리스'
   start: '2026-10'
-  end: '2026-11'
+  end: '2026-11-20'
   point: '2026-10-13'
   pointLabel: 'v0.1.0 공개'
 tags: ['회귀 테스트', '오류 분석', 'CLI']
@@ -25,6 +26,12 @@ draft: false
 
 Flow QA 결과를 가져올 때는 분석 번들과 실행 보고서의 스위트 해시, 케이스 ID부터 대조해 원본 오류 묶음에 연결해요. 웹·모바일 대상이 같은 표시 이름을 쓸 수 있어 v0.3.0에서는 정규화된 실제 대상 식별값으로 SHA-256 지문을 만듭니다. 대상별 최신 실행과 실패 판정은 이 지문으로 구분해요. 지문이 없는 예전 보고서나 대상 정보가 없는 보고서도 읽을 수 있지만, 특정 대상의 결과에 합치지는 않습니다. 선택 실행에서 빠진 케이스를 과거의 통과 기록으로 메우지도 않아요.
 
+## 후보를 검토하고 원본 이벤트로 돌아가기
+
+v0.5.0에서는 후보를 미리 보고 필요한 내용을 수정한 뒤, 검토 확인을 거쳐 Flow QA 작업 공간을 만들 수 있게 했어요. 작성 중인 JSON은 다른 묶음으로 이동해도 보존하고, 확인 체크 전에는 승인할 수 없습니다. 공개 npm 설치본에서 검토한 케이스 파일과 생성된 파일의 바이트가 같음을 확인했어요.
+
+v0.5.1부터는 `trace --event-id ID --project NAME`으로 같은 ID를 가진 다른 프로젝트의 오류를 구분할 수 있어요. 검토 화면에는 공유 규칙이 연결된 원본 후보도 보입니다. 공개 설치본에 같은 ID의 두 프로젝트를 넣어 ID만 조회하면 양쪽, 프로젝트까지 지정하면 한쪽만 나오는지 확인했어요. v0.5.2는 npm 한국어 사용 안내 링크를 GitHub 문서로 고친 릴리스예요.
+
 ## 결과를 읽을 때 남는 경계
 
 공개 v0.3.0 기록에는 로컬 테스트 203개, 타입 검사, 빌드, 격리 설치 패키지 검사가 적혀 있어요. 2026년 10월에는 통제된 Chromium 통합 기록도 남았습니다. 이 글을 쓰며 다시 실행한 검사는 아니고, 실제 서비스 인증이나 기기 환경에서 같은 흐름을 확인한 기록도 아닙니다.
@@ -36,3 +43,4 @@ Flow QA 결과를 가져올 때는 분석 번들과 실행 보고서의 스위�
 - [고정된 README](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/README.ko.md)
 - [입력 원본 처리](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/input-source.ts) · [서명 비교](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/comparison.ts) · [결과 연결](https://github.com/hyeonse-swing/error-to-test/blob/514616f3cb7a1c31845b07de6faad26f14b8f935/src/results.ts)
 - [v0.3.0 릴리스·검증 기록](https://github.com/hyeonse-swing/error-to-test/blob/8fa0651ea18833206423010e1d71be99537afea6/docs/releases.md)
+- [v0.5.0 릴리스](https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.5.0) · [v0.5.2 릴리스와 한국어 안내](https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.5.2)

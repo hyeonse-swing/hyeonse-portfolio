@@ -2,10 +2,11 @@
 title: 'Flow QA에서 플로우를 검토하고 브라우저에서 실행하기'
 description: '성공 조건이 빠진 플로우는 질문으로 남기고, 검토한 케이스만 실행해 선택 실행의 결과 범위를 기록해요.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: '공개 릴리스'
   start: '2026-10'
-  end: '2026-11'
+  end: '2026-11-20'
   point: '2026-10-08'
   pointLabel: 'v0.1.0-alpha.1 공개'
 tags: ['QA', '브라우저 테스트', '리포트']
@@ -25,6 +26,8 @@ Flow QA에서는 선택한 케이스만 실행하거나 실패·오류 케이스
 
 보고서에서는 케이스마다 시도와 증거를 함께 볼 수 있어요. 저장된 실행이나 보고서 속 케이스를 검색하고, 두 번 이상 시도한 케이스만 걸러볼 수도 있습니다. 화면 필터에 남은 케이스 ID를 내려받으면 검토 대상을 넘길 때 쓸 수 있어요. 이 목록은 현재 보이는 항목만 담고, 전체 Markdown·JSON 보고서 자체의 범위는 바꾸지 않습니다.
 
+v0.10.0부터는 같은 스위트의 두 실행에서 마지막으로 함께 성공한 단계와 처음 결과가 달라진 단계를 비교할 수 있어요. v0.10.2의 `flow-qa compare`는 이 정보를 터미널에도 보여줍니다. 공개 npm 설치본에서 합성 반품 승인의 장애를 재현한 뒤 복구해 같은 케이스를 실행했을 때, 두 단계까지 함께 성공하고 세 번째 상태 단언이 실패에서 통과로 바뀐 것을 확인했어요. 이전 형식의 보고서에서는 남아 있는 케이스 결과까지만 표시합니다.
+
 ## 화면 설정이 저장되지 않았을 때
 
 브라우저 저장소를 읽거나 쓰지 못하면 화면 설정은 현재 탭에서만 적용될 수 있어요. 이때 저장되지 않았다는 안내를 표시하고, 나중에 저장에 성공하거나 설정을 초기화하면 안내를 지웁니다. 지금 보이는 화면이 다음 방문에도 유지될지 알 수 있게 한 거예요.
@@ -36,3 +39,4 @@ Flow QA에서는 선택한 케이스만 실행하거나 실패·오류 케이스
 - [고정된 아키텍처 문서](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/docs/architecture.md)
 - [케이스 선택 구현](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/src/case-selection.ts) · [로컬 UI 안내](https://github.com/hyeonse-swing/flow-qa/blob/45aa9dce110f9a2b1397b11b14fc2e3a47810d12/docs/ui.md)
 - [v0.8.9 기준 릴리스·검증 기록](https://github.com/hyeonse-swing/flow-qa/blob/413c07c615bc2f3b02ead438e647147be28088a6/docs/releases.md)
+- [v0.10.0 실행 비교 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.10.0) · [v0.10.2 CLI 비교 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.10.2)

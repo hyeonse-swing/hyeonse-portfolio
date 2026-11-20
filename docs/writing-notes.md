@@ -60,7 +60,7 @@ Deer와 SWING Air는 현재 공개 자료가 참여 이력 수준이어서 별�
 
 | 구분 | 사용 가능한 `projects` 값 | 연결 위치 |
 | --- | --- | --- |
-| 개인 프로젝트 | `hyeonse-design-system`, `flow-qa`, `browser-error-log`, `error-to-test`, `hovershot` | 소개 페이지의 해당 프로젝트 |
+| 개인 프로젝트 | `hyeonse-design-system`, `flow-qa`, `browser-error-log`, `error-to-test`, `return-review-console`, `hovershot`, `yt-music-companion` | 소개 페이지의 해당 프로젝트 |
 | 대표 업무 사례 | `bike-operations`, `swing-home-performance`, `yellow-bus`, `swap-admin-v2` | 해당 사례 상세 페이지 |
 | 기타 작업 | `swing-webview`, `swing-admin`, `swap-customer`, `vox`, `ai-development`, `webview-qa-shell`, `deer`, `swing-japan`, `swing-air`, `opensource` | 홈의 해당 작업 펼침 영역 |
 

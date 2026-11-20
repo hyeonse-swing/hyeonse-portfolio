@@ -64,9 +64,10 @@ export const projectDetails: Record<string, ProjectDetail> = {
     contributions: [
       { title: '실제 웹뷰 환경', detail: 'iOS WKWebView와 Android WebView에서 화면을 열고 안전 영역과 네비게이션 동작을 확인할 수 있도록 셸을 구성했어요.' },
       { title: '점검 패널', detail: '웹 콘솔에서 뷰포트와 스토리지를 점검하고 QA 보고서와 로그를 복사할 수 있어요. 클립보드 접근이 거부되면 다른 방법으로 복사를 시도하고 결과를 바로 알려줘요.' },
+      { title: '같은 주소로 재시도', detail: 'Android에서 뒤늦게 도착한 방문 기록이 오류 화면을 닫던 문제를 고쳤어요. iOS 시뮬레이터와 Android 에뮬레이터에서 같은 시험 주소가 503을 반환한 뒤 재시도 버튼으로 200 응답까지 복구되는지 확인했어요.' },
     ],
     tags: ['React Native', 'WebView', 'QA 도구'],
-    publicLink: { label: 'v0.1.1 릴리스 보기', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.1' },
+    publicLink: { label: 'v0.1.3 릴리스 보기', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3' },
   },
   deer: {
     id: 'deer',

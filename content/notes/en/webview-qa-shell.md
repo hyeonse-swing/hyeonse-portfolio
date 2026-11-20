@@ -2,12 +2,13 @@
 title: 'A QA Shell for iOS and Android WebViews'
 description: 'A public tool for opening local and staging screens in native WebViews and inspecting safe areas and logs.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: 'Public development'
   start: '2026-05'
-  end: '2026-10'
-  point: '2026-05-15'
-  pointLabel: 'v0.1.0 release'
+  end: '2026-11-20'
+  point: '2026-11-20'
+  pointLabel: 'v0.1.3 release'
 tags: ['React Native', 'WebView', 'QA tool']
 projects: ['webview-qa-shell']
 draft: false
@@ -19,4 +20,12 @@ Once a page moves from the browser into an app WebView, it is worth checking who
 
 In `Edge` mode the page draws to the device edges. In `Safe` mode native insets keep it within the safe area. Switching between them lets me inspect a page that handles its own insets and one framed by the shell. The QA panel handles target URLs and navigation, while the web console exposes viewport, storage, and logs. Local targets and staging URLs can both be opened in the same shell. Back navigation is another behavior to check outside the desktop browser.
 
-The README also lists typecheck, test, build, and E2E commands. For this article, I did not rerun them, verify physical devices, or check whether behavior is identical across every iOS or Android version or in a production service.
+## Retrying a failed page at the same address
+
+In public v0.1.3, a connection refusal or HTTP 503 can be followed by `Retry` to load the same URL again. The Android fix keeps a late history notification for the failed URL from replacing the error screen. When copying the QA report or event log fails, the web console reports the failure and restores keyboard focus to the button.
+
+Fresh copies of the public source were run in an iOS 18.6 simulator and an Android 16 emulator. The checks covered initial loading, switching `Edge` and `Safe`, recovery to a 200 response at the same URL, and pasting the report through each system clipboard. Both environments used synthetic pages and data with clipboard sharing to the host Mac disabled. The same Flow QA case also clicked `Retry` and checked recovery on both platforms.
+
+The README lists typecheck, test, build, and E2E commands. I did not rerun them while updating this article. Physical devices, production services, and every iOS or Android version were outside these checks.
+
+- [WebView QA Shell v0.1.3 release](https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3)

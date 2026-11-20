@@ -42,7 +42,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
     </section>
 
     <section className={styles.section} id="personal-projects" aria-labelledby="personal-projects-title">
-      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? 'Projects I build and share' : '직접 만들고 공개한 프로젝트'}</h2></div><p>{en ? 'I build reusable interfaces, connect browser errors to regression test evidence, and make a native macOS app for capturing and organizing screen content.' : '재사용할 화면과 오류를 테스트 근거로 연결하는 도구를 만들고, 화면을 캡처하고 정리하는 macOS 앱으로 작업 범위를 넓혔어요.'}</p></div>
+      <div className={styles.sectionHeading}><div><span className="eyebrow">06 / PERSONAL PROJECTS</span><h2 id="personal-projects-title">{en ? 'Projects I build and share' : '직접 만들고 공개한 프로젝트'}</h2></div><p>{en ? 'Trace a browser error to a regression test, try the design system in a return review, or explore the Mac apps I use for screen capture and music.' : '브라우저 오류를 회귀 테스트까지 따라가거나, 반품 검수 화면에서 디자인 시스템을 써볼 수 있어요. Mac에서 화면을 캡처하거나 음악을 들을 때 쓰는 앱도 만들었어요.'}</p></div>
       <ToolchainExplorer locale={locale} />
       <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} detailed />
     </section>

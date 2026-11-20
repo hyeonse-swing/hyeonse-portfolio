@@ -2,6 +2,21 @@
 
 2026-11-07에 각 공개 저장소의 `main`, README·관련 구현·검증 문서, npm 메타데이터와 GitHub 릴리스를 확인했다. 2026-11-16에는 Hyeonse Design System, Flow QA, Browser Error Log, Error to Test의 아래 고정 커밋·릴리스와 검증 기록을 확인했다. 2026-11-17의 새 기능은 아래 후속 근거에 따로 정리했다. 화면의 문구는 [personal-projects.ts](../src/data/personal-projects.ts)의 한·영 데이터로 관리한다. 공개 릴리스 기능과 기록된 로컬 검증을 설명하며, 실제 사용자 수·시간 절감·운영 도입률은 주장하지 않는다. 사이트에서 버전을 언급하는 경우 해당 기능의 시작 버전만 명시한다.
 
+## 2026-11-20 공개본
+
+| 프로젝트 | 공개본과 소개 근거 |
+| --- | --- |
+| Hyeonse Design System | [0.5.0 아카이브](https://design-system.hyeonse.dev/releases/hyeonse-design-system-0.5.0.tgz)의 DataTable을 리턴 데스크 보류 목록에 적용. [공개 쇼케이스](https://design-system.hyeonse.dev) · [소비 앱 검증 절차](https://github.com/hyeonse-swing/hyeonse-design-system/blob/edb19ca224e860d27a334d1f18b32b6d6b2a8423/AGENTS.md) |
+| Flow QA | [0.10.2 릴리스](https://github.com/hyeonse-swing/flow-qa/releases/tag/v0.10.2)의 CLI 실행 단계 비교. 공개 npm 설치본에서 장애를 재현한 뒤 복구한 실행의 단계 변화 확인. [공개 패키지](https://www.npmjs.com/package/@ihyeon/flow-qa/v/0.10.2) |
+| Browser Error Log | SDK·React·Protocol [0.2.22 릴리스](https://github.com/hyeonse-swing/browser-error-log/releases/tag/v0.2.22)의 공통 이벤트 참조. [0.2.21 소스맵 예제](https://hyeonse-swing.github.io/browser-error-log/source-map-example.zip) · [0.2.22 공개 설치 CI](https://github.com/hyeonse-swing/browser-error-log/actions/runs/44689712877) |
+| Error to Test | [0.5.2 릴리스](https://github.com/hyeonse-swing/error-to-test/releases/tag/v0.5.2)의 검토 화면·프로젝트별 이벤트 추적과 한국어 안내. [공개 패키지](https://www.npmjs.com/package/@ihyeon/error-to-test/v/0.5.2) |
+| 리턴 데스크 | [npm 0.2.3](https://www.npmjs.com/package/@ihyeon/return-review-console/v/0.2.3)의 보류·재검수와 한 건의 이력 복사. [운영 웹](https://return-desk.hyeonse.dev/) · [공개 배포 CI](https://github.com/hyeonse-swing/return-review-console/actions/runs/44690530277) |
+| HoverShot | [0.2.3 릴리스](https://github.com/hyeonse-swing/hovershot-macos/releases/tag/v0.2.3)의 GIF 타이밍 수정. 합성 MOV 두 건과 공개 ZIP 해시·서명 확인. |
+| YouTube Music Companion | [0.18.0 릴리스](https://github.com/hyeonse-swing/youtube-music-companion-macos/releases/tag/v0.18.0)의 Discord 표지·주간 곡 수·현재 곡 링크. 공개 ZIP 해시·서명과 친구 계정에서 곡 링크 확인. |
+| WebView QA Shell | [0.1.3 릴리스](https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3)의 실패 후 Retry와 보고서 복사. 공개 소스 아카이브를 설치해 iOS 시뮬레이터·Android 에뮬레이터에서 확인. |
+
+아래 표와 프로젝트별 문단은 2026-11-16~17에 확인한 이전 버전의 근거를 보존한다.
+
 | 프로젝트 | 확인한 공개 소스 | npm / 릴리스 상태 |
 | --- | --- | --- |
 | Hyeonse Design System | [v0.4.0 배포 파일·해시](https://design-system.hyeonse.dev/releases/manifest.json) · 이전 GitHub 안정 태그 v0.3.0 | [공개 쇼케이스](https://design-system.hyeonse.dev)에서 설치하는 버전별 패키지 파일. GitHub v0.4.0 태그·npm 레지스트리 게시로 소개하지 않음 |
@@ -14,7 +29,7 @@
 
 ## Hyeonse Design System
 
-- 2026-11-17 후속: 공통 컴포넌트·5단계 크기·레이아웃과 포털 상속을 v0.4.0 패키지 파일로 제공한다. [현재 API](https://design-system.hyeonse.dev/docs/api.md)·[검증 범위](https://design-system.hyeonse.dev/docs/code-freeze.md). 로컬 Node·패키지 소비와 세 브라우저 사이징 검사 통과, WebKit VoiceOver 초점 가드 28건은 미해결로 남는다. 아래는 이전 버전의 역사적 근거다.
+- 2026-11-17 후속: 공통 컴포넌트·5단계 크기·레이아웃과 포털 상속을 v0.4.0 패키지 파일로 제공했다. [현재 API](https://design-system.hyeonse.dev/docs/api.md)·[검증 범위](https://design-system.hyeonse.dev/docs/code-freeze.md). 당시 로컬 Node·패키지 소비와 세 브라우저 사이징 검사를 통과했다. 당시 미확인으로 남긴 WebKit VoiceOver 초점 가드는 2026-11-19 macOS Safari 27·VoiceOver에서 0.4.8 모달의 닫기 버튼, 초점 가드 이름과 Escape 뒤 초점 복귀를 확인했다. 아래는 이전 버전의 역사적 근거다.
 - [v0.2.0 README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/README.md), [설정 구현](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts): 역할별 CSS 토큰과 React 설정 UI, 첫 페인트 스크립트·Provider에 같은 사이트 기본값 전달, 저장된 유효한 선택 우선.
 - [AI 사용 안내](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/docs/ai.md), [카탈로그 스키마](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/schemas/catalog.schema.json): 설치 버전의 공개 API·토큰·예제를 읽기 전용 `hds` CLI, 카탈로그와 문서에서 조회한다. v0.2.0 당시에는 일반 Button·Input·Card React 컴포넌트를 제공하지 않았다. 2026-11-17 배포한 v0.4.0 아카이브에는 폼·오버레이·표시·레이아웃 컴포넌트와 5단계 크기가 포함된다. v0.2.0의 별도 `npm run verify` 기록은 타입·빌드·소비 예제 타입 검사·17개 테스트와 설치 패키지의 CLI·카탈로그·예제 확인을 포함한다. 이 포트폴리오 편집자가 그 검사를 재실행한 것은 아니다. [v0.2.0 CI](https://github.com/hyeonse-swing/hyeonse-design-system/actions/runs/43814736366)의 성공과 대상 커밋 일치를 확인했다.
 - [CSS 점검 범위](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md): 원시 CSS 색상과 공유 토큰 재정의 검사. TS·JS·3D 재질 전체를 검사한다고 확대하지 않는다.

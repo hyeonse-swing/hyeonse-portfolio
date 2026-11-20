@@ -2,10 +2,11 @@
 title: 'Browser Error Log에서 필요한 오류 맥락만 수집하기'
 description: '앱이 수집할 맥락을 고르고, 브라우저 전송 큐와 자체 호스팅 저장소의 보관·조회 범위를 제한했어요.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: '공개 릴리스'
   start: '2026-10'
-  end: '2026-11'
+  end: '2026-11-20'
   point: '2026-10-12'
   pointLabel: 'v0.1.5 공개'
 tags: ['오류 수집', 'TypeScript', 'SQLite']
@@ -25,6 +26,12 @@ SDK는 전역 오류, 처리되지 않은 Promise 거부, 네트워크 실패를
 
 SQLite를 기본 저장소로 쓰다 보면 다른 분석 도구로 기록을 옮겨야 할 때도 있어요. v0.2.11에서 CLI 내보내기를 추가하면서 저장소 선택과 크기 제한을 명시하고, 원본 DB는 수정하지 않게 했습니다. 보관 기록을 읽기 전용으로 꺼내는 방식이에요. 공개 변경 기록에는 내보내기 뒤 원본 해시를 확인하고 수집기를 재시작한 과정이 남아 있습니다.
 
+## 원본 위치와 이벤트 참조를 다음 작업으로 넘기기
+
+v0.2.21에서는 릴리스별 소스맵을 등록해 압축된 스택의 원본 위치를 확인할 수 있게 했어요. 같은 `app.js`의 오류라도 어느 릴리스인지에 따라 다른 소스 파일로 해석합니다. 공개 뷰어에서 합성 오류를 열어 세 브라우저로 두 릴리스의 위치를 대조했고, 한 릴리스의 맵을 지운 뒤에도 다른 릴리스의 위치가 유지됐어요. 이 검사는 로컬 SQLite 수집기에서 만든 오류를 공개 뷰어에 불러온 결과예요.
+
+v0.2.22에서는 `captureExceptionWithReference`가 수집한 이벤트의 프로젝트와 ID를 돌려주고, React Error Boundary의 `onCapture`도 같은 참조를 전달해요. Protocol 패키지에서 조회용 두 필드만 추출할 수 있습니다. 공개 npm 설치본으로 합성 오류를 한 번 일으켜 React 콜백과 전송 이벤트의 참조가 일치하는지 확인했어요. 이 ID는 전송 이벤트를 찾는 단서이며 서버 저장 확인을 뜻하지 않아요.
+
 ## 실제 서비스에 붙이기 전에
 
 공개 저장소에는 패키지, 마이크로 서버, Chromium·WebKit 전송을 로컬에서 확인한 기록이 있어요. SQLite 내보내기는 더 뒤의 v0.2.11 변경 기록에서 확인할 수 있습니다. 이 글을 쓰며 어느 쪽 검사도 다시 실행하지는 않았어요. 재시도에 상한을 둔 만큼 무한 재시도는 피하지만, 모든 오류가 전달된다는 보장은 없습니다.
@@ -35,3 +42,4 @@ SQLite를 기본 저장소로 쓰다 보면 다른 분석 도구로 기록을 �
 
 - [고정된 README](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/README.ko.md) · [브라우저 SDK](https://github.com/hyeonse-swing/browser-error-log/blob/413c8d1e42532a84a314e6b1003b52f9eb64a091/packages/browser/src/index.ts)
 - [v0.2.11 릴리스](https://github.com/hyeonse-swing/browser-error-log/releases/tag/v0.2.11) · [SQLite 내보내기 변경](https://github.com/hyeonse-swing/browser-error-log/commit/62be06359dbb0c706925bb2508ed2cdfcbc37007)
+- [v0.2.21 릴리스와 소스맵 예제](https://github.com/hyeonse-swing/browser-error-log/releases/tag/v0.2.21) · [v0.2.22 릴리스](https://github.com/hyeonse-swing/browser-error-log/releases/tag/v0.2.22)

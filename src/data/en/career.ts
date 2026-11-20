@@ -58,9 +58,10 @@ export const projectDetailsEn: Record<string, ProjectDetail> = {
     contributions: [
       { title: 'Real WebView environments', detail: 'I built a shell that opens screens in iOS WKWebView and Android WebView to check safe areas and navigation behavior.' },
       { title: 'Inspection panel', detail: 'The console lets you inspect the viewport and storage, then copy a QA report or event log. If clipboard access is denied, it tries another way to copy and shows the result next to the button.' },
+      { title: 'Retry the same address', detail: 'I fixed an Android history notification that dismissed the error screen. In an iOS simulator and an Android emulator, the same test URL returned 503 and then 200 when the Retry button was pressed after recovery.' },
     ],
     tags: ['React Native', 'WebView', 'QA tool'],
-    publicLink: { label: 'View the v0.1.1 release', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.1' },
+    publicLink: { label: 'View the v0.1.3 release', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3' },
   },
   deer: {
     id: 'deer',

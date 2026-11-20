@@ -13,6 +13,7 @@ const projectIdentifiers: Partial<Record<string, readonly string[]>> = {
   'error-to-test': ['error-to-test', '@ihyeon/error-to-test', 'ETT'],
   'flow-qa': ['flow-qa', '@ihyeon/flow-qa', 'FlowQA'],
   'hyeonse-design-system': ['hds', 'hyeonse-design-system', '@hyeonse/design-system'],
+  'yt-music-companion': ['YT Music Companion', '유튜브 뮤직', 'youtube-music-companion-macos'],
 };
 
 /** Only fields visibly rendered on the public pages are selected here. */

@@ -2,9 +2,11 @@
 title: 'Keeping display preferences consistent across projects'
 description: 'Extracting the portfolio’s visual language into tokens and React controls, with one rule for the first paint and saved choices.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: 'Public development'
   start: '2026-10'
+  end: '2026-11-20'
 tags: ['design system', 'React', 'CSS']
 projects: ['hyeonse-design-system']
 draft: false
@@ -36,10 +38,15 @@ The newer lookup interface has separate type, build and consuming-example checks
 
 On November 17, 2026, I extended sizing to inputs, cards, tables, dialogs and layouts. A `SizeProvider`, `Stack` or `Grid` can set a size from `xs` to `xl` for its contents, while individual components can override it. Menus and dialogs retain that scope when rendered through a portal.
 
-The default button is 36px high with a fine pointer, while touch devices keep a minimum 44px target even for smaller variants. Local checks covered sizing, portals and narrow layouts in three browser engines. Some WebKit VoiceOver focus guards still need further verification and remain documented. The current [showcase and installation guide](https://design-system.hyeonse.dev/#start) provide the components alongside their [verification scope](https://design-system.hyeonse.dev/docs/code-freeze.md).
+The default button is 36px high with a fine pointer, while touch devices keep a minimum 44px target even for smaller variants. Local checks covered sizing, portals and narrow layouts in three browser engines. In November 2026, macOS Safari 27 with VoiceOver confirmed the HDS 0.4.8 modal's close button, focus-guard names and focus returning to the opener after Escape. Mobile screen readers were outside the scope of this check. The current [showcase and installation guide](https://design-system.hyeonse.dev/#start) provide the components alongside their [verification scope](https://design-system.hyeonse.dev/docs/code-freeze.md).
+
+## Using a table for held returns
+
+HDS 0.5.0 added a `DataTable` with sorting, row selection and pagination. I used it for Return Desk's held and reinspection queue and checked that selections survive a page change and focus returns after table interactions. The public showcase, live Return Desk page and a fresh installation of Return Desk 0.2.1 passed Chromium, Firefox and WebKit checks. The live page was also checked at 390px. The Safari and VoiceOver table announcement was checked in a local showcase using the same component.
 
 ## Public sources
 
 - [v0.2.0 README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/README.md) · [AI usage guide](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/docs/ai.md)
 - [Earlier preference implementation](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts) · [CSS audit scope](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md)
 - [Earlier portfolio integration record](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md)
+- [Public HDS 0.5.0 archive](https://design-system.hyeonse.dev/releases/hyeonse-design-system-0.5.0.tgz) · [Live Return Desk](https://return-desk.hyeonse.dev/)

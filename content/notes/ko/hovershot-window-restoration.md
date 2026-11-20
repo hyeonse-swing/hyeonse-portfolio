@@ -2,9 +2,13 @@
 title: 'HoverShot의 떠 있는 창을 원래 모니터에 놓기'
 description: '여러 모니터에서 캡처 결과 창의 위치가 어긋난 문제와 AppKit 창 생성 후 위치를 다시 적용한 수정을 정리합니다.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
-  label: 'v0.2.2 릴리스'
+  label: '공개 릴리스'
   start: '2026-10-12'
+  end: '2026-11-20'
+  point: '2026-11-20'
+  pointLabel: 'v0.2.3 공개'
 tags: ['macOS', 'AppKit', '화면 캡처']
 projects: ['hovershot']
 draft: false
@@ -26,10 +30,17 @@ draft: false
 
 릴리스 기록에는 수정 전 모니터 3대를 연결한 환경에서 외부 모니터의 실제 AppKit 창 생성·표시 검사가 실패한 재현 과정이 있어요. 수정 뒤에는 세 모니터에 여러 결과 창을 띄워 대상 화면을 유지하는지 확인했습니다. 창을 옮겼다가 다시 표시하는 검사와 기존 회귀 검사를 포함해 테스트 25개를 통과했고, Release 빌드, 앱 서명, ZIP 무결성 검사도 기록돼 있어요. 이 글을 쓰며 다시 실행한 검사는 아닙니다.
 
-창 표시 검사에는 합성 이미지를 썼어요. 실제 화면 캡처와 macOS 권한 요청 흐름 전체를 사용자 환경에서 확인한 결과는 아닙니다. 공개 ZIP은 Apple Silicon·macOS 14 이상을 대상으로 하며 녹화에는 macOS 15 이상이 필요해요. 로컬 개발 서명으로 패키징했고 Apple 공증을 받지 않은 빌드라 설치할 때 이 상태를 확인해야 합니다.
+v0.2.2의 창 표시 검사에는 합성 이미지를 썼어요. 당시 검사는 실제 화면 캡처와 macOS 권한 요청 흐름 전체를 사용자 환경에서 확인한 결과는 아닙니다. 공개 ZIP은 Apple Silicon·macOS 14 이상을 대상으로 하며 녹화에는 macOS 15 이상이 필요해요. 로컬 개발 서명으로 패키징했고 Apple 공증을 받지 않은 빌드라 설치할 때 이 상태를 확인해야 합니다.
+
+## v0.2.3에서 GIF 길이 확인하기
+
+이후 공개한 v0.2.3에서는 GIF 내보내기의 프레임 수를 녹화 길이에 맞추고, 프레임별 시간에 0.01초 단위 반올림 오차가 쌓이지 않게 수정했어요. 합성 MOV 두 개를 GIF로 내보내 각각 0.40초와 0.84초를 유지하는지 검사했고 Swift 테스트 29건을 통과했습니다.
+
+별도 실기기 검사에서는 macOS 26.6.2의 Apple Silicon Mac에서 공개 ZIP을 열어 시험용 창을 캡처하고, 같은 창의 녹화를 재생한 뒤 GIF로 내보냈어요. 원본 영상과 60프레임 GIF의 길이가 모두 9.92초였고 프레임의 색 막대 변화도 확인했습니다. 이 검사는 시험용 창과 이미 허용된 화면 기록 권한으로 진행했어요.
 
 ## 공개 소스
 
 - [HoverShot v0.2.2 릴리스와 검증 범위](https://github.com/hyeonse-swing/hovershot-macos/releases/tag/v0.2.2)
+- [HoverShot v0.2.3 릴리스](https://github.com/hyeonse-swing/hovershot-macos/releases/tag/v0.2.3)
 - [고정 소스의 떠 있는 창 구현](https://github.com/hyeonse-swing/hovershot-macos/blob/93b8f824ec84eb8d1fc32c257e077d3212784273/Apps/HoverShotMac/FloatingShots/FloatingWindowCoordinator.swift)
 - [고정 소스의 README](https://github.com/hyeonse-swing/hovershot-macos/blob/93b8f824ec84eb8d1fc32c257e077d3212784273/README.ko.md)

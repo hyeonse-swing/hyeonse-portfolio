@@ -2,9 +2,11 @@
 title: '화면 설정을 여러 프로젝트에서 일관되게 쓰기'
 description: '포트폴리오의 색과 화면 설정을 토큰과 React UI로 분리하면서 첫 화면과 저장된 선택을 맞춘 과정이에요.'
 date: '2026-11-16'
+updated: '2026-11-20'
 activity:
   label: '공개 개발'
   start: '2026-10'
+  end: '2026-11-20'
 tags: ['디자인 시스템', 'React', 'CSS']
 projects: ['hyeonse-design-system']
 draft: false
@@ -36,10 +38,15 @@ React가 실행된 뒤에만 화면 설정을 적용하면 첫 페인트에 잠�
 
 2026년 11월 17일에는 버튼뿐 아니라 입력, 카드, 표, 모달과 레이아웃까지 공통 크기를 적용했어요. `SizeProvider`나 `Stack`, `Grid`에서 `xs`부터 `xl`까지 정하면 안쪽 요소가 같은 크기를 이어받고, 필요한 요소만 따로 지정할 수 있습니다. 모달이나 선택 목록처럼 다른 위치에 렌더링되는 UI도 이 범위를 유지해요.
 
-기본 버튼 높이는 일반 포인터 환경에서 36px로 줄였고, 터치 기기에서는 작은 크기도 최소 44px의 조작 영역을 유지하게 했습니다. 세 브라우저에서 크기와 포털, 좁은 화면 배치를 확인했어요. WebKit의 일부 VoiceOver 초점 가드는 아직 확인이 더 필요해 검증 기록에 남겼습니다. 현재 [쇼케이스와 설치 안내](https://design-system.hyeonse.dev/#start)에서 이 컴포넌트를 사용할 수 있고, [검증 범위](https://design-system.hyeonse.dev/docs/code-freeze.md)도 함께 볼 수 있어요.
+기본 버튼 높이는 일반 포인터 환경에서 36px로 줄였고, 터치 기기에서는 작은 크기도 최소 44px의 조작 영역을 유지하게 했습니다. 세 브라우저에서 크기와 포털, 좁은 화면 배치를 확인했어요. 2026년 11월 macOS Safari 27·VoiceOver에서는 HDS 0.4.8 모달의 닫기 버튼, 초점 이동 가드 이름과 Escape 후 초점 복귀를 확인했어요. 모바일 스크린리더는 별도 검증 대상이에요. 현재 [쇼케이스와 설치 안내](https://design-system.hyeonse.dev/#start)에서 이 컴포넌트를 사용할 수 있고, [검증 범위](https://design-system.hyeonse.dev/docs/code-freeze.md)도 함께 볼 수 있어요.
+
+## 반품 보류 목록에서 표를 사용하기
+
+HDS 0.5.0에는 정렬, 행 선택, 페이지 이동을 지원하는 `DataTable`을 추가했어요. 리턴 데스크의 보류·재검수 목록에 적용해 페이지 밖에서 선택한 행을 유지하고, 표를 조작한 뒤 초점이 돌아오는지 확인했습니다. 공개 쇼케이스와 리턴 데스크 운영 화면, 새로 설치한 리턴 데스크 0.2.1에서 Chromium·Firefox·WebKit 검사를 통과했어요. 운영 화면에서는 390px 너비도 확인했습니다. Safari·VoiceOver의 표 안내는 같은 컴포넌트를 쓰는 로컬 쇼케이스에서 확인한 결과예요.
 
 ## 공개 소스
 
 - [v0.2.0 README](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/README.md) · [AI 사용 안내](https://github.com/hyeonse-swing/hyeonse-design-system/blob/090e10e066b933c3c9565b4553c4c35ace45eb99/docs/ai.md)
 - [이전 화면 설정 구현](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/src/preferences.ts) · [CSS 검사 범위](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/audit.md)
 - [이전 포트폴리오 통합 검증 기록](https://github.com/hyeonse-swing/hyeonse-design-system/blob/d04bda5240e1c22bfc4dc165d8a34fa753ac3dd6/docs/verification.md)
+- [HDS 0.5.0 공개 아카이브](https://design-system.hyeonse.dev/releases/hyeonse-design-system-0.5.0.tgz) · [리턴 데스크 운영 화면](https://return-desk.hyeonse.dev/)
