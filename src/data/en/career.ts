@@ -57,10 +57,10 @@ export const projectDetailsEn: Record<string, ProjectDetail> = {
     lead: 'A public QA tool for checking local or staging web services inside iOS and Android WebViews.',
     contributions: [
       { title: 'Real WebView environments', detail: 'I built a shell that opens screens in iOS WKWebView and Android WebView to check safe areas and navigation behavior.' },
-      { title: 'Inspection panel', detail: 'I brought viewport, storage, and log checks together in a web console.' },
+      { title: 'Inspection panel', detail: 'The console lets you inspect the viewport and storage, then copy a QA report or event log. If clipboard access is denied, it tries another way to copy and shows the result next to the button.' },
     ],
     tags: ['React Native', 'WebView', 'QA tool'],
-    publicLink: { label: 'View public repository', href: 'https://github.com/hyeonse-swing/webview-qa-shell' },
+    publicLink: { label: 'View the v0.1.1 release', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.1' },
   },
   deer: {
     id: 'deer',

@@ -63,10 +63,10 @@ export const projectDetails: Record<string, ProjectDetail> = {
     lead: '로컬이나 스테이지 웹서비스를 iOS·Android WebView 안에서 확인할 수 있도록 만든 공개 QA 도구예요.',
     contributions: [
       { title: '실제 웹뷰 환경', detail: 'iOS WKWebView와 Android WebView에서 화면을 열고 안전 영역과 네비게이션 동작을 확인할 수 있도록 셸을 구성했어요.' },
-      { title: '점검 패널', detail: '웹 콘솔에 뷰포트, 스토리지, 로그 등의 확인 기능을 모았어요.' },
+      { title: '점검 패널', detail: '웹 콘솔에서 뷰포트와 스토리지를 점검하고 QA 보고서와 로그를 복사할 수 있어요. 클립보드 접근이 거부되면 다른 방법으로 복사를 시도하고 결과를 바로 알려줘요.' },
     ],
     tags: ['React Native', 'WebView', 'QA 도구'],
-    publicLink: { label: '공개 저장소 보기', href: 'https://github.com/hyeonse-swing/webview-qa-shell' },
+    publicLink: { label: 'v0.1.1 릴리스 보기', href: 'https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.1' },
   },
   deer: {
     id: 'deer',
