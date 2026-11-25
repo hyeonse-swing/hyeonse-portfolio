@@ -1,35 +1,42 @@
 .page {
-  max-width: calc(61rem + 2 * var(--gutter));
-  margin-inline: auto;
-  padding: 0 var(--gutter) calc(68px * var(--space-factor));
+  padding-block: 0 calc(68px * var(--space-factor));
 }
 
 .intro {
-  padding-top: calc(clamp(30px, 4.5vw, 64px) * var(--space-factor));
+  padding-top: calc(clamp(24px, 3vw, 36px) * var(--space-factor));
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: var(--portfolio-meta-font);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.eyebrow span {
+  padding-inline: 4px;
+  color: var(--accent-text);
 }
 
 .intro h1 {
-  font-size: clamp(3rem, 6vw, 5.25rem);
+  margin-top: 8px;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
   font-weight: 650;
   letter-spacing: -.04em;
-  line-height: 1.08;
+  line-height: 1.12;
 }
 
 .intro h1 span {
   color: var(--accent-text);
 }
 
-.intro p {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 1.0625rem;
-  font-weight: 550;
-  line-height: 1.5;
-}
-
 .section {
   margin-top: calc(clamp(34px, 5vw, 64px) * var(--space-factor));
   scroll-margin-top: 24px;
+}
+
+.intro + .section {
+  margin-top: calc(20px * var(--space-factor));
 }
 
 .section h2 {
@@ -167,5 +174,20 @@
 
   .noteList a {
     padding-block: 5px;
+  }
+}
+
+@media (max-width: 700px) {
+  .intro {
+    padding-top: calc(24px * var(--space-factor));
+  }
+
+  .intro h1 {
+    margin-top: 8px;
+    font-size: clamp(1.9rem, 7.5vw, 2.8rem);
+  }
+
+  .intro + .section {
+    margin-top: calc(24px * var(--space-factor));
   }
 }

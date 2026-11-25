@@ -1,7 +1,5 @@
 .page {
-  max-width: calc(70rem + 2 * var(--gutter));
-  margin-inline: auto;
-  padding: 0 var(--gutter) calc(80px * var(--space-factor));
+  padding-bottom: calc(80px * var(--space-factor));
 }
 
 .header {

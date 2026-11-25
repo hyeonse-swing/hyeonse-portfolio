@@ -1,4 +1,4 @@
-.page { padding: 0 var(--gutter) calc(110px * var(--space-factor)); }
+.page { padding-bottom: calc(110px * var(--space-factor)); }
 .intro { display: grid; grid-template-columns: 1.25fr 1fr; align-items: end; gap: 60px; padding: 65px 0 80px; }
 .intro h1 { font-size: clamp(70px, 9.5vw, 148px); line-height: .89; letter-spacing: -.075em; font-weight: 650; margin-top: 35px; }
 .intro h1 em { color: var(--accent-text); font-style: normal; }

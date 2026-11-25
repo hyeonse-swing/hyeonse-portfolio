@@ -49,7 +49,8 @@ GitHub 웹 화면에서는 해당 경로의 파일을 열어 편집하거나 새
 
 | 구분 | 원고 |
 | --- | --- |
-| 개인 프로젝트 | [디자인 시스템](../content/notes/ko/hyeonse-design-system.md), [Flow QA](../content/notes/ko/flow-qa.md), [Browser Error Log](../content/notes/ko/browser-error-log.md), [Error to Test](../content/notes/ko/error-to-test.md), [HoverShot](../content/notes/ko/hovershot-window-restoration.md) |
+| 개인 프로젝트 | [디자인 시스템](../content/notes/ko/hyeonse-design-system.md), [Flow QA](../content/notes/ko/flow-qa.md), [Browser Error Log](../content/notes/ko/browser-error-log.md), [Error to Test](../content/notes/ko/error-to-test.md) |
+| 취미 프로젝트 | [HoverShot](../content/notes/ko/hovershot-window-restoration.md), [YouTube Music Companion](../content/notes/ko/yt-music-companion.md) |
 | 대표 업무 사례 | [바이크](../content/notes/ko/bike-operations.md), [SWING 성능](../content/notes/ko/swing-home-performance.md), [Yellow Bus](../content/notes/ko/yellow-bus.md), [SWAP Admin](../content/notes/ko/swap-admin-v2.md) |
 | 기타 작업과 공개 기여 | [고객 웹뷰](../content/notes/ko/customer-webviews.md), [운영 Admin·공통 모듈](../content/notes/ko/admin-shared-modules.md), [AI 개발 방식](../content/notes/ko/ai-development-practices.md), [음성 AI 연동](../content/notes/ko/voice-ai-integration.md), [WebView QA Shell](../content/notes/ko/webview-qa-shell.md), [react-wheel-picker 기여](../content/notes/ko/react-wheel-picker-contribution.md) |
 | 업데이트 | [로컬 도구 세 개의 최근 변경](../content/notes/ko/local-toolchain-updates.md) |
@@ -60,7 +61,8 @@ Deer와 SWING Air는 현재 공개 자료가 참여 이력 수준이어서 별�
 
 | 구분 | 사용 가능한 `projects` 값 | 연결 위치 |
 | --- | --- | --- |
-| 개인 프로젝트 | `hyeonse-design-system`, `flow-qa`, `browser-error-log`, `error-to-test`, `return-review-console`, `hovershot`, `yt-music-companion` | 소개 페이지의 해당 프로젝트 |
+| 개인 프로젝트 | `hyeonse-design-system`, `flow-qa`, `browser-error-log`, `error-to-test`, `return-review-console` | 소개 페이지의 해당 프로젝트 |
+| 취미 프로젝트 | `hovershot`, `yt-music-companion` | 소개 페이지의 취미 프로젝트 영역 |
 | 대표 업무 사례 | `bike-operations`, `swing-home-performance`, `yellow-bus`, `swap-admin-v2` | 해당 사례 상세 페이지 |
 | 기타 작업 | `swing-webview`, `swing-admin`, `swap-customer`, `vox`, `ai-development`, `webview-qa-shell`, `deer`, `swing-japan`, `swing-air`, `opensource` | 홈의 해당 작업 펼침 영역 |
 

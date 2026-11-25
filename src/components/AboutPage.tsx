@@ -1,5 +1,5 @@
 import { getPortfolio } from '../data/localized';
-import { getPersonalProjects } from '../data/personal-projects';
+import { getPersonalProjects, isHobbyProject } from '../data/personal-projects';
 import { localizedPath, type Locale } from '../lib/locale';
 import PersonalProjects from './PersonalProjects';
 import ToolchainExplorer from './ToolchainExplorer';
@@ -8,12 +8,13 @@ import styles from './AboutPage.module.css';
 export default function AboutPage({ locale }: { locale: Locale }) {
   const { profile, careerIntroduction, aboutCases, publicWork } = getPortfolio(locale);
   const en = locale === 'en';
+  const personalProjects = getPersonalProjects(locale);
 
   return (
     <article className={styles.page} id="top">
       <header className={styles.header}>
-        <h1 id="introduction-title">{profile.identity.name}</h1>
-        <p className={styles.role}>{en ? 'Frontend Engineer' : '프론트엔드 엔지니어'}</p>
+        <h1 id="introduction-title">{en ? 'About and experience' : '소개와 경력'}</h1>
+        <p className={styles.role}>{profile.identity.name} · {en ? 'Frontend Engineer' : '프론트엔드 엔지니어'}</p>
         <p className={styles.intro}>{careerIntroduction}</p>
         <div className={styles.links}>
           <a href={profile.identity.github} target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -35,7 +36,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
 
       <section className={styles.section} id="personal-projects" aria-labelledby="personal-projects-title">
         <h2 id="personal-projects-title">{en ? 'Tools I build' : '직접 만든 도구'}</h2>
-        <PersonalProjects locale={locale} projects={getPersonalProjects(locale)} detailed />
+        <PersonalProjects locale={locale} projects={personalProjects.filter(project => !isHobbyProject(project.id))} detailed />
         <ToolchainExplorer locale={locale} />
         <h3 className={styles.subheading} id="public-title">{en ? 'More tools and open source' : '다른 도구와 오픈소스 기여'}</h3>
         <ul className={styles.publicWork}>
@@ -75,6 +76,11 @@ export default function AboutPage({ locale }: { locale: Locale }) {
             <dd>{profile.certificate.name}<span>{profile.certificate.earned}</span></dd>
           </div>
         </dl>
+      </section>
+
+      <section className={styles.section} id="hobby-projects" aria-labelledby="hobby-projects-title">
+        <h2 id="hobby-projects-title">{en ? 'Hobby projects' : '취미 프로젝트'}</h2>
+        <PersonalProjects locale={locale} projects={personalProjects.filter(project => isHobbyProject(project.id))} detailed />
       </section>
     </article>
   );

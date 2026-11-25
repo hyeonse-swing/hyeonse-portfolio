@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Container } from '@hyeonse/design-system/layout';
 import { getPortfolio } from '../data/localized';
 import '../styles/fonts.css';
 import '../styles/global.css';
@@ -11,6 +12,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import SiteNavigation from './SiteNavigation';
 import SiteSearch from './SiteSearch';
 import SearchTargetReveal from './SearchTargetReveal';
+import PointerGlow from './PointerGlow';
 import { getAllNotes, getNoteListPages } from '../lib/notes';
 
 export default function SiteDocument({ children, locale }: { children: ReactNode; locale: Locale }) {
@@ -22,18 +24,32 @@ export default function SiteDocument({ children, locale }: { children: ReactNode
     ...getNoteListPages(notes).map(entry => localizedPath(entry.locale, entry.path)),
   ];
   return <html lang={locale} data-corners={preferenceDefaults.corners} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceScript }} /><link rel="preload" href="/fonts/dm-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/noto-kr-subset.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><PreferencesProvider>
+    <PointerGlow />
     <SearchTargetReveal />
     <a className="skip-link" href="#main" tabIndex={0}>{en ? 'Skip to content' : '본문으로 건너뛰기'}</a>
     <header className="site-header">
-      <a className="wordmark" href={localizedPath(locale, '/')} aria-label={en ? 'im. — Hyeonse Im home' : 'im. — 임현세 홈'} tabIndex={0}>im<span aria-hidden="true">.</span></a>
-      <nav aria-label={en ? 'Main navigation' : '주요 메뉴'}><SiteNavigation locale={locale} /><div className="nav-tools"><SiteSearch locale={locale} /><ThemeToggle locale={locale} /><LanguageSwitcher locale={locale} notePaths={notePaths} /></div></nav>
+      <Container size="lg" className="site-header-row">
+        <a className="wordmark" href={localizedPath(locale, '/')} aria-label={en ? 'im. — Hyeonse Im home' : 'im. — 임현세 홈'} tabIndex={0}>im<span aria-hidden="true">.</span></a>
+        <nav aria-label={en ? 'Main navigation' : '주요 메뉴'}>
+          <SiteNavigation locale={locale} />
+          <div className="nav-tools">
+            <SiteSearch locale={locale} />
+            <ThemeToggle locale={locale} />
+            <LanguageSwitcher locale={locale} notePaths={notePaths} />
+          </div>
+        </nav>
+      </Container>
     </header>
-    <main id="main" tabIndex={-1}>{children}</main>
-    <footer id="contact" className="contact">
-      <div className="contact-top"><span className="eyebrow">{siteCopy.contact.eyebrow}</span><span className="eyebrow">{siteCopy.contact.lead}</span></div>
-      <a className="contact-title" href={`mailto:${profile.identity.email}`} tabIndex={0}>{siteCopy.contact.title}<span aria-hidden="true">↗</span></a>
-      <div className="contact-links"><a href={`mailto:${profile.identity.email}`} tabIndex={0}>{profile.identity.email} <span aria-hidden="true">↗</span></a><div><a href={profile.identity.github} target="_blank" rel="noopener noreferrer" tabIndex={0}>GitHub ↗</a><a href={profile.identity.linkedin} target="_blank" rel="noopener noreferrer" tabIndex={0}>LinkedIn ↗</a></div></div>
-      <div className="footer-baseline"><span>© 2026 HYEONSE IM</span><span><a href={localizedPath(locale, '/studio/')}>{en ? 'Inside this site' : '이 사이트의 작업실'} ↗</a></span><a href="#top" tabIndex={0}>BACK TO TOP ↑</a></div>
-    </footer>
+    <main id="main" tabIndex={-1}>
+      <Container size="lg">{children}</Container>
+    </main>
+    <Container size="lg">
+      <footer id="contact" className="contact">
+        <div className="contact-top"><span className="eyebrow">{siteCopy.contact.eyebrow}</span><span className="eyebrow">{siteCopy.contact.lead}</span></div>
+        <a className="contact-title" href={`mailto:${profile.identity.email}`} tabIndex={0}>{siteCopy.contact.title}<span aria-hidden="true">↗</span></a>
+        <div className="contact-links"><a href={`mailto:${profile.identity.email}`} tabIndex={0}>{profile.identity.email} <span aria-hidden="true">↗</span></a><div><a href={profile.identity.github} target="_blank" rel="noopener noreferrer" tabIndex={0}>GitHub ↗</a><a href={profile.identity.linkedin} target="_blank" rel="noopener noreferrer" tabIndex={0}>LinkedIn ↗</a></div></div>
+        <div className="footer-baseline"><span>© 2026 HYEONSE IM</span><span><a href={localizedPath(locale, '/studio/')}>{en ? 'Inside this site' : '이 사이트의 작업실'} ↗</a></span><a href="#top" tabIndex={0}>BACK TO TOP ↑</a></div>
+      </footer>
+    </Container>
   </PreferencesProvider></body></html>;
 }

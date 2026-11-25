@@ -1,0 +1,32 @@
+.glow {
+  display: none;
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: -1;
+  inline-size: clamp(380px, 40vw, 560px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, var(--accent-text), transparent 86%);
+  opacity: 0;
+  transform: translate3d(50vw, 40vh, 0) translate(-50%, -50%);
+  transition: opacity .18s ease-out, transform .3s cubic-bezier(.2, .75, .25, 1);
+  pointer-events: none;
+}
+
+.glow[data-visible] {
+  opacity: .11;
+}
+
+:global(:root[data-theme='dark']) .glow[data-visible] {
+  opacity: .145;
+}
+
+@media screen and (any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .glow {
+    display: block;
+  }
+}
+
+:global(:root[data-motion='reduced']) .glow {
+  display: none;
+}

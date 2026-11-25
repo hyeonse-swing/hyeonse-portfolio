@@ -7,16 +7,16 @@ activity:
   label: 'Public releases'
   start: '2026-10-12'
   end: '2026-11-20'
-  point: '2026-11-20'
-  pointLabel: 'v0.2.3 release'
-tags: ['macOS', 'AppKit', 'screen capture']
+  point: '2026-10-12'
+  pointLabel: 'v0.2.0 release'
+tags: ['macOS', 'AppKit', 'screen capture', 'hobby project']
 projects: ['hovershot']
 draft: false
 ---
 
 ## When the capture panel lands on another screen
 
-[HoverShot](/en/about/#personal-projects) is a macOS menu bar app that shows area, window and timed captures in floating panels above other apps. It supports annotations and OCR search in the shot library, plus trimming or GIF export for area and window recordings. A person can set each panel's opacity and click-through behavior and save its position and state.
+[HoverShot](/en/about/#hovershot) is a macOS menu bar app I built as a personal hobby project. It shows area, window and timed captures in floating panels above other apps. It supports annotations and OCR search in the shot library, plus trimming or GIF export for area and window recordings. A person can set each panel's opacity and click-through behavior and save its position and state.
 
 With multiple monitors, a capture is less useful if its floating panel opens on a different screen and has to be moved back. In v0.2.1, HoverShot calculated the target position for an area or window capture, but AppKit could change that position while creating the actual panel. The public v0.2.2 release fixes that path and also checks that a moved panel reopens where the user left it.
 

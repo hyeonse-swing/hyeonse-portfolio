@@ -3,9 +3,12 @@ title: 'YouTube Music Companion의 재생 제어와 Discord 활동'
 description: 'macOS 메뉴 막대에서 설치형 YouTube Music의 재생 정보를 확인하고, 미니 플레이어와 Discord 활동으로 연결한 과정을 정리합니다.'
 date: '2026-11-20'
 activity:
-  label: 'v0.18.0 릴리스'
-  start: '2026-11-20'
-tags: ['macOS', 'Swift', '음악']
+  label: '공개 개발과 릴리스'
+  start: '2026-06'
+  end: '2026-11-20'
+  point: '2026-06'
+  pointLabel: '공개 저장소 초기 이력'
+tags: ['macOS', 'Swift', '음악', '취미 프로젝트']
 projects: ['yt-music-companion']
 draft: false
 ---
@@ -13,6 +16,8 @@ draft: false
 ## 설치형 플레이어의 곡을 따라가기
 
 [YouTube Music Companion](/about/#yt-music-companion)은 설치형 YouTube Music과 함께 쓰는 macOS 메뉴 막대 앱이에요. 현재 곡의 제목·아티스트·표지·진행 시간을 미니 플레이어에 보여주고, 화면 가장자리에 붙였다가 닫을 수 있어요. Chrome·Edge·Brave에서 설치 안내를 열고, 설치된 플레이어를 찾아 실행하는 경로도 제공합니다.
+
+개인 취미 프로젝트로 플레이어 경험을 설계하면서 노코드로 어디까지 구현할 수 있는지도 시험해 봤어요. 공개 저장소에는 2026년 6월부터 작업 이력이 남아 있고, 이 글은 이후 추가한 재생 제어와 11월 공개 버전의 Discord 기능을 함께 다뤄요.
 
 헤드셋 재생 버튼이 다른 오디오 앱으로 향할 수 있어서 macOS의 미디어 제어 대상을 살폈어요. 공개 v0.16.3을 실행한 Apple Silicon Mac에서 YouTube Music과 QuickTime을 함께 재생하고 물리 Bluetooth 버튼을 눌렀습니다. 실행 중 `Pause`는 YouTube Music에 전달됐고, Companion을 종료해 우선권을 해제한 뒤에는 QuickTime에 전달됐어요. 두 경우 모두 명령 대상과 플레이어의 실제 상태를 대조했습니다.
 

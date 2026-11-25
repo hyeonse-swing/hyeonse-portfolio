@@ -3,9 +3,12 @@ title: 'Following playback and Discord activity with YouTube Music Companion'
 description: 'How a macOS menu bar app follows an installed YouTube Music player, shows a mini player, and shares current-track activity with Discord.'
 date: '2026-11-20'
 activity:
-  label: 'v0.18.0 release'
-  start: '2026-11-20'
-tags: ['macOS', 'Swift', 'music']
+  label: 'Public development and releases'
+  start: '2026-06'
+  end: '2026-11-20'
+  point: '2026-06'
+  pointLabel: 'Early public repository history'
+tags: ['macOS', 'Swift', 'music', 'hobby project']
 projects: ['yt-music-companion']
 draft: false
 ---
@@ -13,6 +16,8 @@ draft: false
 ## Following the installed player
 
 [YouTube Music Companion](/en/about/#yt-music-companion) is a macOS menu bar app for an installed YouTube Music player. Its mini player shows the current title, artist, cover, and playback progress, and can be docked to a screen edge or closed. It also guides installation in Chrome, Edge, or Brave, then finds and opens the installed player.
+
+I designed the player experience as a personal hobby project and tested how far I could get with no-code tools. The public repository contains work from June 2026. This note covers playback controls added later and the Discord features released in November.
 
 Headset playback controls can reach another audio app, so I checked which player macOS controlled. On an Apple Silicon Mac running public v0.16.3, I played YouTube Music and QuickTime together and pressed a physical Bluetooth headset button. `Pause` reached YouTube Music while Companion was running. After quitting Companion and releasing its priority, `Pause` reached QuickTime. I compared the command target with both players' actual states.
 

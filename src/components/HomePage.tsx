@@ -18,8 +18,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
   return (
     <div className={styles.page}>
       <header className={styles.intro} id="top">
-        <h1>{profile.identity.name}<span aria-hidden="true">.</span></h1>
-        <p>{en ? 'Frontend Engineer' : '프론트엔드 엔지니어'}</p>
+        <p className={styles.eyebrow}>{profile.identity.name} <span aria-hidden="true">·</span> {en ? 'Frontend Engineer' : '프론트엔드 엔지니어'}</p>
+        <h1>{en ? 'Work and notes' : '업무와 기록'}<span aria-hidden="true">.</span></h1>
       </header>
 
       <section className={styles.section} id="work" aria-labelledby="work-title">

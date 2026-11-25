@@ -173,7 +173,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       id: 'yt-music-companion',
       name: 'YouTube Music Companion',
       category: 'NATIVE DESKTOP APP',
-      summary: 'Mac에서 다른 앱을 쓰면서 재생 중인 곡의 가사를 보고, Discord에서 친구에게 그 곡을 공유하는 메뉴 막대 앱이에요.',
+      summary: '가사를 띄우고 지금 듣는 곡을 Discord에서 공유하는 macOS 메뉴 막대 앱이에요. 직접 설계하면서 노코드로 어디까지 만들 수 있는지 시험해 본 취미 프로젝트예요.',
       problem: '작업 창을 떠나지 않고 가사를 읽고, 친구가 내 프로필에서 지금 듣는 곡을 바로 열 수 있게 하고 싶었어요.',
       decisions: [
         { title: '플레이어에서 곡 주소 읽기', detail: '제목이 같은 다른 곡을 열지 않도록 설치형 YouTube Music 플레이어의 현재 영상 ID를 공유 링크에 사용해요.' },
@@ -350,7 +350,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
       id: 'yt-music-companion',
       name: 'YouTube Music Companion',
       category: 'NATIVE DESKTOP APP',
-      summary: 'A Mac menu bar app for following lyrics over other apps and sharing the song you are playing with friends on Discord.',
+      summary: 'A Mac menu bar app that puts lyrics over other apps and shares the current track on Discord. I designed it as a hobby project to see how far I could get with no-code tools.',
       problem: 'I wanted to read lyrics without leaving my work and let a friend open the exact song from my Discord profile.',
       decisions: [
         { title: 'Read the song link from the player', detail: 'The shared link uses the video ID from the installed YouTube Music player, so songs with the same title lead to the right recording.' },
@@ -373,4 +373,8 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
 
 export function getPersonalProjects(locale: Locale): readonly PersonalProject[] {
   return personalProjects[locale];
+}
+
+export function isHobbyProject(id: string): boolean {
+  return id === 'hovershot' || id === 'yt-music-companion';
 }
