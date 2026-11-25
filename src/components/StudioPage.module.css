@@ -36,6 +36,8 @@
 .spaceDemo { display: flex; gap: calc(24px * var(--space-factor)); margin: 40px 0 25px; }.spaceDemo i { width: 65px; height: 65px; background: var(--accent-solid); border-radius: var(--radius-card); }.spaceDemo i:nth-child(2) { opacity: .65; }.spaceDemo i:nth-child(3) { opacity: .3; }
 .specimens h3 { font-size: 22px; letter-spacing: -.045em; font-weight: 600; }
 .makingRows { margin-top: 42px; }.makingRows article { display: grid; grid-template-columns: 35px 1fr 1.5fr; gap: 30px; border-top: 1px solid var(--line); padding: calc(32px * var(--space-factor)) 0; }
+.badge { background: var(--surface); border-radius: var(--radius-card); padding-inline: 10px; scroll-margin-top: 24px; }
+.makingRows h3 a { margin-top: 0; font-size: inherit; }
 .makingRows article>span { font-size: 11px; color: var(--accent-text); padding-top: 6px; }.makingRows h3 { font-size: 20px; letter-spacing: -.04em; font-weight: 550; line-height: 1.7; }.makingRows p { font-size: 14px; color: var(--muted); line-height: 1.95; letter-spacing: -.02em; }
 .backHome { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 32px; padding: 28px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-size: clamp(24px, 4vw, 54px); font-weight: 600; letter-spacing: -.05em; }.backHome>span { color: var(--accent-text); }
 @media(max-width: 1050px) { .playground { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; }.intro { gap: 40px; }.introCopy p { font-size: 14px; }.sampleArt { height: 180px; }.sampleArt span { font-size: 130px; } }

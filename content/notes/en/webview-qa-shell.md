@@ -16,7 +16,7 @@ draft: false
 
 ## One page, two safe-area modes
 
-Once a page moves from the browser into an app WebView, it is worth checking who handles the notch, status bar, and bottom gesture area. I published [WebView QA Shell](/en/#archive-webview-qa-shell) to open local and staging web services in iOS WKWebView and Android WebView. The native shell is a React Native app; the optional web QA console sits in a separate layer. Launch paths and inspection features are in the [public README](https://github.com/hyeonse-swing/webview-qa-shell#readme).
+Once a page moves from the browser into an app WebView, it is worth checking who handles the notch, status bar, and bottom gesture area. I published [WebView QA Shell](/en/work/archive/#archive-webview-qa-shell) to open local and staging web services in iOS WKWebView and Android WebView. The native shell is a React Native app; the optional web QA console sits in a separate layer. Launch paths and inspection features are in the [public README](https://github.com/hyeonse-swing/webview-qa-shell#readme).
 
 In `Edge` mode the page draws to the device edges. In `Safe` mode native insets keep it within the safe area. Switching between them lets me inspect a page that handles its own insets and one framed by the shell. The QA panel handles target URLs and navigation, while the web console exposes viewport, storage, and logs. Local targets and staging URLs can both be opened in the same shell. Back navigation is another behavior to check outside the desktop browser.
 

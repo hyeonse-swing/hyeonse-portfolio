@@ -2,6 +2,7 @@ import type { Locale } from '../lib/locale';
 import { localizedPath } from '../lib/locale';
 import { PreferencesPanel } from './SitePreferences';
 import FrontendLab from './FrontendLab';
+import IdentityBadge from './IdentityBadge';
 import styles from './StudioPage.module.css';
 
 export default function StudioPage({ locale }: { locale: Locale }) {
@@ -41,8 +42,11 @@ export default function StudioPage({ locale }: { locale: Locale }) {
       <div className={styles.sectionTitle}><span className="eyebrow">02 / ABOUT THIS SITE</span><h2 id="making-title">{en ? 'About this site' : '이 사이트의 구성'}</h2></div>
       <div className={styles.makingRows}>
         <article><span>01</span><h3>{en ? 'Projects and case studies' : '프로젝트와 사례'}</h3><p>{en ? 'The home page features four projects. Each detail page explains my role, decisions, and validation. Diagrams are reconstructed for explanation, and figures include their measurement conditions.' : '홈에는 대표 작업 네 개를 모았어요. 각 상세 페이지에서는 맡은 역할, 구현 과정에서 내린 결정과 검증 결과를 설명해요. 도식은 설명용으로 재구성했고, 수치는 측정 조건과 함께 적었어요.'}</p></article>
-        <article><span>02</span><h3>{en ? 'Interactive badge' : '움직이는 배지'}</h3><p>{en ? 'On desktop and mobile, drag or tap the hanging badge to move and flip it. The lanyard follows the card, then settles when you let go. Arrow keys move it, Enter flips it and Home resets it. Reduced motion, disabled JavaScript or WebGL errors show the static badge.' : '데스크톱과 모바일에서 끈에 매달린 배지를 드래그하거나 탭해 움직이고 뒤집을 수 있어요. 놓으면 끈과 카드가 천천히 멈춰요. 방향키로 움직이고 Enter로 뒤집으며 Home으로 제자리에 놓아요. 움직임 감소 설정·JavaScript 비활성화·WebGL 오류에서는 정적 배지가 보여요.'}</p></article>
+        <article><span>02</span><h3><a className="text-link" href="#badge">{en ? 'Interactive badge' : '움직이는 배지'}</a></h3><p>{en ? 'Drag or tap the badge to move and flip it. Arrow keys move it, Enter flips it and Home resets it.' : '드래그하거나 탭해 배지를 움직이고 뒤집을 수 있어요. 방향키로 움직이고 Enter로 뒤집으며 Home으로 제자리에 놓아요.'}</p></article>
         <article><span>03</span><h3>{en ? 'Static pages and display controls' : '정적 페이지와 화면 설정'}</h3><p>{en ? 'The site uses Next.js, React and TypeScript. Its main content is exported as static pages, while the badge, display controls and interaction labs run in the browser. The saved theme is applied before the page is drawn.' : 'Next.js와 React, TypeScript로 만들었어요. 본문은 정적 페이지로 제공하고, 배지·화면 설정·프론트엔드 실험은 브라우저에서 동작해요. 저장된 테마는 화면이 그려지기 전에 적용해요.'}</p></article>
+      </div>
+      <div className={styles.badge} id="badge">
+        <IdentityBadge locale={locale} />
       </div>
       <a href={localizedPath(locale, '/')} className={styles.backHome}>{en ? 'See the updated display' : '바뀐 화면 보러 가기'} <span aria-hidden="true">↗</span></a>
     </section>

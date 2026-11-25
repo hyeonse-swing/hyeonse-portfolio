@@ -29,7 +29,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
     add({ id: `note-${note.slug}`, title: note.title, category: 'note', href: href(`/notes/${note.slug}/`), summary: note.description, content: note.body, keywords: note.tags, featured: false });
   }
 
-  add({ id: 'home', title: en ? 'Selected work' : '대표 작업', category: 'page', href: href('/#work'), summary: siteCopy.work.intro.join(' '), content: text(siteCopy.work.heading.join(' '), ...siteCopy.work.evidence), keywords: [], featured: true });
+  add({ id: 'home', title: en ? 'Selected work' : '대표 작업', category: 'page', href: href('/#work'), summary: siteCopy.work.evidence[0], content: text(siteCopy.work.heading, ...siteCopy.work.evidence), keywords: [], featured: true });
   add({ id: 'about', title: en ? 'About Hyeonse Im' : '임현세 소개', category: 'page', href: href('/about/#introduction-title'), summary: careerIntroduction, content: careerIntroduction, keywords: [en ? 'Frontend Engineer' : '프론트엔드 엔지니어'], featured: true });
   add({ id: 'studio', title: en ? 'Display settings' : '화면 설정', category: 'page', href: href('/studio/'), summary: en ? 'Try different colors, spacing and corners.' : '색, 간격, 모서리를 직접 골라 보세요.', content: en ? 'Theme accent density corners motion. About this site and design system.' : '테마 강조색 밀도 모서리 움직임. 사이트 구성과 디자인 시스템.', keywords: [], featured: false });
   add({ id: 'responsive-lab', title: en ? 'Reflow inside a container' : '너비에 따라 다시 배치', category: 'skill', href: href('/studio/#responsive-lab'), summary: en ? 'Resize a live card to explore CSS container queries.' : '카드 너비를 바꾸며 CSS 컨테이너 쿼리에 따른 배치를 살펴보세요.', content: en ? 'Card width. Compact and wide layouts. React CSS Container Queries.' : '카드 너비. 좁게 넓게. 반응형 컴포넌트. React CSS Container Queries.', keywords: ['CSS', 'React', 'ResizeObserver'], featured: false });
@@ -55,7 +55,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
 
   add({ id: 'about-scope', title: en ? 'Selected case studies' : '대표 사례', category: 'experience', href: href('/about/#scope-title'), summary: aboutCases[0]?.description ?? '', content: aboutCases.map(item => text(item.title, item.description)).join(' '), keywords: [], featured: false });
   add({ id: 'about-history', title: en ? 'Experience' : '경력', category: 'experience', href: href('/about/#history-title'), summary: profile.timeline.map(item => text(item.period, item.title)).join(' · '), content: text(...profile.timeline.map(item => text(item.period, item.title, item.description)), profile.education.school, profile.education.major, profile.certificate.name, profile.certificate.earned), keywords: [], featured: true });
-  add({ id: 'toolbox', title: en ? 'Technology toolbox' : '사용 기술', category: 'skill', href: href('/#toolbox'), summary: profile.technology.join(' · '), content: profile.technology.join(' '), keywords: profile.technology, featured: false });
+  add({ id: 'toolbox', title: en ? 'Technology toolbox' : '사용 기술', category: 'skill', href: href('/about/#toolbox'), summary: profile.technology.join(' · '), content: profile.technology.join(' '), keywords: profile.technology, featured: false });
 
   for (const project of projects) {
     add({ id: `personal-${project.id}`, title: project.name, category: 'tool', href: href(`/about/#${project.id}`), summary: project.summary, content: text(project.problem, ...project.highlights, ...project.decisions.map(decision => text(decision.title, decision.detail)), project.verification, project.release), keywords: [...project.stack, project.category], identifiers: projectIdentifiers[project.id], featured: project.id === 'flow-qa' });
@@ -63,7 +63,7 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
 
   for (const item of profile.otherWork) {
     const detail = projectDetails[item.id];
-    add({ id: `archive-${item.id}`, title: item.title, category: 'project', href: href(`/#archive-${item.id}`), summary: detail?.lead ?? item.summary, content: text(item.period, item.scope, ...(detail?.contributions.map(part => text(part.title, part.detail)) ?? [])), keywords: detail?.tags ?? [], featured: false });
+    add({ id: `archive-${item.id}`, title: item.title, category: 'project', href: href(`/work/archive/#archive-${item.id}`), summary: detail?.lead ?? item.summary, content: text(item.period, item.scope, ...(detail?.contributions.map(part => text(part.title, part.detail)) ?? [])), keywords: detail?.tags ?? [], featured: false });
   }
 
   return { locale, documents };

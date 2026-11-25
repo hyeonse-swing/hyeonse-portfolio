@@ -72,7 +72,7 @@
   line-height: 1.3;
 }
 
-.section :is(h2, ul), .section, .subheading, .header h1 {
+.section :is(h2, ul), .section, .subheading, .header h1, .toolbox {
   scroll-margin-top: 24px;
 }
 
@@ -123,6 +123,24 @@
 .period, .background span {
   color: var(--muted);
   font-size: var(--portfolio-meta-font);
+  line-height: 1.8;
+}
+
+.toolbox {
+  padding: 17px 0;
+  border-top: 1px solid var(--line);
+}
+
+.toolbox h3 {
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.toolbox p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--portfolio-body-font);
   line-height: 1.8;
 }
 

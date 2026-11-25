@@ -13,7 +13,7 @@ export function getNoteProjects(locale: Locale) {
       id: work.id, name: work.short, href: localizedPath(locale, `/work/${work.id}/`),
     })),
     ...profile.otherWork.map(work => ({
-      id: work.id, name: work.title, href: localizedPath(locale, `/#archive-${work.id}`),
+      id: work.id, name: work.title, href: localizedPath(locale, `/work/archive/#archive-${work.id}`),
     })),
   ];
 }

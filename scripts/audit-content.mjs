@@ -11,7 +11,7 @@ const htmlFiles = entries.filter(file => file.endsWith('.html') && !file.startsW
 const { getAllNotes, getNoteListPages } = loadNotesModule();
 const notes = getAllNotes();
 const career = JSON.parse(await readFile('src/data/content.json', 'utf8'));
-const basePaths = ['/', '/about/', '/studio/', ...career.featuredCases.map(item => `/work/${item.id}/`)];
+const basePaths = ['/', '/about/', '/work/archive/', '/studio/', ...career.featuredCases.map(item => `/work/${item.id}/`)];
 const expectedPaths = [...basePaths.flatMap(path => [path, `/en${path}`]),
   ...getNoteListPages(notes).map(entry => `${entry.locale === 'en' ? '/en' : ''}${entry.path}`),
   ...notes.map(note => `${note.locale === 'en' ? '/en' : ''}/notes/${note.slug}/`)];

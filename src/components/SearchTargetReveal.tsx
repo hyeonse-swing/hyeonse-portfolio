@@ -14,14 +14,16 @@ export default function SearchTargetReveal() {
       catch { return; }
       const target = document.getElementById(id);
       if (!(target instanceof HTMLElement)) return;
-      const revealDetails = target instanceof HTMLDetailsElement && target.hasAttribute('data-search-target');
-      if (revealDetails) target.open = true;
+      const details = target.closest<HTMLDetailsElement>('details[data-search-target]');
+      const revealedAncestor = details && details !== target && !details.open;
+      if (details) details.open = true;
       frame = requestAnimationFrame(() => {
-        if (revealDetails) {
+        if (details === target) {
           target.scrollIntoView({ block: 'start' });
           target.querySelector('summary')?.focus({ preventScroll: true });
           return;
         }
+        if (revealedAncestor) target.scrollIntoView({ block: 'start' });
         const labelledHeading = target.getAttribute('aria-labelledby')?.split(/\s+/)
           .map(id => document.getElementById(id)).find(node => node instanceof HTMLElement);
         const focusTarget = target.matches('a[href], button, input, select, textarea, summary, [tabindex]')

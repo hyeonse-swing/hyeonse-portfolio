@@ -12,6 +12,6 @@ draft: false
 
 ## 옵션 목록이 바뀌었을 때
 
-휠 피커에서 선택 값은 그대로인데 옵션 목록이 바뀌면, 그 값이 놓일 위치는 달라질 수 있어요. `react-wheel-picker`에서는 이런 경우 선택 위치가 이전 인덱스에 남는 문제가 있었습니다. 수정 내역은 [공개 기여 기록](/#archive-opensource)과 [병합된 PR #54](https://github.com/ncdai/react-wheel-picker/pull/54)에서 볼 수 있어요.
+휠 피커에서 선택 값은 그대로인데 옵션 목록이 바뀌면, 그 값이 놓일 위치는 달라질 수 있어요. `react-wheel-picker`에서는 이런 경우 선택 위치가 이전 인덱스에 남는 문제가 있었습니다. 수정 내역은 [공개 기여 기록](/work/archive/#archive-opensource)과 [병합된 PR #54](https://github.com/ncdai/react-wheel-picker/pull/54)에서 볼 수 있어요.
 
 수정한 곳은 `selectByValue(value)`를 호출하는 `useEffect`의 의존성 배열 한 줄이에요. 기존 `value`, `valueProp`에 `options`를 추가했습니다. 값이 같아도 옵션 목록이 바뀌면 선택 값을 기준으로 위치를 다시 맞추도록 했어요. PR diff의 변경은 이 한 줄이며, 2025년 6월 30일 병합됐어요.

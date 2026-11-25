@@ -61,6 +61,10 @@ export default function AboutPage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
+        <div className={styles.toolbox} id="toolbox">
+          <h3>{en ? 'Tools and technologies' : '사용 기술'}</h3>
+          <p>{profile.technology.join(' · ')}</p>
+        </div>
         <dl className={styles.background}>
           <div>
             <dt>{en ? 'Education' : '학력'}</dt>

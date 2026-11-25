@@ -6,7 +6,7 @@ import { getAllNotes, getNoteListPages } from '../lib/notes';
 
 export const dynamic = 'force-static';
 
-const paths = ['/', '/about/', '/studio/', ...workIds.map(id => `/work/${id}/`)];
+const paths = ['/', '/about/', '/work/archive/', '/studio/', ...workIds.map(id => `/work/${id}/`)];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = paths.flatMap(path => {
