@@ -1,0 +1,175 @@
+.page {
+  max-width: calc(67rem + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 0 var(--gutter) calc(60px * var(--space-factor));
+}
+
+.header {
+  padding-top: calc(clamp(14px, 3vw, 42px) * var(--space-factor));
+  border-bottom: 1px solid var(--line);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.back:hover, .next:hover strong {
+  color: var(--accent-text);
+}
+
+.header h1 {
+  max-width: 20ch;
+  margin-top: 10px;
+  font-size: clamp(2.1rem, 5.2vw, 4.25rem);
+  font-weight: 650;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.period {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.period span {
+  margin-inline-end: 8px;
+  font-weight: 650;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px clamp(26px, 5vw, 64px);
+  margin: 0;
+  padding-block: calc(clamp(22px, 4vw, 44px) * var(--space-factor));
+}
+
+.summary dt, .verification dt {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.summary dd {
+  max-width: 50ch;
+  margin: 6px 0 0;
+  font-size: var(--portfolio-body-font);
+  line-height: 1.75;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(132px, 190px) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 78px);
+  padding-top: calc(clamp(26px, 5vw, 70px) * var(--space-factor));
+}
+
+.body > section + section {
+  margin-top: calc(clamp(32px, 6vw, 64px) * var(--space-factor));
+}
+
+.body > section > h2 {
+  margin-bottom: 12px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -.035em;
+}
+
+.body > section > p, .decisions p, .verification dd {
+  max-width: 68ch;
+  font-size: var(--portfolio-body-font);
+  line-height: 1.85;
+}
+
+.decisions, .verification {
+  margin: 0;
+  padding: 0;
+}
+
+.decisions {
+  list-style: none;
+}
+
+.decisions li, .verification > div {
+  border-top: 1px solid var(--line);
+  padding: 15px 0;
+}
+
+.decisions h3 {
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.decisions p, .verification dd {
+  margin: 5px 0 0;
+}
+
+.implementation {
+  border-block: 1px solid var(--line);
+  scroll-margin-top: 48px;
+}
+
+.implementation summary {
+  min-height: 44px;
+  padding-block: 12px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.implementation summary::marker, .implementation summary:hover {
+  color: var(--accent-text);
+}
+
+.diagram {
+  margin: 16px 0 22px;
+}
+
+.next {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  border-top: 1px solid var(--line);
+  margin-top: calc(36px * var(--space-factor));
+  padding-block: 20px;
+  font-size: 14px;
+}
+
+.next strong {
+  font-size: clamp(1rem, 2.3vw, 1.35rem);
+  font-weight: 650;
+}
+
+.next strong span {
+  color: var(--accent-text);
+}
+
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 580px) {
+  .summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .summary dd, .body > section > p, .decisions p, .verification dd {
+    font-size: 15px;
+  }
+}

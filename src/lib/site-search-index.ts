@@ -45,12 +45,13 @@ export function buildSearchIndex(locale: Locale): SearchIndex {
     if (!story || !engineering) continue;
     const name = work.short;
     const sharedKeywords = [work.brand, ...work.tags];
-    add({ id: `work-${work.id}`, title: name, category: 'project', href: href(base), summary: work.subtitle, content: text(work.period, work.role, work.outcome), keywords: sharedKeywords, featured: true });
-    add({ id: `work-${work.id}-context`, title: text(name, siteCopy.case.contextTitle), category: 'project', href: href(`${base}#context`), summary: story.overview[0], content: text(...story.overview, ...story.scope, story.collaboration), keywords: sharedKeywords, featured: false });
-    add({ id: `work-${work.id}-decisions`, title: text(name, siteCopy.case.decisionsTitle), category: 'project', href: href(`${base}#decisions`), summary: story.decisions[0]?.title ?? work.subtitle, content: story.decisions.map(item => text(item.title, item.context, item.choice, item.check)).join(' '), keywords: sharedKeywords, featured: false });
+    add({ id: `work-${work.id}`, title: name, category: 'project', href: href(base), summary: story.role, content: text(work.period, story.role, work.outcome), keywords: sharedKeywords, featured: true });
+    add({ id: `work-${work.id}-context`, title: text(name, siteCopy.case.contextTitle), category: 'project', href: href(`${base}#context`), summary: story.overview, content: story.overview, keywords: sharedKeywords, featured: false });
+    add({ id: `work-${work.id}-decisions`, title: text(name, siteCopy.case.decisionsTitle), category: 'project', href: href(`${base}#decisions`), summary: story.decisions[0]?.title ?? '', content: story.decisions.map(item => text(item.title, item.detail)).join(' '), keywords: sharedKeywords, featured: false });
     add({ id: `work-${work.id}-engineering`, title: text(name, siteCopy.case.engineeringTitle), category: 'skill', href: href(`${base}#engineering`), summary: engineering.lead, content: text(engineering.flowCaption, ...engineering.flow.map(item => text(item.title, item.detail)), ...engineering.details.map(item => text(item.label, item.title, item.body))), keywords: [...sharedKeywords, ...engineering.stack], featured: false });
-    add({ id: `work-${work.id}-verification`, title: text(name, siteCopy.case.verificationTitle), category: 'project', href: href(`${base}#verification`), summary: story.verification[0]?.detail ?? work.outcome, content: text(...story.verification.map(item => text(item.title, item.detail)), work.outcome), keywords: sharedKeywords, featured: false });
-    add({ id: `work-${work.id}-reflection`, title: text(name, siteCopy.case.reflectionTitle), category: 'project', href: href(`${base}#reflection`), summary: story.takeaway, content: story.takeaway, keywords: sharedKeywords, featured: false });
+    if (story.verification.length > 0) {
+      add({ id: `work-${work.id}-verification`, title: text(name, siteCopy.case.verificationTitle), category: 'project', href: href(`${base}#verification`), summary: story.verification[0].detail, content: story.verification.map(item => text(item.title, item.detail)).join(' '), keywords: sharedKeywords, featured: false });
+    }
   }
 
   add({ id: 'about-scope', title: en ? 'Selected case studies' : '대표 사례', category: 'experience', href: href('/about/#scope-title'), summary: aboutCases[0]?.description ?? '', content: aboutCases.map(item => text(item.title, item.description)).join(' '), keywords: [], featured: false });

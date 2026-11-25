@@ -14,10 +14,13 @@ export const siteCopyEn = {
     title: 'GET IN TOUCH',
   },
   case: {
-    contextTitle: 'Work context',
-    decisionsTitle: 'Decisions and implementation',
+    roleTitle: 'Role',
+    outcomeTitle: 'Result',
+    periodTitle: 'Period',
+    contextTitle: 'Context',
+    decisionsTitle: 'Key decisions',
     engineeringTitle: 'Implementation details',
-    verificationTitle: 'Verification and results',
-    reflectionTitle: 'Reflections',
+    verificationTitle: 'Verification',
+    detailsToggle: 'View implementation flow',
   },
 } as const;

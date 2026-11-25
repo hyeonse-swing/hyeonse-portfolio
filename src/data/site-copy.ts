@@ -14,10 +14,13 @@ export const siteCopy = {
     title: 'GET IN TOUCH',
   },
   case: {
+    roleTitle: '맡은 일',
+    outcomeTitle: '결과',
+    periodTitle: '기간',
     contextTitle: '업무 맥락',
-    decisionsTitle: '선택과 구현',
-    engineeringTitle: '기술적 구현',
-    verificationTitle: '검증과 결과',
-    reflectionTitle: '작업에서 확인한 점',
+    decisionsTitle: '주요 선택',
+    engineeringTitle: '구현 상세',
+    verificationTitle: '확인한 내용',
+    detailsToggle: '구현 과정 펼치기',
   },
 } as const;

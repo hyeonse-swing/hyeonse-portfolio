@@ -30,7 +30,7 @@
         "I adjusted screens and permission-based navigation for each user type, along with vehicle, store, and insurance request fields, to match the actual response contract."
       ],
       "verification": "After Playwright E2E tests, I inspected the screens and found a B2C response missing the business information object, leaving fields blank. After a backend response change and a frontend condition fix, I repeated automated and manual checks.",
-      "outcome": "Implemented staff order and contract flows and self-service lookup screens for business customers, and checked the workflows before and after the APIs were finalized.",
+      "outcome": "Built staff flows for first orders and sending contracts, plus business-customer lookup for contracts and payments.",
       "tags": ["React", "TypeScript", "TanStack Query", "Playwright", "Operations Admin"]
     },
     {
@@ -45,7 +45,7 @@
         "I worked on permissions and sidebar navigation to connect the existing Admin and V2 screens."
       ],
       "verification": "The December 2025 Admin V2 release included subscription, task, and factoring screens integrated with the Fleet API. At the time, task details used V2 lookup first with a V1 fallback path.",
-      "outcome": "Contributed to the Admin V2 screen and API transition while old and new task data coexisted.",
+      "outcome": "Helped keep legacy and new task lookups available in the team's Admin V2 release. The related changes were merged in December 2025.",
       "tags": ["React", "TypeScript", "Vite", "TanStack Query", "Operations System"]
     },
     {
@@ -60,7 +60,7 @@
         "I developed bus monitoring, Kakao Map route and stop management, schedule printing, and operator guides."
       ],
       "verification": "I connected academy-specific dispatch lookup, mapped routes, boarding status and stop changes, and access limits in the new operations screens. I also coordinated exceptional student records and the response contract with backend colleagues.",
-      "outcome": "Rebuilt distributed operations functions into workflows in the new Admin and contributed to initial stabilization.",
+      "outcome": "Connected academy dispatch, routes, and boarding work in the new Admin operations screen; the related changes were merged.",
       "tags": ["React", "TypeScript", "TanStack Router", "Kakao Map", "Operations Platform"]
     },
     {
@@ -75,7 +75,7 @@
         "To address the first image conversion delay found in production, I later generated 106 responsive WebP assets from 34 originals at build time."
       ],
       "verification": "I compared medians from three before and five after Lighthouse mobile simulation runs under the same local production-build conditions.",
-      "outcome": "In local Lighthouse mobile simulations, the Performance score rose from 54 to 95 and initial transfer fell from 19.805 to 0.488 MB (a 97.5% reduction).",
+      "outcome": "In local Lighthouse mobile simulations, medians from 3 runs before and 5 after showed Performance rising from 54 to 95 and initial transfer falling from 19.805 to 0.488 MB (a 97.5% reduction).",
       "tags": ["Next.js", "TypeScript", "Lighthouse", "WebP", "Performance"]
     }
   ],
