@@ -26,6 +26,4 @@ In public v0.1.3, a connection refusal or HTTP 503 can be followed by `Retry` to
 
 Fresh copies of the public source were run in an iOS 18.6 simulator and an Android 16 emulator. The checks covered initial loading, switching `Edge` and `Safe`, recovery to a 200 response at the same URL, and pasting the report through each system clipboard. Both environments used synthetic pages and data with clipboard sharing to the host Mac disabled. The same Flow QA case also clicked `Retry` and checked recovery on both platforms.
 
-The README lists typecheck, test, build, and E2E commands. I did not rerun them while updating this article. Physical devices, production services, and every iOS or Android version were outside these checks.
-
 - [WebView QA Shell v0.1.3 release](https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3)

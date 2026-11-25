@@ -1,7 +1,9 @@
-.root{margin:clamp(42px,7vw,88px) 0;min-width:0}
-.heading{display:grid;grid-template-columns:minmax(110px,.55fr) minmax(0,2fr);gap:clamp(18px,3vw,50px);padding:22px 0 32px;border-top:1px solid var(--line)}
-.heading h3{font-size:clamp(27px,3vw,43px);font-weight:600;letter-spacing:-.055em;line-height:1.35}
-.heading p{max-width:660px;margin-top:13px;color:var(--muted);font-size:14px;line-height:1.85}
+.root { margin-top: 24px; min-width: 0; border-block: 1px solid var(--line); scroll-margin-top: 24px; }
+.root[open] { padding-bottom: 18px; }
+.summary { padding-block: 12px; min-height: 44px; cursor: pointer; font-size: var(--portfolio-body-font); font-weight: 650; line-height: 1.5; }
+.summary::marker, .summary:hover { color: var(--accent-text); }
+.summary:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.intro { margin: 4px 0 20px; color: var(--muted); font-size: var(--portfolio-body-font); line-height: 1.8; }
 .micro{display:block;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;font-weight:600;letter-spacing:.035em;line-height:1.7}
 .frame{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);min-width:0}
 .toolbar{display:flex;justify-content:space-between;gap:16px;padding:15px 0;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px}
@@ -17,7 +19,7 @@
 .tabs button:focus-visible,.stageHead a:focus-visible,.all summary:focus-visible{outline:2px solid var(--accent-text);outline-offset:-2px}
 .selected{padding:clamp(20px,3vw,35px) 0 32px;min-width:0}
 .stageHead{display:flex;align-items:end;justify-content:space-between;gap:20px}
-.stageHead h4{margin:7px 0 0;font-size:clamp(24px,3vw,38px);font-weight:600;letter-spacing:-.05em;line-height:1.35;overflow-wrap:anywhere}
+.stageHead h3{margin:0;font-size:clamp(24px,3vw,38px);font-weight:600;letter-spacing:-.05em;line-height:1.35;overflow-wrap:anywhere}
 .stageHead a{flex:none;padding:7px 0;border-bottom:1px solid currentColor;color:var(--accent-text);font-size:12px;font-weight:600}
 .io{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,60px);margin-top:28px}
 .io>div{padding-top:14px;border-top:1px solid var(--line);min-width:0}
@@ -32,20 +34,20 @@
 .allBody{padding-bottom:18px}
 .allBody article{padding:26px 0;border-top:1px solid var(--line)}
 .allBody article>.micro{margin-bottom:12px;color:var(--accent-text)}
-.allBody .stageHead h4{font-size:22px}
+.allBody .stageHead h3{font-size:22px}
 .note{max-width:850px;margin-top:18px;color:var(--muted);font-size:12px;line-height:1.9}
-@media(max-width:700px){.heading{grid-template-columns:1fr;gap:12px}.heading p{font-size:12px}.tabs button{min-height:76px;padding:10px;display:block}.tabs button strong{display:block;margin-top:5px;font-size:11px}.tabs button span:last-child{display:none}.stageHead{align-items:start;flex-direction:column;gap:10px}.io{gap:16px}.io p{font-size:12px}.handoff{grid-template-columns:1fr;gap:7px}.allBody .stageHead h4{font-size:19px}}
+@media(max-width:700px){.tabs button{min-height:76px;padding:10px;display:block}.tabs button strong{display:block;margin-top:5px;font-size:11px}.tabs button span:last-child{display:none}.stageHead{align-items:start;flex-direction:column;gap:10px}.io{gap:16px}.io p{font-size:12px}.handoff{grid-template-columns:1fr;gap:7px}.allBody .stageHead h3{font-size:19px}}
 @media(max-width:380px){.toolbar{font-size:9px}.tabs button{padding:8px}.io{grid-template-columns:1fr;gap:15px}.example{padding:14px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.all summary span{transform:none!important}}
 :global(:root[data-motion='reduced']) .all summary span{transform:none!important}
 
 .micro, .toolbar, .tabs button span:first-child { font-size: var(--portfolio-meta-font); }
-.heading p, .io p, .example, .handoff, .note { font-size: 15px; }
+.io p, .example, .handoff, .note { font-size: 15px; }
 .tabs button strong { font-size: clamp(13px, 1.25vw, 16px); }
 .stageHead a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
 .all summary { font-size: 14px; }
 @media (max-width: 700px) {
-  .heading p, .io p, .example, .handoff, .note { font-size: 14px; }
+  .io p, .example, .handoff, .note { font-size: 14px; }
   .tabs button strong { font-size: 13px; }
   .toolbar, .micro, .tabs button span:first-child { font-size: 12px; }
 }

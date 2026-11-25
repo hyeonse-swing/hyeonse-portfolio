@@ -11,16 +11,16 @@ const copy = {
     eyebrow: 'LOCAL MEASUREMENT / 2026', title: '측정 조건과 함께 보는 변화',
     intro: '실험을 고르고 지표별 전후 값을 비교해 보세요.', group: '측정 실험', metric: '비교 지표',
     before: '개선 전', after: '개선 후', higher: '높을수록 좋은 지표', lower: '낮을수록 좋은 지표',
-    conditions: '측정 조건', limitation: '해석 범위',
-    caveat: '로컬 시뮬레이션과 별도 폰트 실험의 기록이에요. 실사용자 성능이나 전환율을 측정한 결과는 아니에요. 홈페이지는 렌더링·미디어·폰트·외부 콘텐츠를 함께 바꿔 개별 변경의 효과를 분리할 수 없어요.',
+    conditions: '측정 조건', changes: '홈페이지 개선 범위',
+    combinedChanges: '렌더링 구조와 미디어, 폰트, 외부 콘텐츠 로딩을 함께 변경한 뒤 전후를 비교했어요.',
     table: '모든 측정값 표로 보기', experiment: '실험', values: '전후 값',
   },
   en: {
     eyebrow: 'LOCAL MEASUREMENT / 2026', title: 'Results with their measurement conditions',
     intro: 'Choose an experiment, then compare its metrics before and after.', group: 'Experiment', metric: 'Metric',
     before: 'Before', after: 'After', higher: 'Higher is better', lower: 'Lower is better',
-    conditions: 'Measurement conditions', limitation: 'Interpretation limit',
-    caveat: 'These are local simulation results and a separate font experiment. They do not measure real-user performance or conversion. Rendering, media, fonts, and external content changed together on the homepage, so the effect of each change cannot be isolated.',
+    conditions: 'Measurement conditions', changes: 'Homepage changes',
+    combinedChanges: 'The homepage comparison measured the combined effect of changes to rendering, media, fonts, and external content loading.',
     table: 'View all measured values in a table', experiment: 'Experiment', values: 'Before and after',
   },
 } as const;
@@ -63,7 +63,7 @@ export default function PerformanceEvidence({ locale }: { locale: Locale }) {
 
     <div className={styles.notes}>
       <div><strong>{t.conditions}</strong><p>{experiment.condition[locale]}</p></div>
-      <div><strong>{t.limitation}</strong><p>{t.caveat}</p></div>
+      <div><strong>{t.changes}</strong><p>{t.combinedChanges}</p></div>
     </div>
 
     <details className={styles.details}>

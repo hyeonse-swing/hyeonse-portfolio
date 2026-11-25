@@ -14,38 +14,48 @@
 .cardLinks { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); }
 .cardLinks a, .links a { display: inline-block; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 550; line-height: 1.5; }
 .cardLinks a:hover, .links a:hover { color: var(--accent-text); border-bottom-color: currentColor; }
-.details { border-top: 1px solid var(--ink); }
-.detail { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr); gap: calc(50px * var(--space-factor)); padding: calc(36px * var(--space-factor)) 0; border-bottom: 1px solid var(--line); scroll-margin-top: 36px; }
-.detail h3 { margin-top: 15px; }
-.detailIntro p { max-width: 480px; margin-top: 18px; }
-.detailBody { min-width: 0; }
-.problem { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
-.problem>span, .decisions>div>span, .verification>span { display: block; color: var(--accent-text); font-size: 10px; line-height: 1.6; font-weight: 650; letter-spacing: .04em; }
-.detailIntro .problem p { font-size: 13px; margin-top: 10px; color: var(--muted); }
-.decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 28px; }
-.decisions>div { border-top: 1px solid var(--line); padding-top: 18px; }
-.decisions h4 { font-size: 15px; line-height: 1.6; letter-spacing: -.025em; font-weight: 650; margin: 12px 0 8px; word-break: keep-all; }
-.decisions p, .verification p { font-size: 12px; color: var(--muted); line-height: 1.9; }
+.details { border-top: 1px solid var(--line); }
+.detail { padding: calc(26px * var(--space-factor)) 0; border-bottom: 1px solid var(--line); scroll-margin-top: 36px; }
+.detailIntro { display: grid; grid-template-columns: minmax(180px, .75fr) minmax(0, 1.4fr) minmax(165px, .6fr); gap: 18px 32px; align-items: start; }
+.detail h3 { font-size: clamp(22px, 2vw, 27px); line-height: 1.4; }
+.detailIntro p { color: var(--muted); line-height: 1.75; margin: 0; }
+.detailIntro .links { justify-content: flex-end; gap: 2px 18px; }
+.expand { margin-top: 14px; }
+.expand summary { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; list-style: none; cursor: pointer; color: var(--accent-text); font-size: 13px; font-weight: 650; }
+.expand summary::-webkit-details-marker { display: none; }
+.expand summary span { display: inline-block; font-size: 19px; line-height: 1; transition: transform .2s ease; }
+.expand[open] summary span { transform: rotate(45deg); }
+.expand summary:hover { text-decoration: underline; text-underline-offset: 4px; }
+.expand summary:focus-visible, .links a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { .expand summary span { transition: none; } }
+.detailBody { max-width: 940px; padding: 12px 0 8px; }
+.problem { margin-bottom: 22px; }
+.problem h4, .verification h4 { font-size: 14px; font-weight: 650; line-height: 1.6; }
+.problem p { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.85; }
+.decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 30px; margin-top: 24px; }
+.decisions>div { border-top: 1px solid var(--line); padding-top: 16px; }
+.decisions h4 { font-size: 15px; line-height: 1.6; letter-spacing: -.025em; font-weight: 650; margin-bottom: 8px; word-break: keep-all; }
+.decisions p, .verification p { color: var(--muted); font-size: 14px; line-height: 1.85; }
 .verification { background: var(--surface); border-radius: var(--radius-control); padding: 18px 20px; margin-top: 24px; }
 .verification p { margin-top: 8px; }
 .highlights { list-style: none; margin: 0; padding: 0; }
-.highlights li { position: relative; padding-left: 18px; font-size: 14px; line-height: 1.9; letter-spacing: -.02em; }
-.highlights li + li { margin-top: 12px; }
-.highlights li::before { content: ''; position: absolute; left: 0; top: .9em; width: 5px; height: 5px; background: var(--accent-text); }
-.detailFooter { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px 24px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.highlights li { position: relative; padding-left: 18px; font-size: 14px; line-height: 1.85; letter-spacing: -.02em; }
+.highlights li + li { margin-top: 10px; }
+.highlights li::before { content: ''; position: absolute; left: 0; top: .8em; width: 5px; height: 5px; background: var(--accent-text); }
+.detailFooter { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 8px 24px; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
 
-@media (max-width: 900px) { .overview { grid-template-columns: 1fr; }.card { padding: calc(24px * var(--space-factor)); }.card .release { margin-top: 0; }.detail { gap: 28px; } }
-@media (max-width: 700px) { .detail { grid-template-columns: 1fr; gap: 24px; padding: 28px 0; }.detailIntro p, .highlights li { font-size: 13px; }.card h3, .detail h3 { font-size: 24px; } }
-@media (max-width: 480px) { .decisions { grid-template-columns: 1fr; gap: 18px; }.problem { margin-top: 20px; }.verification { padding: 16px; } }
+@media (max-width: 1050px) { .detailIntro { grid-template-columns: minmax(170px, .7fr) minmax(0, 1.3fr); }.detailIntro .links { grid-column: 2; justify-content: flex-start; } }
+@media (max-width: 900px) { .overview { grid-template-columns: 1fr; }.card { padding: calc(24px * var(--space-factor)); }.card .release { margin-top: 0; } }
+@media (max-width: 700px) { .detailIntro { grid-template-columns: 1fr; gap: 10px; }.detailIntro .links { grid-column: auto; margin-top: 2px; }.detail { padding: 23px 0; }.detailBody { padding-top: 8px; }.decisions { gap: 18px; } }
+@media (max-width: 480px) { .decisions { grid-template-columns: 1fr; }.verification { padding: 16px; } }
 
-.index, .release, .release span, .problem > span, .decisions > div > span,
-.verification > span { font-size: var(--portfolio-meta-font); }
-.summary, .detailIntro p, .detailIntro .problem p, .decisions p,
+.index, .release, .release span { font-size: var(--portfolio-meta-font); }
+.summary, .detailIntro p, .problem p, .decisions p,
 .verification p, .highlights li { font-size: 15px; }
 .stack li { font-size: 12px; padding: 7px 10px; }
 .cardLinks a, .links a { display: inline-flex; align-items: center; min-height: var(--portfolio-control-md); font-size: 14px; }
 @media (max-width: 700px) {
-  .detailIntro p, .detailIntro .problem p, .decisions p,
+  .detailIntro p, .problem p, .decisions p,
   .verification p, .highlights li { font-size: 15px; }
 }
 @media (any-pointer: coarse) {

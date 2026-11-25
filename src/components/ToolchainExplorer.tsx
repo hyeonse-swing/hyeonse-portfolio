@@ -9,7 +9,7 @@ function StageContent({ stage, locale }: { stage: ToolchainStage; locale: Locale
   const t = getToolchainCopy(locale);
   return <>
     <div className={styles.stageHead}>
-      <div><span className={styles.micro}>{stage.role}</span><h4>{stage.name}</h4></div>
+      <div><h3>{stage.name}</h3><p className={styles.micro}>{stage.role}</p></div>
       <a href={localizedPath(locale, `/about/#${stage.id}`)}>{t.projectLabel} <span aria-hidden="true">↗</span></a>
     </div>
     <div className={styles.io}>
@@ -28,11 +28,9 @@ export default function ToolchainExplorer({ locale }: { locale: Locale }) {
   useEffect(() => setReady(true), []);
   const stage = t.stages[selected];
 
-  return <section className={styles.root} id="toolchain" aria-labelledby="toolchain-title">
-    <div className={styles.heading}>
-      <span className={styles.micro}>TOOLCHAIN / 01—03</span>
-      <div><h3 id="toolchain-title">{t.title}</h3><p>{t.intro}</p></div>
-    </div>
+  return <details className={styles.root} id="toolchain" data-search-target>
+    <summary className={styles.summary}>{t.title}</summary>
+    <p className={styles.intro}>{t.intro}</p>
     <div className={styles.frame}>
       <div className={styles.toolbar}><span className={styles.micro}>{t.exampleLabel}</span><span aria-hidden="true">0{selected + 1} / 03</span></div>
       <div className={styles.tabs} role="group" aria-label={t.selectLabel}>
@@ -55,5 +53,5 @@ export default function ToolchainExplorer({ locale }: { locale: Locale }) {
     <p className={styles.note}><a href={localizedPath(locale, '/notes/return-desk-approval-regression/')}>
       {locale === 'en' ? 'Follow one captured error through a reviewed case and two runs ↗' : '오류 하나가 검토 케이스와 두 실행으로 이어진 사례 보기 ↗'}
     </a></p>
-  </section>;
+  </details>;
 }

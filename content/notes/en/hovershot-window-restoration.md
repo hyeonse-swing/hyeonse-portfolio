@@ -28,9 +28,9 @@ The same sequence applies to new capture panels and panels reopened after a move
 
 ## What the three-monitor check covered
 
-The release record describes a failed pre-fix AppKit creation and display check on an external monitor in a three-monitor setup. After the change, multiple result panels were displayed across the three monitors to check their target screens. A move-and-reopen check and existing regressions brought the total to 25 passing tests. The record also lists a Release build, app signature verification and ZIP integrity check. I did not rerun those checks for this article.
+The release record describes a failed pre-fix AppKit creation and display check on an external monitor in a three-monitor setup. After the change, multiple result panels were displayed across the three monitors to check their target screens. A move-and-reopen check and existing regressions brought the total to 25 passing tests. The record also lists a Release build, app signature verification and ZIP integrity check.
 
-The v0.2.2 panel display checks used synthetic images, so those checks did not cover the complete real screen capture and macOS permission flow in a user's environment. The public ZIP targets Apple Silicon on macOS 14 or later; recording requires macOS 15 or later. It has a local development signature and has not been notarized by Apple, which is relevant when installing it.
+The v0.2.2 panel display checks used synthetic images. The public ZIP targets Apple Silicon on macOS 14 or later; recording requires macOS 15 or later. It has a local development signature and has not been notarized by Apple, which is relevant when installing it.
 
 ## Checking GIF duration in v0.2.3
 

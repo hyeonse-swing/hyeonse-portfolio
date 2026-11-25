@@ -38,6 +38,5 @@ export const siteCopy = {
     engineeringTitle: '기술적 구현',
     verificationTitle: '검증과 결과',
     reflectionTitle: '작업에서 확인한 점',
-    disclosure: '경력 기록과 구현 근거를 바탕으로 정리했어요. 도식은 작업을 설명하려고 재구성한 것으로, 비공개 제품 화면과 데이터는 포함하지 않았어요.',
   },
 } as const;

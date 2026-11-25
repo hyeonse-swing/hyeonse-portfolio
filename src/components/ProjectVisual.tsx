@@ -11,13 +11,13 @@ interface Props {
 
 const koreanDescriptions: Record<Kind, string> = {
   bike: '바이크 운영 흐름을 설명하는 도식이에요. 첫 주문, 계약 발송, 차량 인계에서 보험 변경과 납부 조회로 이어져요.',
-  performance: '로컬 Lighthouse 모바일 시뮬레이션의 개선 전 3회, 후 5회 중앙값이에요. Performance 점수는 54에서 95로, 초기 전송량은 19.805MB에서 0.488MB로 바뀌었어요. 실사용자 지표는 아니에요.',
+  performance: '로컬 Lighthouse 모바일 시뮬레이션의 개선 전 3회, 후 5회 중앙값이에요. Performance 점수는 54에서 95로, 초기 전송량은 19.805MB에서 0.488MB로 바뀌었어요.',
   bus: '옐로우버스의 운행 흐름을 설명하는 도식이에요. 배차에서 탑승, 도착까지 이어지는 운영 업무를 나타내요.',
   migration: 'SWAP Admin V1과 V2가 함께 쓰이던 구조를 설명하는 도식이에요. 새 V2 화면과 API를 도입하는 동안 기존 작업 조회 경로도 연결했어요.',
 };
 const englishDescriptions: Record<Kind, string> = {
   bike: 'Illustrative bike operations flow: first order, contract delivery, vehicle handover, then insurance changes and payment lookup.',
-  performance: 'Median of three before and five after local Lighthouse mobile simulations. Performance score rose from 54 to 95, and initial transfer fell from 19.805 MB to 0.488 MB. These are not real-user metrics.',
+  performance: 'Medians of three before and five after local Lighthouse mobile simulations. Performance score rose from 54 to 95, and initial transfer fell from 19.805 MB to 0.488 MB.',
   bus: 'Illustrative Yellow Bus operations diagram, from dispatch through boarding to arrival.',
   migration: 'Illustrative coexistence of SWAP Admin V1 and V2. The existing task lookup route remains connected while new V2 screens and APIs are introduced.',
 };
@@ -63,7 +63,7 @@ function PerformanceVisual({ locale }: { locale: Locale }) {
           <div><s>19.805 MB</s><svg viewBox="0 0 34 12" focusable="false"><path d="M0 6h33m-8-5 8 5-8 5" fill="none" stroke="currentColor" /></svg><strong>0.488 MB</strong></div>
         </div>
       </div>
-      <div className={styles.perfFoot}>{locale === 'ko' ? '로컬 모바일 시뮬레이션 · 개선 전 3회 / 후 5회 중앙값' : 'Local mobile simulations · median of 3 before / 5 after'}<span>{locale === 'ko' ? '실사용자 지표는 아니에요.' : 'Not real-user metrics'}</span></div>
+      <div className={styles.perfFoot}>{locale === 'ko' ? '로컬 모바일 시뮬레이션 · 개선 전 3회 / 후 5회 중앙값' : 'Local mobile simulations · medians of 3 before / 5 after'}</div>
     </div>
   );
 }

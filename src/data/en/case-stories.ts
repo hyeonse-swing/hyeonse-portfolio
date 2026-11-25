@@ -34,7 +34,7 @@ export const caseStoriesEn: Record<string, CaseStory> = {
     verification: [
       { title: 'Workflow', detail: 'I first checked return, handover, and insurance changes with nonproduction fixtures, then integrated them against the actual API contracts.' },
       { title: 'User types', detail: 'I checked B2B and B2C edge cases with Playwright E2E and direct screen inspection, repeating both after the fix.' },
-      { title: 'Usage scope', detail: 'I developed the staff flow for first orders and sending contracts. By July 2026, I had also connected the portal flow for business customers to view subscription, unpaid, and payment status and return after payment-method handling. Actual adoption and reductions in manual work were not measured separately.' },
+      { title: 'Usage scope', detail: 'I developed the staff flow for first orders and sending contracts. By July 2026, I had also connected the portal flow for business customers to view subscription, unpaid, and payment status and return after payment-method handling.' },
     ],
     takeaway: 'I kept areas with undefined APIs separate while checking the workflow early. When actual data differed from our assumptions, I revised the UI and realigned the contract and user experience.',
   },
@@ -140,8 +140,8 @@ export const caseStoriesEn: Record<string, CaseStory> = {
     ],
     verification: [
       { title: 'Admin V2 release', detail: 'The Admin release including subscription, task, and factoring V2 screens and Fleet API integration was merged in December 2025.' },
-      { title: 'Coexisting task details', detail: 'At release time, task details queried V2 first and had a V1 lookup path when the request failed. The production error rate for this path was not measured separately.' },
+      { title: 'Coexisting task details', detail: 'At release time, task details queried V2 first and had a V1 lookup path when the request failed.' },
     ],
-    takeaway: 'Navigation and lookup while legacy data remained mattered as much as connecting the new API and screens. This experience covers the SWAP operations Admin transition.',
+    takeaway: 'Navigation and lookup while legacy data remained mattered as much as connecting the new API and screens.',
   },
 };

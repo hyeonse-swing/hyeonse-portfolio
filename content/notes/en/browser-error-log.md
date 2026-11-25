@@ -34,7 +34,7 @@ In v0.2.22, `captureExceptionWithReference` returns the project and event ID for
 
 ## Before using it in a service
 
-The public repository records local checks for the packages, micro-server and Chromium/WebKit delivery. The SQLite export check appears in the later v0.2.11 change record. I did not rerun either set for this article. Limited retries avoid endless attempts, but cannot guarantee that every error reaches storage.
+The public repository records local checks for the packages, micro-server and Chromium/WebKit delivery. The SQLite export check appears in the later v0.2.11 change record. Retries are bounded.
 
 Even with a self-hosted collector, error messages and app-supplied values can contain personal information. URL filtering and hooks cannot prove that every such value has been removed. The operator still has to decide what to collect and retain, and check authentication and access permissions in the actual deployment.
 

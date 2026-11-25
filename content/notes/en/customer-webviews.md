@@ -23,4 +23,4 @@ At [SWAP](/en/#archive-swap-customer), I worked on the initial web and WebView s
 
 For SWAP, I added Flutter `callHandler` and `JavaScriptChannel.postMessage` alongside existing Android and iOS bridge paths. Depending on the channel, the message carried an object or serialized JSON. If a call threw synchronously, the bridge tried the next method. A successful call tells us the message was sent, but not that native processing finished.
 
-On the [SWING Japan](/en/#archive-swing-japan) TF, I contributed to the website, back office, Japanese WebView text, and a WebKit bridge connection. There are no figures for usage or conversion in the public record.
+On the [SWING Japan](/en/#archive-swing-japan) TF, I contributed to the website, back office, Japanese WebView text, and a WebKit bridge connection.

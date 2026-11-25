@@ -35,8 +35,17 @@ export default function WorkPage({ id, locale }: { id: string; locale: Locale })
       {work.id === 'swap-admin-v2' && <div className="flow-note"><span className="eyebrow">{en ? 'Lookup flow in the system at the time' : '당시 시스템의 조회 경로'}</span><p>{en ? 'Open task detail' : '작업 상세 진입'} <span>→</span> {en ? 'Try V2 first' : 'V2 우선 조회'} <span>→</span> {en ? 'Fall back to V1 if the request fails' : '요청 실패 시 V1 fallback'}</p><small>{en ? 'A summary of the task-detail lookup flow during the transition.' : '전환 당시 작업 상세에서 사용한 조회 흐름이에요.'}</small></div>}
       </section>
       <section id="engineering"><span className="eyebrow">03 / ENGINEERING</span><h2>{siteCopy.case.engineeringTitle}</h2><TechnicalDetails story={engineering} locale={locale} /></section>
-      <section id="verification"><span className="eyebrow">04 / VERIFICATION</span><h2>{siteCopy.case.verificationTitle}</h2><dl className="verification-list">{story.verification.map(item => <div key={item.title}><dt>{item.title}</dt><dd><p>{item.detail}</p></dd></div>)}</dl><div className="outcome-note"><span className="eyebrow">OUTCOME</span><p>{work.outcome}</p></div><p className="boundary-note">{work.boundary}</p></section>
-      <section id="reflection"><span className="eyebrow">05 / REFLECTION</span><h2>{siteCopy.case.reflectionTitle}</h2><blockquote>{story.takeaway}</blockquote><p className="case-disclosure">{siteCopy.case.disclosure}</p></section>
+      <section id="verification">
+        <span className="eyebrow">04 / VERIFICATION</span>
+        <h2>{siteCopy.case.verificationTitle}</h2>
+        <dl className="verification-list">{story.verification.map(item => <div key={item.title}><dt>{item.title}</dt><dd><p>{item.detail}</p></dd></div>)}</dl>
+        <div className="outcome-note"><span className="eyebrow">{en ? 'Outcome' : '결과'}</span><p>{work.outcome}</p></div>
+      </section>
+      <section id="reflection">
+        <span className="eyebrow">05 / REFLECTION</span>
+        <h2>{siteCopy.case.reflectionTitle}</h2>
+        <p>{story.takeaway}</p>
+      </section>
       {notes.length > 0 && <aside className={noteStyles.related} aria-label={en ? 'Project notes and comments' : '프로젝트 기록과 댓글'}>
         <h2>{en ? 'Project notes and comments' : '프로젝트 기록과 댓글'}</h2>
         <ul>{notes.map(note => <li key={note.slug}><a href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a></li>)}</ul>

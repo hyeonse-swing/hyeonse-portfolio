@@ -75,10 +75,3 @@ export const caseEngineering: Record<string, EngineeringStory> = {
     ],
   },
 };
-
-export const technicalFocus = [
-  { title: 'React · TypeScript', subtitle: '화면과 데이터 계약', detail: '고객 화면과 운영 Admin을 만들며 응답 타입, 사용자 유형, 폼 입력과 예외 상태를 맞췄어요. API 미정 단계의 fixture와 실제 응답을 구분해 연동한 경험도 있어요.', href: '/work/bike-operations/#engineering', label: '바이크 화면의 데이터 흐름' },
-  { title: 'TanStack Query · SWR', subtitle: '조회 조건과 변경 후 갱신', detail: '언제 조회할지, 어떤 조건으로 데이터를 구분할지, 수정 후 무엇을 다시 가져올지 업무 흐름에 맞춰 정했어요.', href: '/work/yellow-bus/#engineering', label: '운행 정보의 조회와 갱신' },
-  { title: 'Next.js · Web performance', subtitle: '렌더링과 자원 처리', detail: '서버·클라이언트 경계를 나누고 페이지를 프리렌더링했어요. 이미지 생성과 iframe 로드 시점, 폰트 요청을 바꾸고 로컬 Lighthouse로 비교했어요.', href: '/work/swing-home-performance/#engineering', label: '초기 로딩 경로와 빌드 처리' },
-  { title: 'WebView · QA', subtitle: '앱 경계와 실행 환경', detail: '네이티브 브릿지와 웹 화면을 연결하고 결제 이후의 복귀 흐름을 다뤘어요. Playwright 자동화에 직접 화면 확인을 더하고, 공개 WebView QA 셸도 만들었어요.', href: '/#archive', label: '웹뷰와 공개 QA 도구' },
-];

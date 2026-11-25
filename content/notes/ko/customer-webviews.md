@@ -23,4 +23,4 @@ draft: false
 
 SWAP 웹뷰 브릿지에는 기존 Android·iOS 경로와 함께 Flutter의 `callHandler`와 `JavaScriptChannel.postMessage`를 붙였어요. 채널에 맞춰 객체를 전달하거나 JSON으로 직렬화하고, 호출 도중 동기 예외가 나면 다음 방식을 시도하도록 했습니다. 브릿지 호출이 성공해도 네이티브 쪽 처리가 끝났다는 신호는 아니에요.
 
-[SWING Japan](/#archive-swing-japan) TF에서는 홈페이지·백오피스·웹뷰 개발, 일본어 화면, WebKit 브릿지 연결에 참여했어요. 사용량이나 전환 성과를 나타내는 수치는 없어요.
+[SWING Japan](/#archive-swing-japan) TF에서는 홈페이지·백오피스·웹뷰 개발, 일본어 화면, WebKit 브릿지 연결에 참여했어요.

@@ -14,4 +14,4 @@ draft: false
 
 Code produced with AI assistance might appear to work in the SWAP monorepo while crossing a module dependency boundary. That boundary needs its own check. Because each repository has a different structure and workflow, I built and revised development skills around its code and verification criteria. The [public archive](/en/#archive-ai-development) records project-specific rules, SWAP dependency boundary checks, checks matched to the changed scope, and configuration backup and recovery guidance. I shared these with the frontend team.
 
-I also shared how I look at generated code's structure and complexity before choosing which changes to keep. The checks depend on what changed. There is no evidence for the quality of every generated result or identical adoption across the team, nor measured figures for team productivity or development time saved. My work here concerned frontend development rules and verification, not AI model development or training.
+I also shared how I look at generated code's structure and complexity before choosing which changes to keep. The checks depend on what changed.

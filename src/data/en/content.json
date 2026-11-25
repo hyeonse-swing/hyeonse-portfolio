@@ -31,7 +31,6 @@
       ],
       "verification": "After Playwright E2E tests, I inspected the screens and found a B2C response missing the business information object, leaving fields blank. After a backend response change and a frontend condition fix, I repeated automated and manual checks.",
       "outcome": "Implemented staff order and contract flows and self-service lookup screens for business customers, and checked the workflows before and after the APIs were finalized.",
-      "boundary": "The backend owned migration of existing data. I do not present a measured reduction in manual work or costs.",
       "tags": ["React", "TypeScript", "TanStack Query", "Playwright", "Operations Admin"]
     },
     {
@@ -47,7 +46,6 @@
       ],
       "verification": "The December 2025 Admin V2 release included subscription, task, and factoring screens integrated with the Fleet API. At the time, task details used V2 lookup first with a V1 fallback path.",
       "outcome": "Contributed to the Admin V2 screen and API transition while old and new task data coexisted.",
-      "boundary": "This describes the transition of SWAP's operations Admin. I describe the lookup path used at the time without claiming a measured error rate or completion of the entire service migration.",
       "tags": ["React", "TypeScript", "Vite", "TanStack Query", "Operations System"]
     },
     {
@@ -63,7 +61,6 @@
       ],
       "verification": "I connected academy-specific dispatch lookup, mapped routes, boarding status and stop changes, and access limits in the new operations screens. I also coordinated exceptional student records and the response contract with backend colleagues.",
       "outcome": "Rebuilt distributed operations functions into workflows in the new Admin and contributed to initial stabilization.",
-      "boundary": "The focus is on rebuilding workflows and features. I do not claim a completion date for the entire migration or a measured stabilization effect.",
       "tags": ["React", "TypeScript", "TanStack Router", "Kakao Map", "Operations Platform"]
     },
     {
@@ -78,8 +75,7 @@
         "To address the first image conversion delay found in production, I later generated 106 responsive WebP assets from 34 originals at build time."
       ],
       "verification": "I compared medians from three before and five after Lighthouse mobile simulation runs under the same local production-build conditions.",
-      "outcome": "Recorded a Performance score change from 54 to 95 and initial transfer size from 19.805 to 0.488 MB (a 97.5% reduction).",
-      "boundary": "These are local simulation results, not real-user performance or conversion metrics. Several changes were applied together.",
+      "outcome": "In local Lighthouse mobile simulations, the Performance score rose from 54 to 95 and initial transfer fell from 19.805 to 0.488 MB (a 97.5% reduction).",
       "tags": ["Next.js", "TypeScript", "Lighthouse", "WebP", "Performance"]
     }
   ],
@@ -87,8 +83,8 @@
     { "id": "swing-webview", "title": "SWING customer WebViews", "period": "2022–2026", "summary": "I built an app–WebView bridge and product entry hub, plus login, identity verification, membership, points, and payment flows. I also handled compatibility between existing screens and new routes, Korean and English display, and return paths after payment.", "scope": "Customer features and app integration" },
     { "id": "swing-admin", "title": "SWING operations Admin and shared modules", "period": "During my time at The SWING", "summary": "I migrated JavaScript/MUI features to TypeScript/Ant Design and contributed to splitting Admin tools by domain and bringing them into a monorepo. I verified personal data masking and formatting modules with Vitest and published them as npm packages.", "scope": "Operations tools and shared modules" },
     { "id": "swap-customer", "title": "SWAP customer web, WebViews, and early Admin", "period": "Initially 2023.08–2024.11 · since returning in 2025.09", "summary": "I contributed to the initial web, WebView, and Admin builds and worked from product discovery through first orders, payment receipts, and the business portal. I clarified purchase and subscription inputs, login API contracts, app bridges, and return paths.", "scope": "Customer service and operations tools" },
-    { "id": "vox", "title": "Reviewing voice AI and connecting customer touchpoints", "period": "2026.04–present", "summary": "I reviewed vendors, PoC scope, cost, and integration requirements for overdue-payment reminders and follow-up calls, and aligned scenarios with the CX team. I connected entry to contract guidance on the returnable subscription completion screen with the flow back from the phone app, and tracked usage.", "scope": "External service review and product integration", "note": "Call volume does not indicate successful consultations or resolved issues." },
-    { "id": "ai-development", "title": "Sharing project-specific AI development and verification practices", "period": "2025–2026 · project-specific skill sharing in 2026.09", "summary": "I created and improved skills reflecting each repository's code structure and verification criteria, then shared them with the FE team. I covered dependency boundary checks in the SWAP monorepo, verification by change scope, and configuration backup and recovery.", "scope": "Development practices and team sharing", "note": "Team productivity gains were not measured." },
+    { "id": "vox", "title": "Reviewing voice AI and connecting customer touchpoints", "period": "2026.04–present", "summary": "I reviewed vendors, PoC scope, cost, and integration requirements for overdue-payment reminders and follow-up calls, and aligned scenarios with the CX team. I connected entry to contract guidance on the returnable subscription completion screen with the flow back from the phone app, and tracked usage.", "scope": "External service review and product integration" },
+    { "id": "ai-development", "title": "Sharing project-specific AI development and verification practices", "period": "2025–2026 · project-specific skill sharing in 2026.09", "summary": "I created and improved skills reflecting each repository's code structure and verification criteria, then shared them with the FE team. I covered dependency boundary checks in the SWAP monorepo, verification by change scope, and configuration backup and recovery.", "scope": "Development practices and team sharing" },
     { "id": "webview-qa-shell", "title": "WebView QA Shell", "period": "Personal public project", "summary": "I published a QA shell and web console for checking local or staging web services inside iOS and Android WebViews. It provides checks for safe areas, navigation, and logs.", "scope": "Developer tool · public repository" },
     { "id": "deer", "title": "Maintenance of the acquired Deer service", "period": "2024.06–2024.08", "summary": "I contributed to handover and maintenance of an acquired shared-mobility service.", "scope": "Acquired service" },
     { "id": "swing-japan", "title": "SWING Japan", "period": "2022–2023", "summary": "I developed a website, back office, and WebViews on the Japan TF. I also contributed to connecting early Japanese-language screens with native functions through a WebView bridge.", "scope": "International service" },

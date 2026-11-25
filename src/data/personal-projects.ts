@@ -32,7 +32,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         'CSS 원시 색상과 공유 토큰 재정의를 검사하는 CLI, 화면 제작·이관·리뷰용 재사용 스킬도 제공해요.',
         '버튼·입력·메뉴·모달·표와 Stack·Grid를 제공해요. 영역 전체에 xs부터 xl까지 크기를 적용하고, 설치 버전의 API·토큰·예제는 hds CLI로 조회해요.',
       ],
-      verification: '로컬 컴포넌트·패키지 소비 검사와 Chromium·Firefox·WebKit의 크기·레이아웃 검사를 거쳤어요. macOS Safari 27·VoiceOver에서 HDS 0.4.8 모달의 닫기 버튼, 초점 이동 가드 이름과 Escape 후 초점 복귀를 확인했어요. 모바일 스크린리더는 별도 검증 대상이에요.',
+      verification: '로컬 컴포넌트·패키지 소비 검사와 Chromium·Firefox·WebKit의 크기·레이아웃 검사를 거쳤어요. macOS Safari 27·VoiceOver에서 HDS 0.4.8 모달의 닫기 버튼, 초점 이동 가드 이름과 Escape 후 초점 복귀를 확인했어요.',
       stack: ['TypeScript', 'React', 'CSS tokens'],
       release: '쇼케이스·설치 패키지 제공 · 포트폴리오 적용',
       links: [
@@ -209,7 +209,7 @@ const personalProjects: Record<Locale, readonly PersonalProject[]> = {
         'Includes a CLI that checks raw CSS colors and shared-token overrides, plus a reusable skill for building, migrating and reviewing interfaces.',
         'Includes buttons, fields, menus, dialogs, tables, Stack and Grid, with inherited sizes from xs to xl. The hds CLI reads APIs, tokens and examples from the installed version.',
       ],
-      verification: 'Local component and package-consumer checks cover sizing and layout in Chromium, Firefox and WebKit. macOS Safari 27 with VoiceOver confirmed the HDS 0.4.8 modal close button, focus-guard names and focus returning to the opener after Escape. Mobile screen readers were outside the scope of this check.',
+      verification: 'Local component and package-consumer checks cover sizing and layout in Chromium, Firefox and WebKit. macOS Safari 27 with VoiceOver confirmed the HDS 0.4.8 modal close button, focus-guard names and focus returning to the opener after Escape.',
       stack: ['TypeScript', 'React', 'CSS tokens'],
       release: 'Showcase and installable package · Used in this portfolio',
       links: [

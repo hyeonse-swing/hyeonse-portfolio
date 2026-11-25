@@ -32,7 +32,7 @@ Since v0.10.0, a comparison of two runs of the same suite can identify the last 
 
 If browser storage cannot be read or written, a display change may apply only in the current tab. The UI says it was not saved. A later successful save or a reset clears that warning, so the current view isn't mistaken for a preference that will survive another visit.
 
-The public v0.8.9 record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases. Storage failure and recovery were checked in a browser fixture. I did not rerun those checks for this article. The record does not cover authentication against a real service, iOS or Android devices, or the effects of browser policies and permissions in a user's environment.
+The v0.8.9 release record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases. Storage failure and recovery were checked in a browser fixture.
 
 ## Public sources
 

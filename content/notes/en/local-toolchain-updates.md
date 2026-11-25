@@ -26,9 +26,9 @@ Flow QA's detailed report can filter for cases with at least two attempts and do
 
 ## Checks in the release records
 
-Flow QA's release record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases; storage failure and recovery were exercised with a browser fixture. Error to Test records 203 local tests, type checking, a build and an isolated installed-package check. The Browser Error Log change records an original database hash check and collector restart after export. These are published checks from the projects, not tests rerun for this article.
+Flow QA's release record lists 118 local tests, eight UI checks, fresh-install package checks and seven passing browser cases; storage failure and recovery were exercised with a browser fixture. Error to Test records 203 local tests, type checking, a build and an isolated installed-package check. The Browser Error Log change records an original database hash check and collector restart after export.
 
-Those records do not cover authenticated services, native devices, storage restrictions under actual browser policies or delivery guarantees in production. A target fingerprint identifies a target; it does not anonymize it. The information carried in errors and the permissions of the operating environment still need review when applying the tools.
+A target fingerprint identifies a target; it does not anonymize it. The information carried in errors and the permissions of the operating environment still need review when applying the tools.
 
 ## Public sources
 

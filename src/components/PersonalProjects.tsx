@@ -21,25 +21,31 @@ export default function PersonalProjects({ locale, projects, detailed = false }:
 
   if (detailed) {
     return <div className={styles.details}>
-      {projects.map((project, index) => <article className={styles.detail} id={project.id} key={project.id}>
+      {projects.map(project => <article className={styles.detail} id={project.id} key={project.id}>
         <div className={styles.detailIntro}>
-          <span className={styles.index}>{String(index + 1).padStart(2, '0')} / {project.category}</span>
           <h3>{project.name}</h3>
           <p>{project.summary}</p>
-          <div className={styles.problem}><span>{en ? 'WHY I BUILT IT' : '만든 이유'}</span><p>{project.problem}</p></div>
-        </div>
-        <div className={styles.detailBody}>
-          <ul className={styles.highlights}>{project.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
-          <div className={styles.decisions} aria-label={en ? 'Design decisions' : '설계에서 선택한 것'}>{project.decisions.map((decision, decisionIndex) => <div key={decision.title}>
-            <span>{String(decisionIndex + 1).padStart(2, '0')} / {en ? 'DECISION' : '설계 판단'}</span><h4>{decision.title}</h4><p>{decision.detail}</p>
-          </div>)}</div>
-          <div className={styles.verification}><span>{en ? 'VERIFICATION & SCOPE' : '검증과 범위'}</span><p>{project.verification}</p></div>
-          {project.stack.length > 0 && <ul className={styles.stack} aria-label={en ? 'Technology stack' : '기술 스택'}>{project.stack.map(item => <li key={item}>{item}</li>)}</ul>}
-          <div className={styles.detailFooter}>
-            <p className={styles.release}><span>{en ? 'RELEASE' : '배포'}</span>{project.release}</p>
-            <div className={styles.links}>{project.links.map(link => <ProjectLink key={link.href} {...link} />)}{notesByProject.get(project.id)!.map(note => <a key={note.slug} href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a>)}</div>
+          <div className={styles.links}>
+            {project.links[0] && <ProjectLink {...project.links[0]} />}
+            {notesByProject.get(project.id)?.[0] && <a href={localizedPath(locale, `/notes/${notesByProject.get(project.id)![0].slug}/`)}>{en ? 'Project note' : '프로젝트 기록'} <span aria-hidden="true">↗</span></a>}
           </div>
         </div>
+        <details className={styles.expand}>
+          <summary>{en ? 'Design and verification' : '설계와 검증'} <span aria-hidden="true">＋</span></summary>
+          <div className={styles.detailBody}>
+            <div className={styles.problem}><h4>{en ? 'Why I built it' : '만든 이유'}</h4><p>{project.problem}</p></div>
+            <ul className={styles.highlights}>{project.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>
+            <div className={styles.decisions} aria-label={en ? 'Design decisions' : '설계에서 선택한 것'}>{project.decisions.map(decision => <div key={decision.title}>
+              <h4>{decision.title}</h4><p>{decision.detail}</p>
+            </div>)}</div>
+            <div className={styles.verification}><h4>{en ? 'Verification and scope' : '검증과 범위'}</h4><p>{project.verification}</p></div>
+            {project.stack.length > 0 && <ul className={styles.stack} aria-label={en ? 'Technology stack' : '기술 스택'}>{project.stack.map(item => <li key={item}>{item}</li>)}</ul>}
+            <div className={styles.detailFooter}>
+              <p className={styles.release}><span>{en ? 'RELEASE' : '배포'}</span>{project.release}</p>
+              <div className={styles.links}>{project.links.slice(1).map(link => <ProjectLink key={link.href} {...link} />)}{notesByProject.get(project.id)!.slice(1).map(note => <a key={note.slug} href={localizedPath(locale, `/notes/${note.slug}/`)}>{note.title} →</a>)}</div>
+            </div>
+          </div>
+        </details>
       </article>)}
     </div>;
   }

@@ -69,10 +69,3 @@ export const caseEngineeringEn: Record<string, EngineeringStory> = {
     ],
   },
 };
-
-export const technicalFocusEn: typeof import('../engineering').technicalFocus = [
-  { title: 'React · TypeScript', subtitle: 'Screens and data contracts', detail: 'I built customer-facing and operations Admin screens, aligning response types, user types, form inputs, and error states. I kept fixtures used before an API was defined separate, then integrated the real responses.', href: '/work/bike-operations/#engineering', label: 'Data flow in the bike screens' },
-  { title: 'TanStack Query · SWR', subtitle: 'Lookup conditions and refresh after changes', detail: 'I handled when a lookup could run, which conditions distinguished its data, and what to refetch after edits alongside each screen’s workflow.', href: '/work/yellow-bus/#engineering', label: 'Trip lookups and refresh' },
-  { title: 'Next.js · Web performance', subtitle: 'Rendering and asset processing', detail: 'I separated server and client boundaries and prerendered pages. I changed when images were generated, when iframes loaded, and how fonts were requested, then compared results with local Lighthouse runs.', href: '/work/swing-home-performance/#engineering', label: 'Initial load path and build processing' },
-  { title: 'WebView · QA', subtitle: 'App boundary and runtime environment', detail: 'I connected native bridges with web screens and handled return flows after payment. I paired Playwright automation with direct screen checks and built a public WebView QA shell.', href: '/#archive', label: 'WebView and public QA tool' },
-];

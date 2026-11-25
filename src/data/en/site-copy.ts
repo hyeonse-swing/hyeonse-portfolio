@@ -38,6 +38,5 @@ export const siteCopyEn = {
     engineeringTitle: 'Implementation details',
     verificationTitle: 'Verification and results',
     reflectionTitle: 'Reflections',
-    disclosure: 'Based on career records and implementation evidence. Diagrams reconstruct the work for explanation; private product screens and data are excluded.',
   },
 } as const;

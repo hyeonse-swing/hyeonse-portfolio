@@ -38,7 +38,7 @@ export const projectDetailsEn: Record<string, ProjectDetail> = {
     contributions: [
       { title: 'Reviewing the introduction scope', detail: 'I compared PoC scope, cost, and integration requirements for overdue-payment reminders and follow-up calls, and coordinated guidance scenarios with the CX team.' },
       { title: 'Entry point in the product', detail: 'I connected the path into contract guidance from the returnable subscription completion screen and the return flow from the phone app.' },
-      { title: 'Operational tracking', detail: 'I tracked usage and costs after integration. I do not interpret call count as completed consultations or resolved issues.' },
+      { title: 'Operational tracking', detail: 'After integration, I tracked costs and used call counts to monitor usage.' },
     ],
     tags: ['Product integration', 'CX collaboration', 'WebView'],
   },
@@ -99,26 +99,15 @@ export const projectDetailsEn: Record<string, ProjectDetail> = {
   },
 };
 
-export const careerIntroductionEn: string[] = [
-  'Since March 2022, I have built customer websites, WebViews, and operations tools at The SWING. Across SWING, SWAP, and Yellow Bus, my work has included early service builds, feature development, technical reviews, and service transitions.',
-  'Since September 2025, I have served as SWAP FE Part Lead, working on technical decisions, major features, and code reviews. Alongside hands-on development, I align API changes, shared structures, and release decisions with colleagues.',
-  'Much of my work involves learning the order in which operators do their jobs, aligning data contracts with backend colleagues, and checking how screens connect with app and CX colleagues.',
-];
+export const careerIntroductionEn = 'Since March 2022, I have built customer websites, WebViews, and operations tools at The SWING. Since September 2025, I have served as SWAP FE Part Lead, working on major features, technical decisions, and code reviews.';
 
-export const workAreasEn: { number: string; title: string; description: string; examples: string[] }[] = [
-  { number: '01', title: 'Customer-facing screens', description: 'I build flows for finding and ordering products and for continuing login and payment inside an app.', examples: ['SWING customer WebViews', 'SWAP product discovery and first orders', 'Business portal'] },
-  { number: '02', title: 'Operations tools', description: 'I work on screens where task order and permissions matter, such as contracts, dispatch, and settlement.', examples: ['Bike operations Admin', 'Yellow Bus operations', 'SWING partner settlement'] },
-  { number: '03', title: 'Engineering and integration', description: 'I look at old and new systems working together, app bridges, screen performance, and verification practices.', examples: ['SWAP Admin V2', 'SWING website performance', 'WebView QA Shell'] },
-];
+export const aboutCaseDescriptionsEn: Record<keyof typeof import('../career').aboutCaseDescriptions, string> = {
+  'bike-operations': 'I built staff order and contract screens alongside a portal where business customers can view subscription and payment status.',
+  'swing-home-performance': 'I improved rendering and reduced the initial transfer size, then compared the results in local Lighthouse mobile simulations.',
+  'swap-admin-v2': 'I contributed to V2 screen and API changes while existing task data remained in use.',
+};
 
-export const workingNotesEn: { title: string; detail: string; example: string; href?: string }[] = [
-  { title: 'Workflow first', detail: 'I check why a screen is needed and what the user does next, then identify API fields and exceptional states.', example: 'For the Yellow Bus student list, I discussed how the new response contract should handle missing or multiple guardians.', href: '/work/yellow-bus/' },
-  { title: 'Migration paths', detail: 'When adding a new screen, I check whether old data and navigation paths remain and plan how to connect them.', example: 'In SWAP Admin V2, I contributed to screen and API changes while old and new task data coexisted.', href: '/work/swap-admin-v2/' },
-  { title: 'Screen checks beyond automation', detail: 'Even after automation passes, I inspect empty states and differences in real responses on screen.', example: 'On Bike screens, I found a response object missing for one user type, then repeated E2E and manual checks after the fix.', href: '/work/bike-operations/' },
-  { title: 'Trade-offs and measurement', detail: 'I consider rendering and transferred assets together, then measure before and after under the same conditions.', example: 'On the SWING website, I adjusted video, images, fonts, and rendering paths, then compared medians from local Lighthouse mobile simulations.', href: '/work/swing-home-performance/' },
-];
-
-export const publicWorkEn: { title: string; description: string; href: string; label: string }[] = [
-  { title: 'WebView QA Shell', description: 'A public tool for inspecting screens and logs from local or staging web services inside iOS and Android WebViews.', href: 'https://github.com/hyeonse-swing/webview-qa-shell', label: 'View repository' },
-  { title: 'react-wheel-picker contribution', description: 'A merged PR fixing a selected-position mismatch when options change dynamically.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54', label: 'View contribution' },
+export const publicWorkEn = [
+  { title: 'WebView QA Shell', description: 'A public tool for inspecting screens and logs from local or staging web services inside iOS and Android WebViews.', href: 'https://github.com/hyeonse-swing/webview-qa-shell' },
+  { title: 'react-wheel-picker contribution', description: 'A merged PR fixing a selected-position mismatch when options change dynamically.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54' },
 ];

@@ -14,10 +14,10 @@ export default function SearchTargetReveal() {
       catch { return; }
       const target = document.getElementById(id);
       if (!(target instanceof HTMLElement)) return;
-      const isArchive = target instanceof HTMLDetailsElement && target.hasAttribute('data-search-target');
-      if (isArchive) target.open = true;
+      const revealDetails = target instanceof HTMLDetailsElement && target.hasAttribute('data-search-target');
+      if (revealDetails) target.open = true;
       frame = requestAnimationFrame(() => {
-        if (isArchive) {
+        if (revealDetails) {
           target.scrollIntoView({ block: 'start' });
           target.querySelector('summary')?.focus({ preventScroll: true });
           return;

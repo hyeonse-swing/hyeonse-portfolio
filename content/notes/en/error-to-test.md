@@ -34,7 +34,7 @@ Since v0.5.1, `trace --event-id ID --project NAME` distinguishes errors with the
 
 ## Where the result stops
 
-The public v0.3.0 record lists 203 local tests, type checking, a build and an isolated installed-package check. There is also a controlled Chromium integration record from October 2026. I did not rerun those checks for this article, and they do not cover the full flow with authenticated services or native devices.
+The v0.3.0 release record lists 203 local tests, type checking, a build and an isolated installed-package check. There is also a controlled Chromium integration record from October 2026.
 
 The target fingerprint identifies which run a result belongs to; it does not anonymize it. Whoever uses the tool needs to review sensitive information in source errors and the execution environment's permissions. These results describe candidates and observed runs. Confirming a fix takes evidence beyond an absent signature in one collection.
 

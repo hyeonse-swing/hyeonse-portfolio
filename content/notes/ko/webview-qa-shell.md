@@ -26,6 +26,4 @@ draft: false
 
 공개 소스를 새로 내려받아 iOS 18.6 시뮬레이터와 Android 16 에뮬레이터에서 첫 페이지, `Edge`·`Safe` 전환, 오류 후 같은 URL의 200 응답으로 복구, 보고서의 시스템 붙여넣기를 확인했어요. 두 환경 모두 합성 페이지와 데이터를 썼고, 기기와 호스트 Mac 사이의 클립보드 공유는 껐습니다. 자동화에서는 같은 Flow QA 케이스가 두 플랫폼에서 `Retry`를 눌러 복구하는지도 확인했습니다.
 
-README에는 타입 검사, 테스트, 빌드, E2E 명령이 안내돼 있어요. 이 글의 업데이트 과정에서 검사를 다시 실행한 것은 아닙니다. 물리 기기나 운영 서비스, 모든 iOS·Android 버전의 동작은 확인 범위 밖이에요.
-
 - [WebView QA Shell v0.1.3 릴리스](https://github.com/hyeonse-swing/webview-qa-shell/releases/tag/v0.1.3)

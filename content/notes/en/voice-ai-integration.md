@@ -15,6 +15,6 @@ draft: false
 
 ## From subscription completion to phone guidance
 
-The returnable subscription completion screen needed an entry into contract guidance and a path back from the phone app. Alongside that screen work, I reviewed guidance scenarios for overdue-payment reminders and follow-up calls. I compared vendors' PoC scope, costs, and integration requirements, and coordinated the guidance with the CX team. My work in the [public archive](/en/#archive-vox) covers vendor review and product integration. It does not include developing the voice model or running the full consultation operation.
+The returnable subscription completion screen needed an entry into contract guidance and a path back from the phone app. Alongside that screen work, I reviewed guidance scenarios for overdue-payment reminders and follow-up calls. I compared vendors' PoC scope, costs, and integration requirements, and coordinated the guidance with the CX team. The [public archive](/en/#archive-vox) also shows the product integration work.
 
-In the product, I connected the contract-guidance entry and the path back from the phone app. After integration, I tracked usage and costs; call counts were a usage measure. A working path and a call count do not tell us whether a customer understood the guidance or resolved a problem. The public record has no consultation completion or issue resolution rate.
+In the product, I connected the contract-guidance entry and the path back from the phone app. After integration, I tracked usage and costs; call counts were a usage measure.

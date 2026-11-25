@@ -60,7 +60,6 @@
 .perfTransfer strong { color: var(--inverse-ink); }
 .perfTransfer svg { width: 32px; height: 12px; color: var(--accent-solid); }
 .perfFoot { border-top: 1px solid color-mix(in srgb, var(--inverse-ink) 38%, transparent); padding-top: 12px; color: color-mix(in srgb, var(--inverse-ink) 83%, transparent); letter-spacing: 0; line-height: 1.5; }
-.perfFoot span { color: color-mix(in srgb, var(--inverse-ink) 72%, transparent); white-space: nowrap; }
 
 /* Bus: an intentionally schematic route, not a customer map. */
 .bus { display: flex; flex-direction: column; padding: clamp(20px, 4vw, 36px); background: var(--surface); }

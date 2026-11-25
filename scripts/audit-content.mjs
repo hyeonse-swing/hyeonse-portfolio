@@ -166,7 +166,10 @@ for (const key of ['email', 'github', 'linkedin']) assert.equal(english.identity
 assert.equal(data.identity.github, 'https://github.com/hyeonse-swing');
 assert.equal(data.featuredCases.length, 4);
 const performanceCase = data.featuredCases.find(item => item.id === 'swing-home-performance');
+const performanceCaseEn = english.featuredCases.find(item => item.id === 'swing-home-performance');
 assert.match(performanceCase.verification, /로컬.*3회.*5회.*중앙값/);
-assert.match(performanceCase.boundary, /실사용자/);
+assert.match(performanceCase.outcome, /로컬 Lighthouse 모바일 시뮬레이션/);
+assert.match(performanceCaseEn.verification, /medians.*three before and five after.*local production-build/);
+assert.match(performanceCaseEn.outcome, /local Lighthouse mobile simulations/);
 assert.equal(data.otherWork.find(item => item.id === 'opensource').period, '2025.06');
 console.log(JSON.stringify({ pages: htmlFiles.length, languages: ['ko', 'en'], localLinks: checkedLinks, sitemapUrls: sitemapEntries.length, robots: preview ? 'preview-noindex' : 'public', searchDocuments: searchCounts, searchLinks, casesPerLanguage: data.featuredCases.length, otherWorkPerLanguage: data.otherWork.length, publicTextFiles: publicTextFiles.length, privateDataScan: 'passed' }, null, 2));

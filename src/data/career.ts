@@ -44,7 +44,7 @@ export const projectDetails: Record<string, ProjectDetail> = {
     contributions: [
       { title: '도입 범위 검토', detail: '미납 안내와 해피콜의 PoC 범위, 비용, 연동 요건을 비교하고 CX 팀과 안내 시나리오를 조율했어요.' },
       { title: '제품 안의 진입점', detail: '반납형 구독 완료 화면에서 계약 안내로 들어가고, 전화 앱에서 돌아오는 흐름을 연결했어요.' },
-      { title: '운영 확인', detail: '연동 이후 사용량과 비용을 추적했어요. 통화 건수를 상담 완료나 문제 해결 건수로 보지는 않아요.' },
+      { title: '운영 확인', detail: '연동 이후 통화 건수로 사용량을 파악하고 비용을 추적했어요.' },
     ],
     tags: ['제품 연동', 'CX 협업', 'WebView'],
   },
@@ -105,26 +105,15 @@ export const projectDetails: Record<string, ProjectDetail> = {
   },
 };
 
-export const careerIntroduction: string[] = [
-  '2022년 3월부터 더스윙에서 고객 웹·웹뷰와 운영 도구를 만들었어요. SWING, SWAP, Yellow Bus 등 여러 서비스에서 초기 구축, 기능 개발, 기술 검토와 서비스 전환에 참여했어요.',
-  '2025년 9월부터는 SWAP FE Part Lead로 기술 의사결정, 주요 기능 개발과 코드 리뷰를 맡고 있어요. API 변경과 공통 구조, 릴리스에 필요한 판단도 동료들과 맞춰요.',
-  '운영자가 일하는 순서를 듣고 백엔드와 데이터 계약을 맞추며, 앱·CX 동료와 화면 사이의 연결을 확인하는 일이 제 작업의 큰 부분이에요.',
-];
+export const careerIntroduction = '2022년 3월부터 더스윙에서 고객 웹·웹뷰와 운영 도구를 만들었어요. 2025년 9월부터는 SWAP FE Part Lead로 주요 기능 개발, 기술 의사결정과 코드 리뷰를 맡고 있어요.';
 
-export const workAreas: { number: string; title: string; description: string; examples: string[] }[] = [
-  { number: '01', title: '고객 화면', description: '상품을 찾고 주문하거나 앱 안에서 로그인·결제로 이어지는 흐름을 만들어요.', examples: ['SWING 고객 웹뷰', 'SWAP 상품 탐색·첫 주문', '사업자 포털'] },
-  { number: '02', title: '운영 도구', description: '계약, 배차, 정산처럼 업무 순서와 권한이 맞아야 하는 화면을 다뤄요.', examples: ['바이크 운영 어드민', 'Yellow Bus 운행 관리', 'SWING 파트너 정산'] },
-  { number: '03', title: '개발 방식과 연결', description: '구·신규 시스템의 공존, 앱 브릿지, 화면 성능과 검증 방식을 함께 살펴요.', examples: ['SWAP Admin V2', 'SWING 홈페이지 성능', 'WebView QA Shell'] },
-];
+export const aboutCaseDescriptions = {
+  'bike-operations': '직원용 주문·계약 화면과 사업자가 구독·납부 상태를 조회하는 화면을 만들었어요.',
+  'swing-home-performance': '렌더링과 전송 자원을 개선하고 로컬 Lighthouse 모바일 시뮬레이션에서 전후를 비교했어요.',
+  'swap-admin-v2': '기존 작업 데이터가 남아 있는 환경에서 V2 화면과 API 전환에 참여했어요.',
+} as const;
 
-export const workingNotes: { title: string; detail: string; example: string; href?: string }[] = [
-  { title: '업무 순서 확인', detail: '화면이 필요한 이유와 사용자가 다음에 할 일을 먼저 확인해요. 그다음 API에 필요한 필드와 예외 상태를 정리해요.', example: 'Yellow Bus 학생 목록에서 보호자 정보가 없거나 여러 명인 경우를 새 응답 계약에 반영하도록 논의했어요.', href: '/work/yellow-bus/' },
-  { title: '전환 경로 점검', detail: '새 화면을 붙일 때 기존 데이터와 이동 경로가 남아 있는지 확인하고 연결 순서를 잡아요.', example: 'SWAP Admin V2에서는 구·신규 작업 데이터가 공존하는 환경에서 화면과 API를 전환하는 작업에 참여했어요.', href: '/work/swap-admin-v2/' },
-  { title: '화면과 실행 결과 확인', detail: '자동화가 통과한 뒤에도 실제 화면의 빈 상태와 응답 차이를 살펴봐요.', example: '바이크 화면에서 사용자 유형에 따라 응답 객체가 빠지는 경우를 발견했어요. 수정 후 E2E와 직접 확인을 다시 진행했어요.', href: '/work/bike-operations/' },
-  { title: '선택 근거 비교', detail: '렌더링 방식과 전송 자원을 함께 보고, 같은 조건에서 변경 전후를 측정해요.', example: 'SWING 홈페이지에서 영상·이미지·폰트와 렌더링 경로를 조정하고 로컬 Lighthouse 모바일 시뮬레이션 중앙값을 비교했어요.', href: '/work/swing-home-performance/' },
-];
-
-export const publicWork: { title: string; description: string; href: string; label: string }[] = [
-  { title: 'WebView QA Shell', description: 'iOS·Android WebView에서 로컬·스테이지 웹서비스의 화면과 로그를 살펴보는 공개 도구예요.', href: 'https://github.com/hyeonse-swing/webview-qa-shell', label: '저장소 보기' },
-  { title: 'react-wheel-picker 기여', description: '옵션이 동적으로 바뀔 때 선택 위치가 어긋나는 오류를 수정한 병합 PR이에요.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54', label: '기여 보기' },
+export const publicWork = [
+  { title: 'WebView QA Shell', description: 'iOS·Android WebView에서 로컬·스테이지 웹서비스의 화면과 로그를 살펴보는 공개 도구예요.', href: 'https://github.com/hyeonse-swing/webview-qa-shell' },
+  { title: 'react-wheel-picker 기여', description: '옵션이 동적으로 바뀔 때 선택 위치가 어긋나는 오류를 수정한 병합 PR이에요.', href: 'https://github.com/ncdai/react-wheel-picker/pull/54' },
 ];

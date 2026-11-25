@@ -30,15 +30,15 @@ If the initial script and provider start with different defaults, the page can c
 
 When creating or migrating a screen, it's easy for a color to bypass the tokens. The package's CLI checks raw CSS colors and redefinitions of shared tokens. It covers CSS, not every color in TypeScript, JavaScript or 3D materials. There is also a reusable skill for interface creation, migration and review, while design choices still require a person.
 
-The public integration record describes 36 local Chrome view conditions before and after the portfolio migration, including preference restoration and cross-tab updates. I did not rerun those checks for this article. They do not establish behavior on physical devices or a deployed site. The package is installed from GitHub and has not been published to the npm registry.
+The integration record describes 36 local Chrome view conditions before and after the portfolio migration, including preference restoration and cross-tab updates. The package is installed from GitHub.
 
-The newer lookup interface has separate type, build and consuming-example checks, 17 tests, and installed-package checks of the CLI, catalog and examples. Those checks do not mean the 36 Chrome views were rerun for this version.
+The newer lookup interface has separate type, build and consuming-example checks, 17 tests, and installed-package checks of the CLI, catalog and examples.
 
 ## Sharing size across components and layouts
 
 On November 17, 2026, I extended sizing to inputs, cards, tables, dialogs and layouts. A `SizeProvider`, `Stack` or `Grid` can set a size from `xs` to `xl` for its contents, while individual components can override it. Menus and dialogs retain that scope when rendered through a portal.
 
-The default button is 36px high with a fine pointer, while touch devices keep a minimum 44px target even for smaller variants. Local checks covered sizing, portals and narrow layouts in three browser engines. In November 2026, macOS Safari 27 with VoiceOver confirmed the HDS 0.4.8 modal's close button, focus-guard names and focus returning to the opener after Escape. Mobile screen readers were outside the scope of this check. The current [showcase and installation guide](https://design-system.hyeonse.dev/#start) provide the components alongside their [verification scope](https://design-system.hyeonse.dev/docs/code-freeze.md).
+The default button is 36px high with a fine pointer, while touch devices keep a minimum 44px target even for smaller variants. Local checks covered sizing, portals and narrow layouts in three browser engines. In November 2026, macOS Safari 27 with VoiceOver confirmed the HDS 0.4.8 modal's close button, focus-guard names and focus returning to the opener after Escape. The current [showcase and installation guide](https://design-system.hyeonse.dev/#start) provide the components alongside their [verification scope](https://design-system.hyeonse.dev/docs/code-freeze.md).
 
 ## Using a table for held returns
 

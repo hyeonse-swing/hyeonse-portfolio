@@ -26,9 +26,9 @@ type ToolchainCopy = {
 
 const copy: Record<Locale, ToolchainCopy> = {
   ko: {
-    title: '오류에서 검토 가능한 실행 근거까지',
-    intro: '세 개인 도구가 정보를 넘기는 방식을 가상의 사례로 따라가 보세요. 이 화면은 도구를 실행하지 않아요.',
-    exampleLabel: '가상 예시 · 개인정보를 포함하지 않은 샘플',
+    title: '오류 수집부터 테스트 실행까지',
+    intro: '브라우저 오류가 회귀 테스트 후보와 실행 결과로 이어지는 흐름을 예시로 살펴보세요.',
+    exampleLabel: '가상 예시',
     selectLabel: '살펴볼 도구',
     inputLabel: '받는 정보',
     outputLabel: '남기는 정보',
@@ -67,9 +67,9 @@ const copy: Record<Locale, ToolchainCopy> = {
     ],
   },
   en: {
-    title: 'From an error to reviewable run evidence',
-    intro: 'Follow a fictional example through three personal tools and see what each passes on. This page does not run the tools.',
-    exampleLabel: 'Fictional example · sanitized sample',
+    title: 'From a captured error to a test run',
+    intro: 'Follow an example from a browser error to a regression test candidate and a run result.',
+    exampleLabel: 'Fictional example',
     selectLabel: 'Choose a tool',
     inputLabel: 'Input',
     outputLabel: 'Output',

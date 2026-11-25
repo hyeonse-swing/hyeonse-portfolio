@@ -29,4 +29,4 @@ The user model also changed from what we expected. Business customers shared the
 
 Playwright E2E passed against B2B responses. Direct screen inspection then showed that the B2C response lacked the business-information object altogether, leaving required information blank. I requested a backend response change, corrected the UI conditions by user type, redefined the case, and repeated both automated and direct checks.
 
-I checked the work sequence before and after API finalization. Adoption, manual-work reduction, and cost effects were not measured separately. The [bike operations case](/en/work/bike-operations/) goes further into the screens and data flow.
+I checked the work sequence before and after API finalization. The [bike operations case](/en/work/bike-operations/) goes further into the screens and data flow.
