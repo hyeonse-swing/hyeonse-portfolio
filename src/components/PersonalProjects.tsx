@@ -31,7 +31,10 @@ export default function PersonalProjects({ locale, projects, detailed = false }:
           </div>
         </div>
         <details className={styles.expand}>
-          <summary>{en ? 'Design and verification' : '설계와 검증'} <span aria-hidden="true">＋</span></summary>
+          <summary>
+            <span className={styles.expandLabel}>{en ? 'Design and verification' : '설계와 검증'}</span>
+            <span className={styles.expandIcon} aria-hidden="true">＋</span>
+          </summary>
           <div className={styles.detailBody}>
             <div className={styles.problem}><h4>{en ? 'Why I built it' : '만든 이유'}</h4><p>{project.problem}</p></div>
             <ul className={styles.highlights}>{project.highlights.map(highlight => <li key={highlight}>{highlight}</li>)}</ul>

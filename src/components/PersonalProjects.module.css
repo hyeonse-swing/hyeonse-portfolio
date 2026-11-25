@@ -23,11 +23,11 @@
 .expand { margin-top: 14px; }
 .expand summary { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; list-style: none; cursor: pointer; color: var(--accent-text); font-size: 13px; font-weight: 650; }
 .expand summary::-webkit-details-marker { display: none; }
-.expand summary span { display: inline-block; font-size: 19px; line-height: 1; transition: transform .2s ease; }
-.expand[open] summary span { transform: rotate(45deg); }
-.expand summary:hover { text-decoration: underline; text-underline-offset: 4px; }
+.expandIcon { display: inline-block; font-size: 19px; line-height: 1; transition: transform .2s ease; }
+.expand[open] .expandIcon { transform: rotate(45deg); }
+.expand summary:hover .expandLabel { text-decoration: underline; text-underline-offset: 4px; }
 .expand summary:focus-visible, .links a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 2px; }
-@media (prefers-reduced-motion: reduce) { .expand summary span { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .expandIcon { transition: none; } }
 .detailBody { max-width: 940px; padding: 12px 0 8px; }
 .problem { margin-bottom: 22px; }
 .problem h4, .verification h4 { font-size: 14px; font-weight: 650; line-height: 1.6; }

@@ -1,4 +1,12 @@
+@property --portfolio-pointer-glow-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+
 .glow {
+  --portfolio-pointer-glow-color: var(--accent-text);
+  --portfolio-pointer-rendered-color: var(--portfolio-pointer-glow-color);
   display: none;
   position: fixed;
   inset: 0 auto auto 0;
@@ -6,10 +14,10 @@
   inline-size: clamp(380px, 40vw, 560px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle closest-side, var(--accent-text), transparent 86%);
+  background: radial-gradient(circle closest-side, var(--portfolio-pointer-rendered-color), transparent 86%);
   opacity: 0;
   transform: translate3d(50vw, 40vh, 0) translate(-50%, -50%);
-  transition: opacity .18s ease-out, transform .3s cubic-bezier(.2, .75, .25, 1);
+  transition: opacity .18s ease-out, transform .3s cubic-bezier(.2, .75, .25, 1), --portfolio-pointer-glow-color .3s ease-out;
   pointer-events: none;
 }
 
@@ -19,6 +27,12 @@
 
 :global(:root[data-theme='dark']) .glow[data-visible] {
   opacity: .145;
+}
+
+@supports (color: color-mix(in oklab, black, white)) {
+  :global(:root[data-theme='dark']) .glow {
+    --portfolio-pointer-rendered-color: color-mix(in oklab, var(--portfolio-pointer-glow-color) 80%, var(--ink));
+  }
 }
 
 @media screen and (any-hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
